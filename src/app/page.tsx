@@ -1,8 +1,18 @@
+import Script from "next/script";
 
 
 export default function Home() {
   return (
     <div className="max-w-2xl mx-auto shadow-container p-10 rounded-lg mt-6">
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W6B1SSXWE7"></Script>
+      <Script id="google-analytics">
+        {` window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-W6B1SSXWE7');`}
+      </Script>
+      <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
+        crossOrigin="anonymous" />
       <div className="border border-green-800 rounded-md p-6 relative">
         <h1 className="-top-4 absolute text-green-700 bg-gray-900 font-bold text-lg uppercase px-2">Militar</h1>
 
@@ -69,7 +79,7 @@ export default function Home() {
             <label htmlFor="floating_last_name" className="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Loc Esp</label>
           </div>
 
-            {/* <div className="flex items-center gap-4">
+          {/* <div className="flex items-center gap-4">
               <label htmlFor="hs-valid-toggle-switch" className="text-md text-gray-500 ml-3 dark:text-gray-400">Guarnição Especial</label>
               <input type="checkbox" id="hs-valid-toggle-switch" className="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200" />
             </div> */}
