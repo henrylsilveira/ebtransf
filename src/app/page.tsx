@@ -22,216 +22,217 @@ export default function Home() {
   const [moto, setMoto] = useState(false)
 
   return (
-  <>
-    <div className="fixed bg-gray-900 opacity-80 shadow-lg w-screen shadow-black bottom-0 p-4 z-10">
-      <div className="border-2 border-green-800 rounded p-2 flex flex-1 items-center justify-center text-white font-bold text-lg">Valor aproximado a receber pela transferência: {formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)!) * 4 + (passagemAdultoValor * passagemAdultoQnt) + (passagemCriancaValor * passagemCriancaoQnt) + (retornaValorM3Transportado(dist) * cuba) + (carro ? retornaValorM3Transportado(dist) * cubagemVeiculo['carro'] : 0) + (moto ? retornaValorM3Transportado(dist) * cubagemVeiculo['moto'] : 0))}</div>
-    </div>
-    <div className="max-w-2xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W6B1SSXWE7"></Script>
-      <Script id="google-analytics">
-        {` window.dataLayer = window.dataLayer || [];
+    <>
+      <div className="fixed bg-gray-900 opacity-80 shadow-lg w-screen shadow-black bottom-0 p-4 z-10">
+        <div className="border-2 border-green-600 rounded p-2 flex flex-1 items-center justify-center text-white font-bold text-lg">Valor aproximado a receber pela transferência: 
+        <p className="text-xl font-extrabold pl-4">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)!) * 4 + (passagemAdultoValor * passagemAdultoQnt) + (passagemCriancaValor * passagemCriancaoQnt) + (retornaValorM3Transportado(dist) * cuba) + (carro ? retornaValorM3Transportado(dist) * cubagemVeiculo['carro'] : 0) + (moto ? retornaValorM3Transportado(dist) * cubagemVeiculo['moto'] : 0))}</p></div>
+      </div>
+      <div className="max-w-2xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W6B1SSXWE7"></Script>
+        <Script id="google-analytics">
+          {` window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-W6B1SSXWE7');`}
-      </Script>
-      <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
-        crossOrigin="anonymous" />
-      <div className="flex flex-1 items-center justify-center mb-6 flex-col">
-        <h1 className="text-green-800 font-bold uppercase text-xl">Calculadora de transferência para militares</h1>
-        <p className="font-light text-green-800 text-justify py-4">Essa calculadora tem como objetivo auxiliar o militar a calcular o valor aproximado de sua transferência porém não se trata de uma ferramenta oficial.</p>
-      </div>
-      <div className="border border-green-800 rounded-md p-6 relative">
-        <h1 className="-top-4 absolute text-green-700 bg-gray-900 font-bold text-lg uppercase px-2">Militar</h1>
+        </Script>
+        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
+          crossOrigin="anonymous" />
+        <div className="flex flex-1 items-center justify-center mb-6 flex-col">
+          <h1 className="text-green-600 font-bold uppercase text-xl">Calculadora de transferência para militares</h1>
+          <p className="font-light text-green-600 text-justify py-4">Essa calculadora tem como objetivo auxiliar o militar a calcular o valor aproximado de sua transferência porém não se trata de uma ferramenta oficial.</p>
+        </div>
+        <div className="border border-green-600 rounded-md p-6 relative">
+          <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Militar</h1>
 
-        <div className="grid xl:grid-cols-3 xl:gap-6 grid-cols-3 gap-4">
-          <div className="relative z-0 mb-6 w-full group">
-            <select name="floating_last_name" id="floating_last_name" onChange={(e) => setPg(e.target.value)} className="leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
-              <option></option>
-              <option value="3sgt">3º SGT</option>
-              <option value="2sgt">2º SGT</option>
-              <option value="1sgt">1º SGT</option>
-              <option value="st">ST</option>
-              <option value="aspof">ASP OF</option>
-              <option value="2ten">2º TEN</option>
-              <option value="1ten">1º TEN</option>
-              <option value="cap">CAP</option>
-              <option value="maj">MAJ</option>
-              <option value="tencel">TEN CEL</option>
-              <option value="cel">CEL</option>
-            </select>
-            <label htmlFor="floating_last_name" className="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">P/G</label>
-          </div>
-          <div className="relative z-0 mb-6 w-full group">
-            <select name="floating_last_name" id="floating_last_name" onChange={(e) => setHab(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
-              <option></option>
-              <option value={12}>12%</option>
-              <option value={27}>27%</option>
-              <option value={45}>45%</option>
-              <option value={68}>68%</option>
-              <option value={76}>76%</option>
+          <div className="grid xl:grid-cols-3 xl:gap-6 sm:grid-cols-1 gap-4">
+            <div className="relative z-0 mb-6 w-full group">
+              <select name="floating_last_name" id="floating_last_name" onChange={(e) => setPg(e.target.value)} className="leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                <option></option>
+                <option value="3sgt">3º SGT</option>
+                <option value="2sgt">2º SGT</option>
+                <option value="1sgt">1º SGT</option>
+                <option value="st">ST</option>
+                <option value="aspof">ASP OF</option>
+                <option value="2ten">2º TEN</option>
+                <option value="1ten">1º TEN</option>
+                <option value="cap">CAP</option>
+                <option value="maj">MAJ</option>
+                <option value="tencel">TEN CEL</option>
+                <option value="cel">CEL</option>
+              </select>
+              <label htmlFor="floating_last_name" className="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">P/G</label>
+            </div>
+            <div className="relative z-0 mb-6 w-full group">
+              <select name="floating_last_name" id="floating_last_name" onChange={(e) => setHab(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                <option></option>
+                <option value={12}>12%</option>
+                <option value={27}>27%</option>
+                <option value={45}>45%</option>
+                <option value={68}>68%</option>
+                <option value={76}>76%</option>
 
-            </select>
-            <label htmlFor="floating_last_name" className="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Habilitação</label>
-          </div>
-          <div className="relative z-0 mb-6 w-full group">
-            <select name="floating_last_name" id="floating_last_name" onChange={(e) => setMil(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
-              <option></option>
-              <option value={13}>13%</option>
-              <option value={16}>16%</option>
-              <option value={19}>19%</option>
-              <option value={22}>22%</option>
-              <option value={25}>25%</option>
+              </select>
+              <label htmlFor="floating_last_name" className="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Habilitação</label>
+            </div>
+            <div className="relative z-0 mb-6 w-full group">
+              <select name="floating_last_name" id="floating_last_name" onChange={(e) => setMil(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                <option></option>
+                <option value={13}>13%</option>
+                <option value={16}>16%</option>
+                <option value={19}>19%</option>
+                <option value={22}>22%</option>
+                <option value={25}>25%</option>
 
-            </select>
-            <label htmlFor="floating_last_name" className="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Militar</label>
+              </select>
+              <label htmlFor="floating_last_name" className="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Militar</label>
+            </div>
+            <div className="relative z-0 mb-6 w-full group">
+              <select name="floating_last_name" id="floating_last_name" onChange={(e) => setDisp(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                <option></option>
+                <option value={5}>5%</option>
+                <option value={6}>6%</option>
+                <option value={12}>12%</option>
+                <option value={16}>16%</option>
+                <option value={20}>20%</option>
+                <option value={26}>26%</option>
+                <option value={32}>32%</option>
+              </select>
+              <label htmlFor="floating_last_name" className="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Disp</label>
+            </div>
+            <div className="relative z-0 mb-6 w-full group">
+              <select name="floating_last_name" id="floating_last_name" onChange={(e) => setLocEsp(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                <option></option>
+                <option value={10}>10%</option>
+                <option value={20}>20%</option>
+              </select>
+              <label htmlFor="floating_last_name" className="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Loc Esp</label>
+            </div>
           </div>
-          <div className="relative z-0 mb-6 w-full group">
-            <select name="floating_last_name" id="floating_last_name" onChange={(e) => setDisp(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
-              <option></option>
-              <option value={5}>5%</option>
-              <option value={6}>6%</option>
-              <option value={12}>12%</option>
-              <option value={16}>16%</option>
-              <option value={20}>20%</option>
-              <option value={26}>26%</option>
-              <option value={32}>32%</option>
-            </select>
-            <label htmlFor="floating_last_name" className="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Disp</label>
+        </div>
+        {/* PASSAGEM */}
+        <div className="border border-green-600 rounded-md p-6 relative my-4">
+          <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Passagem</h1>
+
+          <div className="grid xl:grid-cols-2 md:grid-cols-2 md:gap-6 xl:gap-6">
+            <div className="relative z-0 mb-6 w-full group">
+              <input type="number" name="floating_first_name" onChange={(e) => setPassagemAdultoValor(Number(e.target.value))} id="floating_first_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+              <label htmlFor="floating_first_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Valor da Passagem</label>
+            </div>
+            <div className="relative z-0 mb-6 w-full group">
+              <input type="number" name="floating_last_name" onChange={(e) => setPassagemAdultoQnt(Number(e.target.value))} id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+              <label htmlFor="floating_last_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adultos</label>
+            </div>
+
           </div>
-          <div className="relative z-0 mb-6 w-full group">
-            <select name="floating_last_name" id="floating_last_name" onChange={(e) => setLocEsp(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
-              <option></option>
-              <option value={10}>10%</option>
-              <option value={20}>20%</option>
-            </select>
-            <label htmlFor="floating_last_name" className="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Loc Esp</label>
+          <div className="grid xl:grid-cols-2 md:grid-cols-2 md:gap-6 xl:gap-6">
+            <div className="relative z-0 mb-6 w-full group">
+              <input type="number" name="floating_first_name" onChange={(e) => setPassagemCriancaValor(Number(e.target.value))} id="floating_first_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+              <label htmlFor="floating_first_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Valor da Passagem</label>
+            </div>
+            <div className="relative z-0 mb-6 w-full group">
+              <input type="number" name="floating_last_name" onChange={(e) => setPassagemCriancaQnt(Number(e.target.value))} id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+              <label htmlFor="floating_last_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Crianças</label>
+            </div>
+
+          </div>
+        </div>
+        {/* BAGAGEM */}
+        <div className="border border-green-600 rounded-md p-6 relative ">
+          <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Bagagem</h1>
+
+          <div className="grid xl:grid-cols-2 xl:gap-6">
+            <div className="relative z-0 mb-6 w-full group">
+              <select name="floating_last_name" id="floating_last_name" onChange={(e) => setCuba(Number(e.target.value))} className="leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                <option></option>
+                <option value={60}>Generais 60m³</option>
+                <option value={55}>Cel/Ten Cel/Maj 55m³</option>
+                <option value={50}>Cap/1ºTen/2ºTen 50m³</option>
+                <option value={45}>Asp Of 45m³</option>
+                <option value={50}>Sub Ten/1ºSgt 50m³</option>
+                <option value={45}>2ºSgt/3ºSgt 45m³</option>
+              </select>
+              <label htmlFor="floating_last_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Cubagem</label>
+            </div>
+            <div className="relative z-0 mb-6 w-full group">
+              <input type="number" name="floating_first_name" onChange={(e) => setDist(Number(e.target.value))} id="floating_first_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+              <label htmlFor="floating_first_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Distância em KM</label>
+            </div>
+
+          </div>
+        </div>
+        {/* VEICULOS */}
+        <div className="border border-green-600 rounded-md p-6 relative mt-4 flex flex-1">
+          <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Veículos</h1>
+          <div className="flex flex-1 justify-evenly">
+            <div className="flex items-center gap-4">
+              <label htmlFor="hs-valid-toggle-switch" className="text-md font-bold text-gray-500 ml-3 dark:text-gray-400">Carro</label>
+              <input type="checkbox" id="hs-valid-toggle-switch" onChange={(e) => setCarro(e.target.checked)} className="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200" />
+            </div>
+            <div className="flex items-center gap-4">
+              <label htmlFor="hs-valid-toggle-switch" className="text-md font-bold text-gray-500 ml-3 dark:text-gray-400">Moto</label>
+              <input type="checkbox" id="hs-valid-toggle-switch" onChange={(e) => setMoto(e.target.checked)} className="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200" />
+            </div>
+
+          </div>
+        </div>
+        {/* VALORES */}
+        <div className="border border-green-600 rounded-md p-6 relative mt-4">
+          <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Valores</h1>
+          <div className="border border-green-600 rounded-md p-6 relative mt-4">
+            <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Soldo Bruto</h1>
+            <div className="flex flex-1">
+              <b className="text-gray-400">Soldo</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)!)}</p>
+            </div>
+            <div className="flex flex-1">
+              <b className="text-gray-400">Adc Habilitação</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * hab / 100)}</p>
+            </div>
+            <div className="flex flex-1">
+              <b className="text-gray-400">Adc Militar</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * mil / 100)}</p>
+            </div>
+            <div className="flex flex-1">
+              <b className="text-gray-400">Adc Loc Esp</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * locEsp / 100)}</p>
+            </div>
+            <div className="flex flex-1">
+              <b className="text-gray-400">Adc Disponibilidade</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * disp / 100)}</p>
+            </div>
+            <div className="flex flex-1">
+              <b className="text-gray-400">Valor Bruto</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)!)}</p>
+            </div>
+
+          </div>
+          <div className="border border-green-600 rounded-md p-6 relative mt-4">
+            <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Ajuda de custo</h1>
+            <div className="flex flex-1">
+              <b className="text-gray-400">Valor Bruto x 4</b><p className="pl-4 text-white">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)!) * 4)}</p>
+            </div>
+
+          </div>
+          <div className="border border-green-600 rounded-md p-6 relative mt-4">
+            <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Passagem</h1>
+            <div className="flex flex-1">
+              <b className="text-gray-400">{`${formataValor(passagemAdultoValor)} X ${passagemAdultoQnt}`}</b><p className="pl-4 text-white">{formataValor(passagemAdultoValor * passagemAdultoQnt)}</p>
+            </div>
+            <div className="flex flex-1">
+              <b className="text-gray-400">{`${formataValor(passagemCriancaValor)} X ${passagemCriancaoQnt}`}</b><p className="pl-4 text-white">{formataValor(passagemCriancaValor * passagemCriancaoQnt)}</p>
+            </div>
+          </div>
+          <div className="border border-green-600 rounded-md p-6 relative mt-4">
+            <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Bagagem</h1>
+            <div className="flex flex-1">
+              <b className="text-gray-400">{`${formataValor(retornaValorM3Transportado(dist))} X ${cuba}M³`}</b><p className="pl-4 text-white">{formataValor(retornaValorM3Transportado(dist) * cuba)}</p>
+            </div>
+          </div>
+          <div className="border border-green-600 rounded-md p-6 relative mt-4">
+            <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Veículo</h1>
+            <div className="flex flex-1">
+              <b className="text-gray-400">{`Automóvel: ${formataValor(retornaValorM3Transportado(dist))} X ${cubagemVeiculo['carro']}M³`}</b><p className="pl-4 text-white">{carro ? formataValor(retornaValorM3Transportado(dist) * cubagemVeiculo['carro']) : formataValor(0)}</p>
+            </div>
+            <div className="flex flex-1">
+              <b className="text-gray-400">{`Moto: ${formataValor(retornaValorM3Transportado(dist))} X ${cubagemVeiculo['moto']}M³`}</b><p className="pl-4 text-white">{moto ? formataValor(retornaValorM3Transportado(dist) * cubagemVeiculo['moto']) : formataValor(0)}</p>
+            </div>
           </div>
         </div>
       </div>
-      {/* PASSAGEM */}
-      <div className="border border-green-800 rounded-md p-6 relative my-4">
-        <h1 className="-top-4 absolute text-green-700 bg-gray-900 font-bold text-lg uppercase px-2">Passagem</h1>
-
-        <div className="grid xl:grid-cols-2 md:grid-cols-2 md:gap-6 xl:gap-6">
-          <div className="relative z-0 mb-6 w-full group">
-            <input type="number" name="floating_first_name" onChange={(e) => setPassagemAdultoValor(Number(e.target.value))} id="floating_first_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
-            <label htmlFor="floating_first_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Valor da Passagem</label>
-          </div>
-          <div className="relative z-0 mb-6 w-full group">
-            <input type="number" name="floating_last_name" onChange={(e) => setPassagemAdultoQnt(Number(e.target.value))} id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
-            <label htmlFor="floating_last_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adultos</label>
-          </div>
-
-        </div>
-        <div className="grid xl:grid-cols-2 md:grid-cols-2 md:gap-6 xl:gap-6">
-          <div className="relative z-0 mb-6 w-full group">
-            <input type="number" name="floating_first_name" onChange={(e) => setPassagemCriancaValor(Number(e.target.value))} id="floating_first_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
-            <label htmlFor="floating_first_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Valor da Passagem</label>
-          </div>
-          <div className="relative z-0 mb-6 w-full group">
-            <input type="number" name="floating_last_name" onChange={(e) => setPassagemCriancaQnt(Number(e.target.value))} id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
-            <label htmlFor="floating_last_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Crianças</label>
-          </div>
-
-        </div>
-      </div>
-      {/* BAGAGEM */}
-      <div className="border border-green-800 rounded-md p-6 relative ">
-        <h1 className="-top-4 absolute text-green-700 bg-gray-900 font-bold text-lg uppercase px-2">Bagagem</h1>
-
-        <div className="grid xl:grid-cols-2 xl:gap-6">
-          <div className="relative z-0 mb-6 w-full group">
-            <select name="floating_last_name" id="floating_last_name" onChange={(e) => setCuba(Number(e.target.value))} className="leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
-              <option></option>
-              <option value={60}>Generais 60m³</option>
-              <option value={55}>Cel/Ten Cel/Maj 55m³</option>
-              <option value={50}>Cap/1ºTen/2ºTen 50m³</option>
-              <option value={45}>Asp Of 45m³</option>
-              <option value={50}>Sub Ten/1ºSgt 50m³</option>
-              <option value={45}>2ºSgt/3ºSgt 45m³</option>
-            </select>
-            <label htmlFor="floating_last_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Cubagem</label>
-          </div>
-          <div className="relative z-0 mb-6 w-full group">
-            <input type="number" name="floating_first_name" onChange={(e) => setDist(Number(e.target.value))} id="floating_first_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
-            <label htmlFor="floating_first_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Distância em KM</label>
-          </div>
-
-        </div>
-      </div>
-      {/* VEICULOS */}
-      <div className="border border-green-800 rounded-md p-6 relative mt-4 flex flex-1">
-        <h1 className="-top-4 absolute text-green-700 bg-gray-900 font-bold text-lg uppercase px-2">Veículos</h1>
-        <div className="flex flex-1 justify-evenly">
-          <div className="flex items-center gap-4">
-            <label htmlFor="hs-valid-toggle-switch" className="text-md font-bold text-gray-500 ml-3 dark:text-gray-400">Carro</label>
-            <input type="checkbox" id="hs-valid-toggle-switch" onChange={(e) => setCarro(e.target.checked)} className="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200" />
-          </div>
-          <div className="flex items-center gap-4">
-            <label htmlFor="hs-valid-toggle-switch" className="text-md font-bold text-gray-500 ml-3 dark:text-gray-400">Moto</label>
-            <input type="checkbox" id="hs-valid-toggle-switch" onChange={(e) => setMoto(e.target.checked)} className="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200" />
-          </div>
-
-        </div>
-      </div>
-      {/* VALORES */}
-      <div className="border border-green-800 rounded-md p-6 relative mt-4">
-        <h1 className="-top-4 absolute text-green-700 bg-gray-900 font-bold text-lg uppercase px-2">Valores</h1>
-        <div className="border border-green-800 rounded-md p-6 relative mt-4">
-          <h1 className="-top-4 absolute text-green-700 bg-gray-900 font-bold text-lg uppercase px-2">Soldo Bruto</h1>
-          <div className="flex flex-1">
-            <b className="text-gray-400">Soldo</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)!)}</p>
-          </div>
-          <div className="flex flex-1">
-            <b className="text-gray-400">Adc Habilitação</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * hab / 100)}</p>
-          </div>
-          <div className="flex flex-1">
-            <b className="text-gray-400">Adc Militar</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * mil / 100)}</p>
-          </div>
-          <div className="flex flex-1">
-            <b className="text-gray-400">Adc Loc Esp</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * locEsp / 100)}</p>
-          </div>
-          <div className="flex flex-1">
-            <b className="text-gray-400">Adc Disponibilidade</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * disp / 100)}</p>
-          </div>
-          <div className="flex flex-1">
-            <b className="text-gray-400">Valor Bruto</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)!)}</p>
-          </div>
-
-        </div>
-        <div className="border border-green-800 rounded-md p-6 relative mt-4">
-          <h1 className="-top-4 absolute text-green-700 bg-gray-900 font-bold text-lg uppercase px-2">Ajuda de custo</h1>
-          <div className="flex flex-1">
-            <b className="text-gray-400">Valor Bruto x 4</b><p className="pl-4 text-white">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)!) * 4)}</p>
-          </div>
-
-        </div>
-        <div className="border border-green-800 rounded-md p-6 relative mt-4">
-          <h1 className="-top-4 absolute text-green-700 bg-gray-900 font-bold text-lg uppercase px-2">Passagem</h1>
-          <div className="flex flex-1">
-            <b className="text-gray-400">{`${formataValor(passagemAdultoValor)} X ${passagemAdultoQnt}`}</b><p className="pl-4 text-white">{formataValor(passagemAdultoValor * passagemAdultoQnt)}</p>
-          </div>
-          <div className="flex flex-1">
-            <b className="text-gray-400">{`${formataValor(passagemCriancaValor)} X ${passagemCriancaoQnt}`}</b><p className="pl-4 text-white">{formataValor(passagemCriancaValor * passagemCriancaoQnt)}</p>
-          </div>
-        </div>
-        <div className="border border-green-800 rounded-md p-6 relative mt-4">
-          <h1 className="-top-4 absolute text-green-700 bg-gray-900 font-bold text-lg uppercase px-2">Bagagem</h1>
-          <div className="flex flex-1">
-            <b className="text-gray-400">{`${formataValor(retornaValorM3Transportado(dist))} X ${cuba}M³`}</b><p className="pl-4 text-white">{formataValor(retornaValorM3Transportado(dist) * cuba)}</p>
-          </div>
-        </div>
-        <div className="border border-green-800 rounded-md p-6 relative mt-4">
-          <h1 className="-top-4 absolute text-green-700 bg-gray-900 font-bold text-lg uppercase px-2">Veículo</h1>
-          <div className="flex flex-1">
-            <b className="text-gray-400">{`Automóvel: ${formataValor(retornaValorM3Transportado(dist))} X ${cubagemVeiculo['carro']}M³`}</b><p className="pl-4 text-white">{carro ? formataValor(retornaValorM3Transportado(dist) * cubagemVeiculo['carro']) : formataValor(0)}</p>
-          </div>
-          <div className="flex flex-1">
-            <b className="text-gray-400">{`Moto: ${formataValor(retornaValorM3Transportado(dist))} X ${cubagemVeiculo['moto']}M³`}</b><p className="pl-4 text-white">{moto ? formataValor(retornaValorM3Transportado(dist) * cubagemVeiculo['moto']) : formataValor(0)}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </>
+    </>
   )
 }
