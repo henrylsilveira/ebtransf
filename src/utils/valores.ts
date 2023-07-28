@@ -12,31 +12,25 @@ export const soldo = {
     'cel': 11451,
 }
 
-export function retornaValorSoldo(pg: string) {
-    switch (pg) {
-        case '3sgt':
-            return soldo["3sgt"]
-        case '2sgt':
-            return soldo["2sgt"]
-        case '1sgt':
-            return soldo["1sgt"]
-        case 'st':
-            return soldo["st"]
-        case 'aspof':
-            return soldo["aspof"]
-        case '2ten':
-            return soldo["2ten"]
-        case '1ten':
-            return soldo["1ten"]
-        case 'cap':
-            return soldo["cap"]
-        case 'maj':
-            return soldo["maj"]
-        case 'tencel':
-            return soldo["tencel"]
-        case 'cel':
-            return soldo["cel"]
-        default:
-            break;
-    }
+export const cubagemBagagem = {
+    '3sgt': 45,
+    '2sgt': 45,
+    '1sgt': 50,
+    'st': 50,
+    'aspof': 45,
+    '2ten': 50,
+    '1ten': 50,
+    'cap': 50,
+    'maj': 55,
+    'tencel': 55,
+    'cel': 55,
+    'genBda': 60,
+    'genDiv': 60,
+    'genEx': 60,
 }
+
+export const cubagemVeiculo = {
+    'carro': 12,
+    'moto': 3,
+}
+
