@@ -9,6 +9,12 @@ export function formataValor(price: number, discount?: number){
 
 export function retornaValorSoldo(pg: string) {
     switch (pg) {
+        case 'sdEv':
+            return soldo["sdEv"]
+        case 'sdEp':
+            return soldo["sdEp"]
+        case 'cb':
+            return soldo["cb"]
         case '3sgt':
             return soldo["3sgt"]
         case '2sgt':
@@ -31,6 +37,12 @@ export function retornaValorSoldo(pg: string) {
             return soldo["tencel"]
         case 'cel':
             return soldo["cel"]
+        case 'genBda':
+            return soldo["genBda"]
+        case 'genDiv':
+            return soldo["genDiv"]
+        case 'genEx':
+            return soldo["genEx"]
         default:
             return 0
     }

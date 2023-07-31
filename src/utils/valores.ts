@@ -1,4 +1,7 @@
 export const soldo = {
+    'sdEv': 956,
+    'sdEp': 1856,
+    'cb': 2627,
     '3sgt': 3825,
     '2sgt': 4770,
     '1sgt': 5483,
@@ -10,6 +13,9 @@ export const soldo = {
     'maj': 11088,
     'tencel': 11250,
     'cel': 11451,
+    'genBda': 12490,
+    'genDiv': 12912,
+    'genEx': 13471,
 }
 
 export const cubagemBagagem = {
