@@ -6,9 +6,9 @@ import CalcRepresentacao from "@/components/Representacao";
 import { useState } from 'react'
 import React from "react";
 import Link from "next/link";
-import { MdOutlinePrivacyTip } from "react-icons/md";
-import { GiCommercialAirplane } from "react-icons/gi";
-import { PiMoney } from "react-icons/pi";
+import { MdOutlineKeyboardDoubleArrowRight, MdOutlinePrivacyTip } from "react-icons/md";
+import { BsCalculator, BsDatabaseCheck } from "react-icons/bs";
+
 
 export default function Home() {
   const [component, setComponent] = useState(<CalcTransferencia />)
@@ -37,26 +37,35 @@ export default function Home() {
         <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
           crossOrigin="anonymous" />
         <div className="flex flex-1 items-center justify-center mb-6 flex-col">
-          <h1 className="text-green-600 font-bold uppercase text-xl">Calculadora de Transferência e Gratificação de representação para Militares</h1>
-          <p className="font-light text-green-600 text-justify py-4">Essa calculadora tem como objetivo auxiliar o militar a calcular o valor aproximado de sua transferência ou de sua gratificação representação porém não se trata de uma ferramenta oficial.</p>
+          <h1 className="text-green-600 font-bold uppercase text-xl">Transferência e Gratificação de representação para Militares do Exército</h1>
+          <article>
+            <h1 className="text-green-600 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center"><MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Transferências</h1>
+            <p className="font-light text-gray-300 text-justify py-4">
+              As transferências dos militares do Exército se referem à movimentação de militares de um local ou unidade para outro dentro da estrutura da Força Terrestre do país. Essas transferências podem ocorrer por diversas razões e podem envolver mudanças de base, unidades, regiões ou até mesmo funções específicas. As transferências são uma prática comum nas forças armadas e podem ser motivadas por uma variedade de fatores, como necessidades operacionais, promoções, redistribuição de pessoal, aprimoramento da carreira, entre outros.
+              As transferências podem ser solicitadas pelos próprios militares, quando desejam ou precisam ser movidos para uma nova localidade ou unidade, ou podem ser determinadas pela hierarquia militar para atender às demandas e necessidades organizacionais. Elas fazem parte da dinâmica de funcionamento das forças armadas e podem influenciar a vida e a carreira dos militares, incluindo suas famílias, considerando as mudanças de localidade.
+            </p>
+
+          </article>
+          <article>
+            <h1 className="text-green-600 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center"><MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Gratificação de Representação</h1>
+            <p className="font-light text-gray-300 text-justify py-4">
+              A "Gratificação de Representação" é um tipo de remuneração ou benefício que pode ser concedido a certos cargos ou posições dentro de uma organização, incluindo as forças armadas. Ela é destinada a compensar os custos adicionais associados à representação oficial de um indivíduo ou ao desempenho de funções que envolvem responsabilidades específicas de representação.
+
+              No contexto militar, a Gratificação de Representação pode ser concedida a militares que ocupam cargos ou posições que exigem interações frequentes com outras organizações, representação em eventos oficiais, representação do Exército ou da unidade perante o público ou outros deveres similares que vão além das tarefas regulares de um militar.
+
+              Essa gratificação pode incluir benefícios financeiros adicionais, como um adicional no salário, ou outros tipos de compensações, como alojamento diferenciado, ajuda de custo para viagens ou outras formas de apoio para cumprir as responsabilidades de representação.
+
+              Lembrando que as políticas e práticas podem variar entre diferentes organizações e países, então é importante consultar os regulamentos e informações específicas da instituição em questão para obter detalhes precisos sobre como a Gratificação de Representação é implementada e quem é elegível para recebê-la.</p>
+
+          </article>
         </div>
-        <div className="mb-8">
-          <div className="sm:hidden">
-            <select id="tabs" onChange={(e) => handleSwitchCalculation(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option value='transf'>Transferência</option>
-              <option value='grat'>Gratificação representação</option>
-            </select>
-          </div>
-          <ul className="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400">
-            <li className="w-full hover:text-green-600 text-white">
-              <button onClick={() => handleSwitchCalculation('transf')} className={(component == <CalcTransferencia /> ? 'active' : '') + "w-full p-4  bg-gray-100 gap-2 rounded-l-lg flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><GiCommercialAirplane />Transferência</button>
-            </li>
-            <li className="w-full hover:text-green-600 text-white">
-              <button onClick={() => handleSwitchCalculation('grat')} className={(component == <CalcRepresentacao /> ? 'active' : '') + "w-full p-4 bg-white rounded-r-lg gap-2 focus:ring-2 flex items-center focus:outline-none justify-center focus:ring-green-600 dark:border dark:border-gray-500  dark:bg-transparent"}><PiMoney />Gratificação representação</button>
-            </li>
-          </ul>
+
+        <div className="mt-4 hover:text-green-600 text-white">
+          <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/calculadora"><BsCalculator className="pr-1 text-2xl" />Calculadora</Link>
         </div>
-        {component}
+        <div className="mt-4 hover:text-green-600 text-white">
+          <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/tabelas"><BsDatabaseCheck className="pr-1 text-2xl" />Tabela de dados</Link>
+        </div>
         <div className="mt-4 hover:text-green-600 text-white">
           <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/privacyPolicy"><MdOutlinePrivacyTip className="pr-1 text-2xl" />Política de Privacidade</Link>
         </div>
