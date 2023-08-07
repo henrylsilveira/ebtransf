@@ -1,5 +1,4 @@
-import { formataValor, retornaValorSoldo, retornaValorM3Transportado } from "@/utils/scripts";
-import { cubagemVeiculo } from "@/utils/valores";
+import { formataValor, retornaValorSoldo } from "@/utils/scripts";
 import { useState } from "react";
 
 export default function CalcRepresentacao() {

@@ -5,6 +5,10 @@ import CalcTransferencia from "@/components/Transferencia";
 import CalcRepresentacao from "@/components/Representacao";
 import { useState } from 'react'
 import React from "react";
+import Link from "next/link";
+import { MdOutlinePrivacyTip } from "react-icons/md";
+import { GiCommercialAirplane } from "react-icons/gi";
+import { PiMoney } from "react-icons/pi";
 
 export default function Home() {
   const [component, setComponent] = useState(<CalcTransferencia />)
@@ -14,21 +18,21 @@ export default function Home() {
       case 'transf':
         return setComponent(<CalcTransferencia />)
       case 'grat':
-          return setComponent(<CalcRepresentacao />)
+        return setComponent(<CalcRepresentacao />)
       default:
         break;
     }
   }
-  
+
   return (
     <>
       <div className="max-w-2xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W6B1SSXWE7"></Script>
         <Script id="google-analytics">
-          {` window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-W6B1SSXWE7');`}
+          {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-W6B1SSXWE7');`}
         </Script>
         <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
           crossOrigin="anonymous" />
@@ -44,15 +48,18 @@ export default function Home() {
             </select>
           </div>
           <ul className="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400">
-            <li className="w-full">
-              <button onClick={() => handleSwitchCalculation('transf')} className={(component == <CalcTransferencia /> ? 'active' : '') + "inline-block w-full p-4 text-gray-900 bg-gray-100 rounded-l-lg focus:ring-2 focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500 dark:text-white"} aria-current="page">Transferência</button>
+            <li className="w-full hover:text-green-600 text-white">
+              <button onClick={() => handleSwitchCalculation('transf')} className={(component == <CalcTransferencia /> ? 'active' : '') + "w-full p-4  bg-gray-100 gap-2 rounded-l-lg flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><GiCommercialAirplane />Transferência</button>
             </li>
-            <li className="w-full">
-              <button onClick={() => handleSwitchCalculation('grat')} className={(component == <CalcRepresentacao /> ? 'active' : '') + "inline-block w-full p-4 bg-white rounded-r-lg focus:ring-2 focus:outline-none focus:ring-green-600 dark:border dark:border-gray-500 dark:text-white dark:bg-transparent"}>Gratificação representação</button>
+            <li className="w-full hover:text-green-600 text-white">
+              <button onClick={() => handleSwitchCalculation('grat')} className={(component == <CalcRepresentacao /> ? 'active' : '') + "w-full p-4 bg-white rounded-r-lg gap-2 focus:ring-2 flex items-center focus:outline-none justify-center focus:ring-green-600 dark:border dark:border-gray-500  dark:bg-transparent"}><PiMoney />Gratificação representação</button>
             </li>
           </ul>
         </div>
         {component}
+        <div className="mt-4 hover:text-green-600 text-white">
+          <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/privacyPolicy"><MdOutlinePrivacyTip className="pr-1 text-2xl" />Política de Privacidade</Link>
+        </div>
       </div>
     </>
   )
