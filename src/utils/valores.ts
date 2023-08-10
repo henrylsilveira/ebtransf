@@ -47,3 +47,118 @@ export const cubagemVeiculo = {
     'moto': 3,
 }
 
+export const cubagemDistancia = [
+    {
+        distanciaMenor: 0,
+        distanciaMaior: 50,
+        valor: 29.64
+    },{
+        distanciaMenor: 51,
+        distanciaMaior: 100,
+        valor: 32.50
+    },{
+        distanciaMenor: 101,
+        distanciaMaior: 200,
+        valor: 38.48
+    },{
+        distanciaMenor: 201,
+        distanciaMaior: 400,
+        valor: 51.47
+    },{
+        distanciaMenor: 401,
+        distanciaMaior: 600,
+        valor: 63.77
+    },{
+        distanciaMenor: 601,
+        distanciaMaior: 800,
+        valor: 76.67
+    },{
+        distanciaMenor: 801,
+        distanciaMaior: 1000,
+        valor: 88.61
+    },{
+        distanciaMenor: 1001,
+        distanciaMaior: 1200,
+        valor: 100.68
+    },{
+        distanciaMenor: 1201,
+        distanciaMaior: 1400,
+        valor: 113.04
+    },{
+        distanciaMenor: 1401,
+        distanciaMaior: 1600,
+        valor: 125.48
+    },{
+        distanciaMenor: 1601,
+        distanciaMaior: 1800,
+        valor: 138.06
+    },{
+        distanciaMenor: 1801,
+        distanciaMaior: 2000,
+        valor: 150.84
+    },{
+        distanciaMenor: 2001,
+        distanciaMaior: 2200,
+        valor: 163.80
+    },{
+        distanciaMenor: 2201,
+        distanciaMaior: 2400,
+        valor: 176.93
+    },{
+        distanciaMenor: 2401,
+        distanciaMaior: 2600,
+        valor: 189.22
+    },{
+        distanciaMenor: 2601,
+        distanciaMaior: 2800,
+        valor: 201.50
+    },{
+        distanciaMenor: 2801,
+        distanciaMaior: 3000,
+        valor: 214.14
+    },{
+        distanciaMenor: 3001,
+        distanciaMaior: 3200,
+        valor: 226.46
+    },{
+        distanciaMenor: 3301,
+        distanciaMaior: 3400,
+        valor: 238.82
+    },{
+        distanciaMenor: 3401,
+        distanciaMaior: 3600,
+        valor: 251.34
+    },{
+        distanciaMenor: 3601,
+        distanciaMaior: 3800,
+        valor: 263.88
+    },{
+        distanciaMenor: 3801,
+        distanciaMaior: 4000,
+        valor: 276.17
+    },{
+        distanciaMenor: 4001,
+        distanciaMaior: 4200,
+        valor: 288.91
+    },{
+        distanciaMenor: 4201,
+        distanciaMaior: 4400,
+        valor: 301.52
+    },{
+        distanciaMenor: 4401,
+        distanciaMaior: 4600,
+        valor: 314.47
+    },{
+        distanciaMenor: 4601,
+        distanciaMaior: 4800,
+        valor: 327.12
+    },{
+        distanciaMenor: 4801,
+        distanciaMaior: 5000,
+        valor: 339.15
+    },{
+        distanciaMenor: 5001,
+        distanciaMaior: 'Máximo',
+        valor: 352.61
+    }
+]

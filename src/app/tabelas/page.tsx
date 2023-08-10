@@ -8,7 +8,7 @@ import React from "react";
 import Link from "next/link";
 import { MdOutlineKeyboardDoubleArrowRight, MdOutlinePrivacyTip } from "react-icons/md";
 import { BsCalculator } from "react-icons/bs";
-import { adcDisp, adcHab, adcLocEsp, adcMil, postosGrad, soldo, soldos } from "@/utils/valores";
+import { adcDisp, adcHab, adcLocEsp, adcMil, cubagemDistancia, postosGrad, soldo, soldos } from "@/utils/valores";
 import { formataValor } from '../../utils/scripts';
 
 
@@ -40,7 +40,7 @@ export default function Home() {
           crossOrigin="anonymous" />
         <div className="flex flex-1 items-center justify-center mb-6 flex-col">
           <h1 className="text-green-600 font-bold uppercase text-xl">Transferência e Gratificação de representação para Militares do Exército</h1>
-          
+
           <article>
             <h1 className="text-green-600 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center"><MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Dados utilizados para cálculos</h1>
             <div className="relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
@@ -53,18 +53,6 @@ export default function Home() {
                     <th scope="col" className="px-6 py-3 text-center">
                       Soldo
                     </th>
-                    <th scope="col" className="px-6 py-3  bg-gray-50 dark:bg-gray-800 text-center">
-                    Adicional Militar
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-center">
-                    Adicional Habilitação
-                    </th>
-                    <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-center">
-                    Adicional Disponibilidade
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-center">
-                    Adicional Localização Especial
-                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -76,28 +64,91 @@ export default function Home() {
                       <td className="px-6 py-4 text-center">
                         {formataValor(soldos[index])}
                       </td>
-                      <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800 text-center">
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div>
+                <span className="text-xs text-gray-600 italic m-2 text-center">*Essa tabela contém soldo e adicionais necessários para os cálculos de transferência e representação. Última atualização em Agosto de 2023.</span>
+              </div>
+            </div>
+            <div className="relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
+                  <tr>
+                    <th scope="col" className="px-6 py-3  bg-gray-50 dark:bg-gray-800 text-center">
+                      Adicional Militar
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-center">
+                      Adicional Habilitação
+                    </th>
+                    <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-center">
+                      Adicional Disponibilidade
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-center">
+                      Adicional Localização Especial
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {adcDisp.map((disp, index) => (
+                    <tr className="border-b border-gray-200 dark:border-gray-700">
+                      <td className="px-6 py-4 text-center bg-gray-50 dark:bg-gray-800">
+                        {disp + "%"}
+                      </td>
+                      <td className="px-6 py-4 text-center">
                         {adcMil[index] ? adcMil[index] + '%' : ''}
                       </td>
-                      <td className="px-6 py-4 text-center">
-                      {adcHab[index] ? adcHab[index] + '%' : ''}
+                      <td className="px-6 py-4 text-center bg-gray-50 dark:bg-gray-800">
+                        {adcHab[index] ? adcHab[index] + '%' : ''}
                       </td>
-                      <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800 text-center">
-                      {adcDisp[index] ? adcDisp[index] + '%' : ''}
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                      {adcLocEsp[index] ? adcLocEsp[index] + '%' : ''}
+                      <td className="px-6 py-4  text-center">
+                        {adcLocEsp[index] ? adcLocEsp[index] + '%' : ''}
                       </td>
                     </tr>
                   ))}
-                  
-                  
+
+
                 </tbody>
-                
-                
+
+
               </table>
               <div>
-                  <span className="text-xs text-gray-600 italic m-2 text-center">*Essa tabela contém soldo e adicionais necessários para os cálculos de transferência e representação. Última atualização em Agosto de 2023.</span>
+                <span className="text-xs text-gray-600 italic m-2 text-center">*Essa tabela contém soldo e adicionais necessários para os cálculos de transferência e representação. Última atualização em Agosto de 2023.</span>
+              </div>
+            </div>
+            <div className="relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
+                  <tr>
+                    <th scope="col" className="px-6 py-3  bg-gray-50 dark:bg-gray-800 text-center">
+                      Distância
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-center">
+                      Valor do M³
+                    </th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {cubagemDistancia.map((dist) => (
+                    <tr className="border-b border-gray-200 dark:border-gray-700">
+                      <td className="px-6 py-4 text-center bg-gray-50 dark:bg-gray-800">
+                        {dist.distanciaMenor + ' até ' + dist.distanciaMaior + ' Km'}
+                      </td>
+                      <td className="px-6 py-4 text-center">
+                        {formataValor(dist.valor)}
+                      </td>
+                    </tr>
+                  ))}
+
+
+                </tbody>
+
+
+              </table>
+              <div>
+                <span className="text-xs text-gray-600 italic m-2 text-center">*Essa tabela contém soldo e adicionais necessários para os cálculos de transferência e representação. Última atualização em Agosto de 2023.</span>
               </div>
             </div>
           </article>
