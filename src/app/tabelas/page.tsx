@@ -77,13 +77,13 @@ export default function Home() {
                 <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
                   <tr>
                     <th scope="col" className="px-6 py-3  bg-gray-50 dark:bg-gray-800 text-center">
-                      Adicional Militar
+                    Adicional Disponibilidade
                     </th>
                     <th scope="col" className="px-6 py-3 text-center">
-                      Adicional Habilitação
+                      Adicional Militar
                     </th>
                     <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-center">
-                      Adicional Disponibilidade
+                      Adicional Habilitação
                     </th>
                     <th scope="col" className="px-6 py-3 text-center">
                       Adicional Localização Especial
@@ -141,11 +141,7 @@ export default function Home() {
                       </td>
                     </tr>
                   ))}
-
-
                 </tbody>
-
-
               </table>
               <div>
                 <span className="text-xs text-gray-600 italic m-2 text-center">*Essa tabela contém soldo e adicionais necessários para os cálculos de transferência e representação. Última atualização em Agosto de 2023.</span>
