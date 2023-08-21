@@ -39,7 +39,7 @@ export default function Calculadora() {
           crossOrigin="anonymous" />
         <div className="flex flex-1 items-center justify-center mb-6 flex-col">
           <h1 className="text-green-600 font-bold uppercase text-xl">Calculadora de Transferência e Gratificação de representação para Militares</h1>
-          <p className="font-light text-green-600 text-justify py-4">Essa calculadora tem como objetivo auxiliar o militar a calcular o valor aproximado de sua transferência ou de sua gratificação representação porém não se trata de uma ferramenta oficial.</p>
+          <p className="font-light text-white text-justify py-4">Essa calculadora tem como objetivo auxiliar o militar a calcular o valor aproximado de sua transferência ou de sua gratificação representação porém não se trata de uma ferramenta oficial.</p>
         </div>
         <div className="mb-8">
           <div className="sm:hidden">

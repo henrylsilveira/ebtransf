@@ -1,8 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Bai_Jamjuree } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Bai_Jamjuree({ weight: ['500'], subsets: ['thai'] })
 
 export const metadata: Metadata = {
   title: 'Calculadora de Transferência e Gratificação de representação para Militares',
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <head>
-        <link rel="icon" href="./favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>{children}</body>
     </html>
