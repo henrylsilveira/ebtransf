@@ -10,6 +10,7 @@ import { MdOutlinePrivacyTip } from "react-icons/md";
 import { GiCommercialAirplane } from "react-icons/gi";
 import { PiMoney } from "react-icons/pi";
 import { BsDatabaseCheck } from "react-icons/bs";
+import { Links } from "@/components/Links";
 
 export default function Calculadora() {
   const [component, setComponent] = useState(<CalcTransferencia />)
@@ -58,12 +59,7 @@ export default function Calculadora() {
           </ul>
         </div>
         {component}
-        <div className="mt-4 hover:text-green-600 text-white">
-          <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/tabelas"><BsDatabaseCheck className="pr-1 text-2xl" />Tabela de dados</Link>
-        </div>
-        <div className="mt-4 hover:text-green-600 text-white">
-          <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/privacyPolicy"><MdOutlinePrivacyTip className="pr-1 text-2xl" />Política de Privacidade</Link>
-        </div>
+        <Links />
       </div>
     </>
   )

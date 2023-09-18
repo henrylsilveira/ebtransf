@@ -1,10 +1,11 @@
+import { differenceInCalendarYears, differenceInCalendarMonths, differenceInCalendarDays } from "date-fns"
 import { soldo } from "./valores"
 
-export function formataValor(price: number, discount?: number){
+export function formataValor(price: number, discount?: number) {
     return new Intl.NumberFormat("pt-BR", {
         style: "currency",
         currency: "BRL",
-      }).format(price)
+    }).format(price)
 }
 
 export function retornaValorSoldo(pg: string) {
@@ -111,4 +112,50 @@ export function retornaValorM3Transportado(distancia: number) {
         default:
             return 0
     }
+}
+
+export function calcularDiferencaAtual(data: any) {
+    // const m31 = [0,2,4,6,7,9,11]
+    // const m30 = [3,5,8,10]
+    // const m28 = 1
+    const partesDaData = data.split("-");
+    const ano = parseInt(partesDaData[0], 10);
+    const mes = parseInt(partesDaData[1], 10);
+    const dia = parseInt(partesDaData[2], 10);
+    // const dataFornecidaObj = new Date(ano, mes - 1, dia);
+    const dataAtual = new Date();
+    let difAno = 0
+    let difMes = 0
+    let difDia = 0
+
+    // const dias = differenceInCalendarDays(dataAtual, dataFornecidaObj);
+
+    const partesDaDataAtual = dataAtual.toISOString().split("-");
+    const anoA = parseInt(partesDaDataAtual[0], 10);
+    const mesA = parseInt(partesDaDataAtual[1], 10);
+    const diaA = parseInt(partesDaDataAtual[2], 10);
+    if(ano == anoA && (mes >= mesA && dia > diaA) ){
+        return { message: "Não utilize datas futuras."}
+    }
+
+    if(anoA >= ano){
+        difAno = anoA - ano
+    }else{
+        return { message: "Não utilize datas futuras."}
+    }
+
+    if(mesA >= mes){
+        difMes = mesA - mes
+    }else{
+        difMes = mesA - mes + 12
+        difAno--
+    }
+    if(diaA >= dia){
+        difDia = diaA - dia
+    }else{
+        difDia = diaA - dia + 30
+        difMes--
+    }
+
+    return { ano: difAno, mes: difMes, dia: difDia};
 }

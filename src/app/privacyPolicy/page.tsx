@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md'
 import { FaArrowLeft } from 'react-icons/fa'
+import { Links } from '@/components/Links'
 
 export default function PrivacyPolicy() {
     return (
@@ -112,9 +113,7 @@ export default function PrivacyPolicy() {
                     em nossa plataforma.
                 </p>
             </article>
-            <div className="mt-4 flex flex-1">
-                <Link className="text-gray-300 ml-auto text-sm border flex items-center gap-2  border-green-600 rounded-lg p-2 hover:text-green-600" href="/"><FaArrowLeft />Voltar</Link>
-            </div>
+            <Links />
         </div>
     )
 }

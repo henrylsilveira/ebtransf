@@ -1,30 +1,14 @@
 'use client'
 
 import Script from "next/script";
-import CalcTransferencia from "@/components/Transferencia";
-import CalcRepresentacao from "@/components/Representacao";
-import { useState } from 'react'
 import React from "react";
-import Link from "next/link";
-import { MdOutlineKeyboardDoubleArrowRight, MdOutlinePrivacyTip } from "react-icons/md";
-import { BsCalculator } from "react-icons/bs";
-import { adcDisp, adcHab, adcLocEsp, adcMil, cubagemDistancia, postosGrad, soldo, soldos } from "@/utils/valores";
+import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import { adcDisp, adcHab, adcLocEsp, adcMil, cubagemDistancia, postosGrad, soldos } from "@/utils/valores";
 import { formataValor } from '../../utils/scripts';
+import { Links } from "@/components/Links";
 
 
 export default function Home() {
-  const [component, setComponent] = useState(<CalcTransferencia />)
-
-  function handleSwitchCalculation(tipo: string) {
-    switch (tipo) {
-      case 'transf':
-        return setComponent(<CalcTransferencia />)
-      case 'grat':
-        return setComponent(<CalcRepresentacao />)
-      default:
-        break;
-    }
-  }
 
   return (
     <>
@@ -57,7 +41,7 @@ export default function Home() {
                 </thead>
                 <tbody>
                   {postosGrad.map((postos, index) => (
-                    <tr className="border-b border-gray-200 dark:border-gray-700">
+                    <tr key={postos + `${index}`} className="border-b border-gray-200 dark:border-gray-700">
                       <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800 flex flex-1 justify-center">
                         {postos}
                       </th>
@@ -92,7 +76,7 @@ export default function Home() {
                 </thead>
                 <tbody>
                   {adcDisp.map((disp, index) => (
-                    <tr className="border-b border-gray-200 dark:border-gray-700">
+                    <tr key={disp + `${index}`} className="border-b border-gray-200 dark:border-gray-700">
                       <td className="px-6 py-4 text-center bg-gray-50 dark:bg-gray-800">
                         {disp + "%"}
                       </td>
@@ -131,8 +115,8 @@ export default function Home() {
                   </tr>
                 </thead>
                 <tbody>
-                  {cubagemDistancia.map((dist) => (
-                    <tr className="border-b border-gray-200 dark:border-gray-700">
+                  {cubagemDistancia.map((dist, index) => (
+                    <tr key={dist + `${index}`} className="border-b border-gray-200 dark:border-gray-700">
                       <td className="px-6 py-4 text-center bg-gray-50 dark:bg-gray-800">
                         {dist.distanciaMenor + ' até ' + dist.distanciaMaior + ' Km'}
                       </td>
@@ -151,12 +135,7 @@ export default function Home() {
 
         </div>
 
-        <div className="mt-4 hover:text-green-600 text-white">
-          <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/calculadora"><BsCalculator className="pr-1 text-2xl" />Calculadora</Link>
-        </div>
-        <div className="mt-4 hover:text-green-600 text-white">
-          <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/privacyPolicy"><MdOutlinePrivacyTip className="pr-1 text-2xl" />Política de Privacidade</Link>
-        </div>
+        <Links />
       </div>
     </>
   )
