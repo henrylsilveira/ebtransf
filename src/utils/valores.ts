@@ -162,3 +162,35 @@ export const cubagemDistancia = [
         valor: 352.61
     }
 ]
+
+export const calcIrrf = [
+    {
+        salMin: 0,
+        salMax: 2112,
+        aliquota: 0,
+        deducao: 0,
+    },
+    {
+        salMin: 2112.01,
+        salMax: 2826.65,
+        aliquota: 7.5,
+        deducao: 158.40,
+    },
+    {
+        salMin: 2826.66,
+        salMax: 3751.05,
+        aliquota: 15,
+        deducao: 370.4,
+    },
+    {
+        salMin: 3751.06,
+        salMax: 4664.68,
+        aliquota: 22.5,
+        deducao: 651.73,
+    },
+    {
+        salMin: 4664.68,
+        aliquota: 27.5,
+        deducao: 884.96,
+    },
+]

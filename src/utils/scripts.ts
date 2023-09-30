@@ -114,7 +114,7 @@ export function retornaValorM3Transportado(distancia: number) {
     }
 }
 
-export function calcularDiferencaAtual(data: any) {
+export function calcularDiferencaAtual(data: any, dataT?: any) {
     // const m31 = [0,2,4,6,7,9,11]
     // const m30 = [3,5,8,10]
     // const m28 = 1
@@ -123,14 +123,20 @@ export function calcularDiferencaAtual(data: any) {
     const mes = parseInt(partesDaData[1], 10);
     const dia = parseInt(partesDaData[2], 10);
     // const dataFornecidaObj = new Date(ano, mes - 1, dia);
-    const dataAtual = new Date();
+    let dataAtual
     let difAno = 0
     let difMes = 0
-    let difDia = 0
-
+    let difDia = 0 
+    if(dataT){
+        dataAtual = dataT.split("-");
+    }else{
+       dataAtual = new Date();
+       dataAtual = dataAtual.toISOString().split("-") 
+    }
+    
     // const dias = differenceInCalendarDays(dataAtual, dataFornecidaObj);
 
-    const partesDaDataAtual = dataAtual.toISOString().split("-");
+    const partesDaDataAtual = dataAtual;
     const anoA = parseInt(partesDaDataAtual[0], 10);
     const mesA = parseInt(partesDaDataAtual[1], 10);
     const diaA = parseInt(partesDaDataAtual[2], 10);
@@ -157,5 +163,9 @@ export function calcularDiferencaAtual(data: any) {
         difMes--
     }
 
-    return { ano: difAno, mes: difMes, dia: difDia};
+    if(difAno < 0 || difMes < 0 || difDia < 0 ){
+        return { message: "Não utilize datas futuras."}
+    }
+
+    return { ano: difAno, mes: difMes, dia: difDia, totalDias: difAno*365 + difMes*30 + difDia};
 }

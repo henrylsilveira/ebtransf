@@ -2,6 +2,9 @@ import { Logo } from '@/components/Logo'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Bai_Jamjuree } from 'next/font/google'
+import { SideBar } from '@/components/Sidebar'
+import Cookies from "js-cookie";
+import GDPR from '@/components/Gdpr'
 
 const inter = Bai_Jamjuree({ weight: ['500'], subsets: ['thai'] })
 
@@ -22,6 +25,8 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <Logo />
+        <SideBar />
+        {Cookies.get('gdprCalcCheck') !== "true" ? <GDPR/> : null}
         {children}
         </body>
     </html>

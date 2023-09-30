@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { BsCalculator, BsClock, BsClockFill, BsDatabaseCheck } from "react-icons/bs";
+import { BsCalculator, BsClock, BsDatabaseCheck } from "react-icons/bs";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 
 export function Links() {
     return (
         <>
-            <div className="mt-4 hover:text-green-600 text-white">
+            <div className="mt-4 hover:text-green-600 text-white ">
                 <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/calculadora"><BsCalculator className="pr-1 text-2xl" />Calculadora</Link>
             </div>
             <div className="mt-4 hover:text-green-600 text-white">
