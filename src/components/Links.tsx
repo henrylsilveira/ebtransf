@@ -14,9 +14,7 @@ export function Links() {
             <div className="mt-4 hover:text-green-600 text-white">
                 <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/tabelas"><BsDatabaseCheck className="pr-1 text-2xl" />Tabela de dados</Link>
             </div>
-            <div className="mt-4 hover:text-green-600 text-white">
-                <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/privacyPolicy"><MdOutlinePrivacyTip className="pr-1 text-2xl" />Política de Privacidade</Link>
-            </div>
+            
         </>
     )
 }
