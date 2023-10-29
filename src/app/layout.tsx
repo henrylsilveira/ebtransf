@@ -1,3 +1,4 @@
+
 import { Logo } from '@/components/Logo'
 import './globals.css'
 import type { Metadata } from 'next'
@@ -26,9 +27,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <Logo />
         <SideBar />
-        {Cookies.get('gdprCalcCheck') !== "true" ? <GDPR/> : null}
+        {Cookies.get('gdpr') == "true" ? <></> : <GDPR />}
         {children}
-        </body>
+      </body>
     </html>
   )
 }

@@ -28,6 +28,7 @@ export default function Calculadora() {
 
   return (
     <>
+    <title>EBCalc - Calculadora Transferência</title>
       <div className="max-w-2xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W6B1SSXWE7"></Script>
         <Script id="google-analytics">

@@ -1,20 +1,24 @@
 import Link from "next/link";
 import { BsCalculator, BsClock, BsDatabaseCheck } from "react-icons/bs";
-import { MdOutlinePrivacyTip } from "react-icons/md";
+import { LiaMoneyCheckAltSolid } from "react-icons/lia";
+import { Button } from "./Button";
 
 export function Links() {
     return (
         <>
-            <div className="mt-4 hover:text-green-600 text-white ">
-                <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/calculadora"><BsCalculator className="pr-1 text-2xl" />Calculadora</Link>
+            <div className="mt-4 hover:text-green-600 border text-white border-green-600 rounded-lg ">
+                <Button link="/calculadora" text="Calculadora" Icon={<BsCalculator className="pr-1 text-2xl" />} />
             </div>
-            <div className="mt-4 hover:text-green-600 text-white">
-                <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/tempoServico"><BsClock className="pr-1 text-2xl" />Calculadora Tempo de Serviço</Link>
+            <div className="mt-4 hover:text-green-600 text-white border border-green-600 rounded-lg">
+                <Button link="/calcContraCheque" text="Contracheque" Icon={<LiaMoneyCheckAltSolid className="pr-1 text-2xl " />} />
             </div>
-            <div className="mt-4 hover:text-green-600 text-white">
-                <Link className="text-sm border justify-center items-center border-green-600 rounded-lg p-2 flex " href="/tabelas"><BsDatabaseCheck className="pr-1 text-2xl" />Tabela de dados</Link>
+            <div className="mt-4 hover:text-green-600 text-white border border-green-600 rounded-lg">
+                <Button link="/tempoServico" text="Calculadora Tempo de Serviço" Icon={<BsClock className="pr-1 text-2xl" />} />
             </div>
-            
+            <div className="mt-4 hover:text-green-600 text-white border border-green-600 rounded-lg">
+                <Button link="/tabelas" text="Tabela de dados" Icon={<BsDatabaseCheck className="pr-1 text-2xl" />} />
+            </div>
+
         </>
     )
 }

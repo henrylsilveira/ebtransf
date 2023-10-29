@@ -1,11 +1,10 @@
 'use client'
 import Cookies from "js-cookie";
 import Link from "next/link";
-import { useEffect } from "react";
 
 export default function GDPR() {
   function setCookies() {
-    Cookies.set("gdprCalcCheck", "true");
+    Cookies.set('gdpr', 'true',{ expires: 7 });
     const gdpr = document.getElementById("gdpr");
     if (gdpr !== null) {
       gdpr.style.display = "none";

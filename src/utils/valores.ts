@@ -24,6 +24,7 @@ export const adcHab = [12,27,45,68,76]
 export const adcMil = [13,16,19,22,25]
 export const adcDisp = [5,6,12,16,20,26,32]
 export const adcLocEsp = [10,20]
+export const gratRepArr = [2,10]
 
 export const cubagemBagagem = {
     '3sgt': 45,
@@ -194,3 +195,7 @@ export const calcIrrf = [
         deducao: 884.96,
     },
 ]
+
+export const fusexArr = [3,3.4,3.5]
+export const pensMilArr = [10.5,12]
+export const adcPermArr = [5,10,15]

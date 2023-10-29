@@ -1,4 +1,5 @@
 import { formataValor, retornaValorSoldo } from "@/utils/scripts";
+import { gratRepArr } from "@/utils/valores";
 import { useState } from "react";
 
 export default function CalcRepresentacao() {
@@ -41,10 +42,11 @@ export default function CalcRepresentacao() {
                     <div className="relative z-0 mb-6 w-full group">
                         <select name="gratRep" id="gratRep" onChange={(e) => setGratRep(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
-                            <option value={2}>2%</option>
-                            <option value={10}>10%</option>
+                            {gratRepArr.map((grat,index) => (
+                                <option key={grat + index} value={grat}>{grat}%</option>
+                            ))}
                         </select>
-                        <label htmlFor="disponibilidade" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Grat Rep</label>
+                        <label htmlFor="gratRep" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Grat Rep</label>
                     </div>
                     <div className="relative z-0 mb-6 w-full group">
                         <input type="number" name="qntDias" onChange={(e) => setQntDias(Number(e.target.value))} id="qntDias" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />

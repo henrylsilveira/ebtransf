@@ -12,21 +12,22 @@ import { Links } from "@/components/Links";
 
 
 export default function Home() {
-  const [component, setComponent] = useState(<CalcTransferencia />)
+  // const [component, setComponent] = useState(<CalcTransferencia />)
 
-  function handleSwitchCalculation(tipo: string) {
-    switch (tipo) {
-      case 'transf':
-        return setComponent(<CalcTransferencia />)
-      case 'grat':
-        return setComponent(<CalcRepresentacao />)
-      default:
-        break;
-    }
-  }
+  // function handleSwitchCalculation(tipo: string) {
+  //   switch (tipo) {
+  //     case 'transf':
+  //       return setComponent(<CalcTransferencia />)
+  //     case 'grat':
+  //       return setComponent(<CalcRepresentacao />)
+  //     default:
+  //       break;
+  //   }
+  // }
 
   return (
     <>
+      <title>EBCalc</title>
       <div className="max-w-2xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W6B1SSXWE7"></Script>
         <Script id="google-analytics">

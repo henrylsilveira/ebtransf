@@ -9,9 +9,9 @@ import { Links } from "@/components/Links";
 
 
 export default function Home() {
-
   return (
     <>
+    <title>EBCalc - Tabela de base de cálculos</title>
       <div className="max-w-4xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W6B1SSXWE7"></Script>
         <Script id="google-analytics">
@@ -23,13 +23,15 @@ export default function Home() {
         <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
           crossOrigin="anonymous" />
         <div className="flex flex-1 items-center justify-center mb-6 flex-col">
-          <h1 className="text-green-600 font-bold uppercase text-xl">Transferência e Gratificação de representação para Militares do Exército</h1>
+          <h1 className="text-green-600 font-bold uppercase text-xl">Dados utilizados para cálculos</h1>
 
           <article>
-            <h1 className="text-green-600 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center"><MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Dados utilizados para cálculos</h1>
-            <div className="relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
-              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
+            <h1 id="#postGrad" className="text-green-600 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center">
+              <MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Postos / Graduações
+            </h1>
+            <div className="text-xs sm:text-md flex flex-col justify-center relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
+              <table className="w-100 sm:w-full text-left text-gray-500 dark:text-gray-400">
+                <thead className=" text-gray-700 uppercase dark:text-gray-400">
                   <tr>
                     <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-center">
                       Posto / Graduação
@@ -56,20 +58,23 @@ export default function Home() {
                 <span className="text-xs text-gray-600 italic m-2 text-center">*Essa tabela contém soldo e adicionais necessários para os cálculos de transferência e representação. Última atualização em Agosto de 2023.</span>
               </div>
             </div>
-            <div className="relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
-              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
+            <h1 id="#adicionais" className="text-green-600 mt-6 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center">
+              <MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Adicionais
+            </h1>
+            <div className="text-xs sm:text-md flex flex-col justify-center relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
+              <table className="w-100 sm:w-full text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-gray-700 uppercase dark:text-gray-400">
                   <tr>
-                    <th scope="col" className="px-6 py-3  bg-gray-50 dark:bg-gray-800 text-center">
-                    Adicional Disponibilidade
+                    <th scope="col" className="px-1 sm:px-6 py-3  bg-gray-50 dark:bg-gray-800 text-center">
+                      Adicional Disponibilidade
                     </th>
-                    <th scope="col" className="px-6 py-3 text-center">
+                    <th scope="col" className="px-1 sm:px-6 py-3 text-center">
                       Adicional Militar
                     </th>
-                    <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-center">
+                    <th scope="col" className="px-1 sm:px-6 py-3 bg-gray-50 dark:bg-gray-800 text-center">
                       Adicional Habilitação
                     </th>
-                    <th scope="col" className="px-6 py-3 text-center">
+                    <th scope="col" className="px-1 sm:px-6 py-3 text-center">
                       Adicional Localização Especial
                     </th>
                   </tr>
@@ -101,17 +106,19 @@ export default function Home() {
                 <span className="text-xs text-gray-600 italic m-2 text-center">*Essa tabela contém soldo e adicionais necessários para os cálculos de transferência e representação. Última atualização em Agosto de 2023.</span>
               </div>
             </div>
-            <div className="relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
-              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
+            <h1 id="#distCubagem" className="text-green-600 mt-6 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center">
+              <MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Cubagem por distância
+            </h1>
+            <div className="text-xs sm:text-md flex flex-col justify-center relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
+              <table className="w-100 sm:w-full text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-gray-700 uppercase dark:text-gray-400">
                   <tr>
-                    <th scope="col" className="px-6 py-3  bg-gray-50 dark:bg-gray-800 text-center">
+                    <th scope="col" className="px-1 sm:px-6 py-3  bg-gray-50 dark:bg-gray-800 text-center">
                       Distância
                     </th>
-                    <th scope="col" className="px-6 py-3 text-center">
+                    <th scope="col" className="px-1 sm:px-6 py-3 text-center">
                       Valor do M³
                     </th>
-                    
                   </tr>
                 </thead>
                 <tbody>

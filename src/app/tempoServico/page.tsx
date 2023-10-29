@@ -35,6 +35,7 @@ export default function TempoServico() {
 
   return (
     <>
+    <title>EBCalc - Calculadora Tempo de Serviço</title>
       <div className="max-w-2xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W6B1SSXWE7"></Script>
         <Script id="google-analytics">
@@ -68,7 +69,7 @@ export default function TempoServico() {
           <div className="relative z-0 mb-6 w-full group">
             <input type="date" name="segundaData" onChange={(e) => setDateTwo(e.target.value)} id="segundaData" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
             <label htmlFor="segundaData" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Data de Término</label>
-            <span className="text-xs text-red-500">Deixei em branco para considerar a data de hoje.</span>
+            <span className="text-xs text-red-500">Deixe em branco para considerar a data de hoje.</span>
           </div>
         </div>
         {dateOne ? (
@@ -78,7 +79,7 @@ export default function TempoServico() {
               <p className="font-bold text-red-600">{calcDia?.message}</p>
             </div>
           ) : (
-            <div className="border border-green-600 rounded-md p-6 relative my-4">
+            <div className="border text-xs sm:text-md border-green-600 rounded-md p-6 relative my-4">
               <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">TEMPO</h1>
               <p className="font-light text-white flex"><p className="font-bold pr-2">Tempo de serviço:</p>{`${calcDia?.ano} anos, ${calcDia?.mes} meses e ${calcDia?.dia} dias de serviço.`}</p>
               <p className="font-light text-white flex"><p className="font-bold pr-2">Total de dias:</p>{calcDia?.totalDias}</p>

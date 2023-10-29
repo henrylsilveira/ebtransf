@@ -5,6 +5,8 @@ import { Links } from '@/components/Links'
 
 export default function PrivacyPolicy() {
     return (
+        <>
+        <title>EBCalc - Política de Privacidade</title>
         <div className="max-w-2xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
             <h1 className="text-green-600 font-bold uppercase text-xl text-center pb-2">Política de Privacidade</h1>
             <h2 className="text-green-600 font-bold uppercase pt-4 border-b border-green-600 flex flex-1 items-center"><MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Dados de Visitantes</h2>
@@ -115,5 +117,6 @@ export default function PrivacyPolicy() {
             </article>
             <Links />
         </div>
+        </>
     )
 }

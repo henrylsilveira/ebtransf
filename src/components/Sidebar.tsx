@@ -1,18 +1,39 @@
 import Link from "next/link";
 import { BsCalculator, BsClock, BsDatabaseCheck } from "react-icons/bs";
+import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import { RiTeamLine } from "react-icons/ri";
 import Suporte from "./SuportePoppover";
+import { Button } from "./Button";
+
 export function SideBar() {
     return (
-        <nav className="fixed top-[25%] border border-l-0 border-green-500 bg-black py-4 bg-opacity-50 rounded-tr-lg rounded-br-lg">
+        <nav className="fixed w-11 top-[25%] backdrop-blur-sm border border-l-0 border-green-500 bg-black py-4 bg-opacity-50 rounded-tr-lg rounded-br-lg z-50">
             <ul>
-                <li><Link className="text-sm justify-center items-center border-0 p-2 flex " href="/calculadora"><BsCalculator className="pr-1 h-7 w-7 text-2xl hover:text-green-600 transform transition-colors text-white" /></Link></li>
-                <li><Link className="text-sm justify-center items-center border-0 p-2 flex " href="/tempoServico"><BsClock className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" /></Link></li>
-                <li><Link className="text-sm justify-center items-center border-0 p-2 flex " href="/tabelas"><BsDatabaseCheck className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" /></Link></li>
-                <li><Link className="text-sm justify-center items-center border-0 p-2 flex " href="/privacyPolicy"><MdOutlinePrivacyTip className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" /></Link></li>
-                <li><Link className="text-sm justify-center items-center border-0 p-2 flex " href="/sobreNos"><RiTeamLine className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" /></Link></li>
-                <li><div className="text-sm justify-center items-center border-0 p-2 flex "><Suporte /></div></li>
+                <li>
+                    <Button link="/calculadora" Icon={<BsCalculator className="pr-1 h-7 w-7 text-2xl hover:text-green-600 transform transition-colors text-white" />} />
+                </li>
+                <li>
+                    <Button link="/calcContraCheque" Icon={<LiaMoneyCheckAltSolid className="pr-1 h-7 w-7 text-2xl hover:text-green-600 transform transition-colors text-white" />} />
+                </li>
+                <li>
+                    <Button link="/tempoServico" Icon={<BsClock className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
+                </li>
+                <li>
+                    <Button link="/tabelas" Icon={<BsDatabaseCheck className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
+
+                </li>
+                <li>
+                    <Button link="/privacyPolicy" Icon={<MdOutlinePrivacyTip className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
+                </li>
+                <li>
+                    <Button link="/sobreNos" Icon={<RiTeamLine className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
+                </li>
+                <li>
+                    <div className="text-sm justify-center items-center border-0 p-2 flex ">
+                        <Suporte />
+                    </div>
+                </li>
             </ul>
         </nav>
     )

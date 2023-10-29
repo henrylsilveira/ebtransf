@@ -3,6 +3,8 @@ import { Links } from '@/components/Links'
 
 export default function SobreNos() {
     return (
+        <>
+        <title>EBCalc - Sobre nós</title>
         <div className="max-w-2xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
             <h1 className="text-green-600 font-bold uppercase text-xl text-center pb-2">Sobre Nós</h1>
             <article>
@@ -18,7 +20,7 @@ export default function SobreNos() {
             <h1 className="text-green-600 font-bold pt-3 uppercase border-b border-green-600 flex flex-1 items-center"><MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />O Que Oferecemos</h1>
             <article>
                 <p className="font-light text-gray-300 text-justify py-4">
-                    No EB#Calc, oferecemos uma calculadoras em diversas áreas e com o tempo iremos implementado outras, incluindo:
+                    No EB#Calc, oferecemos calculadoras em diversas áreas e com o tempo iremos implementado outras, incluindo:
                     <ul>
                         <li>
                             - Calculadora para cálculo transfência e gratificação representação.
@@ -62,5 +64,6 @@ export default function SobreNos() {
            
             <Links />
         </div>
+        </>
     )
 }

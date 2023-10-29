@@ -10,7 +10,7 @@ export default function Suporte() {
             </Popover.Trigger>
 
                 <Popover.Content style={{ width: 180, height: 120 }}>
-                    <div className='bg-black p-4 z-10 border border-green-600 rounded-lg'>
+                    <div className='bg-black p-4 border border-green-600 rounded-lg'>
                         <div className='block text-sm text-white font-light'>
                             <p className='font-bold'>Suporte por E-mail</p>
                             <Link className='text-green-500 pointer hover:underline' href="mailto:suporte@ebcalc.net">suporte@ebcalc.net </Link>
