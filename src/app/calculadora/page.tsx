@@ -5,11 +5,8 @@ import CalcTransferencia from "@/components/Transferencia";
 import CalcRepresentacao from "@/components/Representacao";
 import { useState } from 'react'
 import React from "react";
-import Link from "next/link";
-import { MdOutlinePrivacyTip } from "react-icons/md";
 import { GiCommercialAirplane } from "react-icons/gi";
 import { PiMoney } from "react-icons/pi";
-import { BsDatabaseCheck } from "react-icons/bs";
 import { Links } from "@/components/Links";
 
 export default function Calculadora() {

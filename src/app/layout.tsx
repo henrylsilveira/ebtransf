@@ -6,6 +6,8 @@ import { Bai_Jamjuree } from 'next/font/google'
 import { SideBar } from '@/components/Sidebar'
 import Cookies from "js-cookie";
 import GDPR from '@/components/Gdpr'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Bai_Jamjuree({ weight: ['500'], subsets: ['thai'] })
 
@@ -20,13 +22,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-br">
+    <html lang="pt">
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>
         <Logo />
         <SideBar />
+        <ToastContainer />
         {Cookies.get('gdpr') == "true" ? <></> : <GDPR />}
         {children}
       </body>

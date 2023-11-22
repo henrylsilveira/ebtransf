@@ -1,8 +1,10 @@
 import styles from './styles.module.css'
-export function Loader(){
+export function Loader({ loadingPage }: { loadingPage?: boolean}){
     return (
         <div className='flex'>
-            <span className={styles.loader} />
+            {loadingPage 
+            ? <span className={styles.loaderPage} /> 
+            : <span className={styles.loader} />}
         </div>
     ) 
 }

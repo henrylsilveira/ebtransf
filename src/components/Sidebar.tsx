@@ -5,6 +5,7 @@ import { MdOutlinePrivacyTip } from "react-icons/md";
 import { RiTeamLine } from "react-icons/ri";
 import Suporte from "./SuportePoppover";
 import { Button } from "./Button";
+import FaleConosco from "./FaleConosco";
 
 export function SideBar() {
     return (
@@ -32,6 +33,11 @@ export function SideBar() {
                 <li>
                     <div className="text-sm justify-center items-center border-0 p-2 flex ">
                         <Suporte />
+                    </div>
+                </li>
+                <li>
+                    <div className="text-sm justify-center items-center border-0 p-2 flex ">
+                        <FaleConosco />
                     </div>
                 </li>
             </ul>
