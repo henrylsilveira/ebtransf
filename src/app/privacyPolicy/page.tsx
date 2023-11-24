@@ -1,6 +1,4 @@
-import Link from 'next/link'
 import { MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md'
-import { FaArrowLeft } from 'react-icons/fa'
 import { Links } from '@/components/Links'
 
 export default function PrivacyPolicy() {

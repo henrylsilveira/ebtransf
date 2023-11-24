@@ -1,5 +1,6 @@
 'use client'
 import { useState } from "react"
+import { ConsumoGerador } from "./ConsumoGerador"
 
 export default function CalcCombustivelViatura() {
   const [litros, setLitros] = useState(0)
@@ -41,6 +42,9 @@ export default function CalcCombustivelViatura() {
           : <p className="text-white border rounded-md p-2 border-green-600">Digite os valores acima.</p>
         }
       </div>
+      <>
+        <ConsumoGerador />
+      </>
     </>
   )
 }

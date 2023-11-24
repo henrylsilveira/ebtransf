@@ -31,7 +31,7 @@ export default function calcCombustivel() {
             </Script>
             <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
                 crossOrigin="anonymous" />
-            <div className="max-w-2xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
+            <div className="max-w-4xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
                 <div className="flex flex-1 items-center justify-center mb-6 flex-col">
                     <h1 className="text-green-600 font-bold uppercase text-xl">Calculadora de Combustível</h1>
                     <p className="font-light text-white text-justify py-4">Essa calculadora tem como objetivo auxiliar o militar a calcular o valor aproximado de sua transferência ou de sua gratificação representação porém não se trata de uma ferramenta oficial.</p>
