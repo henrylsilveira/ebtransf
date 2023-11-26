@@ -42,6 +42,7 @@ export type LogisticaCombustivelProps = {
 export type CombustivelProps = {
     id: string;
     tipo: string;
+    quantidade: number;
     total: number;
     logistica?: LogisticaCombustivelProps[];
 }

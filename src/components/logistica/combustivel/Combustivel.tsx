@@ -37,6 +37,7 @@ export function Combustivel() {
 
     const [formData, setFormData] = useState<CombustivelProps>({
         id: "",
+        quantidade: 0,
         tipo: "",
         total: 0,
     });
