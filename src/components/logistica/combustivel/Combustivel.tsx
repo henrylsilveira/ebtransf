@@ -37,7 +37,6 @@ export function Combustivel() {
 
     const [formData, setFormData] = useState<CombustivelProps>({
         id: "",
-        quantidade: 0,
         tipo: "",
         total: 0,
     });
@@ -135,7 +134,7 @@ export function Combustivel() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
-        if (formData.quantidade == 0 || formData.tipo == "" || formData.total == 0) {
+        if (formData.tipo == "" || formData.total == 0) {
             toast.info("Preencha todos os campos!", {
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
@@ -190,12 +189,7 @@ export function Combustivel() {
                             <label htmlFor="tipo" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tipo</label>
                         </div>
                     </div>
-                    <div>
-                        <div className="relative z-0 w-full group flex items-center">
-                            <input type="text" name="quantidade" onChange={handleChange} id="quantidade" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
-                            <label htmlFor="quantidade" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Quantidade</label>
-                        </div>
-                    </div>
+                    
                     <div>
                         <div className="relative z-0 w-full group flex items-center">
                             <input type="number" name="total" onChange={handleChange} id="total" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
