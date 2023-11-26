@@ -6,32 +6,32 @@ import { Loader } from "../../Loader/Loader"
 import { saveAs } from 'file-saver';
 import { MdOutlineClose } from "react-icons/md";
 import { nanoid } from 'nanoid'
-import { LogisticaCombustivel } from "./LogisticaCombustivel";
+import { RanchoLogistica } from './RanchoLogistica';
 import { ApagarButton } from "@/components/ApagarButton"
 
-export function Combustivel() {
-    const [registroCombustivel, setRegistroCombustivel] = useState<CombustivelProps[]>([])
-    const [registroEntradaSaidaCombustivel, setRegistroEntradaSaidaCombustivel] = useState<LogisticaCombustivelProps[]>([])
+export function Rancho() {
+    const [registroRancho, setRegistroRancho] = useState<CombustivelProps[]>([])
+    const [registroEntradaSaidaRancho, setRegistroEntradaSaidaRancho] = useState<LogisticaCombustivelProps[]>([])
     const [qntRegistros, setQntRegistros] = useState(30)
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        var registros = localStorage.getItem("logisticaCombustivel")
-        var registrosEntradaSaida = localStorage.getItem("logisticaEntradaSaidaCombustivel")
+        var registros = localStorage.getItem("logisticaRancho")
+        var registrosEntradaSaida = localStorage.getItem("logisticaEntradaSaidaRancho")
         if (registros !== null) {
-            setRegistroCombustivel(JSON.parse(registros))
+            setRegistroRancho(JSON.parse(registros))
         }
         if (registrosEntradaSaida !== null) {
-            setRegistroEntradaSaidaCombustivel(JSON.parse(registrosEntradaSaida))
+            setRegistroEntradaSaidaRancho(JSON.parse(registrosEntradaSaida))
         }
     }, [])
 
     useEffect(() => {
-        localStorage.setItem("logisticaCombustivel", JSON.stringify(registroCombustivel))
-    }, [registroCombustivel])
+        localStorage.setItem("logisticaRancho", JSON.stringify(registroRancho))
+    }, [registroRancho])
     useEffect(() => {
-        localStorage.setItem("logisticaEntradaSaidaCombustivel", JSON.stringify(registroEntradaSaidaCombustivel))
-    }, [registroEntradaSaidaCombustivel])
+        localStorage.setItem("logisticaEntradaSaidaRancho", JSON.stringify(registroEntradaSaidaRancho))
+    }, [registroEntradaSaidaRancho])
     
 
 
@@ -44,15 +44,15 @@ export function Combustivel() {
 
     function exportRegistrosCombustivel() {
         setLoading(true);
-        var fileName = `${new Date().toLocaleString() + "-" + "DadosCombustiveis"}.comb`;
-        var fileName2 = `${new Date().toLocaleString() + "-" + "DadosEntradaSaidaCombustivel"}.regComb`;
+        var fileName = `${new Date().toLocaleString() + "-" + "DadosRancho"}.rancho`;
+        var fileName2 = `${new Date().toLocaleString() + "-" + "DadosEntradaSaidaRancho"}.regRancho`;
 
         // Create a blob of the data
-        var fileToSave = new Blob([JSON.stringify(registroCombustivel)], {
-            type: 'application/comb'
+        var fileToSave = new Blob([JSON.stringify(registroRancho)], {
+            type: 'application/rancho'
         });
-        var fileToSave2 = new Blob([JSON.stringify(registroEntradaSaidaCombustivel)], {
-            type: 'application/regComb'
+        var fileToSave2 = new Blob([JSON.stringify(registroEntradaSaidaRancho)], {
+            type: 'application/regRancho'
         });
 
         // Save the file
@@ -62,11 +62,11 @@ export function Combustivel() {
     }
     const apagarRegistros = () => {
         localStorage.clear()
-        setRegistroCombustivel([])
-        setRegistroEntradaSaidaCombustivel([])
+        setRegistroRancho([])
+        setRegistroEntradaSaidaRancho([])
     }
 
-    function importaRegistrosEntradaSaidaCombustivel(e: React.ChangeEvent<HTMLInputElement>) {
+    function importaRegistrosEntradaSaidaRancho(e: React.ChangeEvent<HTMLInputElement>) {
         setLoading(true);
         if (e.target.files !== null) {
             var reader = new FileReader();
@@ -76,17 +76,17 @@ export function Combustivel() {
             reader.readAsText(files)
         }
         function logFile(e: any) {
-            setRegistroEntradaSaidaCombustivel(JSON.parse(e.target.result))
+            setRegistroEntradaSaidaRancho(JSON.parse(e.target.result))
         }
         try {
-            const registros = JSON.stringify([...registroEntradaSaidaCombustivel])
-            setRegistroEntradaSaidaCombustivel(JSON.parse(registros))
+            const registros = JSON.stringify([...registroEntradaSaidaRancho])
+            setRegistroEntradaSaidaRancho(JSON.parse(registros))
             async () => await new Promise((resolve) => {
                 setTimeout(() => {
-                    resolve(localStorage.setItem("logisticaEntradaSaidaCombustivel", registros));
+                    resolve(localStorage.setItem("logisticaEntradaSaidaRancho", registros));
                 }, 300);
             })
-            toast.success("Dados referente a entrada e saída de combustíveis importado com sucesso!", {
+            toast.success("Dados referente a entrada e saída de rancho importado com sucesso!", {
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
             });
@@ -109,17 +109,17 @@ export function Combustivel() {
             reader.readAsText(files)
         }
         function logFile(e: any) {
-            setRegistroCombustivel(JSON.parse(e.target.result))
+            setRegistroRancho(JSON.parse(e.target.result))
         }
-        const registros = JSON.stringify(registroCombustivel)
+        const registros = JSON.stringify(registroRancho)
         // setRegistroCombustivel(JSON.parse(registros))
         try {
             async () => await new Promise((resolve) => {
                 setTimeout(async () => {
-                    resolve(localStorage.setItem("logisticaCombustivel", registros));
+                    resolve(localStorage.setItem("logisticaRancho", registros));
                 }, 2000);
             })
-            toast.success("Dados referente aos combustíveis importado com sucesso!", {
+            toast.success("Dados referente ao rancho importado com sucesso!", {
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
             });
@@ -143,11 +143,11 @@ export function Combustivel() {
             setLoading(false);
         } else {
             try {
-                const registros = JSON.stringify([...registroCombustivel, formData])
-                setRegistroCombustivel(JSON.parse(registros));
+                const registros = JSON.stringify([...registroRancho, formData])
+                setRegistroRancho(JSON.parse(registros));
                 await new Promise((resolve) => {
                     setTimeout(() => {
-                        resolve(localStorage.setItem("logisticaCombustivel", registros));
+                        resolve(localStorage.setItem("logisticaRancho", registros));
                     }, 300);
                 })
                 toast.success("Registrado com sucesso!", {
@@ -179,7 +179,7 @@ export function Combustivel() {
         <div>
             <form onSubmit={handleSubmit} className="mb-4">
                 <div className="flex flex-1 items-center justify-center my-6 flex-col">
-                    <h1 className="text-green-600 font-bold uppercase text-xl">Controle de Meios Logísticos - Combustível</h1>
+                    <h1 className="text-green-600 font-bold uppercase text-xl">Controle de Meios Logísticos - Rancho</h1>
                     <p className="font-light text-white text-justify py-4">O Controle de Combustível é uma ferramenta criada para gerar um relatório do consumo e funcionamento de geradores, para auxiliar na gestão do combustível.</p>
                 </div>
                 <div className="grid grid-cols-3 gap-4 mb-4">
@@ -226,13 +226,13 @@ export function Combustivel() {
                                 Importar
                             </label>
                             <label htmlFor="fileRegistros" className="hover:bg-green-800 cursor-pointer bg-transparent border text-xs border-green-700 uppercase text-white py-2 px-6 rounded-md">
-                                <input id="fileRegistros" accept=".regComb" className="hidden" onChange={importaRegistrosEntradaSaidaCombustivel} type="file" />
+                                <input id="fileRegistros" accept=".regComb" className="hidden" onChange={importaRegistrosEntradaSaidaRancho} type="file" />
                                 Importar Registros
                             </label>
                         </div>}
                 </div>
                 <div className="flex items-center">
-                    <p className="text-white">Total registros: {registroCombustivel.length}</p>
+                    <p className="text-white">Total registros: {registroRancho.length}</p>
                 </div>
             </div>
             <div className="p-2">
@@ -261,7 +261,7 @@ export function Combustivel() {
                         </tr>
                     </thead>
                     <tbody className="">
-                        {registroCombustivel.map((registro, index) => (
+                        {registroRancho.map((registro, index) => (
                             <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {registro.id}
@@ -270,18 +270,18 @@ export function Combustivel() {
                                     {registro.tipo}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {(registroEntradaSaidaCombustivel?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                    {(registroEntradaSaidaRancho?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
                                             return total + (+item.quantidade);
                                         }, 0)) -
-                                    (registroEntradaSaidaCombustivel?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                    (registroEntradaSaidaRancho?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
                                         return total + (+item.quantidade);
-                                    }, 0))} l
+                                    }, 0))} kg
                                 </td>
                                 <td className="px-6 py-4">
-                                    {registro.total} l
+                                    {registro.total} kg
                                 </td>
                                 <td className="py-4">
-                                    <LogisticaCombustivel logistica={registroEntradaSaidaCombustivel} hookComb={setRegistroEntradaSaidaCombustivel} idComb={registro.id} tipo={registro.tipo} />
+                                    <RanchoLogistica logistica={registroEntradaSaidaRancho} hookComb={setRegistroEntradaSaidaRancho} idComb={registro.id} tipo={registro.tipo} />
                                 </td>
                             </tr>
                         )).slice(0, qntRegistros)}

@@ -140,7 +140,7 @@ export function LogisticaApoio() {
         <div>
             <form onSubmit={handleSubmit} className="mb-4">
                 <div className="flex flex-1 items-center justify-center my-6 flex-col">
-                    <h1 className="text-green-600 font-bold uppercase text-xl">Controle de Meios Logísticos</h1>
+                    <h1 className="text-green-600 font-bold uppercase text-xl">Controle de Meios Logísticos - PAA</h1>
                     <p className="font-light text-white text-justify py-4">O Controle de Combustível é uma ferramenta criada para gerar um relatório do consumo e funcionamento de geradores, para auxiliar na gestão do combustível.</p>
                 </div>
                 <div className="grid grid-cols-3 gap-4 mb-4">

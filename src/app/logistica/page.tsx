@@ -7,6 +7,7 @@ import { useState } from "react";
 import { MdOutlineFoodBank } from "react-icons/md";
 import { PiAirplane, PiEngine } from "react-icons/pi";
 import { LuFuel } from "react-icons/lu";
+import { Rancho } from "@/components/logistica/rancho/Rancho";
 
 export default function Logistica() {
     const [component, setComponent] = useState(<CalcCombustivelViatura />)
@@ -16,7 +17,7 @@ export default function Logistica() {
             case 'combustivel':
                 return setComponent(<Combustivel />)
             case 'rancho':
-                return setComponent(<LogisticaApoio />)
+                return setComponent(<Rancho />)
             case 'apoio':
                 return setComponent(<LogisticaApoio />)
             default:
