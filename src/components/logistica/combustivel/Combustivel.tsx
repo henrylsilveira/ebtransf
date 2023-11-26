@@ -235,9 +235,7 @@ export function Combustivel() {
                                 Importar Registros
                             </label>
                         </div>}
-
                 </div>
-
                 <div className="flex items-center">
                     <p className="text-white">Total registros: {registroCombustivel.length}</p>
                 </div>
@@ -267,7 +265,7 @@ export function Combustivel() {
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="">
                         {registroCombustivel.map((registro, index) => (
                             <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -288,7 +286,7 @@ export function Combustivel() {
                                     {registro.total} l
                                 </td>
                                 <td className="py-4">
-                                    <LogisticaCombustivel logistica={registroEntradaSaidaCombustivel} idComb={registro.id} tipo={registro.tipo} />
+                                    <LogisticaCombustivel logistica={registroEntradaSaidaCombustivel} hookComb={setRegistroEntradaSaidaCombustivel} idComb={registro.id} tipo={registro.tipo} />
                                 </td>
                             </tr>
                         )).slice(0, qntRegistros)}

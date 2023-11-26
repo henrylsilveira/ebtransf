@@ -23,7 +23,9 @@ export function ApagarButton({funcApagar}: {funcApagar: () => void}){
                         Você tem certeza que deseja apagar todos os dados salvos no navegador? Serão apagados todos os dados de Apoio , Rancho e Combustível.
                     </AlertDialog.Description>
                     <div className="w-full flex justify-center items-center">
+                        <AlertDialog.Cancel className="w-full">
                         <button type="button" onClick={funcApagar} className="hover:bg-red-800 items-center justify-center text-md w-full bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md flex"><MdOutlineClose className="w-5 h-5" />Sim</button>
+                        </AlertDialog.Cancel>
                     </div>
                 </AlertDialog.Content>
             </AlertDialog.Portal>

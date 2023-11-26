@@ -64,7 +64,6 @@ export function LogisticaApoio() {
             reader.readAsText(files)
         }
         function logFile(e: any) {
-            console.log(JSON.parse(e.target.result))
             setLogisticaApoio(JSON.parse(e.target.result))
         }
         try {
@@ -169,7 +168,7 @@ export function LogisticaApoio() {
                             <label htmlFor="peso" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Peso Total</label>
                         </div>
                     </div>
-                    
+
                 </div>
                 {loading
                     ? <div className="border-t flex justify-center border-green-700 mt-4 pt-4">
@@ -198,17 +197,15 @@ export function LogisticaApoio() {
                                 Importar
                             </label>
                         </div>}
-
                 </div>
-
                 <div className="flex items-center">
                     <p className="text-white">Total registros: {logisticaApoio.length}</p>
                 </div>
             </div>
             <div className="p-2">
-                <p className="text-red-600">Importante</p> 
+                <p className="text-red-600">Importante</p>
                 <p className="text-gray-400">Mantenha sempre seus dados salvos em um arquivo clicando em exportar para fazer o download pois todos os dados são armazenados no seu navegador localmente não tendo acesso em outros computadores. Caso queira importar um arquivo saiba que esse irá sobrescrever os que já existem. Caso queira visualizar outro arquivo clique em visualizar.</p>
-                </div>
+            </div>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
@@ -229,7 +226,7 @@ export function LogisticaApoio() {
                                 Peso Total
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                
+
                             </th>
                         </tr>
                     </thead>
@@ -252,7 +249,7 @@ export function LogisticaApoio() {
                                     {registro.peso}
                                 </td>
                                 <td className="py-4">
-                                    <Material materiais={logisticaApoioMaterial} id={registro.id} />
+                                    <Material materiais={logisticaApoioMaterial} id={registro.id} hookMat={setLogisticaApoioMaterial} />
                                 </td>
                             </tr>
                         )).slice(0, qntRegistros)}

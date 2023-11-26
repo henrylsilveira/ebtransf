@@ -1,15 +1,13 @@
-import loading from "@/app/loading";
-import { ConsumoGeradorProps, LogisticaApoioProps, MaterialProps } from "@/types/types";
+import { MaterialProps } from "@/types/types";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { nanoid } from "nanoid";
 import { useState } from "react";
-import { BiMessageAltDetail } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { MdOutlineClose } from "react-icons/md";
 import { Loader } from "../../Loader/Loader";
 import { toast } from "react-toastify";
 
-export function Material({ materiais, id }: { materiais: MaterialProps[], id: string }) {
+export function Material({ materiais, id, hookMat }: { materiais: MaterialProps[], id: string, hookMat: Function }) {
     // const [visualizarRegistrosMateriais, setVisualizarRegistrosCombustivel] = useState<ConsumoGeradorProps[]>([])
     const [loading, setLoading] = useState(false);
     const [qntRegistros, setQntRegistros] = useState(30)
@@ -34,6 +32,7 @@ export function Material({ materiais, id }: { materiais: MaterialProps[], id: st
         } else {
             try {
                 const registros = JSON.stringify([...materiais, formData])
+                hookMat([...materiais, formData])
                 await new Promise((resolve) => {
                     setTimeout(() => {
                         resolve(localStorage.setItem("logisticaApoioMaterial", registros));
@@ -87,7 +86,7 @@ export function Material({ materiais, id }: { materiais: MaterialProps[], id: st
             </AlertDialog.Trigger>
             <AlertDialog.Portal>
                 <AlertDialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
-                <AlertDialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[180vw] max-w-[800px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-backgroundColor border border-green-700 p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+                <AlertDialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[100vh] w-[180vw] max-w-[800px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-backgroundColor border border-green-700 p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
                     <AlertDialog.Title className="text-green-700 m-0 text-2xl font-medium">
                         Registro de Materiais da Aeronave
                     </AlertDialog.Title>
@@ -134,7 +133,7 @@ export function Material({ materiais, id }: { materiais: MaterialProps[], id: st
                                 <button type="submit" className="hover:bg-green-800 bg-transparent border w-full text-xs border-green-700 uppercase text-white py-2 px-6 rounded-md">Registrar</button>
                             </div>}
                     </form>
-                    <div className="table-wrp block max-h-96 shadow-md sm:rounded-lg">
+                    
                         {/* <div className="flex flex-1 justify-between pb-2 gap-4">
                             <label htmlFor="fileVisualizar" className="hover:bg-orange-800 cursor-pointer block bg-transparent border text-sm border-orange-700 uppercase text-white py-2 px-6 rounded-md">
                                 <input id="fileVisualizar" className="hidden" onChange={VisualizarRegistrosCombustivel} type="file" />
@@ -144,76 +143,83 @@ export function Material({ materiais, id }: { materiais: MaterialProps[], id: st
                                 Apagar
                             </button>
                         </div> */}
-                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                            <thead className="text-xs sticky text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
-                                <tr>
-                                    <th scope="col" className="px-6 py-3">
-                                        Id Item
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Código Aeronave
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Nome do Material
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Destinatário
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Peso
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
+                        <div className="my-2 flex justify-center w-full">
+                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <thead className="text-xs sticky text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
+                                    <div className="w-full">
+                                        <tr className="w-full flex flex-wrap justify-between flex-row flex-1 items-center">
+                                            <th scope="col" className="px-6 py-3 w-1/5">
+                                                Id Item
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 w-1/5">
+                                                Código Aeronave
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 w-1/5">
+                                                Nome do Material
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 w-1/5">
+                                                Destinatário
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 w-1/5">
+                                                Peso
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 w-1/5">
 
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody className="overflow-y-auto">
-                                {materiais?.filter(material => material.codigoLogistica === id).map((material, index) => (
-                                    <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 dark:hover:bg-green-700/30 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                        <th scope="row" className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {material.id}
+                                            </th>
+                                        </tr>
+                                    </div>
+                                </thead>
+                                <tbody >
+                                    <div className="w-full overflow-y-scroll max-h-96">
+                                        {materiais?.filter(material => material.codigoLogistica === id).map((material, index) => (
+                                            <tr key={index} className="w-full flex flex-wrap justify-between odd:bg-white odd:dark:bg-gray-900 dark:hover:bg-green-700/30 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                                <th scope="col" className="px-6 py-1 w-1/5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {material.id}
+                                                </th>
+                                                <td scope="col" className="px-6 py-1 w-1/5">
+                                                    {id}
+                                                </td>
+                                                <td scope="col" className="px-6 py-1 w-1/5">
+                                                    {material.nome}
+                                                </td>
+                                                <td scope="col" className="px-6 py-1 w-1/5">
+                                                    {material.destinatario}
+                                                </td>
+                                                <td scope="col" className="px-6 py-1 w-1/5">
+                                                    {material.peso} Kg
+                                                </td>
+                                                <td scope="col" className="px-6 py-1 w-1/5">
+
+                                                </td>
+                                            </tr>
+                                        ))}
+
+                                    </div>
+
+                                    <tr className="odd:bg-white w-full flex flex-wrap justify-between odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                        <th scope="row" className="px-6 py-2 w-1/5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            Total
                                         </th>
-                                        <td className="px-6 py-2">
-                                            {id}
+                                        <td className="px-6 w-1/5">
                                         </td>
-                                        <td className="px-6 py-2">
-                                            {material.nome}
+                                        <td className="px-6 w-1/5">
                                         </td>
-                                        <td className="px-6 py-2">
-                                            {material.destinatario}
+                                        <td className="px-6 w-1/5">
                                         </td>
-                                        <td className="px-6 py-2">
-                                            {material.peso} Kg
+                                        <td className="px-6 w-1/5">
+                                            {materiais?.filter(material => material.codigoLogistica === id).reduce((total: number, item: MaterialProps) => {
+                                                return total + (+item.peso);
+                                            }, 0) + "kg"}
                                         </td>
-                                        <td className="px-6 py-2">
-
+                                        <td className="px-6 w-1/5">
                                         </td>
                                     </tr>
-                                ))}
-
-                                <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                    <th scope="row" className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Total
-                                    </th>
-                                    <td className="px-6 py-2">
-                                    </td>
-                                    <td className="px-6 py-2">
-                                    </td>
-                                    <td className="px-6 py-2">
-                                    </td>
-                                    <td className="px-6 py-2">
-                                        {materiais?.filter(material => material.codigoLogistica === id).reduce((total: number, item: MaterialProps) => {
-                                            return total + (+item.peso);
-                                        }, 0) + "kg"}
-                                    </td>
-                                    <td className="px-6 py-2">
-                                    </td>
-                                </tr>
 
 
-                            </tbody>
-                        </table>
-                    </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    
                 </AlertDialog.Content>
             </AlertDialog.Portal>
         </AlertDialog.Root>
