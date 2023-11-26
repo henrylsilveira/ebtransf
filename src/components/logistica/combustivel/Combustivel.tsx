@@ -36,7 +36,7 @@ export function Combustivel() {
 
 
     const [formData, setFormData] = useState<CombustivelProps>({
-        id: nanoid(4),
+        id: "",
         quantidade: 0,
         tipo: "",
         total: 0,
@@ -109,7 +109,6 @@ export function Combustivel() {
             reader.readAsText(files)
         }
         function logFile(e: any) {
-            console.log(JSON.parse(e.target.result))
             setRegistroCombustivel(JSON.parse(e.target.result))
         }
         const registros = JSON.stringify(registroCombustivel)
@@ -172,6 +171,7 @@ export function Combustivel() {
     ) => {
         setFormData({
             ...formData,
+            id: nanoid(4),
             [event.target.name]: event.target.value,
         });
     };
