@@ -47,5 +47,25 @@ export type CombustivelProps = {
     logistica?: LogisticaCombustivelProps[];
 }
 
+export type InstalacaoLogisticaProps = {
+    id: string;
+    nomeInsta: string;
+    combustivel: {};
+    farmacia: {};
+    rancho: {};
+    apoio: {}
+}
+
+export type DadosBancoProps = {
+    combustivel: {
+        tiposCombustivel: CombustivelProps[],
+        registroEntradaSaida: LogisticaCombustivelProps[],
+    };
+    farmacia: {};
+    rancho: {};
+    id: string;
+    nomeInsta: string;
+}
+
 
 

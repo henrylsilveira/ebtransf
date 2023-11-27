@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { LogisticaCombustivelProps } from "@/types/types";
 import saveAs from "file-saver";
 
-export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { logistica: LogisticaCombustivelProps[], idComb: string, tipo: string, hookComb: Function }) {
+export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { logistica: LogisticaCombustivelProps[], idComb: string, tipo: string, hookComb?: Function }) {
     // const [visualizarRegistrosCombustivel, setVisualizarRegistrosCombustivel] = useState<ConsumoGeradorProps[]>([])
     const [loading, setLoading] = useState(false);
     const [qntRegistros, setQntRegistros] = useState(30)
@@ -50,7 +50,10 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
             try {
 
                 const registros = JSON.stringify([...logistica, formData])
-                hookComb([...logistica, formData])
+                if(hookComb) {
+                    hookComb([...logistica, formData])
+                }
+
                 await new Promise((resolve) => {
                     setTimeout(() => {
                         resolve(localStorage.setItem("logisticaEntradaSaidaCombustivel", registros));
@@ -82,19 +85,6 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
         });
     };
 
-    function VisualizarRegistrosCombustivel(e: React.ChangeEvent<HTMLInputElement>) {
-
-        if (e.target.files !== null) {
-            var reader = new FileReader();
-            const files = e.target.files[0]
-            reader.onload = logFile;
-            reader.readAsText(files)
-        }
-        function logFile(e: any) {
-            console.log(JSON.parse(e.target.result))
-            // setVisualizarRegistrosCombustivel(JSON.parse(e.target.result))
-        }
-    }
     return (
         <AlertDialog.Root>
             <AlertDialog.Trigger asChild>

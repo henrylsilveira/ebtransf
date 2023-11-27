@@ -50,7 +50,7 @@ export function ConsumoGerador() {
             reader.readAsText(files)
         }
         function logFile(e: any) {
-            console.log(JSON.parse(e.target.result))
+
             setRegistrosCombustivel(JSON.parse(e.target.result))
         }
         try {

@@ -8,12 +8,25 @@ import { MdOutlineClose } from "react-icons/md";
 import { nanoid } from 'nanoid'
 import { LogisticaCombustivel } from "./LogisticaCombustivel";
 import { ApagarButton } from "@/components/ApagarButton"
+import { EnviarDados } from "@/components/EnviarDados"
 
-export function Combustivel() {
+export function Combustivel({ enviar }: {
+    enviar: (data: {
+        data: {},
+        tipo: string;
+        id: string;
+    }) => void
+}) {
     const [registroCombustivel, setRegistroCombustivel] = useState<CombustivelProps[]>([])
     const [registroEntradaSaidaCombustivel, setRegistroEntradaSaidaCombustivel] = useState<LogisticaCombustivelProps[]>([])
     const [qntRegistros, setQntRegistros] = useState(30)
     const [loading, setLoading] = useState(false);
+
+    const newArray = registroCombustivel?.filter(registro => registroEntradaSaidaCombustivel?.filter(registroE =>
+        registro.id === registroE.idCombustivel ? registro.logistica?.push(registroE) : null
+    ))
+    console.log(newArray)
+
 
     useEffect(() => {
         var registros = localStorage.getItem("logisticaCombustivel")
@@ -32,8 +45,6 @@ export function Combustivel() {
     useEffect(() => {
         localStorage.setItem("logisticaEntradaSaidaCombustivel", JSON.stringify(registroEntradaSaidaCombustivel))
     }, [registroEntradaSaidaCombustivel])
-    
-
 
     const [formData, setFormData] = useState<CombustivelProps>({
         id: "",
@@ -71,7 +82,6 @@ export function Combustivel() {
         if (e.target.files !== null) {
             var reader = new FileReader();
             const files = e.target.files[0]
-            console.log(files.type)
             reader.onload = logFile;
             reader.readAsText(files)
         }
@@ -101,7 +111,7 @@ export function Combustivel() {
 
     function importaRegistrosCombustivel(e: React.ChangeEvent<HTMLInputElement>) {
         setLoading(true);
-        
+
         if (e.target.files !== null) {
             var reader = new FileReader();
             const files = e.target.files[0]
@@ -175,6 +185,8 @@ export function Combustivel() {
             [event.target.name]: event.target.value,
         });
     };
+
+
     return (
         <div>
             <form onSubmit={handleSubmit} className="mb-4">
@@ -190,7 +202,7 @@ export function Combustivel() {
                             <label htmlFor="tipo" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tipo</label>
                         </div>
                     </div>
-                    
+
                     <div>
                         <div className="relative z-0 w-full group flex items-center">
                             <input type="number" name="total" onChange={handleChange} id="total" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
@@ -229,6 +241,11 @@ export function Combustivel() {
                                 <input id="fileRegistros" accept=".regComb" className="hidden" onChange={importaRegistrosEntradaSaidaCombustivel} type="file" />
                                 Importar Registros
                             </label>
+                            <EnviarDados enviarFunc={enviar} data={{
+                                tiposCombustivel: registroCombustivel,
+                                registroEntradaSaida: registroEntradaSaidaCombustivel
+                            }} tipo="combustivel" />
+
                         </div>}
                 </div>
                 <div className="flex items-center">
@@ -271,11 +288,11 @@ export function Combustivel() {
                                 </td>
                                 <td className="px-6 py-4">
                                     {(registroEntradaSaidaCombustivel?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                            return total + (+item.quantidade);
-                                        }, 0)) -
-                                    (registroEntradaSaidaCombustivel?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
                                         return total + (+item.quantidade);
-                                    }, 0))} l
+                                    }, 0)) -
+                                        (registroEntradaSaidaCombustivel?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                            return total + (+item.quantidade);
+                                        }, 0))} l
                                 </td>
                                 <td className="px-6 py-4">
                                     {registro.total} l
@@ -285,25 +302,6 @@ export function Combustivel() {
                                 </td>
                             </tr>
                         )).slice(0, qntRegistros)}
-                        {/* <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Total
-                            </th>
-                            <td className="px-6 py-4">
-
-                            </td>
-                            <td className="px-6 py-4">
-
-                            </td>
-                            <td className="px-6 py-4">
-                                {registroCombustivel.reduce((total, item) => {
-                                    return total + (+item.peso);
-                                }, 0) + "kg"}
-                            </td>
-                            <td className="px-6 py-4">
-
-                            </td>
-                        </tr> */}
                     </tbody>
                 </table>
             </div>

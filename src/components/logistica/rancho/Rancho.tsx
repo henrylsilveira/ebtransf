@@ -8,8 +8,11 @@ import { MdOutlineClose } from "react-icons/md";
 import { nanoid } from 'nanoid'
 import { RanchoLogistica } from './RanchoLogistica';
 import { ApagarButton } from "@/components/ApagarButton"
+import { EnviarDados } from "@/components/EnviarDados"
 
-export function Rancho() {
+export function Rancho({ enviar }: { enviar: (data: {data: {},
+    tipo:string;
+    id:string;}) => void }) {
     const [registroRancho, setRegistroRancho] = useState<CombustivelProps[]>([])
     const [registroEntradaSaidaRancho, setRegistroEntradaSaidaRancho] = useState<LogisticaCombustivelProps[]>([])
     const [qntRegistros, setQntRegistros] = useState(30)
@@ -71,7 +74,7 @@ export function Rancho() {
         if (e.target.files !== null) {
             var reader = new FileReader();
             const files = e.target.files[0]
-            console.log(files.type)
+
             reader.onload = logFile;
             reader.readAsText(files)
         }
@@ -229,6 +232,10 @@ export function Rancho() {
                                 <input id="fileRegistros" accept=".regComb" className="hidden" onChange={importaRegistrosEntradaSaidaRancho} type="file" />
                                 Importar Registros
                             </label>
+                            <EnviarDados enviarFunc={enviar} data={{
+                                tiposRancho: registroRancho,
+                                registroEntradaSaida: registroEntradaSaidaRancho
+                            }} tipo="rancho" />
                         </div>}
                 </div>
                 <div className="flex items-center">

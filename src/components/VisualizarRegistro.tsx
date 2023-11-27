@@ -16,7 +16,7 @@ export function VisualizarRegistro() {
             reader.readAsText(files)
         }
         function logFile(e: any) {
-            console.log(JSON.parse(e.target.result))
+
             setVisualizarRegistrosCombustivel(JSON.parse(e.target.result))
         }
     }

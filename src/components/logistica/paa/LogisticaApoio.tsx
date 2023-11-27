@@ -8,8 +8,11 @@ import { MdOutlineClose } from "react-icons/md";
 import { nanoid } from 'nanoid'
 import { Material } from "./Material";
 import { ApagarButton } from "@/components/ApagarButton";
+import { EnviarDados } from "@/components/EnviarDados";
 
-export function LogisticaApoio() {
+export function LogisticaApoio({ enviar }: { enviar: (data: {data: {},
+    tipo:string;
+    id:string;}) => void }) {
     const [logisticaApoio, setLogisticaApoio] = useState<LogisticaApoioProps[]>([])
     const [logisticaApoioMaterial, setLogisticaApoioMaterial] = useState<MaterialProps[]>([])
     const [qntRegistros, setQntRegistros] = useState(30)
@@ -44,15 +47,20 @@ export function LogisticaApoio() {
 
     async function exportRegistrosCombustivel() {
         setLoading(true);
-        var fileName = `${new Date().toLocaleString() + "-" + "logisticaApoio"}.json`;
+        var fileName = `${new Date().toLocaleString() + "-" + "logisticaApoio"}.logApoio`;
+        var fileName2 = `${new Date().toLocaleString() + "-" + "logisticaApoioMaterial"}.logApoioMat`;
 
         // Create a blob of the data
         var fileToSave = new Blob([JSON.stringify(logisticaApoio)], {
-            type: 'application/json'
+            type: 'application/logApoio'
+        });
+        var fileToSave2 = new Blob([JSON.stringify(logisticaApoioMaterial)], {
+            type: 'application/logApoioMat'
         });
 
         // Save the file
         saveAs(fileToSave, fileName);
+        saveAs(fileToSave2, fileName2);
         setLoading(false);
     }
     async function importaRegistrosCombustivel(e: React.ChangeEvent<HTMLInputElement>) {
@@ -196,6 +204,10 @@ export function LogisticaApoio() {
                                 <input id="file" className="hidden" onChange={importaRegistrosCombustivel} type="file" />
                                 Importar
                             </label>
+                            <EnviarDados enviarFunc={enviar} data={{
+                                tiposMaterial: logisticaApoio,
+                                registroEntradaSaida: logisticaApoioMaterial
+                            }} tipo="apoio" />
                         </div>}
                 </div>
                 <div className="flex items-center">

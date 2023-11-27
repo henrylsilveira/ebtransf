@@ -8,22 +8,59 @@ import { MdOutlineFoodBank } from "react-icons/md";
 import { PiAirplane, PiEngine } from "react-icons/pi";
 import { LuFuel } from "react-icons/lu";
 import { Rancho } from "@/components/logistica/rancho/Rancho";
+import { Instalacao } from "@/components/logistica/instalacao/Instalacao";
+import { toast } from "react-toastify";
+import { api } from "@/services/axios";
 
 export default function Logistica() {
-    const [component, setComponent] = useState(<CalcCombustivelViatura />)
+    const [component, setComponent] = useState(<Instalacao />)
 
     function handleSwitchCalculation(tipo: string) {
         switch (tipo) {
             case 'combustivel':
-                return setComponent(<Combustivel />)
+                return setComponent(<Combustivel enviar={atualizarBancoDados} />)
             case 'rancho':
-                return setComponent(<Rancho />)
+                return setComponent(<Rancho enviar={atualizarBancoDados} />)
             case 'apoio':
-                return setComponent(<LogisticaApoio />)
+                return setComponent(<LogisticaApoio enviar={atualizarBancoDados} />)
             default:
                 break;
         }
     }
+
+    async function atualizarBancoDados(data: {
+        data: {},
+        tipo:string;
+        id:string;
+    }) {
+        
+        if (data.data == false || data.tipo == "" || data.id == "") {
+            toast.info("Informe o Token!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+            
+        } else {
+             try {
+            await new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(api.put("/instalacao", {data}));
+                }, 300);
+            })
+            toast.success("Registros salvos no banco com sucesso!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        } catch (error) {
+            toast.error("Erro no envio do registro!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        }
+        }
+       
+    }
+
     return (
         <>
             <title>EBCalc - Ferramenta de Logística</title>
@@ -44,20 +81,20 @@ export default function Logistica() {
                 <div className="mb-8">
                     <div className="sm:hidden">
                         <select id="tabs" onChange={(e) => handleSwitchCalculation(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value='combustivel'>Rancho</option>
+                            <option value='combustivel'>Combustível</option>
                             <option value='rancho'>Rancho</option>
                             <option value='apoio'>Apoio</option>
                         </select>
                     </div>
                     <ul className="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400">
                         <li className="w-full hover:text-green-600 text-white">
-                            <button onClick={() => handleSwitchCalculation('combustivel')} className={(component == <LogisticaApoio /> ? 'active' : '') + "w-full p-4  bg-gray-100 gap-2 rounded-l-lg flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><LuFuel />Combustivel</button>
+                            <button onClick={() => handleSwitchCalculation('combustivel')} className={(component == <Combustivel enviar={atualizarBancoDados} /> ? 'active' : '') + "w-full p-4  bg-gray-100 gap-2 rounded-l-lg flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><LuFuel />Combustivel</button>
                         </li>
                         <li className="w-full hover:text-green-600 text-white">
-                            <button onClick={() => handleSwitchCalculation('rancho')} className={(component == <LogisticaApoio /> ? 'active' : '') + "w-full p-4  bg-gray-100 gap-2 flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><MdOutlineFoodBank />Rancho</button>
+                            <button onClick={() => handleSwitchCalculation('rancho')} className={(component == <Rancho enviar={atualizarBancoDados} /> ? 'active' : '') + "w-full p-4  bg-gray-100 gap-2 flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><MdOutlineFoodBank />Rancho</button>
                         </li>
                         <li className="w-full hover:text-green-600 text-white">
-                            <button onClick={() => handleSwitchCalculation('apoio')} className={(component == <LogisticaApoio /> ? 'active' : '') + "w-full p-4 bg-white rounded-r-lg gap-2 focus:ring-2 flex items-center focus:outline-none justify-center focus:ring-green-600 dark:border dark:border-gray-500  dark:bg-transparent"}><PiAirplane />Apoio</button>
+                            <button onClick={() => handleSwitchCalculation('apoio')} className={(component == <LogisticaApoio enviar={atualizarBancoDados} /> ? 'active' : '') + "w-full p-4 bg-white rounded-r-lg gap-2 focus:ring-2 flex items-center focus:outline-none justify-center focus:ring-green-600 dark:border dark:border-gray-500  dark:bg-transparent"}><PiAirplane />Apoio</button>
                         </li>
                     </ul>
                 </div>

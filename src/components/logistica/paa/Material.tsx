@@ -64,19 +64,6 @@ export function Material({ materiais, id, hookMat }: { materiais: MaterialProps[
         });
     };
 
-    function VisualizarRegistrosCombustivel(e: React.ChangeEvent<HTMLInputElement>) {
-
-        if (e.target.files !== null) {
-            var reader = new FileReader();
-            const files = e.target.files[0]
-            reader.onload = logFile;
-            reader.readAsText(files)
-        }
-        function logFile(e: any) {
-            console.log(JSON.parse(e.target.result))
-            // setVisualizarRegistrosCombustivel(JSON.parse(e.target.result))
-        }
-    }
     return (
         <AlertDialog.Root>
             <AlertDialog.Trigger asChild>
