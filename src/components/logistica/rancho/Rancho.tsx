@@ -1,5 +1,5 @@
 'use client'
-import { CombustivelProps, LogisticaApoioProps, LogisticaCombustivelProps } from "@/types/types"
+import { CombustivelProps, LogisticaApoioProps, LogisticaCombustivelProps, LogisticaRanchoProps, RanchoProps } from "@/types/types"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { Loader } from "../../Loader/Loader"
@@ -10,13 +10,18 @@ import { RanchoLogistica } from './RanchoLogistica';
 import { ApagarButton } from "@/components/ApagarButton"
 import { EnviarDados } from "@/components/EnviarDados"
 
-export function Rancho({ enviar }: { enviar: (data: {data: {},
-    tipo:string;
-    id:string;}) => void }) {
-    const [registroRancho, setRegistroRancho] = useState<CombustivelProps[]>([])
-    const [registroEntradaSaidaRancho, setRegistroEntradaSaidaRancho] = useState<LogisticaCombustivelProps[]>([])
+export function Rancho({ enviar }: {
+    enviar: (data: {
+        data: {},
+        tipo: string;
+        id: string;
+    }) => void
+}) {
+    const [registroRancho, setRegistroRancho] = useState<RanchoProps[]>([])
+    const [registroEntradaSaidaRancho, setRegistroEntradaSaidaRancho] = useState<LogisticaRanchoProps[]>([])
     const [qntRegistros, setQntRegistros] = useState(30)
     const [loading, setLoading] = useState(false);
+    const [efetivoTotal, setEfetivoTotal] = useState(0);
 
     useEffect(() => {
         var registros = localStorage.getItem("logisticaRancho")
@@ -35,12 +40,13 @@ export function Rancho({ enviar }: { enviar: (data: {data: {},
     useEffect(() => {
         localStorage.setItem("logisticaEntradaSaidaRancho", JSON.stringify(registroEntradaSaidaRancho))
     }, [registroEntradaSaidaRancho])
-    
 
 
-    const [formData, setFormData] = useState<CombustivelProps>({
+
+    const [formData, setFormData] = useState<RanchoProps>({
         id: "",
         quantidade: 0,
+        valorEtapa: 0,
         tipo: "",
         total: 0,
     });
@@ -104,7 +110,7 @@ export function Rancho({ enviar }: { enviar: (data: {data: {},
 
     function importaRegistrosCombustivel(e: React.ChangeEvent<HTMLInputElement>) {
         setLoading(true);
-        
+
         if (e.target.files !== null) {
             var reader = new FileReader();
             const files = e.target.files[0]
@@ -186,14 +192,20 @@ export function Rancho({ enviar }: { enviar: (data: {data: {},
                     <p className="font-light text-white text-justify py-4">O Controle de Combustível é uma ferramenta criada para gerar um relatório do consumo e funcionamento de geradores, para auxiliar na gestão do combustível.</p>
                 </div>
                 <div className="grid grid-cols-3 gap-4 mb-4">
-
-                    <div>
+                    <div className="flex flex-col">
                         <div className="relative z-0 w-full group flex items-center">
                             <input type="text" name="tipo" onChange={handleChange} id="tipo" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                             <label htmlFor="tipo" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tipo</label>
                         </div>
+                        <span className="text-xs text-gray-600">Ex: Arroz, feijão</span>
                     </div>
-                    
+                    <div className="flex flex-col">
+                        <div className="relative z-0 w-full group flex items-center">
+                            <input type="number" name="valorEtapa" onChange={handleChange} id="valorEtapa" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                            <label htmlFor="valorEtapa" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Valor da Etapa</label>
+                        </div>
+                        <span className="text-xs text-gray-600">Valor em gramas</span>
+                    </div>
                     <div>
                         <div className="relative z-0 w-full group flex items-center">
                             <input type="number" name="total" onChange={handleChange} id="total" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
@@ -233,6 +245,7 @@ export function Rancho({ enviar }: { enviar: (data: {data: {},
                                 Importar Registros
                             </label>
                             <EnviarDados enviarFunc={enviar} data={{
+                                efetivo: efetivoTotal,
                                 tiposRancho: registroRancho,
                                 registroEntradaSaida: registroEntradaSaidaRancho
                             }} tipo="rancho" />
@@ -247,6 +260,13 @@ export function Rancho({ enviar }: { enviar: (data: {data: {},
                 <p className="text-gray-500">Mantenha sempre seus dados salvos em um arquivo clicando em exportar para fazer o download pois todos os dados são armazenados no seu navegador localmente não tendo acesso em outros computadores. Caso queira importar um arquivo saiba que esse irá sobrescrever os que já existem. Caso queira visualizar outro arquivo clique em visualizar.</p>
             </div>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="flex flex-col my-2 px-8">
+                    <div className="relative z-0 w-full group flex items-center">
+                        <input type="number" name="efetivo" onChange={e => setEfetivoTotal(Number(e.target.value))} id="efetivo" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                        <label htmlFor="efetivo" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Efetivo Total</label>
+                    </div>
+                    <span className="text-xs text-gray-600">Utilizado para calculo de etapa</span>
+                </div>
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
                         <tr>
@@ -261,6 +281,12 @@ export function Rancho({ enviar }: { enviar: (data: {data: {},
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Capacidade
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Valor Etapa
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Dias Restantes
                             </th>
                             <th scope="col" className="px-6 py-3">
 
@@ -278,14 +304,26 @@ export function Rancho({ enviar }: { enviar: (data: {data: {},
                                 </td>
                                 <td className="px-6 py-4">
                                     {(registroEntradaSaidaRancho?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                            return total + (+item.quantidade);
-                                        }, 0)) -
-                                    (registroEntradaSaidaRancho?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
                                         return total + (+item.quantidade);
-                                    }, 0))} kg
+                                    }, 0)) -
+                                        (registroEntradaSaidaRancho?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                            return total + (+item.quantidade);
+                                        }, 0))} kg
                                 </td>
                                 <td className="px-6 py-4">
                                     {registro.total} kg
+                                </td>
+                                <td className="px-6 py-4">
+                                    {registro.valorEtapa} g
+                                </td>
+                                <td className="px-6 py-4">
+                                    {(Number((
+                                        (registroEntradaSaidaRancho?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                            return total + (+item.quantidade);
+                                        }, 0)) -
+                                        (registroEntradaSaidaRancho?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                            return total + (+item.quantidade);
+                                        }, 0)))) * 1000 / (registro.valorEtapa * efetivoTotal)).toFixed(0) + " Dias"}
                                 </td>
                                 <td className="py-4">
                                     <RanchoLogistica logistica={registroEntradaSaidaRancho} hookComb={setRegistroEntradaSaidaRancho} idComb={registro.id} tipo={registro.tipo} />

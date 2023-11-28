@@ -47,6 +47,26 @@ export type CombustivelProps = {
     logistica?: LogisticaCombustivelProps[];
 }
 
+export type LogisticaRanchoProps = {
+    id: string;
+    idCombustivel: string;
+    tipo: "entrada" | "saida" | "";
+    finalidade?: string;
+    data: string;
+    quantidade: number;
+}
+
+export type RanchoProps = {
+    id: string;
+    tipo: string;
+    valorEtapa: number;
+    diasRestantes?: string;
+    efetivo?: number;
+    quantidade: number;
+    total: number;
+    logistica?: LogisticaCombustivelProps[];
+}
+
 export type InstalacaoLogisticaProps = {
     id: string;
     nomeInsta: string;
@@ -62,7 +82,11 @@ export type DadosBancoProps = {
         registroEntradaSaida: LogisticaCombustivelProps[],
     };
     farmacia: {};
-    rancho: {};
+    rancho: {
+        efetivo: number;
+        tiposRancho: RanchoProps[],
+        registroEntradaSaida: LogisticaRanchoProps[],
+    };
     id: string;
     nomeInsta: string;
 }
