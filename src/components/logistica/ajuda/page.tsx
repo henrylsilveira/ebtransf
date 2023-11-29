@@ -19,7 +19,7 @@ export function MenuAjuda() {
                         </button>
                     </AlertDialog.Cancel>
 
-                    <AlertDialog.Description className="text-white mt-4 mb-5 text-[15px] leading-normal">
+                    <AlertDialog.Description className="text-white mt-4 mb-5 text-[15px] leading-normal flex flex-col overflow-y-auto max-h-[60vh]">
                         <div className="w-full flex flex-col justify-center items-center gap-4 mb-2">
                             <div>
                                 <h1 className="text-green-600 font-bold uppercase text-xl">Tokens</h1>

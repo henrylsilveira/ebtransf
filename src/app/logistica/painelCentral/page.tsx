@@ -38,6 +38,11 @@ export default function PainelCentral() {
         });
     };
 
+    function apagarDados() {
+        localStorage.removeItem("listTokens")
+        setTokens([])
+    }
+
     async function pegarDados(token?: string) {
         setLoading(true);
         try {
@@ -87,7 +92,7 @@ export default function PainelCentral() {
                                 <label htmlFor="token" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Token </label>
                             </div>
                             <div className="w-full flex justify-between text-center gap-2">
-                                <button type="button" onClick={() => localStorage.removeItem("listTokens")} className="hover:bg-red-800 text-xs w-full bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md justify-center flex"><p className="flex"><MdOutlineClose className="mx-auto w-4 h-4" />Apagar</p></button>
+                                <button type="button" onClick={() => apagarDados()} className="hover:bg-red-800 text-xs w-full bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md justify-center flex"><p className="flex"><MdOutlineClose className="mx-auto w-4 h-4" />Apagar</p></button>
                                 <button type="button" onClick={() => pegarDados()} className="hover:bg-blue-800 items-center text-xs w-full bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md justify-center flex gap-2">Buscar</button>
                             </div>
                         </div>
