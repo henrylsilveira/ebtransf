@@ -33,16 +33,16 @@ export function MenuAjuda() {
                         <div className="w-full flex flex-col justify-center items-center gap-4">
                             <div>
                                 <h1 className="text-green-600 font-bold uppercase text-xl">Armazenamento de dados</h1>
-                                <p className="text-md text-gray-400">Os dados primeiramente ficam armazenados no navegador do usuário para que seja possível manipulá-los de forma offline. Caso já tenha o site carregado em cache, ao clicar em enviar e introduzir o token da instalação o usuário envia para o banco de dados online. Tendo que sempre reenviar caso faça alguma alteração local, ficando armazenado a nova versão.</p>
+                                <p className="text-md text-gray-400">Os dados primeiramente ficam armazenados no navegador do usuário para que seja possível manipulá-los de forma offline. Caso já tenha o site carregado em cache, ao clicar em enviar e introduzir o token da instalação o usuário envia para o banco de dados online. Sendo necessário sempre que reenviar caso faça alguma alteração local, ficando armazenado a nova versão.</p>
                             </div>
                             <div>
                                 <h1 className="text-red-600 font-bold uppercase text-xl">Importante!!</h1>
-                                <p className="text-md text-gray-400">Mantenha sempre seus dados salvos localmente ou em um pendrive através da funcionalidade EXPORTAR, que fará o download de duas tabelas, sendo a tabela de item e a tabela de entra e saída de material. Para retornar esses dados ao sistema use a funcionalidade de IMPORTAR para armazenar LOCALMENTE os dados da tabela de item e IMPORTAR REGISTROS para armazenar LOCALMENTE os dados de entrada e saída de material.</p>
+                                <p className="text-md text-gray-400">Mantenha sempre seus dados salvos localmente ou em um pendrive através da funcionalidade EXPORTAR, que fará o download de duas tabelas, sendo a tabela de item e a tabela de entrada e saída de material. Para retornar esses dados ao sistema use a funcionalidade de IMPORTAR para armazenar LOCALMENTE os dados da tabela de item e IMPORTAR REGISTROS para armazenar LOCALMENTE os dados de entrada e saída de material.</p>
                             </div>
                         </div>
                         <div className="w-full flex flex-col justify-center items-center">
                             <h1 className="text-green-600 font-bold uppercase text-xl">Ferramentas de Logística</h1>
-                            <p className="text-md text-gray-400">Todas as ferramentas funcionam basicamente da mesma forma, você cadastra um item em seguinda ele aparecerá na tabela abaixo e será possível cadastrar entradas e saídas desse material. As diversas funcionalidades que estão dispostas são APAGAR, EXPORTAR, IMPORTAR, IMPORTAR REGISTROS e ENVIAR. </p>
+                            <p className="text-md text-gray-400">Todas as ferramentas funcionam basicamente da mesma forma, você cadastra um item em seguida ele aparecerá na tabela abaixo e será possível cadastrar entradas e saídas desse material. As diversas funcionalidades que estão dispostas são APAGAR, EXPORTAR, IMPORTAR, IMPORTAR REGISTROS e ENVIAR. </p>
                         </div>
                     </AlertDialog.Description>
                 </AlertDialog.Content>

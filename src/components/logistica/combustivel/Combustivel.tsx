@@ -19,7 +19,7 @@ export function Combustivel({ enviar }: {
 }) {
     const [registroCombustivel, setRegistroCombustivel] = useState<CombustivelProps[]>([])
     const [registroEntradaSaidaCombustivel, setRegistroEntradaSaidaCombustivel] = useState<LogisticaCombustivelProps[]>([])
-    const [qntRegistros, setQntRegistros] = useState(registroCombustivel.length)
+    const [qntRegistros, setQntRegistros] = useState(30)
     const [loading, setLoading] = useState(false);
 
     const newArray = registroCombustivel?.filter(registro => registroEntradaSaidaCombustivel?.filter(registroE =>
@@ -71,7 +71,8 @@ export function Combustivel({ enviar }: {
         setLoading(false);
     }
     const apagarRegistros = () => {
-        localStorage.clear()
+        localStorage.removeItem("logisticaCombustivel")
+        localStorage.removeItem("logisticaEntradaSaidaCombustivel")
         setRegistroCombustivel([])
         setRegistroEntradaSaidaCombustivel([])
     }
@@ -218,21 +219,18 @@ export function Combustivel({ enviar }: {
                         <button type="submit" className="hover:bg-green-800 bg-transparent border w-full text-xs border-green-700 uppercase text-white py-2 px-6 rounded-md">Registrar</button>
                     </div>}
             </form>
-            <div className="flex justify-between mb-2 gap-2 border-t py-4 border-green-600">
-                <div className="relative z-0 group flex items-center">
-                    <input type="number" name="qntRegistros" onChange={e => setQntRegistros(Number(e.target.value))} id="qntRegistros" className="block w-10 [appearance:textfield] py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
-                    <label htmlFor="qntRegistros" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Registros</label>
-                </div>
-                <div className="flex items-center">
+            <div className="flex sm:flex-row flex-col sm:justify-between mb-2 gap-2 border-t py-4 border-green-600">
+
+                <div className="flex sm:flex-row flex-col items-center mx-auto">
                     {loading
                         ? <div className="border-t flex justify-center border-green-700 mt-4 pt-4">
                             <Loader />
                         </div>
-                        : <div className="flex justify-center gap-4">
+                        : <div className="flex sm:flex-row flex-col text-center justify-center gap-4">
 
                             <ApagarButton funcApagar={apagarRegistros} />
                             <button type="button" onClick={exportRegistrosCombustivel} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                            <label htmlFor="file" className="hover:bg-green-800 cursor-pointer bg-transparent border text-xs border-green-700 uppercase text-white py-2 px-6 rounded-md">
+                            <label htmlFor="file" className="hover:bg-green-800 cursor-pointer bg-transparent border flex items-center justify-center text-xs border-green-700 uppercase text-white py-2 px-6 text-center rounded-md">
                                 <input id="file" accept=".comb" className="hidden" onChange={importaRegistrosCombustivel} type="file" />
                                 Importar
                             </label>
@@ -244,17 +242,23 @@ export function Combustivel({ enviar }: {
                                 tiposCombustivel: registroCombustivel,
                                 registroEntradaSaida: registroEntradaSaidaCombustivel
                             }} tipo="combustivel" />
-
                         </div>}
                 </div>
-                <div className="flex items-center">
-                    <p className="text-white">Total registros: {registroCombustivel.length}</p>
-                </div>
+               
             </div>
             <div className="p-2">
                 <p className="text-red-600">Importante</p>
-                <p className="text-gray-500">Mantenha sempre seus dados salvos em um arquivo clicando em exportar para fazer o download pois todos os dados são armazenados no seu navegador localmente não tendo acesso em outros computadores. Caso queira importar um arquivo saiba que esse irá sobrescrever os que já existem. Caso queira visualizar outro arquivo clique em visualizar.</p>
+                <p className="text-gray-500">Mantenha sempre seus dados salvos em um arquivo clicando em exportar para fazer o download pois todos os dados são armazenados no seu navegador localmente não tendo acesso em outros computadores. Caso queira importar um arquivo saiba que esse irá sobrescrever os que já existem.</p>
             </div>
+            <div className="mx-2 my-2 flex justify-between">
+                    <div className="relative z-0 group flex items-center">
+                        <input type="number" name="qntRegistros" value={qntRegistros} onChange={e => setQntRegistros(Number(e.target.value))} id="qntRegistros" className="block w-10 [appearance:textfield] py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
+                        <label htmlFor="qntRegistros" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Registros</label>
+                    </div>
+                    <div className="flex items-center">
+                        <p className="text-white">Total registros: {registroCombustivel.length}</p>
+                    </div>
+                </div>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">

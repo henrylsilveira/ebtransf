@@ -91,5 +91,7 @@ export type DadosBancoProps = {
     nomeInsta: string;
 }
 
+export type TokenProps = { nomeToken: string; token: string }
+
 
 

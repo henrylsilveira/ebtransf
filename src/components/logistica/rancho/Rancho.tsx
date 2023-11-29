@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { Loader } from "../../Loader/Loader"
 import { saveAs } from 'file-saver';
-import { MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose, MdSend } from "react-icons/md";
 import { nanoid } from 'nanoid'
 import { RanchoLogistica } from './RanchoLogistica';
 import { ApagarButton } from "@/components/ApagarButton"
@@ -70,7 +70,8 @@ export function Rancho({ enviar }: {
         setLoading(false);
     }
     const apagarRegistros = () => {
-        localStorage.clear()
+        localStorage.removeItem("logisticaRancho")
+        localStorage.removeItem("logisticaEntradaSaidaRancho")
         setRegistroRancho([])
         setRegistroEntradaSaidaRancho([])
     }
@@ -223,8 +224,7 @@ export function Rancho({ enviar }: {
                     </div>}
             </form>
             <div className="flex sm:flex-row flex-col sm:justify-between mb-2 gap-2 border-t py-4 border-green-600">
-                
-                <div className="flex sm:flex-row flex-col items-center">
+                <div className="flex sm:flex-row flex-col items-center mx-auto">
                     {loading
                         ? <div className="border-t flex justify-center border-green-700 mt-4 pt-4">
                             <Loader />
@@ -233,7 +233,7 @@ export function Rancho({ enviar }: {
 
                             <ApagarButton funcApagar={apagarRegistros} />
                             <button type="button" onClick={exportRegistrosCombustivel} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                            <label htmlFor="file" className="hover:bg-green-800 cursor-pointer bg-transparent border text-xs border-green-700 uppercase text-white py-2 px-6 rounded-md">
+                            <label htmlFor="file" className="hover:bg-green-800 cursor-pointer bg-transparent border text-xs border-green-700 uppercase items-center justify-center flex text-white py-2 px-6 rounded-md">
                                 <input id="file" accept=".comb" className="hidden" onChange={importaRegistrosCombustivel} type="file" />
                                 Importar
                             </label>
@@ -241,35 +241,40 @@ export function Rancho({ enviar }: {
                                 <input id="fileRegistros" accept=".regComb" className="hidden" onChange={importaRegistrosEntradaSaidaRancho} type="file" />
                                 Importar Registros
                             </label>
-                            <EnviarDados enviarFunc={enviar} data={{
-                                efetivo: efetivoTotal,
-                                tiposRancho: registroRancho,
-                                registroEntradaSaida: registroEntradaSaidaRancho
-                            }} tipo="rancho" />
+                            {efetivoTotal === 0 ?
+                                <button type="button" disabled className="hover:bg-blue-800 cursor-not-allowed opacity-50 w-full items-center text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex gap-2 justify-center">
+                                    <p className="flex">
+                                        <MdSend className="w-4 h-4" />Enviar
+                                    </p>
+                                </button> :
+                                <EnviarDados enviarFunc={enviar} data={{
+                                    efetivo: efetivoTotal,
+                                    tiposRancho: registroRancho,
+                                    registroEntradaSaida: registroEntradaSaidaRancho
+                                }} tipo="rancho" />}
                         </div>}
                 </div>
-                
             </div>
             <div className="p-2">
                 <p className="text-red-600">Importante</p>
-                <p className="text-gray-500">Mantenha sempre seus dados salvos em um arquivo clicando em exportar para fazer o download pois todos os dados são armazenados no seu navegador localmente não tendo acesso em outros computadores. Caso queira importar um arquivo saiba que esse irá sobrescrever os que já existem. Caso queira visualizar outro arquivo clique em visualizar.</p>
+                <p className="text-gray-500">Mantenha sempre seus dados salvos em um arquivo clicando em exportar para fazer o download pois todos os dados são armazenados no seu navegador localmente não tendo acesso em outros computadores. Caso queira importar um arquivo saiba que esse irá sobrescrever os que já existem.</p>
             </div>
-            <div className="flex justify-between">
-                    <div className="relative z-0 group flex items-center">
-                        <input type="number" name="qntRegistros" value={qntRegistros} onChange={e => setQntRegistros(Number(e.target.value))} id="qntRegistros" className="block w-10 [appearance:textfield] py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
-                        <label htmlFor="qntRegistros" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Registros</label>
-                    </div>
-                    <div className="flex items-center">
-                        <p className="text-white">Total registros: {registroRancho.length}</p>
-                    </div>
+            <div className="m-2 flex justify-between">
+                <div className="relative z-0 group flex items-center">
+                    <input type="number" name="qntRegistros" value={qntRegistros} onChange={e => setQntRegistros(Number(e.target.value))} id="qntRegistros" className="block w-10 [appearance:textfield] py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
+                    <label htmlFor="qntRegistros" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Registros</label>
                 </div>
-                <div className="flex flex-col my-2 px-8">
-                    <div className="relative z-0 w-full group flex items-center">
-                        <input type="number" name="efetivo" onChange={e => setEfetivoTotal(Number(e.target.value))} id="efetivo" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
-                        <label htmlFor="efetivo" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Efetivo Total</label>
-                    </div>
-                    <span className="text-xs text-gray-600">Utilizado para calculo de etapa</span>
+                <div className="flex items-center">
+                    <p className="text-white">Total registros: {registroRancho.length}</p>
                 </div>
+            </div>
+            <div className="flex flex-col my-2 px-8">
+                <div className="relative z-0 w-full group flex items-center">
+                    <input type="number" name="efetivo" onChange={e => setEfetivoTotal(Number(e.target.value))} id="efetivo" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                    <label htmlFor="efetivo" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Efetivo Total</label>
+                </div>
+                <span className="text-xs text-gray-600">Utilizado para cálculo de etapa</span>
+            </div>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-[8px] sm:text-md text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className=" text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
@@ -334,25 +339,6 @@ export function Rancho({ enviar }: {
                                 </td>
                             </tr>
                         )).slice(0, qntRegistros)}
-                        {/* <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Total
-                            </th>
-                            <td className="px-6 py-4">
-
-                            </td>
-                            <td className="px-6 py-4">
-
-                            </td>
-                            <td className="px-6 py-4">
-                                {registroCombustivel.reduce((total, item) => {
-                                    return total + (+item.peso);
-                                }, 0) + "kg"}
-                            </td>
-                            <td className="px-6 py-4">
-
-                            </td>
-                        </tr> */}
                     </tbody>
                 </table>
             </div>

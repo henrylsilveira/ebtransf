@@ -12,6 +12,7 @@ import { Instalacao } from "@/components/logistica/instalacao/Instalacao";
 import { toast } from "react-toastify";
 import { api } from "@/services/axios";
 import { MenuAjuda } from "@/components/logistica/ajuda/page";
+import Link from "next/link";
 
 export default function Logistica() {
     const [component, setComponent] = useState(<Instalacao />)
@@ -78,6 +79,9 @@ export default function Logistica() {
                 <div className="flex flex-1 items-center justify-center mb-6 flex-col">
                     <h1 className="text-green-600 font-bold uppercase text-xl">Controle de Logística</h1>
                     <p className="font-light text-white text-justify py-4">Essa ferramenta tem como objetivo auxiliar na gestão de instalações, para que seja mais simples visualizar os materiais existentes e sua entrada e saída.</p>
+                </div>
+                <div className="absolute top-2 left-2">
+                    <Link className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md" href="/logistica/painelCentral">Visualizar Dados</Link>
                 </div>
                 <div className="absolute top-2 right-2">
                     <MenuAjuda />
