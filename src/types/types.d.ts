@@ -87,6 +87,10 @@ export type DadosBancoProps = {
         tiposRancho: RanchoProps[],
         registroEntradaSaida: LogisticaRanchoProps[],
     };
+    apoio: {
+        tiposMaterial: LogisticaApoioProps[],
+        registroEntradaSaida: MaterialProps[],
+    };
     id: string;
     nomeInsta: string;
 }
