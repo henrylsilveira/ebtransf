@@ -11,6 +11,7 @@ import { Rancho } from "@/components/logistica/rancho/Rancho";
 import { Instalacao } from "@/components/logistica/instalacao/Instalacao";
 import { toast } from "react-toastify";
 import { api } from "@/services/axios";
+import { MenuAjuda } from "@/components/logistica/ajuda/page";
 
 export default function Logistica() {
     const [component, setComponent] = useState(<Instalacao />)
@@ -30,35 +31,35 @@ export default function Logistica() {
 
     async function atualizarBancoDados(data: {
         data: {},
-        tipo:string;
-        id:string;
+        tipo: string;
+        id: string;
     }) {
-        
+
         if (data.data == false || data.tipo == "" || data.id == "") {
             toast.info("Informe o Token!", {
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
             });
-            
+
         } else {
-             try {
-            await new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve(api.put("/instalacao", {data}));
-                }, 300);
-            })
-            toast.success("Registros salvos no banco com sucesso!", {
-                position: toast.POSITION.TOP_RIGHT,
-                theme: "dark",
-            });
-        } catch (error) {
-            toast.error("Erro no envio do registro!", {
-                position: toast.POSITION.TOP_RIGHT,
-                theme: "dark",
-            });
+            try {
+                await new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(api.put("/instalacao", { data }));
+                    }, 300);
+                })
+                toast.success("Registros salvos no banco com sucesso!", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    theme: "dark",
+                });
+            } catch (error) {
+                toast.error("Erro no envio do registro!", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    theme: "dark",
+                });
+            }
         }
-        }
-       
+
     }
 
     return (
@@ -73,10 +74,13 @@ export default function Logistica() {
             </Script>
             <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
                 crossOrigin="anonymous" />
-            <div className="max-w-4xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
+            <div className="relative max-w-4xl w-10/12 sm:text-md text-sm mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
                 <div className="flex flex-1 items-center justify-center mb-6 flex-col">
                     <h1 className="text-green-600 font-bold uppercase text-xl">Controle de Logística</h1>
-                    <p className="font-light text-white text-justify py-4">Essa calculadora tem como objetivo auxiliar o militar a calcular o valor aproximado de sua transferência ou de sua gratificação representação porém não se trata de uma ferramenta oficial.</p>
+                    <p className="font-light text-white text-justify py-4">Essa ferramenta tem como objetivo auxiliar na gestão de instalações, para que seja mais simples visualizar os materiais existentes e sua entrada e saída.</p>
+                </div>
+                <div className="absolute top-2 right-2">
+                    <MenuAjuda />
                 </div>
                 <div className="mb-8">
                     <div className="sm:hidden">

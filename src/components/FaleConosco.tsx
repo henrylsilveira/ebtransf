@@ -4,7 +4,7 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { useState } from "react";
 import { BiMessageAltDetail } from 'react-icons/bi'
 import { api } from "@/services/axios";
-import { MdOutlineClose } from "react-icons/md";
+import { MdMessage, MdOutlineClose } from "react-icons/md";
 import { GoAlert } from "react-icons/go";
 import { toast } from "react-toastify";
 import { Loader } from "./Loader/Loader";
@@ -58,7 +58,9 @@ export default function FaleConosco() {
     return (
         <AlertDialog.Root>
             <AlertDialog.Trigger asChild>
-                <BiMessageAltDetail className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />
+                <div className="flex items-center">
+                    <MdMessage className="pr-1 h-7 w-7  text-2xl text-white hover:text-green-600 transform transition-colors" />
+                </div>
             </AlertDialog.Trigger>
             <AlertDialog.Portal>
                 <AlertDialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
@@ -73,7 +75,7 @@ export default function FaleConosco() {
                     </AlertDialog.Cancel>
 
                     <AlertDialog.Description className="text-white mt-4 mb-5 text-[15px] leading-normal">
-                        Ajude nosso site a crescer e a facilitar mais ainda a sua vida. Conte para nós uma calculadora que você gostaria que tivesse na plataforma e que ajudaria mais ainda a desempenhar a sua função.
+                        Ajude nosso site a crescer e a facilitar mais ainda a sua vida. Conte para nós uma calculadora ou ferramenta que você gostaria que tivesse na plataforma e que ajudaria mais ainda a desempenhar a sua função.
                     </AlertDialog.Description>
                     <div>
                         <form onSubmit={handleSubmit}>
@@ -88,11 +90,11 @@ export default function FaleConosco() {
                             {Cookies.get('faleConosco') == "true"
                                 ? <div className="border-t flex justify-center border-green-700 mt-4 pt-4 text-red-700">
                                     <div className="flex items-center align-middle mr-4">
-                                       <GoAlert className="w-12 h-12"/> 
+                                        <GoAlert className="w-12 h-12" />
                                     </div>
-                                    
+
                                     <p>Você já enviou uma mensagem hoje! Espere 24h para mandar outra.</p>
-                                    </div>
+                                </div>
                                 : loading
                                     ? <div className="border-t flex justify-center border-green-700 mt-4 pt-4">
                                         <Loader />

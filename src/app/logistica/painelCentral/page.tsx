@@ -45,6 +45,7 @@ export default function PainelCentral() {
             console.error
         }
     }
+
     return (
         <>
             <title>EBCalc - Ferramenta de Logística | Painel Central</title>
@@ -76,118 +77,130 @@ export default function PainelCentral() {
                         <button type="button" onClick={() => { }} className="hover:bg-blue-800 items-center text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex gap-2">{token}</button>)}
                 </div>
                 <div className="flex flex-col gap-6">
-                    {dados?.combustivel ?
-                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
-                                    <tr>
-                                        <th scope="col" className="px-6 py-3">
-                                            Código
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Tipo
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Quantidade
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Capacidade
-                                        </th>
+                    {dados?.combustivel.tiposCombustivel?.length !== 0 || dados?.combustivel.registroEntradaSaida?.length !== 0 ?
+                        <div>
+                            {dados?.combustivel ?
+                                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <h1 className="text-green-600 font-bold uppercase text-xl">Combustível</h1>
+                                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                        <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
+                                            <tr>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Código
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Tipo
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Quantidade
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Capacidade
+                                                </th>
 
-                                    </tr>
-                                </thead>
-                                <tbody className="">
-                                    {dados.combustivel.tiposCombustivel.map((registro, index) => (
-                                        <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {registro.id}
-                                            </th>
-                                            <td className="px-6 py-4">
-                                                {registro.tipo}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {(dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                    return total + (+item.quantidade);
-                                                }, 0)) -
-                                                    (dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                        return total + (+item.quantidade);
-                                                    }, 0))} l
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {registro.total} l
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="">
+                                            {dados.combustivel.tiposCombustivel.map((registro, index) => (
+                                                <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {registro.id}
+                                                    </th>
+                                                    <td className="px-6 py-4">
+                                                        {registro.tipo}
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        {(dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                            return total + (+item.quantidade);
+                                                        }, 0)) -
+                                                            (dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                                return total + (+item.quantidade);
+                                                            }, 0))} l
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        {registro.total} l
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                : null}
                         </div>
-                        : null}
+                        : <p>Dados não existentes</p>
+                    }
+                    {dados?.rancho.tiposRancho?.length !== 0 || dados?.rancho.registroEntradaSaida?.length !== 0 ?
+                        <div>
+                            {dados?.rancho ?
+                                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <h1 className="text-green-600 font-bold uppercase text-xl">Rancho</h1>
+                                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                        <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
+                                            <tr>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Código
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Tipo
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Quantidade
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Capacidade
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Valor Etapa
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Dias Restantes
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="">
+                                            {dados.rancho.tiposRancho?.map((registro, index) => (
+                                                <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {registro.id}
+                                                    </th>
+                                                    <td className="px-6 py-4">
+                                                        {registro.tipo}
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        { (dados.rancho.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                            return total + (+item.quantidade);
+                                                        }, 0)) -
+                                                            (dados.rancho.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                                return total + (+item.quantidade);
+                                                            }, 0))} kg
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        {registro.total} kg
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        {registro.valorEtapa} g
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        {dados.rancho ?
+                                                            (Number((
+                                                                (dados.rancho.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                                    return total + (+item.quantidade);
+                                                                }, 0)) -
+                                                                (dados.rancho.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                                    return total + (+item.quantidade);
+                                                                }, 0)))) * 1000 / (registro.valorEtapa * dados.rancho.efetivo)).toFixed(0) + " Dias" : <></>}
+                                                    </td>
 
-                    {dados?.rancho ?
-                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
-                                    <tr>
-                                        <th scope="col" className="px-6 py-3">
-                                            Código
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Tipo
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Quantidade
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Capacidade
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Valor Etapa
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Dias Restantes
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody className="">
-                                    {dados.rancho.tiposRancho.map((registro, index) => (
-                                        <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {registro.id}
-                                            </th>
-                                            <td className="px-6 py-4">
-                                                {registro.tipo}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {(dados.rancho.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                    return total + (+item.quantidade);
-                                                }, 0)) -
-                                                    (dados.rancho.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                        return total + (+item.quantidade);
-                                                    }, 0))} kg
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {registro.total} kg
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {registro.valorEtapa} g
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {(Number((
-                                                    (dados.rancho.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                        return total + (+item.quantidade);
-                                                    }, 0)) -
-                                                    (dados.rancho.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                        return total + (+item.quantidade);
-                                                    }, 0)))) * 1000 / (registro.valorEtapa * dados.rancho.efetivo)).toFixed(0) + " Dias"}
-                                            </td>
+                                                </tr>
+                                            ))}
 
-                                        </tr>
-                                    ))}
-
-                                </tbody>
-                            </table>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                : null}
                         </div>
-                        : null}
+                        : <p>Dados não existentes</p>
+                    }
                 </div>
             </div>
         </>

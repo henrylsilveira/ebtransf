@@ -6,11 +6,11 @@ export async function GET(request: Request, { params }: { params: { token: strin
     const id = params.token
     const db = getFirestore(app);
     const colRef = collection(db, "instalacao");
-
     try {
         const data = await getDoc(
             doc(db, colRef.path, id)
         );
+        console.log(data.data())
         return NextResponse.json({ status: true, data: data.data() })
     } catch (error) {
         return NextResponse.json({ message: error })

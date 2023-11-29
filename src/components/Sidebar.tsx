@@ -9,7 +9,7 @@ import FaleConosco from "./FaleConosco";
 
 export function SideBar() {
     return (
-        <nav className="fixed w-11 top-[25%] backdrop-blur-sm border border-l-0 border-green-500 bg-black py-4 bg-opacity-50 rounded-tr-lg rounded-br-lg z-50">
+        <nav className="fixed sm:w-11 md:w-11 lg:w-11 w-8 top-[25%] backdrop-blur-sm border border-l-0 border-green-500 bg-black py-4 bg-opacity-50 rounded-tr-lg rounded-br-lg z-50">
             <ul>
                 <li>
                     <Button link="/calculadora" Icon={<BsCalculator className="pr-1 h-7 w-7 text-2xl hover:text-green-600 transform transition-colors text-white" />} />

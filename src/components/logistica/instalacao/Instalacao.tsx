@@ -65,13 +65,13 @@ export function Instalacao() {
                         <h1 className="text-green-600 font-bold uppercase text-xl">Controle de Meios Logísticos</h1>
                         <p className="font-light text-white text-justify py-4">O Controle de Combustível é uma ferramenta criada para gerar um relatório do consumo e funcionamento de geradores, para auxiliar na gestão do combustível.</p>
                     </div>
-                    <div className="grid grid-cols-3 gap-4 mb-4">
-                        <div>
+                    <div className="flex gap-4 mb-4">
+
                             <div className="relative z-0 w-full group flex items-center">
-                                <input type="text" name="nomeInsta" onChange={handleChange} id="nomeInsta" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                                <input type="text" name="nomeInsta" onChange={handleChange} id="nomeInsta" className=" block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                 <label htmlFor="nomeInsta" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nome da Instalação</label>
                             </div>
-                        </div>
+
                     </div>
                     {formData.nomeInsta ? (
                         <div>

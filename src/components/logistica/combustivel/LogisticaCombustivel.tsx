@@ -7,12 +7,12 @@ import { MdOutlineClose } from "react-icons/md";
 import { Loader } from "../../Loader/Loader";
 import { toast } from "react-toastify";
 import { LogisticaCombustivelProps } from "@/types/types";
-import saveAs from "file-saver";
 
 export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { logistica: LogisticaCombustivelProps[], idComb: string, tipo: string, hookComb?: Function }) {
     // const [visualizarRegistrosCombustivel, setVisualizarRegistrosCombustivel] = useState<ConsumoGeradorProps[]>([])
     const [loading, setLoading] = useState(false);
-    const [qntRegistros, setQntRegistros] = useState(30)
+    const [qntRegistros, setQntRegistros] = useState(logistica.length)
+    console.log(logistica)
 
     const [formData, setFormData] = useState<LogisticaCombustivelProps>({
         id: "",
@@ -22,20 +22,6 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
         data: "",
         quantidade: 0,
     });
-
-    function exportEntradaSaidaRegistrosCombustivel() {
-        setLoading(true);
-        var fileName = `${new Date().toLocaleString() + "-" + "EntradaSaidaCombustivel"}.json`;
-
-        // Create a blob of the data
-        var fileToSave = new Blob([JSON.stringify(logistica)], {
-            type: 'application/json'
-        });
-
-        // Save the file
-        saveAs(fileToSave, fileName);
-        setLoading(false);
-    }
 
     const handleSubmitCombustivel = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -48,9 +34,8 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
             setLoading(false);
         } else {
             try {
-
                 const registros = JSON.stringify([...logistica, formData])
-                if(hookComb) {
+                if (hookComb) {
                     hookComb([...logistica, formData])
                 }
 
@@ -111,7 +96,7 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
                         </AlertDialog.Description>
                         <form onSubmit={handleSubmitCombustivel} className="mb-4">
                             <div className="flex flex-1 items-center justify-center my-6 flex-col">
-                                <h1 className="text-green-600 font-bold uppercase text-xl">Registrar entrada de material</h1>
+                                <h1 className="text-green-600 font-bold uppercase text-xl">Registrar entrada ou saída de combustível.</h1>
 
                             </div>
                             <div className="grid grid-cols-4 gap-4 mb-4">
@@ -136,6 +121,7 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
                                         <input type="text" name="finalidade" onChange={handleChange} id="finalidade" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                         <label htmlFor="finalidade" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Finalidade</label>
                                     </div>
+                                    <span className="text-xs text-gray-600">Ex: Ressuprimento, Gerador</span>
                                 </div>
                                 <div>
                                     <div className="relative z-0 w-full group flex items-center">
@@ -154,16 +140,13 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
                                 </div>}
                         </form>
                         <div className="shadow-md sm:rounded-lg">
-                            {/* <button type="button" onClick={exportEntradaSaidaRegistrosCombustivel} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button> */}
-                            {/* <div className="flex flex-1 justify-between pb-2 gap-4">
-                            <label htmlFor="fileVisualizar" className="hover:bg-orange-800 cursor-pointer block bg-transparent border text-sm border-orange-700 uppercase text-white py-2 px-6 rounded-md">
-                                <input id="fileVisualizar" className="hidden" onChange={VisualizarRegistrosCombustivel} type="file" />
-                                Visualizar
-                            </label>
-                            <button type="button" onClick={() => setVisualizarRegistrosCombustivel([])} className="hover:bg-blue-800 bg-transparent border text-sm border-blue-700 uppercase text-white py-2 px-6 rounded-md">
-                                Apagar
-                            </button>
-                        </div> */}
+                            <div className="flex items-center justify-between">
+                                <div className="relative z-0 group flex items-center">
+                                    <input type="number" name="qntRegistros" onChange={e => setQntRegistros(Number(e.target.value))} id="qntRegistros" className="block w-10 [appearance:textfield] py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
+                                    <label htmlFor="qntRegistros" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Registros</label>
+                                </div>
+                                <p className="text-white">Total registros: {logistica.filter(reg => reg.idCombustivel === idComb).length}</p>
+                            </div>
                             <div className="my-2 flex justify-center w-full">
                                 <table className="text-sm text-left rtl:text-right w-full text-gray-500 dark:text-gray-400 ">
                                     <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
@@ -207,7 +190,7 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
                                                         {log.quantidade} l
                                                     </td>
                                                 </tr>
-                                            ))}
+                                            )).slice(0, qntRegistros)}
                                             <tr className="odd:bg-white w-full flex flex-wrap justify-between odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                                 <th scope="row" className="px-6 py-2 w-1/5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     Total

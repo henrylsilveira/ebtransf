@@ -5,7 +5,10 @@ export function ApagarButton({funcApagar}: {funcApagar: () => void}){
     return (
         <AlertDialog.Root>
             <AlertDialog.Trigger asChild>
-            <button type="button" className="hover:bg-red-800 items-center text-xs bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md flex"><MdOutlineClose className="w-4 h-4" />Apagar</button>
+                <div className="w-full flex">
+
+                    <button type="button" className="hover:bg-red-800 text-xs w-full bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md justify-center flex"><p className="flex"><MdOutlineClose className="mx-auto w-4 h-4" />Apagar</p></button>
+                </div>
             </AlertDialog.Trigger>
             <AlertDialog.Portal>
                 <AlertDialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />

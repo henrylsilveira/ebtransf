@@ -19,13 +19,12 @@ export function Combustivel({ enviar }: {
 }) {
     const [registroCombustivel, setRegistroCombustivel] = useState<CombustivelProps[]>([])
     const [registroEntradaSaidaCombustivel, setRegistroEntradaSaidaCombustivel] = useState<LogisticaCombustivelProps[]>([])
-    const [qntRegistros, setQntRegistros] = useState(30)
+    const [qntRegistros, setQntRegistros] = useState(registroCombustivel.length)
     const [loading, setLoading] = useState(false);
 
     const newArray = registroCombustivel?.filter(registro => registroEntradaSaidaCombustivel?.filter(registroE =>
         registro.id === registroE.idCombustivel ? registro.logistica?.push(registroE) : null
     ))
-    console.log(newArray)
 
 
     useEffect(() => {
@@ -122,7 +121,7 @@ export function Combustivel({ enviar }: {
             setRegistroCombustivel(JSON.parse(e.target.result))
         }
         const registros = JSON.stringify(registroCombustivel)
-        // setRegistroCombustivel(JSON.parse(registros))
+        setRegistroCombustivel(JSON.parse(registros))
         try {
             async () => await new Promise((resolve) => {
                 setTimeout(async () => {
@@ -221,7 +220,7 @@ export function Combustivel({ enviar }: {
             </form>
             <div className="flex justify-between mb-2 gap-2 border-t py-4 border-green-600">
                 <div className="relative z-0 group flex items-center">
-                    <input type="number" name="qntRegistros" value={qntRegistros} onChange={e => setQntRegistros(Number(e.target.value))} id="qntRegistros" className="block w-10 [appearance:textfield] py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
+                    <input type="number" name="qntRegistros" onChange={e => setQntRegistros(Number(e.target.value))} id="qntRegistros" className="block w-10 [appearance:textfield] py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
                     <label htmlFor="qntRegistros" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Registros</label>
                 </div>
                 <div className="flex items-center">

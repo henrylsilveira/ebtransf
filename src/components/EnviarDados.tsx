@@ -14,7 +14,9 @@ export function EnviarDados({ enviarFunc, data, tipo }: {
     return (
         <AlertDialog.Root>
             <AlertDialog.Trigger asChild>
-                <button type="button" className="hover:bg-blue-800 items-center text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex gap-2"><MdSend className="w-4 h-4" />Enviar</button>
+            <div className="w-full flex">
+                <button type="button" className="hover:bg-blue-800 w-full items-center text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex gap-2 justify-center"><p className="flex"><MdSend className="w-4 h-4" />Enviar</p></button>
+            </div>
             </AlertDialog.Trigger>
             <AlertDialog.Portal>
                 <AlertDialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />

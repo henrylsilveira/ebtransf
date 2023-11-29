@@ -12,19 +12,6 @@ import { Links } from "@/components/Links";
 
 
 export default function Home() {
-  // const [component, setComponent] = useState(<CalcTransferencia />)
-
-  // function handleSwitchCalculation(tipo: string) {
-  //   switch (tipo) {
-  //     case 'transf':
-  //       return setComponent(<CalcTransferencia />)
-  //     case 'grat':
-  //       return setComponent(<CalcRepresentacao />)
-  //     default:
-  //       break;
-  //   }
-  // }
-
   return (
     <>
       <title>EBCalc</title>
