@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import GDPR from '@/components/Gdpr'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { ReactNode } from 'react'
 
 const inter = Bai_Jamjuree({ weight: ['500'], subsets: ['thai'] })
 
@@ -16,11 +17,12 @@ export const metadata: Metadata = {
   description: 'Aplicação que calcula aproximadamente o ganho do militar com a transferência ou com a gratificação de representação, não se tratando de uma plataforma oficial e sim de um calculadora para auxiliar no planejamento.',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+
   return (
     <html lang="pt">
       <head>
@@ -30,7 +32,7 @@ export default function RootLayout({
         <Logo />
         <SideBar />
         <ToastContainer />
-        {Cookies.get('gdpr') == "true" ? <></> : <GDPR />}
+        {/* {Cookies.get('gdpr') === "true" ? <></> : <GDPR />} */}
         {children}
       </body>
     </html>
