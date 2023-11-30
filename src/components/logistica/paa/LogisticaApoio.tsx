@@ -150,7 +150,7 @@ export function LogisticaApoio({ enviar }: { enviar: (data: {data: {},
             <form onSubmit={handleSubmit} className="mb-4">
                 <div className="flex flex-1 items-center justify-center my-6 flex-col">
                     <h1 className="text-green-600 font-bold uppercase text-xl">Controle de Meios Logísticos - PAA</h1>
-                    <p className="font-light text-white text-justify py-4">O Controle de Combustível é uma ferramenta criada para gerar um relatório do consumo e funcionamento de geradores, para auxiliar na gestão do combustível.</p>
+                    <p className="font-light text-white text-justify py-4">O Controle de Apoio Logístico é uma ferramenta criada para gerir o material que será enviado para cada destino.</p>
                 </div>
                 <div className="grid grid-cols-3 gap-4 mb-4">
                     <div>
@@ -158,24 +158,28 @@ export function LogisticaApoio({ enviar }: { enviar: (data: {data: {},
                             <input type="date" name="data" onChange={handleChange} id="data" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                             <label htmlFor="data" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Data</label>
                         </div>
+                        <span className="text-xs text-gray-600">Data da aeronave</span>
                     </div>
                     <div>
                         <div className="relative z-0 w-full group flex items-center">
                             <input type="text" name="tipo" onChange={handleChange} id="tipo" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                             <label htmlFor="tipo" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tipo</label>
                         </div>
+                        <span className="text-xs text-gray-600">Ex: PAA, Caravan</span>
                     </div>
                     <div>
                         <div className="relative z-0 w-full group flex items-center">
                             <input type="text" name="destino" onChange={handleChange} id="destino" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                             <label htmlFor="destino" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Destino</label>
                         </div>
+                        <span className="text-xs text-gray-600">Ex: 5 PEF, 4 PEF</span>
                     </div>
                     <div>
                         <div className="relative z-0 w-full group flex items-center">
                             <input type="number" name="peso" onChange={handleChange} id="peso" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                             <label htmlFor="peso" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Peso Total</label>
                         </div>
+                        <span className="text-xs text-gray-600">Peso suportado em Kg</span>
                     </div>
 
                 </div>

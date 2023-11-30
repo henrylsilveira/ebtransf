@@ -62,8 +62,8 @@ export function Instalacao() {
             <div className="flex justify-between mb-2 gap-2 border-t py-4 border-green-600">
                 <form onSubmit={handleSubmitInsta} className="mb-4">
                     <div className="flex flex-1 items-center justify-center my-6 flex-col">
-                        <h1 className="text-green-600 font-bold uppercase text-xl">Controle de Meios Logísticos</h1>
-                        <p className="font-light text-white text-justify py-4">O Controle de Combustível é uma ferramenta criada para gerar um relatório do consumo e funcionamento de geradores, para auxiliar na gestão do combustível.</p>
+                        <h1 className="text-green-600 font-bold uppercase text-xl">Criação de Instalações</h1>
+                        <p className="font-light text-white text-justify py-4">Ao criar uma instalação você recebe um token que será útil para consulta e cadastro do dados no banco de dados.</p>
                     </div>
                     <div className="flex gap-4 mb-4">
 

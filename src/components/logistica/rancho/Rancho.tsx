@@ -190,7 +190,7 @@ export function Rancho({ enviar }: {
             <form onSubmit={handleSubmit} className="mb-4">
                 <div className="flex flex-1 items-center justify-center my-6 flex-col">
                     <h1 className="text-green-600 font-bold uppercase text-xl">Controle de Meios Logísticos - Rancho</h1>
-                    <p className="font-light text-white text-justify py-4">O Controle de Combustível é uma ferramenta criada para gerar um relatório do consumo e funcionamento de geradores, para auxiliar na gestão do combustível.</p>
+                    <p className="font-light text-white text-justify py-4">O Controle de Rancho é uma ferramenta criada para gerar um relatório do consumo e estoque, para auxiliar na gestão do rancho.</p>
                 </div>
                 <div className="grid sm:grid-cols-3 grid-flow-row gap-4 mb-4">
                     <div className="flex flex-col">

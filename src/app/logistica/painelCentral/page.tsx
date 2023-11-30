@@ -6,8 +6,10 @@ import { api } from "@/services/axios";
 import { DadosBancoProps, LogisticaCombustivelProps, TokenProps } from "@/types/types";
 import { Loader } from "@/components/Loader/Loader";
 import { Material } from "@/components/logistica/paa/Material";
+import saveAs from "file-saver";
 
 export default function PainelCentral() {
+    
     const [dados, setDados] = useState<DadosBancoProps>()
     const [tokens, setTokens] = useState<TokenProps[]>([])
     const [loading, setLoading] = useState(false);
@@ -66,6 +68,56 @@ export default function PainelCentral() {
         setLoading(false);
     }
 
+    function exportaRegistros(tipo: "combustivel" | "apoio" | "rancho" | "farmacia") {
+        setLoading(true);
+        var fileName = ""
+        var fileName2 = ""
+        var fileToSave = new Blob
+        var fileToSave2 = new Blob
+        switch (tipo) {
+            case "combustivel":
+                fileName = `${new Date().toLocaleString() + "-" + "DadosCombustiveis"}.comb`;
+                fileName2 = `${new Date().toLocaleString() + "-" + "DadosEntradaSaidaCombustivel"}.regComb`;
+                // Create a blob of the data
+                fileToSave = new Blob([JSON.stringify(dados?.combustivel.tiposCombustivel)], {
+                    type: 'application/comb'
+                });
+                fileToSave2 = new Blob([JSON.stringify(dados?.combustivel.registroEntradaSaida)], {
+                    type: 'application/regComb'
+                });
+                break;
+            case "apoio":
+                fileName = `${new Date().toLocaleString() + "-" + "logisticaApoio"}.logApoio`;
+                fileName2 = `${new Date().toLocaleString() + "-" + "logisticaApoioMaterial"}.logApoioMat`;
+                // Create a blob of the data
+                fileToSave = new Blob([JSON.stringify(dados?.apoio.tiposMaterial)], {
+                    type: 'application/logApoio'
+                });
+                fileToSave2 = new Blob([JSON.stringify(dados?.apoio.registroEntradaSaida)], {
+                    type: 'application/logApoioMat'
+                });
+                break;
+            case "rancho":
+                fileName = `${new Date().toLocaleString() + "-" + "DadosRancho"}.rancho`;
+                fileName2 = `${new Date().toLocaleString() + "-" + "DadosEntradaSaidaRancho"}.regRancho`;
+                // Create a blob of the data
+                fileToSave = new Blob([JSON.stringify(dados?.rancho.tiposRancho)], {
+                    type: 'application/rancho'
+                });
+                fileToSave2 = new Blob([JSON.stringify(dados?.rancho.registroEntradaSaida)], {
+                    type: 'application/regRancho'
+                });
+                break;
+            default:
+                break;
+        }
+
+        // Save the file
+        saveAs(fileToSave, fileName);
+        saveAs(fileToSave2, fileName2);
+        setLoading(false);
+    }
+
     return (
         <>
             <title>EBCalc - Ferramenta de Logística | Painel Central</title>
@@ -108,11 +160,19 @@ export default function PainelCentral() {
                         <Loader loadingPage />
                     </div> :
                     <div className="border-t border-green-700 pt-2 flex flex-col gap-6">
-                        {dados?.combustivel.tiposCombustivel?.length !== 0 || dados?.combustivel.registroEntradaSaida?.length !== 0 ?
+                        {dados?.combustivel.tiposCombustivel.length !== 0 || dados?.combustivel.registroEntradaSaida.length !== 0 ?
                             <div>
                                 {dados?.combustivel ?
                                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <h1 className="text-green-600 font-bold uppercase text-xl">Combustível</h1>
+                                        <div className="flex justify-between my-2">
+                                            <h1 className="text-green-600 font-bold uppercase text-xl">Combustível</h1>
+                                            {Object.keys(dados?.combustivel).length === 0 ?  (
+                                                <button type="button" disabled  onClick={() => exportaRegistros("combustivel")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                                ):
+                                                <button type="button" onClick={() => exportaRegistros("combustivel")} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+
+                                            }
+                                        </div>
                                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
                                                 <tr>
@@ -180,7 +240,14 @@ export default function PainelCentral() {
                             <div>
                                 {dados?.rancho ?
                                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <h1 className="text-green-600 font-bold uppercase text-xl">Rancho</h1>
+                                        <div className="flex justify-between my-2">
+                                            <h1 className="text-green-600 font-bold uppercase text-xl">Rancho</h1>
+                                            {Object.keys(dados?.rancho).length === 0 ?  (
+                                                <button type="button" disabled  onClick={() => exportaRegistros("rancho")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                                ):
+                                                <button type="button" onClick={() => exportaRegistros("rancho")} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                            }
+                                        </div>
                                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
                                                 <tr>
@@ -252,7 +319,14 @@ export default function PainelCentral() {
                             <div>
                                 {dados?.apoio ?
                                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <h1 className="text-green-600 font-bold uppercase text-xl">Apoio</h1>
+                                        <div className="flex justify-between my-2">
+                                            <h1 className="text-green-600 font-bold uppercase text-xl">Apoio</h1>
+                                            {Object.keys(dados?.apoio).length === 0 ?  (
+                                                <button type="button" disabled  onClick={() => exportaRegistros("apoio")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                                ):
+                                                <button type="button" onClick={() => exportaRegistros("apoio")} className=" hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                            }
+                                        </div>
                                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
                                                 <tr>
@@ -295,7 +369,7 @@ export default function PainelCentral() {
                                                             {registro.peso}
                                                         </td>
                                                         <td className="py-4">
-                                                            <Material materiais={dados?.apoio.registroEntradaSaida} id={registro.id} painel  />
+                                                            <Material materiais={dados?.apoio.registroEntradaSaida} id={registro.id} painel />
                                                         </td>
                                                     </tr>
                                                 ))}
