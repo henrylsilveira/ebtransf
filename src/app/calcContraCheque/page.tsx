@@ -19,7 +19,7 @@ export default function CalcContraCheque() {
             <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
                 crossOrigin="anonymous" />
             <Suspense fallback={<Loader loadingPage />}>
-            <CalcContraChequeComponent />
+                <CalcContraChequeComponent />
             </Suspense>
         </>
     )

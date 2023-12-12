@@ -15,6 +15,7 @@ import { MenuAjuda } from "@/components/logistica/ajuda/page";
 import Link from "next/link";
 
 export default function Logistica() {
+
     const [component, setComponent] = useState(<Instalacao />)
 
     function handleSwitchCalculation(tipo: string) {
@@ -88,7 +89,7 @@ export default function Logistica() {
                 </div>
                 <div className="mb-8">
                     <div className="sm:hidden">
-                        <select id="tabs" onChange={(e) => handleSwitchCalculation(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <select id="tabs" onChange={(e) => handleSwitchCalculation(e.target.value)} className="bg-gray-700 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value='combustivel'>Combustível</option>
                             <option value='rancho'>Rancho</option>
                             <option value='apoio'>Apoio</option>
