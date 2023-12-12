@@ -95,13 +95,13 @@ export default function Logistica() {
                         </select>
                     </div>
                     <ul className="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400">
-                        <li className="w-full hover:text-green-600 text-white">
+                        <li className="w-full hover:text-green-600 text-white bg-transparent">
                             <button onClick={() => handleSwitchCalculation('combustivel')} className={(component == <Combustivel enviar={atualizarBancoDados} /> ? 'active' : '') + "w-full p-4  bg-gray-100 gap-2 rounded-l-lg flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><LuFuel />Combustivel</button>
                         </li>
-                        <li className="w-full hover:text-green-600 text-white">
+                        <li className="w-full hover:text-green-600 text-white bg-transparent">
                             <button onClick={() => handleSwitchCalculation('rancho')} className={(component == <Rancho enviar={atualizarBancoDados} /> ? 'active' : '') + "w-full p-4  bg-gray-100 gap-2 flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><MdOutlineFoodBank />Rancho</button>
                         </li>
-                        <li className="w-full hover:text-green-600 text-white">
+                        <li className="w-full hover:text-green-600 text-white bg-transparent">
                             <button onClick={() => handleSwitchCalculation('apoio')} className={(component == <LogisticaApoio enviar={atualizarBancoDados} /> ? 'active' : '') + "w-full p-4 bg-white rounded-r-lg gap-2 focus:ring-2 flex items-center focus:outline-none justify-center focus:ring-green-600 dark:border dark:border-gray-500  dark:bg-transparent"}><PiAirplane />Apoio</button>
                         </li>
                     </ul>

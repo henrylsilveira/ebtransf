@@ -28,7 +28,7 @@ export default function CalcTransferencia() {
 
                 <div className="grid xl:grid-cols-3 xl:gap-6 sm:grid-cols-1 md:grid-cols-3  gap-4">
                     <div className="relative z-0 mb-6 w-full group">
-                        <select name="postGrad" id="postGrad" onChange={(e) => setPg(e.target.value)} className="leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                        <select name="postGrad" id="postGrad" onChange={(e) => setPg(e.target.value)} className="leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
                             <option value="sdEv">SD EV</option>
                             <option value="sdEp">SD EP</option>
@@ -51,7 +51,7 @@ export default function CalcTransferencia() {
                         <label htmlFor="postGrad" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">P/G</label>
                     </div>
                     <div className="relative z-0 mb-6 w-full group">
-                        <select name="habilitacao" id="habilitacao" onChange={(e) => setHab(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                        <select name="habilitacao" id="habilitacao" onChange={(e) => setHab(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
                             {adcHab.map((adc, index) => (
                                 <option key={index} value={adc}>{adc}%</option>
@@ -60,7 +60,7 @@ export default function CalcTransferencia() {
                         <label htmlFor="habilitacao" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Habilitação</label>
                     </div>
                     <div className="relative z-0 mb-6 w-full group">
-                        <select name="militar" id="militar" onChange={(e) => setMil(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                        <select name="militar" id="militar" onChange={(e) => setMil(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
                             {adcMil.map((adc, index) => (
                                 <option key={index} value={adc}>{adc}%</option>
@@ -69,7 +69,7 @@ export default function CalcTransferencia() {
                         <label htmlFor="militar" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Militar</label>
                     </div>
                     <div className="relative z-0 mb-6 w-full group">
-                        <select name="disponibilidade" id="disponibilidade" onChange={(e) => setDisp(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                        <select name="disponibilidade" id="disponibilidade" onChange={(e) => setDisp(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
                             {adcDisp.map((adc, index) => (
                                 <option key={index} value={adc}>{adc}%</option>
@@ -78,7 +78,7 @@ export default function CalcTransferencia() {
                         <label htmlFor="disponibilidade" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Disp</label>
                     </div>
                     <div className="relative z-0 mb-6 w-full group">
-                        <select name="localizacao" id="localizacao" onChange={(e) => setLocEsp(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                        <select name="localizacao" id="localizacao" onChange={(e) => setLocEsp(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
                             {adcLocEsp.map((adc, index) => (
                                 <option key={index} value={adc}>{adc}%</option>
@@ -94,22 +94,22 @@ export default function CalcTransferencia() {
 
                 <div className="grid xl:grid-cols-2 md:grid-cols-2 md:gap-6 xl:gap-6">
                     <div className="relative z-0 mb-6 w-full group">
-                        <input type="number" name="passagemAdultoValor" onChange={(e) => setPassagemAdultoValor(Number(e.target.value))} id="passagemAdultoValor" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 [appearance:textfield] dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                        <input type="number" name="passagemAdultoValor" onChange={(e) => setPassagemAdultoValor(Number(e.target.value))} id="passagemAdultoValor" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 [appearance:textfield] dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                         <label htmlFor="passagemAdultoValor" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Valor da Passagem</label>
                     </div>
                     <div className="relative z-0 mb-6 w-full group">
-                        <input type="number" name="passagemAdultoQuantidade" onChange={(e) => setPassagemAdultoQnt(Number(e.target.value))} id="passagemAdultoQuantidade" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 [appearance:textfield] dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                        <input type="number" name="passagemAdultoQuantidade" onChange={(e) => setPassagemAdultoQnt(Number(e.target.value))} id="passagemAdultoQuantidade" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 [appearance:textfield] dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                         <label htmlFor="passagemAdultoQuantidade" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adultos</label>
                     </div>
 
                 </div>
                 <div className="grid xl:grid-cols-2 md:grid-cols-2 md:gap-6 xl:gap-6">
                     <div className="relative z-0 mb-6 w-full group">
-                        <input type="number" name="passagemCriancaValor" onChange={(e) => setPassagemCriancaValor(Number(e.target.value))} id="passagemCriancaValor" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 [appearance:textfield] dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                        <input type="number" name="passagemCriancaValor" onChange={(e) => setPassagemCriancaValor(Number(e.target.value))} id="passagemCriancaValor" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 [appearance:textfield] dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                         <label htmlFor="passagemCriancaValor" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Valor da Passagem</label>
                     </div>
                     <div className="relative z-0 mb-6 w-full group">
-                        <input type="number" name="passagemCriancaQuantidade" onChange={(e) => setPassagemCriancaQnt(Number(e.target.value))} id="passagemCriancaQuantidade" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 [appearance:textfield] dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                        <input type="number" name="passagemCriancaQuantidade" onChange={(e) => setPassagemCriancaQnt(Number(e.target.value))} id="passagemCriancaQuantidade" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 [appearance:textfield] dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                         <label htmlFor="passagemCriancaQuantidade" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Crianças</label>
                     </div>
 
@@ -121,7 +121,7 @@ export default function CalcTransferencia() {
 
                 <div className="grid xl:grid-cols-2 xl:gap-6">
                     <div className="relative z-0 mb-6 w-full group">
-                        <select name="bagagem" id="bagagem" onChange={(e) => setCuba(Number(e.target.value))} className="leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                        <select name="bagagem" id="bagagem" onChange={(e) => setCuba(Number(e.target.value))} className="leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
                             <option value={60}>Generais 60m³</option>
                             <option value={55}>Cel/Ten Cel/Maj 55m³</option>
@@ -133,7 +133,7 @@ export default function CalcTransferencia() {
                         <label htmlFor="bagagem" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Cubagem</label>
                     </div>
                     <div className="relative z-0 mb-6 w-full group">
-                        <input type="number" name="distanciaKm" onChange={(e) => setDist(Number(e.target.value))} id="distanciaKm" className="block py-2.5 px-0 w-full [appearance:textfield] text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                        <input type="number" name="distanciaKm" onChange={(e) => setDist(Number(e.target.value))} id="distanciaKm" className="block py-2.5 px-0 w-full [appearance:textfield] text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                         <label htmlFor="distanciaKm" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Distância em KM</label>
                     </div>
 
