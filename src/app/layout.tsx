@@ -32,7 +32,7 @@ export default async function RootLayout({
         <Logo />
         <SideBar />
         <ToastContainer />
-        {/* {Cookies.get('gdpr') === "true" ? <></> : <GDPR />} */}
+        {Cookies.get('gdpr') === "true" ? <></> : <GDPR />}
         {children}
       </body>
     </html>

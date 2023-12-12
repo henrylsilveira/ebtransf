@@ -6,7 +6,6 @@ export default function GDPR() {
   function setCookies() {
     Cookies.set('gdpr', 'true',{ expires: 7 });
     const gdpr = document.getElementById("gdpr");
-    localStorage.setItem('gdpr', "true");
     if (gdpr !== null) {
       gdpr.style.display = "none";
     }

@@ -7,12 +7,12 @@ import { MdOutlineClose } from "react-icons/md";
 import { Loader } from "../../Loader/Loader";
 import { toast } from "react-toastify";
 import { LogisticaCombustivelProps } from "@/types/types";
+import { removerObjetoPorID } from "@/utils/scripts";
 
 export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { logistica: LogisticaCombustivelProps[], idComb: string, tipo: string, hookComb?: Function }) {
     // const [visualizarRegistrosCombustivel, setVisualizarRegistrosCombustivel] = useState<ConsumoGeradorProps[]>([])
     const [loading, setLoading] = useState(false);
-    const [qntRegistros, setQntRegistros] = useState(logistica.length)
-    console.log(logistica)
+    const [qntRegistros, setQntRegistros] = useState(30)
 
     const [formData, setFormData] = useState<LogisticaCombustivelProps>({
         id: "",
@@ -22,6 +22,32 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
         data: "",
         quantidade: 0,
     });
+
+    async function apagarDado(idDado: string) {
+        setLoading(true);
+        const newArray = removerObjetoPorID(logistica, idDado)
+        try {
+            if (hookComb) {
+                await hookComb(newArray)
+            }
+            const registros = JSON.stringify(logistica)
+            await new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(localStorage.setItem("logisticaEntradaSaidaCombustivel", registros));
+                }, 300);
+            })
+            toast.success("Registro removido com sucesso!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        } catch (error) {
+            toast.error("Erro ao remover o registro!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        }
+        setLoading(false);
+    }
 
     const handleSubmitCombustivel = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -152,66 +178,76 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
                                     <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
                                         <div className="w-full ">
                                             <tr className="w-full flex flex-wrap justify-between flex-row flex-1 items-center">
-                                                <th scope="col" className="px-6 py-3 w-1/5">
+                                                <th scope="col" className="px-6 py-3 w-1/6">
                                                     Data
                                                 </th>
-                                                <th scope="col" className="px-6 py-3 w-1/5">
+                                                <th scope="col" className="px-6 py-3 w-1/6">
                                                     Código Combustível
                                                 </th>
-                                                <th scope="col" className="px-6 py-3 w-1/5">
+                                                <th scope="col" className="px-6 py-3 w-1/6">
                                                     Tipo
                                                 </th>
-                                                <th scope="col" className="px-6 py-3 w-1/5">
+                                                <th scope="col" className="px-6 py-3 w-1/6">
                                                     Finalidade
                                                 </th>
-                                                <th scope="col" className="px-6 py-3 w-1/5">
+                                                <th scope="col" className="px-6 py-3 w-1/6">
                                                     Quantidade
                                                 </th>
+                                                <th scope="col" className="px-6 py-3 w-1/6">
+
+                                                </th>
+
                                             </tr>
                                         </div>
                                     </thead>
                                     <tbody>
-                                        <div className="w-full overflow-y-scroll max-h-96">
-                                            {logistica?.filter(log => log.idCombustivel === idComb).map((log, index) => (
-                                                <tr key={index} className={`w-full flex flex-wrap justify-between odd:bg-white odd:dark:bg-gray-900 dark:hover:bg-green-700/30 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-b-gray-700 ${log.tipo === "entrada" ? 'dark:border-l-4 dark:border-l-green-500' : 'dark:border-l-4 dark:border-l-red-500'}`}>
-                                                    <th scope="col" className="px-6 py-2 w-1/5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {log.data}
+                                        {loading ? <Loader loadingPage /> : 
+                                            <div className="w-full overflow-y-scroll max-h-96">
+                                                {logistica?.filter(log => log.idCombustivel === idComb).map((log, index) => (
+                                                    <tr key={index} className={`w-full flex flex-wrap justify-between odd:bg-white odd:dark:bg-gray-900 dark:hover:bg-green-700/30 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-b-gray-700 ${log.tipo === "entrada" ? 'dark:border-l-4 dark:border-l-green-500' : 'dark:border-l-4 dark:border-l-red-500'}`}>
+                                                        <th scope="col" className="px-6 py-2 w-1/6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                            {log.data}
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-2 w-1/6 ">
+                                                            {log.idCombustivel}
+                                                        </th>
+                                                        <td scope="col" className="px-6 py-2 w-1/6">
+                                                            {log.tipo}
+                                                        </td>
+                                                        <td scope="col" className="px-6 py-2 w-1/6">
+                                                            {log.finalidade}
+                                                        </td>
+                                                        <td scope="col" className="px-6 py-2 w-1/6">
+                                                            {log.quantidade} l
+                                                        </td>
+                                                        <td scope="col" className="px-6 py-2 w-1/6">
+                                                            <button type="button" onClick={() => apagarDado(log.id)} className="hover:bg-red-800 text-xs  bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md flex justify-center"><MdOutlineClose className="mx-auto w-4 h-4" /></button>
+                                                        </td>
+                                                    </tr>
+                                                )).slice(0, qntRegistros)}
+                                                <tr className="odd:bg-white w-full flex flex-wrap justify-between odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                                    <th scope="row" className="px-6 py-2 w-1/6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        Total
                                                     </th>
-                                                    <th scope="col" className="px-6 py-2 w-1/5 ">
-                                                        {log.idCombustivel}
-                                                    </th>
-                                                    <td scope="col" className="px-6 py-2 w-1/5">
-                                                        {log.tipo}
+                                                    <td className="px-6 py-2 w-1/6">
                                                     </td>
-                                                    <td scope="col" className="px-6 py-2 w-1/5">
-                                                        {log.finalidade}
+                                                    <td className="px-6 py-2 w-1/6">
                                                     </td>
-                                                    <td scope="col" className="px-6 py-2 w-1/5">
-                                                        {log.quantidade} l
+                                                    <td className="px-6 py-2 w-1/6">
+                                                    </td>
+                                                    <td className="px-6 py-2 w-1/6">
+                                                        {(logistica?.filter(log => log.idCombustivel === idComb && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                            return total + (+item.quantidade);
+                                                        }, 0)) -
+                                                            (logistica?.filter(log => log.idCombustivel === idComb && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                                return total + (+item.quantidade);
+                                                            }, 0)) + " l"}
                                                     </td>
                                                 </tr>
-                                            )).slice(0, qntRegistros)}
-                                            <tr className="odd:bg-white w-full flex flex-wrap justify-between odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                                <th scope="row" className="px-6 py-2 w-1/5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    Total
-                                                </th>
-                                                <td className="px-6 py-2 w-1/5">
-                                                </td>
-                                                <td className="px-6 py-2 w-1/5">
-                                                </td>
-                                                <td className="px-6 py-2 w-1/5">
-                                                </td>
-                                                <td className="px-6 py-2 w-1/5">
-                                                    {(logistica?.filter(log => log.idCombustivel === idComb && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                        return total + (+item.quantidade);
-                                                    }, 0)) -
-                                                        (logistica?.filter(log => log.idCombustivel === idComb && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                            return total + (+item.quantidade);
-                                                        }, 0)) + " l"}
-                                                </td>
-                                            </tr>
 
-                                        </div>
+                                            </div>
+                                    
+                                        }
                                     </tbody>
 
                                 </table>

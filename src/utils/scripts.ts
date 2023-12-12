@@ -169,3 +169,17 @@ export function calcularDiferencaAtual(data: any, dataT?: any) {
 
     return { ano: difAno, mes: difMes, dia: difDia, totalDias: difAno*365 + difMes*30 + difDia};
 }
+
+interface ObjectProps {
+    id: string
+}
+
+export function removerObjetoPorID(array: ObjectProps[], id: string): ObjectProps[] {
+    const index = array.findIndex(objeto => objeto.id === id);
+
+    if (index !== -1) {
+        array.splice(index, 1);
+    }
+
+    return array;
+}

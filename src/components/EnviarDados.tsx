@@ -1,6 +1,7 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { useState } from "react";
 import { MdOutlineClose, MdSend } from "react-icons/md";
+import { Loader } from "./Loader/Loader";
 
 export function EnviarDados({ enviarFunc, data, tipo }: {
     enviarFunc: (data: {
@@ -10,13 +11,26 @@ export function EnviarDados({ enviarFunc, data, tipo }: {
     }) => void, data: {}, tipo: string
 }) {
     const [token, setToken] = useState("")
+    const [loading, setLoading] = useState(false)
+
+    function enviaDadosButton() {
+        setLoading(true)
+        enviarFunc({
+            data: {
+                ...data
+            }, tipo, id: token,
+        })
+        setLoading(false)
+    }
 
     return (
         <AlertDialog.Root>
             <AlertDialog.Trigger asChild>
-            <div className="w-full flex">
-                <button type="button" className="hover:bg-blue-800 w-full items-center text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex gap-2 justify-center"><p className="flex"><MdSend className="w-4 h-4" />Enviar</p></button>
-            </div>
+                <div className="w-full flex">
+                    {loading ? <Loader /> :
+                        <button type="button" className="hover:bg-blue-800 w-full items-center text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex gap-2 justify-center"><p className="flex"><MdSend className="w-4 h-4" />Enviar</p></button>
+                    }
+                </div>
             </AlertDialog.Trigger>
             <AlertDialog.Portal>
                 <AlertDialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
@@ -39,11 +53,7 @@ export function EnviarDados({ enviarFunc, data, tipo }: {
                     </div>
                     <div className="w-full flex justify-center mt-4 items-center">
                         <AlertDialog.Cancel className="w-full">
-                            <button type="button" onClick={() => enviarFunc({
-                                data: {
-                                    ...data
-                                }, tipo, id: token,
-                            })} className="hover:bg-blue-800 items-center justify-center text-md w-full bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex">Enviar</button>
+                            <button type="button" onClick={() => enviaDadosButton()} className="hover:bg-blue-800 items-center justify-center text-md w-full bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex">Enviar</button>
                         </AlertDialog.Cancel>
                     </div>
                 </AlertDialog.Content>
