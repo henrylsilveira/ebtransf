@@ -128,13 +128,13 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
                             <div className="grid grid-cols-4 gap-4 mb-4">
                                 <div>
                                     <div className="relative z-0 w-full group flex items-center">
-                                        <input type="date" name="data" onChange={handleChange} id="data" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                                        <input type="date" name="data" onChange={handleChange} id="data" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                         <label htmlFor="data" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Data</label>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="relative z-0 mb-6 w-full group">
-                                        <select name="tipo" id="tipo" onChange={handleChange} className="leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                                        <select name="tipo" id="tipo" onChange={handleChange} className="leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:bg-gray-900 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                                             <option></option>
                                             <option value={"entrada"}>Entrada</option>
                                             <option value={"saida"}>Saida</option>
@@ -144,14 +144,14 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
                                 </div>
                                 <div>
                                     <div className="relative z-0 w-full group flex items-center">
-                                        <input type="text" name="finalidade" onChange={handleChange} id="finalidade" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                                        <input type="text" name="finalidade" onChange={handleChange} id="finalidade" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 focus:bg-gray-900 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                         <label htmlFor="finalidade" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Finalidade</label>
                                     </div>
                                     <span className="text-xs text-gray-600">Ex: Ressuprimento, Gerador</span>
                                 </div>
                                 <div>
                                     <div className="relative z-0 w-full group flex items-center">
-                                        <input type="number" name="quantidade" onChange={handleChange} id="quantidade" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                                        <input type="number" name="quantidade" onChange={handleChange} id="quantidade" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                         <label htmlFor="quantidade" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Quantidade</label>
                                     </div>
                                 </div>
@@ -204,8 +204,9 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
                                         {loading ? <Loader loadingPage /> : 
                                             <div className="w-full overflow-y-scroll max-h-96">
                                                 {logistica?.filter(log => log.idCombustivel === idComb).map((log, index) => (
-                                                    <tr key={index} className={`w-full flex flex-wrap justify-between odd:bg-white odd:dark:bg-gray-900 dark:hover:bg-green-700/30 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-b-gray-700 ${log.tipo === "entrada" ? 'dark:border-l-4 dark:border-l-green-500' : 'dark:border-l-4 dark:border-l-red-500'}`}>
-                                                        <th scope="col" className="px-6 py-2 w-1/6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    
+                                                    <tr key={index} className={`w-full flex flex-wrap justify-between odd:bg-gray-900 odd:dark:bg-gray-900 dark:hover:bg-green-700/30 even:bg-gray-800 even:dark:bg-gray-800 border-b border-gray-700 dark:border-b-gray-700 ${log.tipo === "entrada" ? 'dark:border-l-4 dark:border-l-green-500' : 'dark:border-l-4 dark:border-l-red-500'}`}>
+                                                        <th scope="col" className="px-6 py-2 w-1/6 font-medium text-white whitespace-nowrap dark:text-white">
                                                             {log.data}
                                                         </th>
                                                         <th scope="col" className="px-6 py-2 w-1/6 ">
@@ -225,8 +226,8 @@ export function LogisticaCombustivel({ logistica, idComb, tipo, hookComb }: { lo
                                                         </td>
                                                     </tr>
                                                 )).slice(0, qntRegistros)}
-                                                <tr className="odd:bg-white w-full flex flex-wrap justify-between odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                                    <th scope="row" className="px-6 py-2 w-1/6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <tr className="odd:bg-gray-900 w-full flex flex-wrap justify-between odd:dark:bg-gray-900 even:bg-gray-800 even:dark:bg-gray-800 border-b border-gray-700 dark:border-gray-700">
+                                                    <th scope="row" className="px-6 py-2 w-1/6 font-medium text-white whitespace-nowrap dark:text-white">
                                                         Total
                                                     </th>
                                                     <td className="px-6 py-2 w-1/6">

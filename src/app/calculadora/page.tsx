@@ -49,10 +49,10 @@ export default function Calculadora() {
           </div>
           <ul className="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400">
             <li className="w-full hover:text-green-600 text-white">
-              <button onClick={() => handleSwitchCalculation('transf')} className={(component == <CalcTransferencia /> ? 'active' : '') + "w-full p-4  bg-gray-100 gap-2 rounded-l-lg flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><GiCommercialAirplane />Transferência</button>
+              <button onClick={() => handleSwitchCalculation('transf')} className={(component == <CalcTransferencia /> ? 'active' : '') + "w-full p-4  bg-gray-900 gap-2 rounded-l-lg flex items-center focus:ring-2 border-gray-500 border justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><GiCommercialAirplane />Transferência</button>
             </li>
             <li className="w-full hover:text-green-600 text-white">
-              <button onClick={() => handleSwitchCalculation('grat')} className={(component == <CalcRepresentacao /> ? 'active' : '') + "w-full p-4 bg-white rounded-r-lg gap-2 focus:ring-2 flex items-center focus:outline-none justify-center focus:ring-green-600 dark:border dark:border-gray-500  dark:bg-transparent"}><PiMoney />Gratificação representação</button>
+              <button onClick={() => handleSwitchCalculation('grat')} className={(component == <CalcRepresentacao /> ? 'active' : '') + "w-full p-4 bg-gray-900 rounded-r-lg gap-2 focus:ring-2 flex items-center border-gray-500 border focus:outline-none justify-center focus:ring-green-600 dark:border dark:border-gray-500  dark:bg-transparent"}><PiMoney />Gratificação representação</button>
             </li>
           </ul>
         </div>

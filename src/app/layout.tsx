@@ -22,9 +22,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  
 
   return (
-    <html lang="pt">
+    <html lang="pt" className="dark">
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
