@@ -11,18 +11,21 @@ export default function CalcTransferencia() {
     const [disp, setDisp] = useState(0)
     const [dist, setDist] = useState(0)
     const [cuba, setCuba] = useState(0)
+    const [pgCo, setPgCO] = useState("")
+    const [compOrg, setCompOrg] = useState(0)
     const [passagemAdultoValor, setPassagemAdultoValor] = useState(0)
     const [passagemAdultoQnt, setPassagemAdultoQnt] = useState(0)
     const [passagemCriancaValor, setPassagemCriancaValor] = useState(0)
     const [passagemCriancaoQnt, setPassagemCriancaQnt] = useState(0)
     const [carro, setCarro] = useState(false)
     const [moto, setMoto] = useState(false)
+
     return (
         <>
             <div className="fixed left-0 bg-gray-900 bg-opacity-40 backdrop-blur-sm shadow-lg w-screen shadow-black bottom-0 p-4 z-10">
                 <div className="border-2 text-xs sm:text-base border-green-600 rounded p-2 flex flex-1 items-center justify-center text-white font-bold ">Valor aproximado a receber pela transferência:
-                    <p className="text-sm sm:text-xl font-extrabold pl-4">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)!) * 4 + (passagemAdultoValor * passagemAdultoQnt) + (passagemCriancaValor * passagemCriancaoQnt) + (retornaValorM3Transportado(dist) * cuba) + (carro ? retornaValorM3Transportado(dist) * cubagemVeiculo['carro'] : 0) + (moto ? retornaValorM3Transportado(dist) * cubagemVeiculo['moto'] : 0))}</p></div>
-                </div>
+                    <p className="text-sm sm:text-xl font-extrabold pl-4">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * 4 + (passagemAdultoValor * passagemAdultoQnt) + (passagemCriancaValor * passagemCriancaoQnt) + (retornaValorM3Transportado(dist) * cuba) + (carro ? retornaValorM3Transportado(dist) * cubagemVeiculo['carro'] : 0) + (moto ? retornaValorM3Transportado(dist) * cubagemVeiculo['moto'] : 0))}</p></div>
+            </div>
             <div className="border border-green-600 rounded-md p-6 relative">
                 <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Militar</h1>
 
@@ -86,7 +89,39 @@ export default function CalcTransferencia() {
                         </select>
                         <label htmlFor="localizacao" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Loc Esp</label>
                     </div>
+
                 </div>
+                <div className="flex flex-col gap-4 border border-green-600 rounded-md p-4">
+                    <div className="relative z-0  w-full group">
+                        <select name="postGrad" id="postGrad" onChange={(e) => setPgCO(e.target.value)} className="leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                            <option></option>
+                            <option value="sdEv">SD EV</option>
+                            <option value="sdEp">SD EP</option>
+                            <option value="cb">CB</option>
+                            <option value="3sgt">3º SGT</option>
+                            <option value="2sgt">2º SGT</option>
+                            <option value="1sgt">1º SGT</option>
+                            <option value="st">ST</option>
+                            <option value="aspof">ASP OF</option>
+                            <option value="2ten">2º TEN</option>
+                            <option value="1ten">1º TEN</option>
+                            <option value="cap">CAP</option>
+                            <option value="maj">MAJ</option>
+                            <option value="tencel">TEN CEL</option>
+                            <option value="cel">CEL</option>
+                            <option value="genBda">GEN BDA</option>
+                            <option value="genDiv">GEN DIV</option>
+                            <option value="genEx">GEN EX</option>
+                        </select>
+                        <label htmlFor="postGrad" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">P/G da Comp Org</label>
+                    </div>
+                    <div className="relative z-0  w-full group">
+                        <input name="compOrg" id="compOrg" maxLength={3} defaultValue={0} onChange={(e) => setCompOrg(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
+                        <label htmlFor="compOrg" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Compensação Orgânica</label>
+                        <span className="text-gray-600 text-sm">Insira a porcentagem</span>
+                    </div>
+                </div>
+                <span className="text-gray-600 text-sm">Caso não possua deixe os campos vazios.</span>
             </div>
             {/* PASSAGEM */}
             <div className="border border-green-600 rounded-md p-6 relative my-4">
@@ -175,14 +210,17 @@ export default function CalcTransferencia() {
                         <b className="text-gray-300">Adc Disponibilidade</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * disp / 100)}</p>
                     </div>
                     <div className="flex flex-1">
-                        <b className="text-gray-300">Valor Bruto</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)!)}</p>
+                        <b className="text-gray-300">Adc Compensação Orgânica</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pgCo)! * compOrg / 100)}</p>
+                    </div>
+                    <div className="flex flex-1">
+                        <b className="text-gray-300">Valor Bruto</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + (retornaValorSoldo(pgCo)! * compOrg / 100) + retornaValorSoldo(pg)!)}</p>
                     </div>
 
                 </div>
                 <div className="border border-green-600 rounded-md p-6 relative mt-4">
                     <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Ajuda de custo</h1>
                     <div className="flex flex-1">
-                        <b className="text-gray-300">Valor Bruto x 4</b><p className="pl-4 text-white">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)!) * 4)}</p>
+                        <b className="text-gray-300">Valor Bruto x 4</b><p className="pl-4 text-white">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * 4)}</p>
                     </div>
 
                 </div>
