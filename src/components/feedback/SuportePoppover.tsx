@@ -8,9 +8,9 @@ export default function Suporte() {
             <Popover.Trigger>
                 <MdOutlineContactSupport className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />
             </Popover.Trigger>
-
-                <Popover.Content style={{ width: 180, height: 120 }}>
-                    <div className='bg-black p-4 border border-green-600 rounded-lg'>
+                
+                <Popover.Content className='data-[side=right]:animate-slideLeftAndFade'>
+                    <div className='bg-black p-4 border border-green-600 rounded-lg z-50'>
                         <div className='block text-sm text-white font-light'>
                             <p className='font-bold'>Suporte por E-mail</p>
                             <Link className='text-green-500 pointer hover:underline' href="mailto:suporte@ebcalc.net">suporte@ebcalc.net </Link>

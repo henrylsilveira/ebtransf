@@ -1,11 +1,14 @@
-import Link from "next/link";
+'use client'
 import { BsCalculator, BsClock, BsDatabaseCheck } from "react-icons/bs";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import { Button } from "./Button";
+import { Feedback } from "./feedback/Feedback";
 
 export function Links() {
     return (
         <>
+                <Feedback />
+
             <div className="mt-4 hover:text-green-600 border text-white border-green-600 rounded-lg ">
                 <Button link="/calculadora" text="Calculadora" Icon={<BsCalculator className="pr-1 text-2xl" />} />
             </div>

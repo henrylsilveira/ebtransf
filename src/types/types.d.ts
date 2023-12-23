@@ -3,6 +3,10 @@ export type FaleConoscoProps = {
     email: string;
     mensagem: string;
 }
+export type FeedbackProps = {
+    id?: string;
+    mensagem: "like" | "dislike";
+}
 
 export type ConsumoGeradorProps = {
     data: string;

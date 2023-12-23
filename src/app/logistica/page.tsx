@@ -1,5 +1,5 @@
 'use client'
-import CalcCombustivelViatura from "@/components/CalcCombustivelViatura";
+import CalcCombustivelViatura from "@/components/calculadoras/CalcCombustivelViatura";
 import { Combustivel } from "@/components/logistica/combustivel/Combustivel";
 import { LogisticaApoio } from "@/components/logistica/paa/LogisticaApoio";
 import Script from "next/script";

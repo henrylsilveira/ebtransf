@@ -2,7 +2,7 @@
 import { formataValor, retornaValorSoldo } from "@/utils/scripts"
 import { adcHab, adcMil, adcDisp, adcLocEsp, adcPermArr, fusexArr, pensMilArr, gratRepArr } from "@/utils/valores"
 import { useState } from "react"
-import { Links } from "./Links"
+import { Links } from "../Links"
 
 export default function CalcContraChequeComponent() {
     const [pg, setPg] = useState("")
@@ -93,8 +93,8 @@ export default function CalcContraChequeComponent() {
                     <div className="relative z-0 w-full group">
                         <select name="habilitacao" id="habilitacao" onChange={(e) => setHab(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
-                            {adcHab.map(adc => (
-                                <option value={adc}>{adc}%</option>
+                            {adcHab.map((adc, index) => (
+                                <option key={adc + index} value={adc}>{adc}%</option>
                             ))}
                         </select>
                         <label htmlFor="habilitacao" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Habilitação</label>
@@ -102,8 +102,8 @@ export default function CalcContraChequeComponent() {
                     <div className="relative z-0 w-full group">
                         <select name="militar" id="militar" onChange={(e) => setMil(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
-                            {adcMil.map(adc => (
-                                <option value={adc}>{adc}%</option>
+                            {adcMil.map((adc, index) => (
+                                <option key={adc + index} value={adc}>{adc}%</option>
                             ))}
                         </select>
                         <label htmlFor="militar" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Militar</label>
@@ -111,8 +111,8 @@ export default function CalcContraChequeComponent() {
                     <div className="relative z-0 w-full group">
                         <select name="disponibilidade" defaultValue=" " id="disponibilidade" onChange={(e) => setDisp(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option className="hidden"></option>
-                            {adcDisp.map(adc => (
-                                <option value={adc}>{adc}%</option>
+                            {adcDisp.map((adc, index) => (
+                                <option key={adc + index} value={adc}>{adc}%</option>
                             ))}
                         </select>
                         <label htmlFor="disponibilidade" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Disp</label>
@@ -120,8 +120,8 @@ export default function CalcContraChequeComponent() {
                     <div className="relative z-0 w-full group">
                         <select name="localizacao" id="localizacao" onChange={(e) => setLocEsp(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
-                            {adcLocEsp.map(adc => (
-                                <option value={adc}>{adc}%</option>
+                            {adcLocEsp.map((adc, index) => (
+                                <option key={adc + index} value={adc}>{adc}%</option>
                             ))}
                         </select>
                         <label htmlFor="localizacao" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Loc Esp</label>

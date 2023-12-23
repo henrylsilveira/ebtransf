@@ -1,6 +1,6 @@
 'use client'
-import CalcCombustivelViatura from "@/components/CalcCombustivelViatura";
-import CalcGerador from "@/components/CalcGerador";
+import CalcCombustivelViatura from "@/components/calculadoras/CalcCombustivelViatura";
+import CalcGerador from "@/components/calculadoras/CalcGerador";
 import Script from "next/script";
 import { useState } from "react";
 import { BsTruck } from "react-icons/bs";

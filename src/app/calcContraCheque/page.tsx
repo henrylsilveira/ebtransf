@@ -1,8 +1,6 @@
 
-import CalcContraChequeComponent from "@/components/CalcContracheque";
-import { Loader } from "@/components/Loader/Loader";
+import CalcContraChequeComponent from "@/components/calculadoras/CalcContracheque";
 import Script from "next/script";
-import { Suspense } from "react";
 
 export default function CalcContraCheque() {
 
@@ -18,9 +16,7 @@ export default function CalcContraCheque() {
             </Script>
             <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
                 crossOrigin="anonymous" />
-            <Suspense fallback={<Loader loadingPage />}>
-                <CalcContraChequeComponent />
-            </Suspense>
+            <CalcContraChequeComponent />
         </>
     )
 }

@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react"
-import { ConsumoGerador } from "./ConsumoGerador"
+import { ConsumoGerador } from "../ConsumoGerador"
 
 export default function CalcCombustivelViatura() {
   const [litros, setLitros] = useState(0)

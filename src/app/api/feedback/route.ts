@@ -1,22 +1,21 @@
 
 import app from "@/firebase/config";
-import { FaleConoscoProps } from "@/types/types";
-import { randomUUID } from "crypto";
+import { FeedbackProps } from "@/types/types";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { nanoid } from "nanoid";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-    const db = getFirestore(app)
+    const db = getFirestore(app);
     const date = new Date()
-    const { email, mensagem } = await request.json() as FaleConoscoProps
+    const { mensagem } = await request.json() as FeedbackProps
     try {
-        await addDoc(collection(db, "faleconosco"), {
-            id: randomUUID(),
+        await addDoc(collection(db, "feedback"), {
+            id: nanoid(6).toUpperCase(),
             date: date.toISOString(),
-            email,
             mensagem
           });
-          return NextResponse.json({status: true, message: "Mensagem enviada!" })
+          return NextResponse.json({status: true, message: "Mensagem registrada!" })
     } catch (error) {
         return NextResponse.json({ message: error })
     }

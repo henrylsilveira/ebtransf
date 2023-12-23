@@ -1,14 +1,9 @@
 'use client'
 
 import Script from "next/script";
-import CalcTransferencia from "@/components/Transferencia";
-import CalcRepresentacao from "@/components/Representacao";
 import { useEffect, useState } from 'react'
 import React from "react";
-import Link from "next/link";
-import { MdOutlinePrivacyTip } from "react-icons/md";
 import { FiAlertTriangle } from "react-icons/fi";
-import { BsDatabaseCheck } from "react-icons/bs";
 import { calcularDiferencaAtual } from "@/utils/scripts";
 import { Links } from "@/components/Links";
 

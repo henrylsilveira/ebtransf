@@ -1,8 +1,8 @@
 'use client'
 
 import Script from "next/script";
-import CalcTransferencia from "@/components/Transferencia";
-import CalcRepresentacao from "@/components/Representacao";
+import CalcTransferencia from "@/components/transfGratRep/Transferencia";
+import CalcRepresentacao from "@/components/transfGratRep/Representacao";
 import { useState } from 'react'
 import React from "react";
 import Link from "next/link";

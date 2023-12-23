@@ -1,13 +1,14 @@
 'use client'
 
 import Script from "next/script";
-import CalcTransferencia from "@/components/Transferencia";
-import CalcRepresentacao from "@/components/Representacao";
+import CalcTransferencia from "@/components/transfGratRep/Transferencia";
+import CalcRepresentacao from "@/components/transfGratRep/Representacao";
 import { useState } from 'react'
 import React from "react";
 import { GiCommercialAirplane } from "react-icons/gi";
 import { PiMoney } from "react-icons/pi";
 import { Links } from "@/components/Links";
+import { Feedback } from "@/components/feedback/Feedback";
 
 export default function Calculadora() {
   const [component, setComponent] = useState(<CalcTransferencia />)
@@ -57,6 +58,7 @@ export default function Calculadora() {
           </ul>
         </div>
         {component}
+        
         <Links />
       </div>
     </>
