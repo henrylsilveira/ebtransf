@@ -1,6 +1,6 @@
 import app from "@/firebase/config";
 import { InstalacaoLogisticaProps } from "@/types/types";
-import { addDoc, collection, doc, getDoc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
