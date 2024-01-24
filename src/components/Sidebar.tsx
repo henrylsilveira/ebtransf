@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BsCalculator, BsClock, BsDatabaseCheck } from "react-icons/bs";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
-import { MdOutlinePrivacyTip } from "react-icons/md";
+import { MdOutlinePrivacyTip, MdOutlineRealEstateAgent } from "react-icons/md";
 import { RiTeamLine } from "react-icons/ri";
 import Suporte from "./feedback/SuportePoppover";
 import { Button } from "./Button";
@@ -19,6 +19,9 @@ export function SideBar() {
                 </li>
                 <li>
                     <Button name="Botão para acessar a calculadora de tempo de serviço" link="/tempoServico" Icon={<BsClock className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
+                </li>
+                <li>
+                    <Button name="Botão para acessar a página Logística" link="/logistica" Icon={<MdOutlineRealEstateAgent className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
                 </li>
                 <li>
                     <Button name="Botão para acessar a tabela com os dados." link="/tabelas" Icon={<BsDatabaseCheck className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />

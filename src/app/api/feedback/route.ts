@@ -1,7 +1,7 @@
 
 import app from "@/firebase/config";
 import { FeedbackProps } from "@/types/types";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -14,8 +14,23 @@ export async function POST(request: NextRequest) {
             id: nanoid(6).toUpperCase(),
             date: date.toISOString(),
             mensagem
+        });
+        return NextResponse.json({ status: true, message: "Mensagem registrada!" })
+    } catch (error) {
+        return NextResponse.json({ message: error })
+    }
+}
+
+export async function GET() {
+    const db = getFirestore(app);
+    const colRef = query(collection(db, "feedback"));
+    try {
+        const data = await getDocs(colRef);
+        const feedbacks = data.docs.map((e) => {
+            return e.data();
           });
-          return NextResponse.json({status: true, message: "Mensagem registrada!" })
+
+        return NextResponse.json(feedbacks)
     } catch (error) {
         return NextResponse.json({ message: error })
     }
