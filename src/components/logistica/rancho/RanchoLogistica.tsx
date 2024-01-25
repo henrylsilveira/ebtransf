@@ -133,7 +133,7 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
                                 </div>
                                 <div>
                                     <div className="relative z-0 mb-6 w-full group">
-                                        <select name="tipo" id="tipo" onChange={handleChange} className="leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-white focus:bg-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                                        <select name="tipo" id="tipo" onChange={handleChange} className="leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md text-white focus:bg-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                                             <option></option>
                                             <option value={"entrada"}>Entrada</option>
                                             <option value={"saida"}>Saida</option>
@@ -146,11 +146,13 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
                                         <input type="text" name="finalidade" onChange={handleChange} id="finalidade" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                         <label htmlFor="finalidade" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Finalidade</label>
                                     </div>
+                                        <span className="text-xs text-gray-600">Ex: Ressuprimento, Almoço, janta</span>
                                 </div>
                                 <div>
                                     <div className="relative z-0 w-full group flex items-center">
                                         <input type="number" name="quantidade" onChange={handleChange} id="quantidade" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                         <label htmlFor="quantidade" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Quantidade</label>
+                                    <span className="text-xs text-gray-600">Kg</span>
                                     </div>
                                 </div>
 
