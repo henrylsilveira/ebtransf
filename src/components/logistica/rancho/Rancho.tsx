@@ -10,6 +10,7 @@ import { nanoid } from 'nanoid'
 import { RanchoLogistica } from './RanchoLogistica';
 import { ApagarButton } from "@/components/ApagarButton"
 import { EnviarDados } from "@/components/EnviarDados"
+import { converterParaFormatoPadrao, retornaTimeStamp } from '@/utils/scripts';
 
 export function Rancho({ enviar }: {
     enviar: (data: {
@@ -41,8 +42,6 @@ export function Rancho({ enviar }: {
     useEffect(() => {
         localStorage.setItem("logisticaEntradaSaidaRancho", JSON.stringify(registroEntradaSaidaRancho))
     }, [registroEntradaSaidaRancho])
-
-
 
     const [formData, setFormData] = useState<RanchoProps>({
         id: "",
@@ -183,6 +182,7 @@ export function Rancho({ enviar }: {
         setFormData({
             ...formData,
             id: nanoid(4),
+            
             [event.target.name]: event.target.value,
         });
     };
@@ -351,10 +351,10 @@ export function Rancho({ enviar }: {
                                     {registro.tipo}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {(registroEntradaSaidaRancho?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                    {(registroEntradaSaidaRancho?.filter(log => log.idAlimento === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaRanchoProps) => {
                                         return total + (+item.quantidade);
                                     }, 0)) -
-                                        (registroEntradaSaidaRancho?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                        (registroEntradaSaidaRancho?.filter(log => log.idAlimento === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaRanchoProps) => {
                                             return total + (+item.quantidade);
                                         }, 0))} kg
                                 </td>
@@ -366,15 +366,15 @@ export function Rancho({ enviar }: {
                                 </td>
                                 <td className="px-6 py-4">
                                     {(Number((
-                                        (registroEntradaSaidaRancho?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                        (registroEntradaSaidaRancho?.filter(log => log.idAlimento === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaRanchoProps) => {
                                             return total + (+item.quantidade);
                                         }, 0)) -
-                                        (registroEntradaSaidaRancho?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                        (registroEntradaSaidaRancho?.filter(log => log.idAlimento === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaRanchoProps) => {
                                             return total + (+item.quantidade);
                                         }, 0)))) * 1000 / (registro.valorEtapa * efetivoTotal)).toFixed(0) + " Dias"}
                                 </td>
                                 <td className="py-4">
-                                    <RanchoLogistica logistica={registroEntradaSaidaRancho} hookComb={setRegistroEntradaSaidaRancho} idComb={registro.id} tipo={registro.tipo} />
+                                    <RanchoLogistica logistica={registroEntradaSaidaRancho} hookComb={setRegistroEntradaSaidaRancho} idAlim={registro.id} tipo={registro.tipo} />
                                 </td>
                             </tr>
                         )).slice(0, qntRegistros)}

@@ -3,11 +3,12 @@ import Script from "next/script";
 import { useEffect, useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 import { api } from "@/services/axios";
-import { DadosBancoProps, LogisticaCombustivelProps, TokenProps } from "@/types/types";
+import { DadosBancoProps, LogisticaCombustivelProps, LogisticaRanchoProps, TokenProps } from "@/types/types";
 import { Loader } from "@/components/Loader/Loader";
 import { Material } from "@/components/logistica/paa/Material";
 import saveAs from "file-saver";
 import Link from "next/link";
+import { converterParaFormatoPadrao } from "@/utils/scripts";
 
 export default function PainelCentral() {
 
@@ -159,254 +160,264 @@ export default function PainelCentral() {
                             <button type="button" key={token.token} onClick={() => pegarDados(token.token)} className="hover:bg-blue-800 w-32 justify-center text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex gap-2">{token.nomeToken}</button>)}
                     </div>
                 </div>
+
                 {loading
                     ? <div className="border-t flex justify-center border-green-700 mt-4 pt-4">
                         <Loader loadingPage />
                     </div> :
-                    <div className="border-t border-green-700 pt-2 flex flex-col gap-6">
-                        {dados?.combustivel.tiposCombustivel.length !== 0 || dados?.combustivel.registroEntradaSaida.length !== 0 ?
-                            <div>
-                                {dados?.combustivel ?
-                                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <div className="flex justify-between my-2">
-                                            <h1 className="text-green-600 font-bold uppercase text-xl">Combustível</h1>
-                                            {Object.keys(dados?.combustivel).length === 0 ? (
-                                                <button type="button" disabled onClick={() => exportaRegistros("combustivel")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                                            ) :
-                                                <button type="button" onClick={() => exportaRegistros("combustivel")} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                    <>
 
-                                            }
-                                        </div>
-                                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                            <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
-                                                <tr>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Código
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Tipo
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Quantidade
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Capacidade
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Disponibilidade %
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody className="">
-                                                {dados.combustivel.tiposCombustivel?.map((registro, index) => (
-                                                    <tr key={index + registro.id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            {registro.id}
+                        <div className="border-t border-green-700 pt-2 flex flex-col gap-6">
+
+                            {dados?.combustivel.tiposCombustivel.length !== 0 || dados?.combustivel.registroEntradaSaida.length !== 0 ?
+                                <div>
+
+                                    {dados?.combustivel ?
+                                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                            <div className="flex gap-2 justify-center">
+                                                <p className="text-white">Última atualização:</p>
+                                                <span className="text-gray-400">{converterParaFormatoPadrao(dados?.updatedAt as string)}</span>
+                                            </div>
+                                            <div className="flex justify-between my-2">
+                                                <h1 className="text-green-600 font-bold uppercase text-xl">Combustível</h1>
+                                                {Object.keys(dados?.combustivel).length === 0 ? (
+                                                    <button type="button" disabled onClick={() => exportaRegistros("combustivel")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                                ) :
+                                                    <button type="button" onClick={() => exportaRegistros("combustivel")} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+
+                                                }
+                                            </div>
+                                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                                <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
+                                                    <tr>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Código
                                                         </th>
-                                                        <td className="px-6 py-4">
-                                                            {registro.tipo}
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            {(dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                                return total + (+item.quantidade);
-                                                            }, 0)) -
-                                                                (dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Tipo
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Quantidade
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Capacidade
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Disponibilidade %
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="">
+                                                    {dados.combustivel.tiposCombustivel?.map((registro, index) => (
+                                                        <tr key={index + registro.id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                                {registro.id}
+                                                            </th>
+                                                            <td className="px-6 py-4">
+                                                                {registro.tipo}
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                {(dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
                                                                     return total + (+item.quantidade);
-                                                                }, 0))} l
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            {registro.total} l
-                                                        </td>
-                                                        <td className={`px-6 py-4
+                                                                }, 0)) -
+                                                                    (dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                                        return total + (+item.quantidade);
+                                                                    }, 0))} l
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                {registro.total} l
+                                                            </td>
+                                                            <td className={`px-6 py-4
 
                                                     " + ${Number((Number((dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                            return total + (+item.quantidade);
-                                                        }, 0)) - (dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                            return total + (+item.quantidade);
-                                                        }, 0))) * 100 / registro.total).toFixed(1)) > 50 ? "text-green-500" : "text-red-500"}`}>
-                                                            {(Number((dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
                                                                 return total + (+item.quantidade);
-                                                            }, 0)) -
-                                                                (dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                            }, 0)) - (dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                                return total + (+item.quantidade);
+                                                            }, 0))) * 100 / registro.total).toFixed(1)) > 50 ? "text-green-500" : "text-red-500"}`}>
+                                                                {(Number((dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
                                                                     return total + (+item.quantidade);
-                                                                }, 0))) * 100 / registro.total).toFixed(1) + " %"}
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    : null}
-                            </div>
-                            : <p>Dados não existentes</p>
-                        }
-                        {dados?.rancho.tiposRancho?.length !== 0 || dados?.rancho.registroEntradaSaida?.length !== 0 ?
-                            <div>
-                                {dados?.rancho ?
-                                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <div className="flex justify-between my-2">
-                                            <h1 className="text-green-600 font-bold uppercase text-xl">Rancho</h1>
-                                            {Object.keys(dados?.rancho).length === 0 ? (
-                                                <button type="button" disabled onClick={() => exportaRegistros("rancho")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                                            ) :
-                                                <button type="button" onClick={() => exportaRegistros("rancho")} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                                            }
+                                                                }, 0)) -
+                                                                    (dados.combustivel.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                                        return total + (+item.quantidade);
+                                                                    }, 0))) * 100 / registro.total).toFixed(1) + " %"}
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                            <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
-                                                <tr>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Código
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Tipo
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Quantidade
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Capacidade
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Valor Etapa
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Dias Restantes
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody className="">
-                                                {dados.rancho.tiposRancho?.map((registro, index) => (
-                                                    <tr key={registro + registro.id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                        : null}
+                                </div>
+                                : <p>Dados não existentes</p>
+                            }
+                            {dados?.rancho.tiposRancho?.length !== 0 || dados?.rancho.registroEntradaSaida?.length !== 0 ?
+                                <div>
+                                    {dados?.rancho ?
+                                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                            <div className="flex justify-between my-2">
+                                                <h1 className="text-green-600 font-bold uppercase text-xl">Rancho</h1>
+                                                {Object.keys(dados?.rancho).length === 0 ? (
+                                                    <button type="button" disabled onClick={() => exportaRegistros("rancho")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                                ) :
+                                                    <button type="button" onClick={() => exportaRegistros("rancho")} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                                }
+                                            </div>
+                                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                                <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
+                                                    <tr>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Código
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Tipo
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Quantidade
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Capacidade
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Valor Etapa
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Dias Restantes
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="">
+                                                    {dados.rancho.tiposRancho?.map((registro, index) => (
+                                                        <tr key={registro + registro.id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                                {registro.id}
+                                                            </th>
+                                                            <td className="px-6 py-4">
+                                                                {registro.tipo}
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                {(dados.rancho.registroEntradaSaida?.filter(log => log.idAlimento === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaRanchoProps) => {
+                                                                    return total + (+item.quantidade);
+                                                                }, 0)) -
+                                                                    (dados.rancho.registroEntradaSaida?.filter(log => log.idAlimento === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaRanchoProps) => {
+                                                                        return total + (+item.quantidade);
+                                                                    }, 0))} kg
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                {registro.total} kg
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                {registro.valorEtapa} g
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                {dados.rancho ?
+                                                                    (Number((
+                                                                        (dados.rancho.registroEntradaSaida?.filter(log => log.idAlimento === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaRanchoProps) => {
+                                                                            return total + (+item.quantidade);
+                                                                        }, 0)) -
+                                                                        (dados.rancho.registroEntradaSaida?.filter(log => log.idAlimento === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaRanchoProps) => {
+                                                                            return total + (+item.quantidade);
+                                                                        }, 0)))) * 1000 / (registro.valorEtapa * dados.rancho.efetivo)).toFixed(0) + " Dias" : <></>}
+                                                            </td>
+
+                                                        </tr>
+                                                    ))}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        : null}
+                                </div>
+                                : <p>Dados não existentes</p>
+                            }
+                            {dados?.apoio.tiposMaterial?.length !== 0 || dados?.apoio.registroEntradaSaida.length !== 0 ?
+                                <div>
+                                    {dados?.apoio ?
+                                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                            <div className="flex justify-between my-2">
+                                                <h1 className="text-green-600 font-bold uppercase text-xl">Apoio</h1>
+                                                {Object.keys(dados?.apoio).length === 0 ? (
+                                                    <button type="button" disabled onClick={() => exportaRegistros("apoio")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                                ) :
+                                                    <button type="button" onClick={() => exportaRegistros("apoio")} className=" hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                                }
+                                            </div>
+                                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                                <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
+                                                    <tr>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Data
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Código
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Tipo
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Destino
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Peso Total
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {dados?.apoio.tiposMaterial?.map((registro, index) => (
+                                                        <tr key={index + registro.id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                                {registro.data}
+                                                            </th>
+                                                            <td className="px-6 py-4">
+                                                                {registro.id}
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                {registro.tipo}
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                {registro.destino}
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                {registro.peso}
+                                                            </td>
+                                                            <td className="py-4">
+                                                                <Material materiais={dados?.apoio.registroEntradaSaida} id={registro.id} painel />
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                    <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            {registro.id}
+                                                            Total
                                                         </th>
                                                         <td className="px-6 py-4">
-                                                            {registro.tipo}
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            {(dados.rancho.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                                return total + (+item.quantidade);
-                                                            }, 0)) -
-                                                                (dados.rancho.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                                    return total + (+item.quantidade);
-                                                                }, 0))} kg
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            {registro.total} kg
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            {registro.valorEtapa} g
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            {dados.rancho ?
-                                                                (Number((
-                                                                    (dados.rancho.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                                        return total + (+item.quantidade);
-                                                                    }, 0)) -
-                                                                    (dados.rancho.registroEntradaSaida?.filter(log => log.idCombustivel === registro.id && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
-                                                                        return total + (+item.quantidade);
-                                                                    }, 0)))) * 1000 / (registro.valorEtapa * dados.rancho.efetivo)).toFixed(0) + " Dias" : <></>}
-                                                        </td>
 
+                                                        </td>
+                                                        <td className="px-6 py-4">
+
+                                                        </td>
+                                                        <td className="px-6 py-4">
+
+                                                        </td>
+                                                        <td className="px-6 py-4">
+                                                            {dados.apoio.tiposMaterial ? dados.apoio.tiposMaterial?.reduce((total, item) => {
+                                                                return total + (+item.peso);
+                                                            }, 0) + "kg" : 0 + "kg"}
+                                                        </td>
+                                                        <td className="px-6 py-4">
+
+                                                        </td>
                                                     </tr>
-                                                ))}
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    : null}
-                            </div>
-                            : <p>Dados não existentes</p>
-                        }
-                        {dados?.apoio.tiposMaterial?.length !== 0 || dados?.apoio.registroEntradaSaida.length !== 0 ?
-                            <div>
-                                {dados?.apoio ?
-                                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <div className="flex justify-between my-2">
-                                            <h1 className="text-green-600 font-bold uppercase text-xl">Apoio</h1>
-                                            {Object.keys(dados?.apoio).length === 0 ? (
-                                                <button type="button" disabled onClick={() => exportaRegistros("apoio")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                                            ) :
-                                                <button type="button" onClick={() => exportaRegistros("apoio")} className=" hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                                            }
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                            <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
-                                                <tr>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Data
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Código
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Tipo
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Destino
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-                                                        Peso Total
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-3">
-
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {dados?.apoio.tiposMaterial?.map((registro, index) => (
-                                                    <tr key={index + registro.id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            {registro.data}
-                                                        </th>
-                                                        <td className="px-6 py-4">
-                                                            {registro.id}
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            {registro.tipo}
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            {registro.destino}
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            {registro.peso}
-                                                        </td>
-                                                        <td className="py-4">
-                                                            <Material materiais={dados?.apoio.registroEntradaSaida} id={registro.id} painel />
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                                <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        Total
-                                                    </th>
-                                                    <td className="px-6 py-4">
-
-                                                    </td>
-                                                    <td className="px-6 py-4">
-
-                                                    </td>
-                                                    <td className="px-6 py-4">
-
-                                                    </td>
-                                                    <td className="px-6 py-4">
-                                                        {dados.apoio.tiposMaterial ? dados.apoio.tiposMaterial?.reduce((total, item) => {
-                                                            return total + (+item.peso);
-                                                        }, 0) + "kg" : 0 + "kg"}
-                                                    </td>
-                                                    <td className="px-6 py-4">
-
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    : null}
-                            </div>
-                            : <p>Dados não existentes</p>
-                        }
-                    </div>}
+                                        : null}
+                                </div>
+                                : <p>Dados não existentes</p>
+                            }
+                        </div>
+                    </>}
             </div>
         </>
     )

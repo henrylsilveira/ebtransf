@@ -53,11 +53,12 @@ export type CombustivelProps = {
 
 export type LogisticaRanchoProps = {
     id: string;
-    idCombustivel: string;
+    idAlimento: string;
     tipo: "entrada" | "saida" | "";
     finalidade?: string;
     data: string;
     quantidade: number;
+    createdAt: string;
 }
 
 export type RanchoProps = {
@@ -97,6 +98,7 @@ export type DadosBancoProps = {
     };
     id: string;
     nomeInsta: string;
+    updatedAt: string;
 }
 
 export type TokenProps = { nomeToken: string; token: string }

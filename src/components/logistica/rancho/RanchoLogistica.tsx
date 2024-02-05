@@ -6,22 +6,23 @@ import { BsEye } from "react-icons/bs";
 import { MdOutlineClose } from "react-icons/md";
 import { Loader } from "../../Loader/Loader";
 import { toast } from "react-toastify";
-import { LogisticaCombustivelProps } from "@/types/types";
+import { LogisticaCombustivelProps, LogisticaRanchoProps } from "@/types/types";
 import saveAs from "file-saver";
-import { removerObjetoPorID } from "@/utils/scripts";
+import { removerObjetoPorID, retornaTimeStamp } from "@/utils/scripts";
 
-export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logistica: LogisticaCombustivelProps[], idComb: string, tipo: string, hookComb: Function }) {
+export function RanchoLogistica({ logistica, idAlim, tipo, hookComb }: { logistica: LogisticaRanchoProps[], idAlim: string, tipo: string, hookComb: Function }) {
     // const [visualizarRegistrosCombustivel, setVisualizarRegistrosCombustivel] = useState<ConsumoGeradorProps[]>([])
     const [loading, setLoading] = useState(false);
     const [qntRegistros, setQntRegistros] = useState(30)
 
-    const [formData, setFormData] = useState<LogisticaCombustivelProps>({
+    const [formData, setFormData] = useState<LogisticaRanchoProps>({
         id: "",
-        idCombustivel: idComb,
+        idAlimento: idAlim,
         tipo: "",
         finalidade: "",
         data: "",
         quantidade: 0,
+        createdAt: "",
     });
 
     async function apagarDado(idDado: string) {
@@ -50,7 +51,7 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
         setLoading(false);
     }
 
-    const handleSubmitCombustivel = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmitRancho = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
         if (formData.tipo == "" || formData.finalidade == "" || formData.quantidade == 0 || formData.data == "") {
@@ -91,6 +92,7 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
         setFormData({
             ...formData,
             id: nanoid(4),
+            createdAt: retornaTimeStamp(),
             [event.target.name]: event.target.value,
         });
     };
@@ -130,12 +132,11 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
                         </AlertDialog.Cancel>
 
                         <AlertDialog.Description className="text-white mt-4 mb-5 text-[15px] leading-normal">
-                            <p>Código do material: {idComb}</p>
+                            <p>Código do Alimento: {idAlim}</p>
                         </AlertDialog.Description>
-                        <form onSubmit={handleSubmitCombustivel} className="mb-4">
+                        <form onSubmit={handleSubmitRancho} className="mb-4">
                             <div className="flex flex-1 items-center justify-center my-6 flex-col">
-                                <h1 className="text-green-600 font-bold uppercase text-xl">Registrar entrada de material</h1>
-
+                                <h1 className="text-green-600 font-bold uppercase text-xl">Registrar entrada ou saída de alimento</h1>
                             </div>
                             <div className="grid grid-cols-4 gap-4 mb-4">
                                 <div>
@@ -198,7 +199,7 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
                                                     Data
                                                 </th>
                                                 <th scope="col" className="px-6 py-3 w-1/6">
-                                                    Código Combustível
+                                                    Código Alimento
                                                 </th>
                                                 <th scope="col" className="px-6 py-3 w-1/6">
                                                     Tipo
@@ -217,13 +218,13 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
                                     </thead>
                                     <tbody>
                                         <div className="w-full overflow-y-scroll max-h-96">
-                                            {logistica?.filter(log => log.idCombustivel === idComb).map((log, index) => (
+                                            {logistica?.filter(log => log.idAlimento === idAlim).map((log, index) => (
                                                 <tr key={index} className={`w-full flex flex-wrap justify-between odd:bg-gray-900 odd:dark:bg-gray-900 dark:hover:bg-green-700/30 even:bg-gray-800 even:dark:bg-gray-800 border-b border-gray-700 dark:border-b-gray-700 ${log.tipo === "entrada" ? 'dark:border-l-4 dark:border-l-green-500' : 'dark:border-l-4 dark:border-l-red-500'}`}>
                                                     <th scope="col" className="px-6 py-2 w-1/6 font-medium text-white whitespace-nowrap dark:text-white">
                                                         {log.data}
                                                     </th>
                                                     <th scope="col" className="px-6 py-2 w-1/6 ">
-                                                        {log.idCombustivel}
+                                                        {log.idAlimento}
                                                     </th>
                                                     <td scope="col" className="px-6 py-2 w-1/6">
                                                         {log.tipo}
@@ -250,10 +251,10 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
                                                 <td className="px-6 py-2 w-1/5">
                                                 </td>
                                                 <td className="px-6 py-2 w-1/5 text-white">
-                                                    {(logistica?.filter(log => log.idCombustivel === idComb && log.tipo === "entrada").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                    {(logistica?.filter(log => log.idAlimento === idAlim && log.tipo === "entrada").reduce((total: number, item: LogisticaRanchoProps) => {
                                                         return total + (+item.quantidade);
                                                     }, 0)) -
-                                                        (logistica?.filter(log => log.idCombustivel === idComb && log.tipo === "saida").reduce((total: number, item: LogisticaCombustivelProps) => {
+                                                        (logistica?.filter(log => log.idAlimento === idAlim && log.tipo === "saida").reduce((total: number, item: LogisticaRanchoProps) => {
                                                             return total + (+item.quantidade);
                                                         }, 0)) + " kg"}
                                                 </td>

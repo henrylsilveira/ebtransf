@@ -1,4 +1,3 @@
-import { differenceInCalendarYears, differenceInCalendarMonths, differenceInCalendarDays } from "date-fns"
 import { soldo } from "./valores"
 
 export function formataValor(price: number, discount?: number) {
@@ -126,48 +125,48 @@ export function calcularDiferencaAtual(data: any, dataT?: any) {
     let dataAtual
     let difAno = 0
     let difMes = 0
-    let difDia = 0 
-    if(dataT){
+    let difDia = 0
+    if (dataT) {
         dataAtual = dataT.split("-");
-    }else{
-       dataAtual = new Date();
-       dataAtual = dataAtual.toISOString().split("-") 
+    } else {
+        dataAtual = new Date();
+        dataAtual = dataAtual.toISOString().split("-")
     }
-    
+
     // const dias = differenceInCalendarDays(dataAtual, dataFornecidaObj);
 
     const partesDaDataAtual = dataAtual;
     const anoA = parseInt(partesDaDataAtual[0], 10);
     const mesA = parseInt(partesDaDataAtual[1], 10);
     const diaA = parseInt(partesDaDataAtual[2], 10);
-    if(ano == anoA && (mes >= mesA && dia > diaA) ){
-        return { message: "Não utilize datas futuras."}
+    if (ano == anoA && (mes >= mesA && dia > diaA)) {
+        return { message: "Não utilize datas futuras." }
     }
 
-    if(anoA >= ano){
+    if (anoA >= ano) {
         difAno = anoA - ano
-    }else{
-        return { message: "Não utilize datas futuras."}
+    } else {
+        return { message: "Não utilize datas futuras." }
     }
 
-    if(mesA >= mes){
+    if (mesA >= mes) {
         difMes = mesA - mes
-    }else{
+    } else {
         difMes = mesA - mes + 12
         difAno--
     }
-    if(diaA >= dia){
+    if (diaA >= dia) {
         difDia = diaA - dia
-    }else{
+    } else {
         difDia = diaA - dia + 30
         difMes--
     }
 
-    if(difAno < 0 || difMes < 0 || difDia < 0 ){
-        return { message: "Não utilize datas futuras."}
+    if (difAno < 0 || difMes < 0 || difDia < 0) {
+        return { message: "Não utilize datas futuras." }
     }
 
-    return { ano: difAno, mes: difMes, dia: difDia, totalDias: difAno*365 + difMes*30 + difDia};
+    return { ano: difAno, mes: difMes, dia: difDia, totalDias: difAno * 365 + difMes * 30 + difDia };
 }
 
 interface ObjectProps {
@@ -182,4 +181,35 @@ export function removerObjetoPorID(array: ObjectProps[], id: string): ObjectProp
     }
 
     return array;
+}
+
+export function converterParaFormatoPadrao(dataISO: string) {
+    // Criar um objeto de data a partir da string ISO
+    const data = new Date(dataISO);
+
+    // Obter componentes da data
+    const dia: number = data.getDate();
+    const mes: number = data.getMonth() + 1; // Mês é base 0, então adicionamos 1
+    const ano: number = data.getFullYear();
+    const horas: number = data.getHours();
+    const minutos: number = data.getMinutes();
+
+    // Adicionar zero à esquerda se for necessário
+    const diaFormatado: string = dia < 10 ? '0' + dia : dia.toString();
+    const mesFormatado: string = mes < 10 ? '0' + mes : mes.toString();
+    const horasFormatadas: string = horas < 10 ? '0' + horas : horas.toString();
+    const minutosFormatados: string = minutos < 10 ? '0' + minutos : minutos.toString();
+
+    // Formatar a data no padrão "Dia/mês/ano Horas:Minutos"
+    const formatoPadraoComHorario: string =
+        diaFormatado + '/' + mesFormatado + '/' + ano + ' ' + horasFormatadas + ':' + minutosFormatados;
+
+    return formatoPadraoComHorario;
+}
+
+export function retornaTimeStamp(): string {
+    const date = new Date()
+    const timestamp = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString()
+
+    return timestamp
 }

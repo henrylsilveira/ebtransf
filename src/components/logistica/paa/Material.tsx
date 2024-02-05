@@ -8,6 +8,7 @@ import { Loader } from "../../Loader/Loader";
 import { toast } from "react-toastify";
 import { log } from "console";
 import { removerObjetoPorID } from "@/utils/scripts";
+import { useRouter } from "next/navigation";
 
 export function Material({ materiais, id, hookMat, painel }: { materiais: MaterialProps[], id: string, hookMat?: Function, painel?: boolean }) {
     // const [visualizarRegistrosMateriais, setVisualizarRegistrosCombustivel] = useState<ConsumoGeradorProps[]>([])
@@ -201,8 +202,11 @@ export function Material({ materiais, id, hookMat, painel }: { materiais: Materi
                                                 {material.peso} Kg
                                             </td>
                                             <td scope="col" className="px-6 py-1 w-1/12">
-                                                <button type="button" onClick={() => apagarDado(material.id)} className="hover:bg-red-800 text-xs  bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md flex justify-center"><MdOutlineClose className="mx-auto w-4 h-4" /></button>
+                                                {painel ? <></> :
+                                                    <button type="button" onClick={() => apagarDado(material.id)} className="hover:bg-red-800 text-xs  bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md flex justify-center"><MdOutlineClose className="mx-auto w-4 h-4" /></button>
+                                                }
                                             </td>
+
                                         </tr>
                                     ))}
 
@@ -218,7 +222,7 @@ export function Material({ materiais, id, hookMat, painel }: { materiais: Materi
                                     </td>
                                     <td className="px-6 w-1/6">
                                     </td>
-                                    
+
                                     <td className="px-6 w-1/6 text-white">
                                         {materiais?.filter(material => material.codigoLogistica === id).reduce((total: number, item: MaterialProps) => {
                                             return total + (+item.peso);
