@@ -65,13 +65,13 @@ export function Instalacao() {
                         <h1 className="text-green-600 font-bold uppercase text-xl">Criação de Instalações</h1>
                         <p className="font-light text-white text-justify py-4">Ao criar uma instalação você recebe um token que será útil para consulta e cadastro do dados no banco de dados.</p>
                     </div>
-                    <div className="flex gap-4 mb-4">
+                    <div className="gap-4 mb-4">
 
                             <div className="relative z-0 w-full group flex items-center">
                                 <input type="text" name="nomeInsta" onChange={handleChange} id="nomeInsta" className=" block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                 <label htmlFor="nomeInsta" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nome da Instalação</label>
                             </div>
-
+                            <span className="text-xs text-gray-600">Ex: 6º BOp, 1º PEF</span>
                     </div>
                     {formData.nomeInsta ? (
                         <div>

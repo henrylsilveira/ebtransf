@@ -1,10 +1,11 @@
 'use client'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { CombustivelProps, LogisticaApoioProps, LogisticaCombustivelProps, LogisticaRanchoProps, RanchoProps } from "@/types/types"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { Loader } from "../../Loader/Loader"
 import { saveAs } from 'file-saver';
-import { MdOutlineClose, MdSend } from "react-icons/md";
+import { MdOutlineClose, MdOutlineKeyboardArrowDown, MdSend } from "react-icons/md";
 import { nanoid } from 'nanoid'
 import { RanchoLogistica } from './RanchoLogistica';
 import { ApagarButton } from "@/components/ApagarButton"
@@ -51,7 +52,7 @@ export function Rancho({ enviar }: {
         total: 0,
     });
 
-    function exportRegistrosCombustivel() {
+    function exportRegistrosRancho() {
         setLoading(true);
         var fileName = `${new Date().toLocaleString() + "-" + "DadosRancho"}.rancho`;
         var fileName2 = `${new Date().toLocaleString() + "-" + "DadosEntradaSaidaRancho"}.regRancho`;
@@ -109,9 +110,9 @@ export function Rancho({ enviar }: {
         setLoading(false);
     }
 
-    function importaRegistrosCombustivel(e: React.ChangeEvent<HTMLInputElement>) {
+    function importaRegistrosRancho(e: React.ChangeEvent<HTMLInputElement>) {
         setLoading(true);
-
+        console.log(e.target)
         if (e.target.files !== null) {
             var reader = new FileReader();
             const files = e.target.files[0]
@@ -231,16 +232,7 @@ export function Rancho({ enviar }: {
                         </div>
                         : <div className="flex sm:flex-row flex-col text-center justify-center gap-4">
 
-                            <ApagarButton funcApagar={apagarRegistros} />
-                            <button type="button" onClick={exportRegistrosCombustivel} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                            <label htmlFor="file" className="hover:bg-green-800 cursor-pointer bg-transparent border text-xs border-green-700 uppercase items-center justify-center flex text-white py-2 px-6 rounded-md">
-                                <input id="file" accept=".comb" className="hidden" onChange={importaRegistrosCombustivel} type="file" />
-                                Importar
-                            </label>
-                            <label htmlFor="fileRegistros" className="hover:bg-green-800 cursor-pointer bg-transparent border text-xs border-green-700 uppercase text-white py-2 px-6 rounded-md">
-                                <input id="fileRegistros" accept=".regComb" className="hidden" onChange={importaRegistrosEntradaSaidaRancho} type="file" />
-                                Importar Registros
-                            </label>
+                            
                             {efetivoTotal === 0 ?
                                 <button type="button" disabled className="hover:bg-blue-800 cursor-not-allowed opacity-50 w-full items-center text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex gap-2 justify-center">
                                     <p className="flex">
@@ -252,6 +244,53 @@ export function Rancho({ enviar }: {
                                     tiposRancho: registroRancho,
                                     registroEntradaSaida: registroEntradaSaidaRancho
                                 }} tipo="rancho" />}
+                                
+                            <DropdownMenu.Root>
+                                <DropdownMenu.Trigger asChild>
+                                    <button
+                                        className="rounded-md flex px-5 items-center justify-center text-white bg-transparent cursor-pointer shadow-[0_2px_10px] shadow-blackA4 outline-none border-green-700 uppercase border border- focus:shadow-[0_0_0_2px] focus:shadow-black"
+                                        aria-label="Customise options"
+                                    >
+                                        <p>Opções</p>
+                                        <MdOutlineKeyboardArrowDown />
+                                    </button>
+                                </DropdownMenu.Trigger>
+
+                                <DropdownMenu.Portal>
+                                    <DropdownMenu.Content 
+                                        className="min-w-[220px] bg-gray-950 border border-green-700 rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                                        sideOffset={5}
+                                    >
+                                        
+                                        <DropdownMenu.Item className="group text-[13px] leading-none text-white rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1">
+                                            <button type="button" onClick={exportRegistrosRancho} >Baixar dados</button>
+                                        </DropdownMenu.Item>
+                                        <DropdownMenu.Item onSelect={event => event.preventDefault()}
+                                            className="group text-[13px] leading-none text-white cursor-pointer rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1" 
+                                        >
+                                            <label htmlFor="file" >
+                                                <input id="file" accept=".rancho" className="hidden " onChange={importaRegistrosRancho} type="file" />
+                                                Importar tipos de alimento
+                                            </label>
+                                        </DropdownMenu.Item>
+                                        <DropdownMenu.Item onSelect={event => event.preventDefault()}
+                                            className="group text-[13px] leading-none text-white cursor-pointer rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1"
+                                        >
+                                            <label htmlFor="fileRegistros" >
+                                                <input id="fileRegistros" accept=".regRancho" className="hidden " onChange={importaRegistrosEntradaSaidaRancho} type="file" />
+                                                Importar registros entrada e saída
+                                            </label>
+                                        </DropdownMenu.Item>
+                                        <DropdownMenu.Separator className='bg-green-700 h-[1px]  m-[5px]' />
+                                        <DropdownMenu.Item onSelect={event => event.preventDefault()} className="group text-[13px] leading-none text-white rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1">
+                                            <ApagarButton funcApagar={apagarRegistros} />
+                                        </DropdownMenu.Item>
+                                        <DropdownMenu.Arrow className="fill-gray-950" />
+                                    </DropdownMenu.Content>
+                                </DropdownMenu.Portal>
+                            </DropdownMenu.Root>
+                            
+                            
                         </div>}
                 </div>
             </div>

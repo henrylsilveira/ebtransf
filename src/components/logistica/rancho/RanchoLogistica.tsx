@@ -8,6 +8,7 @@ import { Loader } from "../../Loader/Loader";
 import { toast } from "react-toastify";
 import { LogisticaCombustivelProps } from "@/types/types";
 import saveAs from "file-saver";
+import { removerObjetoPorID } from "@/utils/scripts";
 
 export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logistica: LogisticaCombustivelProps[], idComb: string, tipo: string, hookComb: Function }) {
     // const [visualizarRegistrosCombustivel, setVisualizarRegistrosCombustivel] = useState<ConsumoGeradorProps[]>([])
@@ -23,17 +24,29 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
         quantidade: 0,
     });
 
-    function exportEntradaSaidaRegistrosCombustivel() {
+    async function apagarDado(idDado: string) {
         setLoading(true);
-        var fileName = `${new Date().toLocaleString() + "-" + "EntradaSaidaCombustivel"}.json`;
-
-        // Create a blob of the data
-        var fileToSave = new Blob([JSON.stringify(logistica)], {
-            type: 'application/json'
-        });
-
-        // Save the file
-        saveAs(fileToSave, fileName);
+        const newArray = removerObjetoPorID(logistica, idDado)
+        try {
+            if (hookComb) {
+                await hookComb(newArray)
+            }
+            const registros = JSON.stringify(logistica)
+            await new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(localStorage.setItem("logisticaEntradaSaidaRancho", registros));
+                }, 300);
+            })
+            toast.success("Registro removido com sucesso!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        } catch (error) {
+            toast.error("Erro ao remover o registro!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        }
         setLoading(false);
     }
 
@@ -133,7 +146,7 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
                                 </div>
                                 <div>
                                     <div className="relative z-0 mb-6 w-full group">
-                                        <select name="tipo" id="tipo" onChange={handleChange} className="leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md text-white focus:bg-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                                        <select name="tipo" id="tipo" onChange={handleChange} className="leading-tight block py-2.5 px-0 w-full text-md text-white focus:bg-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                                             <option></option>
                                             <option value={"entrada"}>Entrada</option>
                                             <option value={"saida"}>Saida</option>
@@ -146,13 +159,13 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
                                         <input type="text" name="finalidade" onChange={handleChange} id="finalidade" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                         <label htmlFor="finalidade" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Finalidade</label>
                                     </div>
-                                        <span className="text-xs text-gray-600">Ex: Ressuprimento, Almoço, janta</span>
+                                    <span className="text-xs text-gray-600">Ex: Ressuprimento, Almoço, janta</span>
                                 </div>
                                 <div>
                                     <div className="relative z-0 w-full group flex items-center">
                                         <input type="number" name="quantidade" onChange={handleChange} id="quantidade" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                         <label htmlFor="quantidade" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Quantidade</label>
-                                    <span className="text-xs text-gray-600">Kg</span>
+                                        <span className="text-xs text-gray-600">Kg</span>
                                     </div>
                                 </div>
 
@@ -181,20 +194,23 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
                                     <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
                                         <div className="w-full ">
                                             <tr className="w-full flex flex-wrap justify-between flex-row flex-1 items-center">
-                                                <th scope="col" className="px-6 py-3 w-1/5">
+                                                <th scope="col" className="px-6 py-3 w-1/6">
                                                     Data
                                                 </th>
-                                                <th scope="col" className="px-6 py-3 w-1/5">
+                                                <th scope="col" className="px-6 py-3 w-1/6">
                                                     Código Combustível
                                                 </th>
-                                                <th scope="col" className="px-6 py-3 w-1/5">
+                                                <th scope="col" className="px-6 py-3 w-1/6">
                                                     Tipo
                                                 </th>
-                                                <th scope="col" className="px-6 py-3 w-1/5">
+                                                <th scope="col" className="px-6 py-3 w-1/6">
                                                     Finalidade
                                                 </th>
-                                                <th scope="col" className="px-6 py-3 w-1/5">
+                                                <th scope="col" className="px-6 py-3 w-1/6">
                                                     Quantidade
+                                                </th>
+                                                <th scope="col" className="px-6 py-3 w-1/6">
+
                                                 </th>
                                             </tr>
                                         </div>
@@ -203,20 +219,23 @@ export function RanchoLogistica({ logistica, idComb, tipo, hookComb }: { logisti
                                         <div className="w-full overflow-y-scroll max-h-96">
                                             {logistica?.filter(log => log.idCombustivel === idComb).map((log, index) => (
                                                 <tr key={index} className={`w-full flex flex-wrap justify-between odd:bg-gray-900 odd:dark:bg-gray-900 dark:hover:bg-green-700/30 even:bg-gray-800 even:dark:bg-gray-800 border-b border-gray-700 dark:border-b-gray-700 ${log.tipo === "entrada" ? 'dark:border-l-4 dark:border-l-green-500' : 'dark:border-l-4 dark:border-l-red-500'}`}>
-                                                    <th scope="col" className="px-6 py-2 w-1/5 font-medium text-white whitespace-nowrap dark:text-white">
+                                                    <th scope="col" className="px-6 py-2 w-1/6 font-medium text-white whitespace-nowrap dark:text-white">
                                                         {log.data}
                                                     </th>
-                                                    <th scope="col" className="px-6 py-2 w-1/5 ">
+                                                    <th scope="col" className="px-6 py-2 w-1/6 ">
                                                         {log.idCombustivel}
                                                     </th>
-                                                    <td scope="col" className="px-6 py-2 w-1/5">
+                                                    <td scope="col" className="px-6 py-2 w-1/6">
                                                         {log.tipo}
                                                     </td>
-                                                    <td scope="col" className="px-6 py-2 w-1/5">
+                                                    <td scope="col" className="px-6 py-2 w-1/6">
                                                         {log.finalidade}
                                                     </td>
-                                                    <td scope="col" className="px-6 py-2 w-1/5">
+                                                    <td scope="col" className="px-6 py-2 w-1/6">
                                                         {log.quantidade} kg
+                                                    </td>
+                                                    <td scope="col" className="px-6 py-2 w-1/6">
+                                                        <button type="button" onClick={() => apagarDado(log.id)} className="hover:bg-red-800 text-xs  bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md flex justify-center"><MdOutlineClose className="mx-auto w-4 h-4" /></button>
                                                     </td>
                                                 </tr>
                                             ))}

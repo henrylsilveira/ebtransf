@@ -5,7 +5,7 @@ import { LogisticaApoio } from "@/components/logistica/paa/LogisticaApoio";
 import Script from "next/script";
 import { useState } from "react";
 import { MdOutlineFoodBank } from "react-icons/md";
-import { PiAirplane, PiEngine } from "react-icons/pi";
+import { PiAirplane, PiBuildings, PiEngine } from "react-icons/pi";
 import { LuFuel } from "react-icons/lu";
 import { Rancho } from "@/components/logistica/rancho/Rancho";
 import { Instalacao } from "@/components/logistica/instalacao/Instalacao";
@@ -20,6 +20,8 @@ export default function Logistica() {
 
     function handleSwitchCalculation(tipo: string) {
         switch (tipo) {
+            case 'instalacao':
+                return setComponent(<Instalacao />)
             case 'combustivel':
                 return setComponent(<Combustivel enviar={atualizarBancoDados} />)
             case 'rancho':
@@ -90,6 +92,7 @@ export default function Logistica() {
                 <div className="mb-8">
                     <div className="sm:hidden">
                         <select id="tabs" onChange={(e) => handleSwitchCalculation(e.target.value)} className="bg-gray-700 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value='instalacao'>Instalação</option>
                             <option value='combustivel'>Combustível</option>
                             <option value='rancho'>Rancho</option>
                             <option value='apoio'>Apoio</option>
@@ -97,10 +100,13 @@ export default function Logistica() {
                     </div>
                     <ul className="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400">
                         <li className="w-full hover:text-green-600 text-white bg-transparent">
-                            <button onClick={() => handleSwitchCalculation('combustivel')} className={(component == <Combustivel enviar={atualizarBancoDados} /> ? 'active' : '') + "w-full p-4  bg-gray-900 border border-gray-500 gap-2 rounded-l-lg flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><LuFuel />Combustivel</button>
+                            <button onClick={() => handleSwitchCalculation('instalacao')} className={(component == <Instalacao /> ? 'active' : '') + "w-full p-4  bg-gray-900 border border-gray-500 gap-2 rounded-l-lg flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><PiBuildings />Instalação</button>
                         </li>
                         <li className="w-full hover:text-green-600 text-white bg-transparent">
-                            <button onClick={() => handleSwitchCalculation('rancho')} className={(component == <Rancho enviar={atualizarBancoDados} /> ? 'active' : '') + "w-full p-4  bg-gray-900 border border-gray-500 gap-2 flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"} aria-current="page"><MdOutlineFoodBank />Rancho</button>
+                            <button onClick={() => handleSwitchCalculation('combustivel')} className={(component == <Combustivel enviar={atualizarBancoDados} /> ? 'active' : '') + "w-full p-4  bg-gray-900 border border-gray-500 gap-2 flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"}><LuFuel />Combustivel</button>
+                        </li>
+                        <li className="w-full hover:text-green-600 text-white bg-transparent">
+                            <button onClick={() => handleSwitchCalculation('rancho')} className={(component == <Rancho enviar={atualizarBancoDados} /> ? 'active' : '') + "w-full p-4  bg-gray-900 border border-gray-500 gap-2 flex items-center focus:ring-2 justify-center focus:ring-green-600 focus:outline-none dark:bg-transparent dark:border dark:border-gray-500"}><MdOutlineFoodBank />Rancho</button>
                         </li>
                         <li className="w-full hover:text-green-600 text-white bg-transparent">
                             <button onClick={() => handleSwitchCalculation('apoio')} className={(component == <LogisticaApoio enviar={atualizarBancoDados} /> ? 'active' : '') + "w-full p-4 bg-gray-900 border border-gray-500 rounded-r-lg gap-2 focus:ring-2 flex items-center focus:outline-none justify-center focus:ring-green-600 dark:border dark:border-gray-500  dark:bg-transparent"}><PiAirplane />Apoio</button>

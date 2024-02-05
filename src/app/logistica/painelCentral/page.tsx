@@ -10,7 +10,7 @@ import saveAs from "file-saver";
 import Link from "next/link";
 
 export default function PainelCentral() {
-    
+
     const [dados, setDados] = useState<DadosBancoProps>()
     const [tokens, setTokens] = useState<TokenProps[]>([])
     const [loading, setLoading] = useState(false);
@@ -133,9 +133,9 @@ export default function PainelCentral() {
                 crossOrigin="anonymous" />
             <div className=" relative max-w-screen-xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
                 <div className="flex items-center justify-center mb-6 flex-col">
-                <div className="absolute top-2 left-2">
-                    <Link className="hover:bg-green-800 text-xs bg-transparent border border-green-700 uppercase text-white py-2 px-6 rounded-md" href="/logistica">Logística</Link>
-                </div>
+                    <div className="absolute top-2 left-2">
+                        <Link className="hover:bg-green-800 text-xs bg-transparent border border-green-700 uppercase text-white py-2 px-6 rounded-md" href="/logistica">Logística</Link>
+                    </div>
                     <div>
                         <h1 className="text-green-600 font-bold uppercase text-xl mb-4">Painel Logístico</h1>
                         <div className=" flex flex-col my-2 w-full gap-4">
@@ -170,9 +170,9 @@ export default function PainelCentral() {
                                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                                         <div className="flex justify-between my-2">
                                             <h1 className="text-green-600 font-bold uppercase text-xl">Combustível</h1>
-                                            {Object.keys(dados?.combustivel).length === 0 ?  (
-                                                <button type="button" disabled  onClick={() => exportaRegistros("combustivel")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                                                ):
+                                            {Object.keys(dados?.combustivel).length === 0 ? (
+                                                <button type="button" disabled onClick={() => exportaRegistros("combustivel")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                            ) :
                                                 <button type="button" onClick={() => exportaRegistros("combustivel")} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
 
                                             }
@@ -246,9 +246,9 @@ export default function PainelCentral() {
                                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                                         <div className="flex justify-between my-2">
                                             <h1 className="text-green-600 font-bold uppercase text-xl">Rancho</h1>
-                                            {Object.keys(dados?.rancho).length === 0 ?  (
-                                                <button type="button" disabled  onClick={() => exportaRegistros("rancho")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                                                ):
+                                            {Object.keys(dados?.rancho).length === 0 ? (
+                                                <button type="button" disabled onClick={() => exportaRegistros("rancho")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                            ) :
                                                 <button type="button" onClick={() => exportaRegistros("rancho")} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
                                             }
                                         </div>
@@ -325,9 +325,9 @@ export default function PainelCentral() {
                                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                                         <div className="flex justify-between my-2">
                                             <h1 className="text-green-600 font-bold uppercase text-xl">Apoio</h1>
-                                            {Object.keys(dados?.apoio).length === 0 ?  (
-                                                <button type="button" disabled  onClick={() => exportaRegistros("apoio")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                                                ):
+                                            {Object.keys(dados?.apoio).length === 0 ? (
+                                                <button type="button" disabled onClick={() => exportaRegistros("apoio")} className="opacity-50 cursor-not-allowed hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
+                                            ) :
                                                 <button type="button" onClick={() => exportaRegistros("apoio")} className=" hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
                                             }
                                         </div>
