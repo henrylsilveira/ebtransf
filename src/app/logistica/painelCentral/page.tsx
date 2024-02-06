@@ -52,7 +52,15 @@ export default function PainelCentral() {
         try {
             if (token) {
                 const result = await api.get(`/instalacao/${token}`)
-                setDados(result.data.data)
+                // console.log(result)
+                // if(result.data.data.apoio.registro.length === 0 && result.data.data.rancho.length === 0 && result.data.data.combustivel.length === 0 && result.data.data.farmacia.length === 0){
+                    setDados(result.data.data)
+                // }else {
+                //     toast.warning("Nenhum dado encontrado!", {
+                //         position: toast.POSITION.TOP_RIGHT,
+                //         theme: "dark",
+                //     });
+                // }
             } else {
                 const result = await api.get(`/instalacao/${formData.token}`)
                 setDados(result.data.data)
@@ -169,15 +177,15 @@ export default function PainelCentral() {
 
                         <div className="border-t border-green-700 pt-2 flex flex-col gap-6">
 
-                            {dados?.combustivel.tiposCombustivel.length !== 0 || dados?.combustivel.registroEntradaSaida.length !== 0 ?
+                            {dados?.combustivel.tiposCombustivel?.length !== 0 && dados?.combustivel.registroEntradaSaida?.length !== 0 ?
                                 <div>
-
                                     {dados?.combustivel ?
                                         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                            <div className="flex gap-2 justify-center">
+                                            {dados?.updatedAt ? <div className="flex gap-2 justify-center">
                                                 <p className="text-white">Última atualização:</p>
                                                 <span className="text-gray-400">{converterParaFormatoPadrao(dados?.updatedAt as string)}</span>
-                                            </div>
+                                            </div> : <></>}
+                                            
                                             <div className="flex justify-between my-2">
                                                 <h1 className="text-green-600 font-bold uppercase text-xl">Combustível</h1>
                                                 {Object.keys(dados?.combustivel).length === 0 ? (
@@ -246,11 +254,11 @@ export default function PainelCentral() {
                                                 </tbody>
                                             </table>
                                         </div>
-                                        : null}
+                                        : <></>}
                                 </div>
                                 : <p>Dados não existentes</p>
                             }
-                            {dados?.rancho.tiposRancho?.length !== 0 || dados?.rancho.registroEntradaSaida?.length !== 0 ?
+                            {dados?.rancho.tiposRancho?.length !== 0 && dados?.rancho.registroEntradaSaida?.length !== 0 ?
                                 <div>
                                     {dados?.rancho ?
                                         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -329,7 +337,7 @@ export default function PainelCentral() {
                                 </div>
                                 : <p>Dados não existentes</p>
                             }
-                            {dados?.apoio.tiposMaterial?.length !== 0 || dados?.apoio.registroEntradaSaida.length !== 0 ?
+                            {dados?.apoio.tiposMaterial?.length !== 0 && dados?.apoio.registroEntradaSaida?.length !== 0 ?
                                 <div>
                                     {dados?.apoio ?
                                         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
