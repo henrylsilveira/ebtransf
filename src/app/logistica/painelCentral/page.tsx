@@ -9,6 +9,12 @@ import { Material } from "@/components/logistica/paa/Material";
 import saveAs from "file-saver";
 import Link from "next/link";
 import { converterParaFormatoPadrao } from "@/utils/scripts";
+import { toast } from "react-toastify";
+import { AxiosResponse } from "axios";
+
+interface ResultProps extends AxiosResponse {
+    message?: string;
+}
 
 export default function PainelCentral() {
 
@@ -51,19 +57,25 @@ export default function PainelCentral() {
         setLoading(true);
         try {
             if (token) {
-                const result = await api.get(`/instalacao/${token}`)
-                // console.log(result)
-                // if(result.data.data.apoio.registro.length === 0 && result.data.data.rancho.length === 0 && result.data.data.combustivel.length === 0 && result.data.data.farmacia.length === 0){
-                    setDados(result.data.data)
-                // }else {
-                //     toast.warning("Nenhum dado encontrado!", {
-                //         position: toast.POSITION.TOP_RIGHT,
-                //         theme: "dark",
-                //     });
-                // }
+                const result: ResultProps = await api.get(`/instalacao/${token}`)
+                if(!result.data.status) {
+                    toast.error(result.data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "dark",
+                    });
+                }else {
+                   setDados(result.data.data) 
+                }
+                
             } else {
                 const result = await api.get(`/instalacao/${formData.token}`)
-                setDados(result.data.data)
+                if(!result.data.status) {
+                    toast.error(result.data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "dark",
+                    });
+                }else{
+                     setDados(result.data.data)
                 const registros = JSON.stringify([...tokens, formData])
                 setTokens(JSON.parse(registros));
                 await new Promise((resolve) => {
@@ -71,6 +83,8 @@ export default function PainelCentral() {
                         resolve(localStorage.setItem("listTokens", registros));
                     }, 300);
                 })
+                }
+               
             }
         } catch (e) {
             console.error
@@ -174,9 +188,7 @@ export default function PainelCentral() {
                         <Loader loadingPage />
                     </div> :
                     <>
-
                         <div className="border-t border-green-700 pt-2 flex flex-col gap-6">
-
                             {dados?.combustivel.tiposCombustivel?.length !== 0 && dados?.combustivel.registroEntradaSaida?.length !== 0 ?
                                 <div>
                                     {dados?.combustivel ?

@@ -111,7 +111,6 @@ export function Rancho({ enviar }: {
 
     function importaRegistrosRancho(e: React.ChangeEvent<HTMLInputElement>) {
         setLoading(true);
-        console.log(e.target)
         if (e.target.files !== null) {
             var reader = new FileReader();
             const files = e.target.files[0]

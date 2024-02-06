@@ -10,7 +10,9 @@ export async function GET(request: Request, { params }: { params: { token: strin
         const data = await getDoc(
             doc(db, colRef.path, id)
         );
-       
+            if(!data.data()){
+                return NextResponse.json({ status: false, message: "Token não associado a nenhuma instalação!" })
+            }
         return NextResponse.json({ status: true, data: data.data() })
     } catch (error) {
         return NextResponse.json({ message: error })
