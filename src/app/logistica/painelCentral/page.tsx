@@ -207,8 +207,8 @@ export default function PainelCentral() {
 
                                                 }
                                             </div>
-                                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                                <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
+                                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
+                                                <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white ">
                                                     <tr>
                                                         <th scope="col" className="px-6 py-3">
                                                             Código
@@ -227,10 +227,10 @@ export default function PainelCentral() {
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody className="">
+                                                <tbody>
                                                     {dados.combustivel.tiposCombustivel?.map((registro, index) => (
-                                                        <tr key={index + registro.id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        <tr key={index + registro.id} className="odd:bg-gray-900   even:bg-gray-800 border-gray-700 border-b ">
+                                                            <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap text-white">
                                                                 {registro.id}
                                                             </th>
                                                             <td className="px-6 py-4">
@@ -307,8 +307,8 @@ export default function PainelCentral() {
                                                 </thead>
                                                 <tbody className="">
                                                     {dados.rancho.tiposRancho?.map((registro, index) => (
-                                                        <tr key={registro + registro.id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        <tr key={registro + registro.id} className=" odd:bg-gray-900 even:bg-gray-50  border-b border-gray-700">
+                                                            <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap text-white">
                                                                 {registro.id}
                                                             </th>
                                                             <td className="px-6 py-4">
@@ -386,8 +386,8 @@ export default function PainelCentral() {
                                                 </thead>
                                                 <tbody>
                                                     {dados?.apoio.tiposMaterial?.map((registro, index) => (
-                                                        <tr key={index + registro.id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        <tr key={index + registro.id} className=" odd:bg-gray-900  even:bg-gray-800 border-b border-gray-700">
+                                                            <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap text-white">
                                                                 {registro.data}
                                                             </th>
                                                             <td className="px-6 py-4">
@@ -407,8 +407,8 @@ export default function PainelCentral() {
                                                             </td>
                                                         </tr>
                                                     ))}
-                                                    <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    <tr className=" odd:bg-gray-900  even:bg-gray-800 border-b border-gray-700">
+                                                        <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap text-white">
                                                             Total
                                                         </th>
                                                         <td className="px-6 py-4">

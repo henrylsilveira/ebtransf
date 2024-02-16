@@ -17,7 +17,7 @@ export default function CalcRepresentacao() {
                 <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">BASE DE CÁLCULO</h1>
                 <div className="grid xl:grid-cols-3 xl:gap-6 sm:grid-cols-1 gap-4">
                     <div className="relative z-0 mb-6 w-full group">
-                        <select name="postGrad" id="postGrad" onChange={(e) => setPg(e.target.value)} className="leading-tight focus:bg-gray-900 text-white focus:bg-transparent focus:text-white block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                        <select name="postGrad" id="postGrad" onChange={(e) => setPg(e.target.value)} className="leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
                             <option value="sdEv">SD EV</option>
                             <option value="sdEp">SD EP</option>
@@ -37,20 +37,20 @@ export default function CalcRepresentacao() {
                             <option value="genDiv">GEN DIV</option>
                             <option value="genEx">GEN EX</option>
                         </select>
-                        <label htmlFor="postGrad" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">P/G</label>
+                        <label htmlFor="postGrad" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">P/G</label>
                     </div>
                     <div className="relative z-0 mb-6 w-full group">
-                        <select name="gratRep" id="gratRep" onChange={(e) => setGratRep(Number(e.target.value))} className="focus:bg-gray-900 text-white focus:text-white leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                        <select name="gratRep" id="gratRep" onChange={(e) => setGratRep(Number(e.target.value))} className=" text-white focus:text-white leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
                             {gratRepArr.map((grat,index) => (
                                 <option key={grat + index} value={grat}>{grat}%</option>
                             ))}
                         </select>
-                        <label htmlFor="gratRep" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Grat Rep</label>
+                        <label htmlFor="gratRep" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Grat Rep</label>
                     </div>
                     <div className="relative z-0 mb-6 w-full group">
                         <input type="number" name="qntDias" onChange={(e) => setQntDias(Number(e.target.value))} id="qntDias" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
-                        <label htmlFor="qntDias" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Qnt de Dias</label>
+                        <label htmlFor="qntDias" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Qnt de Dias</label>
                     </div>
 
                 </div>

@@ -39,7 +39,7 @@ export function SideBar() {
                     </div>
                 </li>
                 <li>
-                    <div className="text-sm justify-center items-center border-0 p-2 flex">
+                    <div className="text-sm justify-center items-center border-0 p-2 flex ">
                         <FaleConosco />
                     </div>
                 </li>

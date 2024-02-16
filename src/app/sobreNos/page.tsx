@@ -9,7 +9,7 @@ export default function SobreNos() {
             <h1 className="text-green-600 font-bold uppercase text-xl text-center pb-2">Sobre Nós</h1>
             <article>
                 <p className="font-light text-gray-300 text-justify py-4">
-                Bem-vindo ao EB#Cacl, projetado para simplificar cálculos. Nossa missão é fornecer ferramentas precisas e acessíveis que ajudem você a tomar decisões informadas e a resolver problemas com facilidade.
+                Bem-vindo ao EB#Calc, projetado para simplificar cálculos. Nossa missão é fornecer ferramentas precisas e acessíveis que ajudem você a tomar decisões informadas e a resolver problemas com facilidade.
                 </p>
             </article>
             <h2 className="text-green-600 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center"><MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Quem Somos</h2>
@@ -50,9 +50,9 @@ export default function SobreNos() {
                         <li>
                             - Privacidade e Segurança: Levamos a sério a privacidade dos usuários. Nenhum dado pessoal é coletado ou armazenado ao usar nossas calculadoras.
                         </li>
-                        {/* <li>
+                        <li>
                             - Feedback: Valorizamos a opinião dos nossos usuários. Se você tiver sugestões para novas calculadoras ou melhorias, entre em contato conosco. Estamos sempre trabalhando para aprimorar nossos serviços.
-                        </li> */}
+                        </li>
                     </ul>
                 </p>
             </article>

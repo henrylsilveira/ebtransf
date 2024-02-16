@@ -11,7 +11,7 @@ import { Links } from "@/components/Links";
 export default function Home() {
   return (
     <>
-    <title>EBCalc - Tabela de base de cálculos</title>
+      <title>EBCalc - Tabela de base de cálculos</title>
       <div className="max-w-4xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W6B1SSXWE7"></Script>
         <Script id="google-analytics">
@@ -30,21 +30,21 @@ export default function Home() {
               <MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Postos / Graduações
             </h1>
             <div className="text-xs sm:text-md flex flex-col justify-center relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
-              <table className="w-100 sm:w-full text-left text-gray-500 dark:text-gray-400">
-                <thead className=" text-gray-700 uppercase dark:text-gray-400">
+              <table className="w-100 sm:w-full text-left text-gray-400">
+                <thead className="  uppercase text-gray-400">
                   <tr>
-                    <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-center">
+                    <th scope="col" className="px-6 py-3 bg-gray-800 text-center text-white">
                       Posto / Graduação
                     </th>
-                    <th scope="col" className="px-6 py-3 text-center">
+                    <th scope="col" className="px-6 py-3 text-center text-white">
                       Soldo
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {postosGrad.map((postos, index) => (
-                    <tr key={postos + `${index}`} className="border-b border-gray-200 dark:border-gray-700">
-                      <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800 flex flex-1 justify-center">
+                    <tr key={postos + `${index}`} className="border-b border-gray-700">
+                      <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap  text-white bg-gray-800 flex flex-1 justify-center">
                         {postos}
                       </th>
                       <td className="px-6 py-4 text-center">
@@ -62,33 +62,33 @@ export default function Home() {
               <MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Adicionais
             </h1>
             <div className="text-xs sm:text-md flex flex-col justify-center relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
-              <table className="w-100 sm:w-full text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-gray-700 uppercase dark:text-gray-400">
+              <table className="w-100 sm:w-full text-left text-gray-400">
+                <thead className=" uppercase text-gray-400">
                   <tr>
-                    <th scope="col" className="px-1 sm:px-6 py-3  bg-gray-50 dark:bg-gray-800 text-center">
+                    <th scope="col" className="px-1 sm:px-6 py-3 text-white bg-gray-800 text-center">
                       Adicional Disponibilidade
                     </th>
-                    <th scope="col" className="px-1 sm:px-6 py-3 text-center">
+                    <th scope="col" className="px-1 sm:px-6 py-3 text-white text-center">
                       Adicional Militar
                     </th>
-                    <th scope="col" className="px-1 sm:px-6 py-3 bg-gray-50 dark:bg-gray-800 text-center">
+                    <th scope="col" className="px-1 sm:px-6 py-3 text-white bg-gray-800 text-center">
                       Adicional Habilitação
                     </th>
-                    <th scope="col" className="px-1 sm:px-6 py-3 text-center">
+                    <th scope="col" className="px-1 sm:px-6 py-3 text-white text-center">
                       Adicional Localização Especial
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {adcDisp.map((disp, index) => (
-                    <tr key={disp + `${index}`} className="border-b border-gray-200 dark:border-gray-700">
-                      <td className="px-6 py-4 text-center bg-gray-50 dark:bg-gray-800">
+                    <tr key={disp + `${index}`} className="border-b border-gray-700">
+                      <td className="px-6 py-4 text-center bg-gray-800">
                         {disp + "%"}
                       </td>
                       <td className="px-6 py-4 text-center">
                         {adcMil[index] ? adcMil[index] + '%' : ''}
                       </td>
-                      <td className="px-6 py-4 text-center bg-gray-50 dark:bg-gray-800">
+                      <td className="px-6 py-4 text-center bg-gray-800">
                         {adcHab[index] ? adcHab[index] + '%' : ''}
                       </td>
                       <td className="px-6 py-4  text-center">
@@ -110,21 +110,21 @@ export default function Home() {
               <MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Cubagem por distância
             </h1>
             <div className="text-xs sm:text-md flex flex-col justify-center relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
-              <table className="w-100 sm:w-full text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-gray-700 uppercase dark:text-gray-400">
+              <table className="w-100 sm:w-full text-left text-gray-400">
+                <thead className=" uppercase text-gray-400">
                   <tr>
-                    <th scope="col" className="px-1 sm:px-6 py-3  bg-gray-50 dark:bg-gray-800 text-center">
+                    <th scope="col" className="px-1 sm:px-6 py-3  bg-gray-800 text-center text-white">
                       Distância
                     </th>
-                    <th scope="col" className="px-1 sm:px-6 py-3 text-center">
+                    <th scope="col" className="px-1 sm:px-6 py-3 text-center text-white">
                       Valor do M³
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {cubagemDistancia.map((dist, index) => (
-                    <tr key={dist + `${index}`} className="border-b border-gray-200 dark:border-gray-700">
-                      <td className="px-6 py-4 text-center bg-gray-50 dark:bg-gray-800">
+                    <tr key={dist + `${index}`} className="border-b border-gray-700">
+                      <td className="px-6 py-4 text-center bg-gray-800">
                         {dist.distanciaMenor + ' até ' + dist.distanciaMaior + ' Km'}
                       </td>
                       <td className="px-6 py-4 text-center">
