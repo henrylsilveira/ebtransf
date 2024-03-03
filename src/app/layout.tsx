@@ -4,12 +4,9 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Bai_Jamjuree } from 'next/font/google'
 import { SideBar } from '@/components/Sidebar'
-import Cookies from "js-cookie";
 import GDPR from '@/components/feedback/Gdpr'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { Suspense } from 'react'
-import { Loader } from '@/components/Loader/Loader'
 
 const inter = Bai_Jamjuree({ weight: ['500'], subsets: ['thai'] })
 

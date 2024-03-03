@@ -267,10 +267,7 @@ export function Rancho({ enviar }: {
                                         <DropdownMenu.Item onSelect={event => event.preventDefault()}
                                             className="group text-[13px] leading-none text-white cursor-pointer rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1" 
                                         >
-                                            <label htmlFor="file" >
-                                                <input id="file" accept=".rancho" className="hidden " onChange={importaRegistrosRancho} type="file" />
-                                                Importar tipos de alimento
-                                            </label>
+                                             
                                         </DropdownMenu.Item>
                                         <DropdownMenu.Item onSelect={event => event.preventDefault()}
                                             className="group text-[13px] leading-none text-white cursor-pointer rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1"

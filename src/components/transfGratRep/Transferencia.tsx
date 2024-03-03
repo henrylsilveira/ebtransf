@@ -1,7 +1,8 @@
 import { formataValor, retornaValorSoldo, retornaValorM3Transportado } from "@/utils/scripts";
 import { adcDisp, adcHab, adcLocEsp, adcMil, cubagemVeiculo } from "@/utils/valores";
 import { useState } from "react";
-import { FaCarSide, FaMotorcycle } from "react-icons/fa";
+import { FaCarSide, FaCity, FaMotorcycle } from "react-icons/fa";
+import { GiJungle } from "react-icons/gi";
 
 export default function CalcTransferencia() {
     const [pg, setPg] = useState("")
@@ -19,12 +20,24 @@ export default function CalcTransferencia() {
     const [passagemCriancaoQnt, setPassagemCriancaQnt] = useState(0)
     const [carro, setCarro] = useState(false)
     const [moto, setMoto] = useState(false)
+    const [especial, setEspecial] = useState(false)
+    const [comum, setComum] = useState(false)
 
     return (
         <>
             <div className="fixed left-0 bg-gray-900 bg-opacity-40 backdrop-blur-sm shadow-lg w-screen shadow-black bottom-0 p-4 z-10">
                 <div className="border-2 text-xs sm:text-base border-green-600 rounded p-2 flex flex-1 items-center justify-center text-white font-bold ">Valor aproximado a receber pela transferência:
-                    <p className="text-sm sm:text-xl font-extrabold pl-4">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * 4 + (passagemAdultoValor * passagemAdultoQnt) + (passagemCriancaValor * passagemCriancaoQnt) + (retornaValorM3Transportado(dist) * cuba) + (carro ? retornaValorM3Transportado(dist) * cubagemVeiculo['carro'] : 0) + (moto ? retornaValorM3Transportado(dist) * cubagemVeiculo['moto'] : 0))}</p></div>
+                    <p className="text-sm sm:text-xl font-extrabold pl-4">{formataValor(
+                    ((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100) + 
+                    retornaValorSoldo(pg)! + 
+                    (retornaValorSoldo(pgCo)! * compOrg / 100)) * (especial ? 4 : comum ? 2 : 0) + 
+                    (passagemAdultoValor * passagemAdultoQnt) + 
+                    (passagemCriancaValor * passagemCriancaoQnt) + 
+                    (retornaValorM3Transportado(dist) * cuba) + 
+                    (carro ? retornaValorM3Transportado(dist) * cubagemVeiculo['carro'] : 0) + 
+                    (moto ? retornaValorM3Transportado(dist) * cubagemVeiculo['moto'] : 0)
+                    )}
+                    </p></div>
             </div>
             <div className="border border-green-600 rounded-md p-6 relative">
                 <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Militar</h1>
@@ -123,6 +136,27 @@ export default function CalcTransferencia() {
                 </div>
                 <span className="text-gray-600 text-sm">Caso não possua deixe os campos vazios.</span>
             </div>
+            {/* LOCALIDADE */}
+            <div className="border border-green-600 rounded-md p-6 relative mt-4 flex flex-1">
+                <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Localidade</h1>
+                <div className="flex flex-1 justify-evenly">
+                    <div className="flex flex-col items-center">
+                        <div className="flex items-center gap-4">
+                            <label htmlFor="especial" className="text-md font-bold text-gray-200 ml-3 dark:text-gray-200 flex items-center gap-2"><GiJungle className="text-white" />Gu Especial</label>
+                            <input type="checkbox" id="especial" onChange={(e) => setEspecial(e.target.checked)} className="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200" />
+                        </div>
+                        <span className="text-gray-600 text-sm">Ajuda de custo x4</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <div className="flex items-center gap-4">
+                            <label htmlFor="comum" className="text-md font-bold text-gray-200 ml-3 dark:text-gray-200 flex items-center gap-2"><FaCity className="text-white" />Gu Comum</label>
+                            <input type="checkbox" id="comum" onChange={(e) => setComum(e.target.checked)} className="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200" />
+                        </div>
+                        <span className="text-gray-600 text-sm">Ajuda de custo x2</span>
+                    </div>
+
+                </div>
+            </div>
             {/* PASSAGEM */}
             <div className="border border-green-600 rounded-md p-6 relative my-4">
                 <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Passagem</h1>
@@ -220,7 +254,7 @@ export default function CalcTransferencia() {
                 <div className="border border-green-600 rounded-md p-6 relative mt-4">
                     <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Ajuda de custo</h1>
                     <div className="flex flex-1">
-                        <b className="text-gray-300">Valor Bruto x 4</b><p className="pl-4 text-white">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * 4)}</p>
+                        <b className="text-gray-300">Valor Bruto { especial ? "x 4" : comum ? "x 2" : "x 0"}</b><p className="pl-4 text-white">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (especial ? 4 : comum ? 2 : 0))}</p>
                     </div>
 
                 </div>
