@@ -58,33 +58,33 @@ export default function PainelCentral() {
         try {
             if (token) {
                 const result: ResultProps = await api.get(`/instalacao/${token}`)
-                if(!result.data.status) {
+                if (!result.data.status) {
                     toast.error(result.data.message, {
                         position: toast.POSITION.TOP_RIGHT,
                         theme: "dark",
                     });
-                }else {
-                   setDados(result.data.data) 
+                } else {
+                    setDados(result.data.data)
                 }
-                
+
             } else {
                 const result = await api.get(`/instalacao/${formData.token}`)
-                if(!result.data.status) {
+                if (!result.data.status) {
                     toast.error(result.data.message, {
                         position: toast.POSITION.TOP_RIGHT,
                         theme: "dark",
                     });
-                }else{
-                     setDados(result.data.data)
-                const registros = JSON.stringify([...tokens, formData])
-                setTokens(JSON.parse(registros));
-                await new Promise((resolve) => {
-                    setTimeout(() => {
-                        resolve(localStorage.setItem("listTokens", registros));
-                    }, 300);
-                })
+                } else {
+                    setDados(result.data.data)
+                    const registros = JSON.stringify([...tokens, formData])
+                    setTokens(JSON.parse(registros));
+                    await new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve(localStorage.setItem("listTokens", registros));
+                        }, 300);
+                    })
                 }
-               
+
             }
         } catch (e) {
             console.error
@@ -197,7 +197,7 @@ export default function PainelCentral() {
                                                 <p className="text-white">Última atualização:</p>
                                                 <span className="text-gray-400">{converterParaFormatoPadrao(dados?.updatedAt as string)}</span>
                                             </div> : <></>}
-                                            
+
                                             <div className="flex justify-between my-2">
                                                 <h1 className="text-green-600 font-bold uppercase text-xl">Combustível</h1>
                                                 {Object.keys(dados?.combustivel).length === 0 ? (

@@ -81,6 +81,26 @@ export type InstalacaoLogisticaProps = {
     apoio: {}
 }
 
+export type Fato = {
+    id: string;
+    observacao: "positiva" | "negativa";
+    descricao: string;
+    createdAt: Date;
+}
+
+export type Integrantes = {
+    id: string;
+    nome: string;
+    fatosObservados: Fato[];
+}
+
+export type FatosObservados = {
+    id: string;
+    nomeCurso: string;
+    integrantes: Integrantes[];
+}
+
+
 export type DadosBancoProps = {
     combustivel: {
         tiposCombustivel: CombustivelProps[],
