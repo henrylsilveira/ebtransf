@@ -26,7 +26,7 @@ export default async function Curso({ params }: { params: { id: string } }) {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {data.data?.integrantes.map((integrante: { id: string; nome: string; fatosObservados: Fato[] }) => (
-            <CardFatoObs id={integrante.id} nome={integrante.nome} fatosObservados={integrante.fatosObservados}  />
+            <CardFatoObs id={integrante.id} nome={integrante.nome} fatosObservados={integrante.fatosObservados} idGrupo={params.id}  />
           ))}
         </div>
       </div>

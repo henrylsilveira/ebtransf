@@ -1,27 +1,30 @@
 'use client'
 import { api } from "@/services/axios";
-import { FatosObservados, Integrantes } from "@/types/types";
+import { Integrantes } from "@/types/types";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { useState } from "react";
-import { MdMessage, MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose } from "react-icons/md";
 import { toast } from "react-toastify";
 
-export function CardFatoObs({ id, nome, fatosObservados }: Integrantes, { id: idFatos, nomeCurso, integrantes }: FatosObservados ) {
+export function CardFatoObs({ id, nome, fatosObservados, idGrupo }: Integrantes) {
     const [formData, setFormData] = useState({
-        email: "",
-        mensagem: ""
+        id,
+        tokenFato: "",
+        observacao: "",
+        descricao: ""
     });
+
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (formData.email == "" || formData.mensagem == "") {
+        if (formData.observacao == "" || formData.descricao == "") {
             toast.info("Preencha todos os campos!", {
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
             });
         } else {
             try {
-                await api.post("/faleConosco", formData)
+                await api.put(`/fatosObservados/${idGrupo}`, formData)
                 toast.success("Enviado com sucesso!", {
                     position: toast.POSITION.TOP_RIGHT,
                     theme: "dark",
@@ -40,9 +43,11 @@ export function CardFatoObs({ id, nome, fatosObservados }: Integrantes, { id: id
         event:
             | React.ChangeEvent<HTMLInputElement>
             | React.ChangeEvent<HTMLTextAreaElement>
+            | React.ChangeEvent<HTMLSelectElement>
     ) => {
         setFormData({
             ...formData,
+            tokenFato: self.crypto.randomUUID(),
             [event.target.name]: event.target.value,
         });
     };
@@ -70,16 +75,16 @@ export function CardFatoObs({ id, nome, fatosObservados }: Integrantes, { id: id
                             <div>
                                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                                     <div className="relative z-0 w-full group">
-                                        <select name="fo" id="fo" className="leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                                        <select name="observacao" id="observacao" onChange={handleChange} className="leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                                             <option value=""></option>
                                             <option value="positivo">Positivo</option>
                                             <option value="negativo">Negativo</option>
                                         </select>
-                                        <label htmlFor="fo" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">FO</label>
+                                        <label htmlFor="observacao" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">FO</label>
                                     </div>
                                     <div className="relative z-0  w-full group">
-                                        <label htmlFor="fatoObservado" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Descreva o fato</label>
-                                        <textarea name="fatoObservado" onChange={handleChange} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
+                                        <label htmlFor="descricao" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Descreva o fato</label>
+                                        <textarea name="descricao" onChange={handleChange} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
                                     </div>
 
 
@@ -108,10 +113,12 @@ export function CardFatoObs({ id, nome, fatosObservados }: Integrantes, { id: id
                                 </button>
                             </AlertDialog.Cancel>
 
-
-                            <div className="flex flex-1 flex-col">
-                                
-                            </div>
+                            {fatosObservados.map(fato => (
+                                <div key={fato.id} className={`flex flex-1 flex-col shadow-container ${fato.observacao === "positivo" ? "border-r-4 border-green-700" : "border-r-4 border-red-700"}`}>
+                                {fato.descricao}
+                                </div>
+                            ))}
+                            
                         </AlertDialog.Content>
                     </AlertDialog.Portal>
                 </AlertDialog.Root>

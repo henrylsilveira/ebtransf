@@ -1,22 +1,34 @@
 'use client'
 import { Loader } from "@/components/Loader/Loader";
 import { api } from "@/services/axios";
-import { InstalacaoLogisticaProps } from "@/types/types";
 import Script from "next/dist/client/script";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { TokenProps } from '../../types/types';
 import Link from "next/link";
-import { MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose, MdOutlineSaveAlt } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 export default function gerenciarFatoObservado() {
     const [loading, setLoading] = useState(false);
+    const router = useRouter()
     const [formData, setFormData] = useState({
         id: "",
         nomeCurso: "",
+        nomeToken: "",
         token: "",
     });
     const [tokens, setTokens] = useState<TokenProps[]>([])
+    useEffect(() => {
+        var registros = localStorage.getItem("listTokensFatosObs")
+        if (registros !== null) {
+            setTokens(JSON.parse(registros))
+        }
+    }, [])
+    useEffect(() => {
+        localStorage.setItem("listTokensFatosObs", JSON.stringify(tokens))
+    }, [tokens])
+    
 
     const handleChange = (
         event:
@@ -31,8 +43,12 @@ export default function gerenciarFatoObservado() {
     };
 
     function apagarDados() {
-        localStorage.removeItem("listTokens")
+        localStorage.removeItem("listTokensFatosObs")
         setTokens([])
+    }
+    function saveToken() {
+        const cookiesTokens = [...tokens, {token: formData.token, nomeToken: formData.nomeToken}]
+        setTokens(cookiesTokens)
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -49,8 +65,9 @@ export default function gerenciarFatoObservado() {
                 await new Promise((resolve) => {
                     setTimeout(() => {
                         resolve(api.post("/fatosObservados", formData));
-                    }, 300);
+                    }, 1000);
                 })
+                
                 toast.success("Curso criado com sucesso!", {
                     position: toast.POSITION.TOP_RIGHT,
                     theme: "dark",
@@ -62,6 +79,7 @@ export default function gerenciarFatoObservado() {
                 });
             }
             setLoading(false);
+            router.push(`/gerFatosObs/${formData.id}`)
         }
     }
     return (
@@ -79,6 +97,10 @@ export default function gerenciarFatoObservado() {
             <div className="relative max-w-4xl w-10/12 sm:text-md text-sm mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
                 <div className="flex items-center justify-center mb-6 flex-col">
                     <div>
+                        <h1 className="text-green-600 font-bold uppercase text-xl mb-4 flex justify-center">Gerenciador de Fatos Observados</h1>
+                        <p className="font-light text-white text-justify py-4">Essa ferramenta serve para que você crie grupos como um Pelotão, CFST, CFC ou outros e administre fatos observados lançados para cada integrante.</p>
+                    </div>
+                    <div>
                         <h1 className="text-green-600 font-bold uppercase text-xl mb-4">Painel de Entrada</h1>
                         <div className=" flex flex-col my-2 w-full gap-4">
                             <div className="relative z-0 w-full group flex items-center">
@@ -90,67 +112,73 @@ export default function gerenciarFatoObservado() {
                                 <label htmlFor="token" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Token </label>
                             </div>
                             <div className="w-full flex justify-between text-center gap-2">
-                                <button type="button" onClick={() => { }} className="hover:bg-red-800 text-xs w-full bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md justify-center flex"><p className="flex"><MdOutlineClose className="mx-auto w-4 h-4" />Apagar</p></button>
-                                <Link className="hover:bg-green-800 text-xs bg-transparent border border-green-700 uppercase text-white py-2 px-6 rounded-md" href={`/gerFatosObs/${formData.token}`}>Entrar</Link>
+                                <button type="button" onClick={() => apagarDados()} className="hover:bg-red-800 text-xs w-full bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md justify-center flex"><p className="flex"><MdOutlineClose className="mx-auto w-4 h-4" />Apagar</p></button>
+                                <button type="button" onClick={() => saveToken()} className="hover:bg-green-800 text-xs w-full bg-transparent border border-green-700 uppercase text-white py-2 px-2 rounded-md justify-center flex"><p className="flex"><MdOutlineSaveAlt className="mx-auto w-4 h-4" />Salvar</p></button>
+                                <Link className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md" href={`/gerFatosObs/${formData.token}`}>Entrar</Link>
                             </div>
                         </div>
                     </div>
-                    <h1 className="text-green-600 font-bold uppercase text-xl mb-4">Token registrados</h1>
-                    <div className="grid xs:grid-cols-5 grid-cols-2 gap-4">
-                        {/* {tokens.map(token =>
-                            <button type="button" key={token.token} onClick={() => pegarDados(token.token)} className="hover:bg-blue-800 w-32 justify-center text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex gap-2">{token.nomeToken}</button>)} */}
+                    <div>
+                        <h1 className="text-green-600 font-bold uppercase text-xl mb-4">Token registrados</h1>
+                        <div className="grid xs:grid-cols-5 grid-cols-2 gap-4">
+                            {tokens.map(token =>
+                            <Link key={token.token} className="hover:bg-blue-800 w-28 justify-center text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex gap-2" href={`/gerFatosObs/${token.token}`}>{token.nomeToken}</Link>
+                              )}
+                        </div>
+
                     </div>
-                </div>
+                            
+                    <div className="flex justify-center mb-2 gap-2 py-4 ">
+                        <form onSubmit={handleSubmit} className="mb-4">
+                            <div className="flex flex-1 items-center justify-center my-6 flex-col">
+                                <h1 className="text-green-600 font-bold uppercase text-xl">Criar Token para um curso</h1>
 
-                <div className="flex justify-center mb-2 gap-2 py-4 ">
-                    <form onSubmit={handleSubmit} className="mb-4">
-                        <div className="flex flex-1 items-center justify-center my-6 flex-col">
-                            <h1 className="text-green-600 font-bold uppercase text-xl">Criar Token para um curso</h1>
-                            <p className="font-light text-white text-justify py-4">Ao criar uma instalação você recebe um token que será útil para consulta e cadastro do dados no banco de dados.</p>
-                        </div>
-                        <div className="gap-4 mb-4">
-
-                            <div className="relative z-0 w-full group flex items-center">
-                                <input type="text" name="nomeCurso" onChange={handleChange} id="nomeCurso" className=" block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
-                                <label htmlFor="nomeCurso" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nome do curso</label>
+                                <p className="font-light text-white text-justify py-4">Ao criar um grupo você recebe um token que será útil para consulta e cadastro do dados no banco de dados.</p>
                             </div>
-                            <span className="text-xs text-gray-600">Ex: CFST23/1, CFC92/2, 1 CIA</span>
-                        </div>
-                        {formData.nomeCurso ? (
-                            <div>
-                                <div className="flex flex-1 flex-col">
-                                    <h1 className="text-green-600 font-bold uppercase text-xl">Dados Gerados</h1>
-                                    <p className="font-light text-white text-justify py-4"><p className="flex gap-2 text-lg text-red-600 font-extrabold">Importante!!</p> Não perca esse Token pois o mesmo serve para consultar as informações armazenadas no banco de dados.</p>
-                                    <p className="flex gap-2 text-white text-justify py-4 font-extrabold"><p className="text-red-800">Token:</p>{formData.id}</p>
-                                    <p className="flex gap-2 text-white text-justify py-4 font-extrabold"><p className="text-red-800">Nome da Instalação:</p>{formData.nomeCurso}</p>
+                            <div className="gap-4 mb-4">
+
+                                <div className="relative z-0 w-full group flex items-center">
+                                    <input type="text" name="nomeCurso" onChange={handleChange} id="nomeCurso" className=" block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                                    <label htmlFor="nomeCurso" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nome do curso</label>
                                 </div>
-                                {loading
-                                    ? <div className="border-t flex justify-center border-green-700 mt-4 pt-4">
-                                        <div className="bg-transparent border w-full flex justify-center text-xs border-blue-700 uppercase text-white py-2 px-6 rounded-md">
-
-                                            <Loader />
-                                        </div>
-                                    </div>
-                                    :
-                                    <div className="border-t flex justify-center border-green-700 mt-4 pt-4">
-                                        <div className="w-full flex justify-center">
-                                            <button type="submit" className="hover:bg-blue-800 bg-transparent border w-full text-xs border-blue-700 uppercase text-white py-2 px-6 rounded-md">Registrar no banco de dados</button>
-                                        </div>
-
-                                    </div>
-                                }
+                                <span className="text-xs text-gray-600">Ex: CFST23/1, CFC92/2, 1 CIA</span>
                             </div>
-                        ) : (
-                            <></>
-                        )}
+                            {formData.nomeCurso ? (
+                                <div>
+                                    <div className="flex flex-1 flex-col">
+                                        <h1 className="text-green-600 font-bold uppercase text-xl">Dados Gerados</h1>
+                                        <p className="font-light text-white text-justify py-4"><p className="flex gap-2 text-lg text-red-600 font-extrabold">Importante!!</p> Não perca esse Token pois o mesmo serve para consultar as informações armazenadas no banco de dados.</p>
+                                        <p className="flex gap-2 text-white text-justify py-4 font-extrabold"><p className="text-red-800">Token:</p>{formData.id}</p>
+                                        <p className="flex gap-2 text-white text-justify py-4 font-extrabold"><p className="text-red-800">Nome da Instalação:</p>{formData.nomeCurso}</p>
+                                    </div>
+                                    {loading
+                                        ? <div className="border-t flex justify-center border-green-700 mt-4 pt-4">
+                                            <div className="bg-transparent border w-full flex justify-center text-xs border-blue-700 uppercase text-white py-2 px-6 rounded-md">
 
-                    </form>
+                                                <Loader />
+                                            </div>
+                                        </div>
+                                        :
+                                        <div className="border-t flex justify-center border-green-700 mt-4 pt-4">
+                                            <div className="w-full flex justify-center">
+                                                <button type="submit" className="hover:bg-blue-800 bg-transparent border w-full text-xs border-blue-700 uppercase text-white py-2 px-6 rounded-md">Registrar no banco de dados</button>
+                                            </div>
+
+                                        </div>
+                                    }
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+
+                        </form>
+
+                    </div>
+
 
                 </div>
-
-
             </div>
-
         </>
     )
 }
+

@@ -1,6 +1,9 @@
-import { getFirestore, collection, getDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, getDoc, doc, updateDoc } from "firebase/firestore";
 import app from "@/firebase/config";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { Fato, FatosObservados } from "@/types/types";
+import { Integrantes } from '../../../../types/types';
+import { generateNowISOTime } from "@/utils/scripts";
 
 export async function GET(request: Request, { params }: { params: { token: string } }) {
     const id = params.token
@@ -10,10 +13,43 @@ export async function GET(request: Request, { params }: { params: { token: strin
         const data = await getDoc(
             doc(db, colRef.path, id)
         );
-            if(!data.data()){
-                return NextResponse.json({ status: false, message: "Token não associado a nenhum curso!" })
-            }
+        if (!data.data()) {
+            return NextResponse.json({ status: false, message: "Token não associado a nenhum curso!" })
+        }
         return NextResponse.json({ status: true, data: data.data() })
+    } catch (error) {
+        return NextResponse.json({ message: error })
+    }
+}
+
+export async function PUT(request: NextRequest, { params }: { params: { token: string } }) {
+    const idGrupo = params.token
+    const db = getFirestore(app);
+    const { id, observacao, descricao, tokenFato } = await request.json() as Fato
+
+    const colRef = collection(db, "fatosObservados");
+    try {
+        const data = await getDoc(
+            doc(db, colRef.path, idGrupo)
+        );
+        if (!data.data()) {
+            return NextResponse.json({ status: false, message: "Token não associado a nenhum curso!" })
+        }
+        var { integrantes } = data.data() as FatosObservados;
+
+        if (integrantes.length !== 0 && tokenFato) {
+            integrantes.map(integrante => 
+                integrante.id === id ? integrante?.fatosObservados.push({
+                    id: tokenFato,
+                    observacao,
+                    descricao,
+                    createdAt: generateNowISOTime(),
+                }) : integrante)
+        }
+        await updateDoc(doc(db, "fatosObservados", idGrupo), {
+            integrantes
+        });
+        return NextResponse.json({ status: true, message: "Fato observado armazenado no sistema!" })
     } catch (error) {
         return NextResponse.json({ message: error })
     }

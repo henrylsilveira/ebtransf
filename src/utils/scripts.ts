@@ -213,3 +213,8 @@ export function retornaTimeStamp(): string {
 
     return timestamp
 }
+
+export function generateNowISOTime() {
+    const time = new Date();
+    return time.toISOString();
+  }

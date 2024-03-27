@@ -83,15 +83,17 @@ export type InstalacaoLogisticaProps = {
 
 export type Fato = {
     id: string;
-    observacao: "positiva" | "negativa";
+    tokenFato?: string;
+    observacao: "positivo" | "negativo";
     descricao: string;
-    createdAt: Date;
+    createdAt: string;
 }
 
 export type Integrantes = {
     id: string;
     nome: string;
     fatosObservados: Fato[];
+    idGrupo?: string;
 }
 
 export type FatosObservados = {
