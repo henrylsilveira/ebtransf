@@ -4,7 +4,9 @@ import { Integrantes } from "@/types/types";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
+import { SlLike, SlDislike } from "react-icons/sl";
 import { toast } from "react-toastify";
+import { convertDate } from '../../utils/scripts';
 
 export function CardFatoObs({ id, nome, fatosObservados, idGrupo }: Integrantes) {
     const [formData, setFormData] = useState({
@@ -99,12 +101,12 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo }: Integrantes)
                 </AlertDialog.Root>
                 <AlertDialog.Root>
                     <AlertDialog.Trigger asChild>
-                    <button className="shadow-container w-full flex justify-center py-2 text-white  bg-gradient-to-r from-blue-900/30 to-blue-900 hover:bg-blue-600/80 border border-blue-400 rounded-lg">Relatório</button>
+                        <button className="shadow-container w-full flex justify-center py-2 text-white  bg-gradient-to-r from-blue-900/30 to-blue-900 hover:bg-blue-600/80 border border-blue-400 rounded-lg">Relatório</button>
                     </AlertDialog.Trigger>
                     <AlertDialog.Portal>
                         <AlertDialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
-                        <AlertDialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-backgroundColor border border-green-700 p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
-                            <AlertDialog.Title className="text-green-700 m-0 text-[17px] font-medium">
+                        <AlertDialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-backgroundColor border border-green-700 p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none overflow-auto">
+                            <AlertDialog.Title className="text-green-700 m-0 text-2xl font-medium">
                                 Fatos Observados do {nome}
                             </AlertDialog.Title>
                             <AlertDialog.Cancel>
@@ -112,18 +114,34 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo }: Integrantes)
                                     <MdOutlineClose />
                                 </button>
                             </AlertDialog.Cancel>
-
+                            <div className="flex flex-1 justify-between gap-2 mb-2">
+                                <p className="text-green-700 bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Positivos: {fatosObservados.filter(fato => fato.observacao === "positivo").length}</p>
+                                <p className="text-red-700 bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Negativos: {fatosObservados.filter(fato => fato.observacao === "negativo").length}</p>
+                                <p className="text-white bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Desempenho: {((fatosObservados.filter(fato => fato.observacao === "positivo").length / fatosObservados.length) * 100).toFixed(2)}%</p>
+                            </div>
                             {fatosObservados.map(fato => (
-                                <div key={fato.id} className={`flex flex-1 flex-col shadow-container ${fato.observacao === "positivo" ? "border-r-4 border-green-700" : "border-r-4 border-red-700"}`}>
-                                {fato.descricao}
+                                <div key={fato.id} className={`flex flex-1 shadow-container gap-2 mb-2 items-center ${fato.observacao === "positivo" ? "border-r-4 border-green-700" : "border-r-4 border-red-700"}`}>
+                                    {fato.observacao === "positivo" ?
+                                        <div className="bg-green-700 rounded-full m-2 p-2">
+                                            <SlLike className="text-white" />
+                                        </div>
+                                        :
+                                        <div className="bg-red-700 rounded-full m-2 p-2">
+                                            <SlDislike />
+                                        </div>}
+                                    <div>
+
+                                        <p className="text-white">{fato.descricao}</p>
+                                        <p className="text-gray-600">{convertDate(fato.createdAt)}</p>
+                                    </div>
                                 </div>
                             ))}
-                            
+
                         </AlertDialog.Content>
                     </AlertDialog.Portal>
                 </AlertDialog.Root>
 
-               
+
             </div>
         </div>
     )
