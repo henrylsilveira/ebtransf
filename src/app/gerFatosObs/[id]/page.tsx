@@ -9,7 +9,7 @@ export default async function Curso({ params }: { params: { id: string } }) {
   const { data } = await api.get(`/fatosObservados/${params.id}`)
   return (
     <>
-      <title>EBCalc - Gerenciamento {data.data?.nomeCurso}</title>
+      <title>EBCalc - Gerenciamento de Fatos Observados</title>
       <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W6B1SSXWE7"></Script>
       <Script id="google-analytics">
         {`window.dataLayer = window.dataLayer || [];

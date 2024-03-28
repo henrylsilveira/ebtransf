@@ -114,7 +114,7 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo }: Integrantes)
                                     <MdOutlineClose />
                                 </button>
                             </AlertDialog.Cancel>
-                            <div className="flex flex-1 justify-between gap-2 mb-2">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-2">
                                 <p className="text-green-700 bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Positivos: {fatosObservados.filter(fato => fato.observacao === "positivo").length}</p>
                                 <p className="text-red-700 bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Negativos: {fatosObservados.filter(fato => fato.observacao === "negativo").length}</p>
                                 <p className="text-white bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Desempenho: {((fatosObservados.filter(fato => fato.observacao === "positivo").length / fatosObservados.length) * 100).toFixed(2)}%</p>
