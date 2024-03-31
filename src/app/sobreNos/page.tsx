@@ -9,7 +9,7 @@ export default function SobreNos() {
             <h1 className="text-green-600 font-bold uppercase text-xl text-center pb-2">Sobre Nós</h1>
             <article>
                 <p className="font-light text-gray-300 text-justify py-4">
-                Bem-vindo ao EB#Calc, projetado para simplificar cálculos. Nossa missão é fornecer ferramentas precisas e acessíveis que ajudem você a tomar decisões informadas e a resolver problemas com facilidade.
+                Bem-vindo ao EB#Calc, projetado para simplificar cálculos e trazer ferramentas de apoio voltadas para área militar. Nossa missão é fornecer ferramentas precisas e acessíveis que ajudem você a tomar decisões informadas e a resolver problemas com facilidade.
                 </p>
             </article>
             <h2 className="text-green-600 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center"><MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Quem Somos</h2>
@@ -20,7 +20,7 @@ export default function SobreNos() {
             <h1 className="text-green-600 font-bold pt-3 uppercase border-b border-green-600 flex flex-1 items-center"><MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />O Que Oferecemos</h1>
             <article>
                 <p className="font-light text-gray-300 text-justify py-4">
-                    No EB#Calc, oferecemos calculadoras em diversas áreas e com o tempo iremos implementado outras, incluindo:
+                    No EB#Calc, oferecemos calculadoras e ferramentas em diversas áreas e com o tempo iremos implementado outras, incluindo:
                     <ul>
                         <li>
                             - Calculadora para cálculo transfência e gratificação representação.
@@ -30,6 +30,12 @@ export default function SobreNos() {
                         </li>
                         <li>
                             - Tabela com os dados necessários para os cálculos. Sendo possível saber caso algum valor esteja desatualizado.
+                        </li>
+                        <li>
+                            - Ferramenta para gerenciamento de instalações.
+                        </li>
+                        <li>
+                            - Ferramenta para gerenciamento de grupos através de fatos observados (FO).
                         </li>
                     </ul>
                 </p>
@@ -45,13 +51,13 @@ export default function SobreNos() {
                             - Facilidade de Uso: Nossas calculadoras são intuitivas e fáceis de usar, tornando o processo de cálculo simples e acessível a todos.
                         </li>
                         <li>
-                            - Acesso Gratuito: Acreditamos que o conhecimento deve ser livremente acessível. Portanto, todas as nossas calculadoras são oferecidas gratuitamente, sem custos ocultos.
+                            - Acesso Gratuito: Acreditamos que o conhecimento deve ser livremente acessível. Portanto, todas as nossas calculadoras e ferramentas são oferecidas gratuitamente, sem custos ocultos.
                         </li>
                         <li>
-                            - Privacidade e Segurança: Levamos a sério a privacidade dos usuários. Nenhum dado pessoal é coletado ou armazenado ao usar nossas calculadoras.
+                            - Privacidade e Segurança: Levamos a sério a privacidade dos usuários. Nenhum dado pessoal é coletado ou armazenado ao usar nossas calculadoras e ferramentas.
                         </li>
                         <li>
-                            - Feedback: Valorizamos a opinião dos nossos usuários. Se você tiver sugestões para novas calculadoras ou melhorias, entre em contato conosco. Estamos sempre trabalhando para aprimorar nossos serviços.
+                            - Feedback: Valorizamos a opinião dos nossos usuários. Se você tiver sugestões para novas calculadoras e ferramentas ou melhorias, entre em contato conosco. Estamos sempre trabalhando para aprimorar nossos serviços.
                         </li>
                     </ul>
                 </p>
