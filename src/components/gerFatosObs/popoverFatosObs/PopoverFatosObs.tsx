@@ -7,7 +7,7 @@ import { api } from "@/services/axios";
 import { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "react-toastify";
 
-export function PopoverFatosObs({ params, stateFunction }: { params: FatosObservados, stateFunction: Dispatch<React.SetStateAction<Integrantes[]>>}) {
+export function PopoverFatosObs({ params, integrantes, stateFunction }: { params: FatosObservados, integrantes: Integrantes[], stateFunction: Dispatch<React.SetStateAction<Integrantes[]>>}) {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         id: "",
@@ -31,7 +31,7 @@ export function PopoverFatosObs({ params, stateFunction }: { params: FatosObserv
                     position: toast.POSITION.TOP_RIGHT,
                     theme: "dark",
                 });
-                stateFunction([...params.integrantes, formData])
+                stateFunction([...integrantes, {...formData, fatosObservados: []}])
                 setOpen(false)
             } catch (error) {
                 toast.error("Erro no envio da mensagem!", {

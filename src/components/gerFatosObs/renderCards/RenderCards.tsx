@@ -12,7 +12,7 @@ export default function RenderCardComponent({ data }: any) {
         <>
             <div className="flex justify-center gap-4">
                 <h1 className="text-green-600 font-bold uppercase text-3xl mb-6">{data.data?.nomeCurso}</h1>
-                <PopoverFatosObs params={data?.data} stateFunction={setIntegrantesData}  />
+                <PopoverFatosObs params={data?.data} integrantes={integrantesData} stateFunction={setIntegrantesData}  />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {integrantesData?.map((integrante: { id: string; nome: string; fatosObservados: Fato[] }) => (
