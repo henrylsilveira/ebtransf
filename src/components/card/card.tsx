@@ -1,21 +1,26 @@
 'use client'
 import { api } from "@/services/axios";
-import { Integrantes } from "@/types/types";
+import { Fato, Integrantes } from "@/types/types";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import { useState } from "react";
+import { useState, Dispatch } from 'react';
 import { MdOutlineClose } from "react-icons/md";
 import { SlLike, SlDislike } from "react-icons/sl";
 import { toast } from "react-toastify";
-import { convertDate } from '../../utils/scripts';
+import { convertDate, generateNowISOTime } from '../../utils/scripts';
 
-export function CardFatoObs({ id, nome, fatosObservados, idGrupo }: Integrantes) {
+interface CardProps extends Integrantes {
+    stateFunction: Dispatch<React.SetStateAction<Integrantes[]>>
+    integrantes: Integrantes[]
+}
+
+export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction, integrantes }: CardProps) {
+    const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         id,
         tokenFato: "",
         observacao: "",
-        descricao: ""
+        descricao: "",
     });
-
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -31,7 +36,11 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo }: Integrantes)
                     position: toast.POSITION.TOP_RIGHT,
                     theme: "dark",
                 });
-
+                if (integrantes.length !== 0 && formData.tokenFato) {
+                    const integrantesData = integrantes.filter((integrante) => integrante.id === id ? integrante.fatosObservados.push({...formData, createdAt: generateNowISOTime()} as Fato) : integrante)
+                    stateFunction(integrantesData)
+                    setOpen(false)
+                }
             } catch (error) {
                 toast.error("Erro no envio da mensagem!", {
                     position: toast.POSITION.TOP_RIGHT,
@@ -57,7 +66,7 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo }: Integrantes)
         <div className="border border-green-600 rounded-md p-6 relative">
             <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-2xl uppercase px-2">{nome}</h1>
             <div className="flex flex-col gap-2">
-                <AlertDialog.Root>
+                <AlertDialog.Root open={open} onOpenChange={setOpen}>
                     <AlertDialog.Trigger asChild>
                         <button className="shadow-container w-full flex justify-center py-2 text-white bg-gradient-to-r from-green-900/30 to-green-900 hover:bg-green-600/80 border border-green-400 rounded-lg">Lançar Fato</button>
                     </AlertDialog.Trigger>
@@ -114,12 +123,14 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo }: Integrantes)
                                     <MdOutlineClose />
                                 </button>
                             </AlertDialog.Cancel>
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-2">
-                                <p className="text-green-700 bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Positivos: {fatosObservados.filter(fato => fato.observacao === "positivo").length}</p>
-                                <p className="text-red-700 bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Negativos: {fatosObservados.filter(fato => fato.observacao === "negativo").length}</p>
-                                <p className="text-white bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Desempenho: {((fatosObservados.filter(fato => fato.observacao === "positivo").length / fatosObservados.length) * 100).toFixed(2)}%</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
+                                <p className="text-green-700 bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Positivos: {fatosObservados?.filter(fato => fato.observacao === "positivo").length}</p>
+                                <p className="text-red-700 bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Negativos: {fatosObservados?.filter(fato => fato.observacao === "negativo").length}</p>
                             </div>
-                            {fatosObservados.map(fato => (
+                            <div>
+                                <p className="text-white bg-gray-800 px-4 mb-2 rounded-xl whitespace-nowrap overflow-hidden">Desempenho: {((fatosObservados?.filter(fato => fato.observacao === "positivo").length / fatosObservados?.length) * 100).toFixed(2)}%</p>
+                            </div>
+                            {fatosObservados?.map(fato => (
                                 <div key={fato.id} className={`flex flex-1 shadow-container gap-2 mb-2 items-center ${fato.observacao === "positivo" ? "border-r-4 border-green-700" : "border-r-4 border-red-700"}`}>
                                     {fato.observacao === "positivo" ?
                                         <div className="bg-green-700 rounded-full m-2 p-2">

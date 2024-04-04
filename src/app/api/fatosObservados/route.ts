@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
     const db = getFirestore(app);
     const result = await request.json() as FatosObservados
-
+    
     try {
         await updateDoc(doc(db, "fatosObservados", result.id), {
             integrantes: result.integrantes
