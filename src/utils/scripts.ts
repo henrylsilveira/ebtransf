@@ -224,3 +224,8 @@ export function generateNowISOTime() {
     const convertDate = d.toLocaleDateString("pt-BR");
     return convertDate;
   }
+
+  export function formatarDataHora(iso: string | number | Date) {
+    const data = new Date(iso);
+    return data.toLocaleString("pt-BR");
+  }

@@ -6,7 +6,7 @@ import { useState, Dispatch } from 'react';
 import { MdOutlineClose } from "react-icons/md";
 import { SlLike, SlDislike } from "react-icons/sl";
 import { toast } from "react-toastify";
-import { convertDate, generateNowISOTime } from '../../utils/scripts';
+import { convertDate, formatarDataHora, generateNowISOTime } from '../../utils/scripts';
 
 interface CardProps extends Integrantes {
     stateFunction: Dispatch<React.SetStateAction<Integrantes[]>>
@@ -143,7 +143,7 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
                                     <div>
 
                                         <p className="text-white">{fato.descricao}</p>
-                                        <p className="text-gray-600">{convertDate(fato.createdAt)}</p>
+                                        <p className="text-gray-600">{formatarDataHora(fato.createdAt)}</p>
                                     </div>
                                 </div>
                             ))}
