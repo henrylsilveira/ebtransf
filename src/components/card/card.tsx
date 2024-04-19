@@ -7,6 +7,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { SlLike, SlDislike } from "react-icons/sl";
 import { toast } from "react-toastify";
 import { convertDate, formatarDataHora, generateNowISOTime } from '../../utils/scripts';
+import { Loader } from "../Loader/Loader";
 
 interface CardProps extends Integrantes {
     stateFunction: Dispatch<React.SetStateAction<Integrantes[]>>
@@ -15,6 +16,7 @@ interface CardProps extends Integrantes {
 
 export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction, integrantes }: CardProps) {
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         id,
         tokenFato: "",
@@ -31,16 +33,18 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
             });
         } else {
             try {
+                setLoading(true)
                 await api.put(`/fatosObservados/${idGrupo}`, formData)
                 toast.success("Enviado com sucesso!", {
                     position: toast.POSITION.TOP_RIGHT,
                     theme: "dark",
                 });
                 if (integrantes.length !== 0 && formData.tokenFato) {
-                    const integrantesData = integrantes.filter((integrante) => integrante.id === id ? integrante.fatosObservados.push({...formData, createdAt: generateNowISOTime()} as Fato) : integrante)
+                    const integrantesData = integrantes.filter((integrante) => integrante.id === id ? integrante.fatosObservados.push({ ...formData, createdAt: generateNowISOTime() } as Fato) : integrante)
                     stateFunction(integrantesData)
                     setOpen(false)
                 }
+                setLoading(false)
             } catch (error) {
                 toast.error("Erro no envio da mensagem!", {
                     position: toast.POSITION.TOP_RIGHT,
@@ -100,7 +104,10 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
 
 
                                     <div className="border-t flex justify-center border-green-700 mt-4 pt-4">
-                                        <button type="submit" className="hover:bg-green-800 bg-transparent border border-green-700 uppercase text-white py-2 px-6 rounded-md">Enviar</button>
+                                        {loading ?
+                                            <button disabled className="bg-transparent border w-24 justify-center flex border-green-700 uppercase text-white py-2 px-6 rounded-md"><Loader /></button>
+                                            : <button type="submit" className="hover:bg-green-800 w-24 flex justify-center bg-transparent border border-green-700 uppercase text-white py-2 px-6 rounded-md">Enviar</button>
+                                        }
                                     </div>
 
                                 </form>
