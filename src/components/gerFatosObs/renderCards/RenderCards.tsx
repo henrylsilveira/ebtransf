@@ -21,7 +21,11 @@ export default function RenderCardComponent({ data }: ParamsProps) {
                 <PopoverFatosObs params={data?.data} integrantes={integrantesData} stateFunction={setIntegrantesData} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {integrantesData?.map((integrante: { id: string; nome: string; fatosObservados: Fato[] }) => (
+                {integrantesData?.sort((x, y) => {
+                let a = x.nome ? x.nome.toUpperCase() : x.fatosObservados.filter(fato => fato.observacao === "positivo").length,
+                  b = y.nome ? y.nome.toUpperCase() : x.fatosObservados.filter(fato => fato.observacao === "positivo").length;
+                return a == b ? 0 : a > b ? 1 : -1;
+              }).map((integrante: { id: string; nome: string; fatosObservados: Fato[] }) => (
                     <CardFatoObs key={integrante.id} id={integrante.id} nome={integrante.nome} fatosObservados={integrante.fatosObservados} idGrupo={data.data?.id} integrantes={integrantesData} stateFunction={setIntegrantesData} />
                 ))}
             </div>

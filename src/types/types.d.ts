@@ -87,6 +87,8 @@ export type Fato = {
     observacao: "positivo" | "negativo";
     descricao: string;
     createdAt: string;
+    deleteFo?: boolean;
+    integranteId?: string;
 }
 
 export type Integrantes = {

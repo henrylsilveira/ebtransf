@@ -131,9 +131,9 @@ export default function gerenciarFatoObservado() {
                     <div className="flex justify-center mb-2 gap-2 py-4 ">
                         <form onSubmit={handleSubmit} className="mb-4">
                             <div className="flex flex-1 items-center justify-center my-6 flex-col">
-                                <h1 className="text-green-600 font-bold uppercase text-xl">Criar Token para um curso</h1>
+                                <h1 className="text-green-600 font-bold uppercase text-xl">Criar Token para um curso/grupo</h1>
 
-                                <p className="font-light text-white text-justify py-4">Ao criar um grupo você recebe um token que será útil para consulta e cadastro do dados no banco de dados.</p>
+                                <p className="font-light text-white text-justify py-4">Ao criar um grupo você recebe um token que será útil para consulta e cadastro dos dados no banco de dados.</p>
                             </div>
                             <div className="gap-4 mb-4">
 
@@ -148,8 +148,8 @@ export default function gerenciarFatoObservado() {
                                     <div className="flex flex-1 flex-col">
                                         <h1 className="text-green-600 font-bold uppercase text-xl">Dados Gerados</h1>
                                         <p className="font-light text-white text-justify py-4"><p className="flex gap-2 text-lg text-red-600 font-extrabold">Importante!!</p> Não perca esse Token pois o mesmo serve para consultar as informações armazenadas no banco de dados.</p>
-                                        <p className="flex gap-2 text-white text-justify py-4 font-extrabold"><p className="text-red-800">Token:</p>{formData.id}</p>
-                                        <p className="flex gap-2 text-white text-justify py-4 font-extrabold"><p className="text-red-800">Nome da Instalação:</p>{formData.nomeCurso}</p>
+                                        <p className="flex gap-2 text-white text-justify py-4 font-extrabold"><p className="text-red-800">Token: </p>{formData.id}</p>
+                                        <p className="flex gap-2 text-white text-justify py-4 font-extrabold"><p className="text-red-800">Nome do curso/grupo: </p>{formData.nomeCurso}</p>
                                     </div>
                                     {loading
                                         ? <div className="border-t flex justify-center border-green-700 mt-4 pt-4">

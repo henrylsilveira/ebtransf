@@ -2,19 +2,22 @@
 import { api } from "@/services/axios";
 import { Fato, Integrantes } from "@/types/types";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import { useState, Dispatch } from 'react';
+import { useState, Dispatch, SetStateAction } from 'react';
 import { MdOutlineClose } from "react-icons/md";
 import { SlLike, SlDislike } from "react-icons/sl";
 import { toast } from "react-toastify";
-import { convertDate, formatarDataHora, generateNowISOTime } from '../../utils/scripts';
+import { convertDate, formatarDataHora, generateNowISOTime, hasFiveMinutesPassed } from '../../utils/scripts';
 import { Loader } from "../Loader/Loader";
-
+import { FaRegTrashCan } from "react-icons/fa6";
+import { FatosObservados } from '../../types/types';
+import Timer from "../Timer";
 interface CardProps extends Integrantes {
     stateFunction: Dispatch<React.SetStateAction<Integrantes[]>>
     integrantes: Integrantes[]
 }
 
 export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction, integrantes }: CardProps) {
+    const [timer, setTimer] = useState(true);
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -54,6 +57,30 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
         }
     };
 
+    async function handleDelete(fato: Fato) {
+        try {
+            setLoading(true)
+            await api.put(`/fatosObservados/${idGrupo}`, { ...fato, deleteFo: true, integranteId: id })
+            toast.success("Fato observado deletado com sucesso!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+            if (integrantes.length !== 0) {
+                const integrantesData = integrantes.map(integrante =>
+                    integrante.id === id ? { ...integrante, FatosObservados: integrante?.fatosObservados.splice(integrante?.fatosObservados.findIndex(fatoI => fatoI.id === fato.id), 1) } : integrante) as Integrantes[]
+
+                stateFunction(integrantesData)
+                setOpen(false)
+            }
+            setLoading(false)
+        } catch (error) {
+            toast.error("Erro no envio da mensagem!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        }
+    };
+
     const handleChange = (
         event:
             | React.ChangeEvent<HTMLInputElement>
@@ -69,6 +96,10 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
     return (
         <div className="border border-green-600 rounded-md p-6 relative">
             <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-2xl uppercase px-2">{nome}</h1>
+            <div className="absolute flex -top-3 right-4  bg-gray-900 font-bold text-md uppercase px-2 gap-2">
+                <span className="shadow-container px-2 rounded-full text-green-600 bg-green-700/10">{fatosObservados?.filter(fato => fato.observacao === "positivo").length}</span>
+                <span className="shadow-container px-2 rounded-full text-red-600 bg-red-700/10">{fatosObservados?.filter(fato => fato.observacao === "negativo").length}</span>
+            </div>
             <div className="flex flex-col gap-2">
                 <AlertDialog.Root open={open} onOpenChange={setOpen}>
                     <AlertDialog.Trigger asChild>
@@ -88,6 +119,7 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
 
 
                             <div>
+
                                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                                     <div className="relative z-0 w-full group">
                                         <select name="observacao" id="observacao" onChange={handleChange} className="leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
@@ -104,6 +136,7 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
 
 
                                     <div className="border-t flex justify-center border-green-700 mt-4 pt-4">
+
                                         {loading ?
                                             <button disabled className="bg-transparent border w-24 justify-center flex border-green-700 uppercase text-white py-2 px-6 rounded-md"><Loader /></button>
                                             : <button type="submit" className="hover:bg-green-800 w-24 flex justify-center bg-transparent border border-green-700 uppercase text-white py-2 px-6 rounded-md">Enviar</button>
@@ -130,6 +163,7 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
                                     <MdOutlineClose />
                                 </button>
                             </AlertDialog.Cancel>
+
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
                                 <p className="text-green-700 bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Positivos: {fatosObservados?.filter(fato => fato.observacao === "positivo").length}</p>
                                 <p className="text-red-700 bg-gray-800 px-4 rounded-xl whitespace-nowrap overflow-hidden">Negativos: {fatosObservados?.filter(fato => fato.observacao === "negativo").length}</p>
@@ -138,7 +172,12 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
                                 <p className="text-white bg-gray-800 px-4 mb-2 rounded-xl whitespace-nowrap overflow-hidden">Desempenho: {((fatosObservados?.filter(fato => fato.observacao === "positivo").length / fatosObservados?.length) * 100).toFixed(2)}%</p>
                             </div>
                             {fatosObservados?.map(fato => (
-                                <div key={fato.id} className={`flex flex-1 shadow-container gap-2 mb-2 items-center ${fato.observacao === "positivo" ? "border-r-4 border-green-700" : "border-r-4 border-red-700"}`}>
+                                <div key={fato.id} className={`flex relative flex-1 shadow-container gap-2 mb-2 items-center ${fato.observacao === "positivo" ? "border-r-4 border-green-700" : "border-r-4 border-red-700"}`}>
+                                    <div className="absolute right-2 top-2">
+                                        {loading ?
+                                            null :
+                                            <Timer fato={fato} handleDelete={handleDelete} />}
+                                    </div>
                                     {fato.observacao === "positivo" ?
                                         <div className="bg-green-700 rounded-full m-2 p-2">
                                             <SlLike className="text-white" />
@@ -147,10 +186,11 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
                                         <div className="bg-red-700 rounded-full m-2 p-2">
                                             <SlDislike />
                                         </div>}
-                                    <div>
-
+                                    <div >
                                         <p className="text-white">{fato.descricao}</p>
                                         <p className="text-gray-600">{formatarDataHora(fato.createdAt)}</p>
+
+
                                     </div>
                                 </div>
                             ))}

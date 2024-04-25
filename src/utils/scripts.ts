@@ -229,3 +229,45 @@ export function generateNowISOTime() {
     const data = new Date(iso);
     return data.toLocaleString("pt-BR");
   }
+
+  export function hasFiveMinutesPassed(isoDateTime: string): number {
+    // Converte a string em formato ISO para um objeto Date
+    const providedDateTime = new Date(isoDateTime);
+
+    // Obtém a data e hora atual
+    const currentDateTime = new Date();
+
+    // Calcula a diferença de tempo em milissegundos
+    const timeDifference = currentDateTime.getTime() - providedDateTime.getTime();
+
+    // Converte a diferença de tempo de milissegundos para minutos
+    const timeDifferenceInMinutes = timeDifference / (1000 * 60);
+
+    // Retorna true se já se passaram 5 minutos ou mais
+    return timeDifferenceInMinutes ;
+}
+
+export function getTimeRemainingForFiveMinutes(isoDateTime: string): number {
+    // Converte a string em formato ISO para um objeto Date
+    const providedDateTime = new Date(isoDateTime);
+
+    // Obtém a data e hora atual
+    const currentDateTime = new Date();
+
+    // Calcula a diferença de tempo em milissegundos
+    const timeDifferenceInMilliseconds = currentDateTime.getTime() - providedDateTime.getTime();
+
+    // Duração de 5 minutos em milissegundos
+    const fiveMinutesInMilliseconds = 5 * 60 * 1000;
+
+    // Calcula o tempo restante para completar 5 minutos
+    const timeRemaining = fiveMinutesInMilliseconds - timeDifferenceInMilliseconds;
+
+    // Se já se passaram mais de 5 minutos, retorne 0
+    if (timeRemaining <= 0) {
+        return 0;
+    }
+
+    // Converte o tempo restante de milissegundos para segundos e retorne
+    return timeRemaining / 1000;
+}
