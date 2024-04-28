@@ -1,3 +1,4 @@
+import { cubagemDistancia } from '../utils/valores';
 export type FaleConoscoProps = {
     id?: string;
     email: string;
@@ -127,5 +128,42 @@ export type DadosBancoProps = {
 
 export type TokenProps = { nomeToken: string; token: string }
 
+export type DadosTransferencia = {
+    pg: string;
+    percHabilitacao: number;
+    locEspecial: number;
+    percMil: number;
+    percDisp: number;
+    distancia: number;
+    cubagemDistancia: number;
+    pgCompensacaoOrganica: string;
+    compensacaoOrganica: number;
+    passagemAdultoValor: number;
+    passagemAdultoQnt: number;
+    passagemCriancaValor: number;
+    passagemCriancaQnt: number;
+    carro: boolean;
+    moto: boolean;
+    especial: boolean;
+    comum: boolean;
+    estadoOrigem: string;
+    estadoDestino: string;
+    cidadeOrigem: string;
+    cidadeDestino: string;
+}
 
-
+export type FeedbackCidadesProps = {
+    id?: string;
+    estado: string;
+    cidade:string;
+    texto: string;
+    saude: number;
+    educacao: number;
+    trabalho: number;
+    seguranca: number;
+    infraEstrutura: number;
+    pnr: number;
+    custoVida: number;
+    batalhao: number;
+    date: string;
+}

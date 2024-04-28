@@ -1,8 +1,13 @@
 import { formataValor, retornaValorSoldo, retornaValorM3Transportado } from "@/utils/scripts";
 import { adcDisp, adcHab, adcLocEsp, adcMil, cubagemVeiculo } from "@/utils/valores";
-import { useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { FaCarSide, FaCity, FaMotorcycle } from "react-icons/fa";
 import { GiJungle } from "react-icons/gi";
+import SelectCidades from "../selectCidades/SelectCidades";
+import { toast } from "react-toastify";
+import { api } from "@/services/axios";
+import { DadosTransferencia } from "@/types/types";
+import { Loader } from "../Loader/Loader";
 
 export default function CalcTransferencia() {
     const [pg, setPg] = useState("")
@@ -17,25 +22,129 @@ export default function CalcTransferencia() {
     const [passagemAdultoValor, setPassagemAdultoValor] = useState(0)
     const [passagemAdultoQnt, setPassagemAdultoQnt] = useState(0)
     const [passagemCriancaValor, setPassagemCriancaValor] = useState(0)
-    const [passagemCriancaoQnt, setPassagemCriancaQnt] = useState(0)
+    const [passagemCriancaQnt, setPassagemCriancaQnt] = useState(0)
     const [carro, setCarro] = useState(false)
     const [moto, setMoto] = useState(false)
     const [especial, setEspecial] = useState(false)
     const [comum, setComum] = useState(false)
+
+    const [estadoOrigem, setEstadoOrigem] = useState("")
+    const [cidadeOrigem, setCidadeOrigem] = useState("")
+    const [estadoDestino, setEstadoDestino] = useState("")
+    const [cidadeDestino, setCidadeDestino] = useState("")
+
+    const [loading, setLoading] = useState(false);
+    const [transferencia, setTransferencia] = useState<DadosTransferencia[]>([]);
+
+
+
+    useEffect(() => {
+        var registros = localStorage.getItem("transferencia")
+        if (registros !== null) {
+            setTransferencia(JSON.parse(registros))
+        }
+    }, [])
+    useEffect(() => {
+        localStorage.setItem("transferencia", JSON.stringify(transferencia))
+    }, [transferencia])
+    
+
+    const handleSubmit = async () => {
+        setLoading(true);
+        try {
+            await api.post("/transferencia", {
+                pg,
+                percHabilitacao: hab,
+                locEspecial: locEsp,
+                percMil: mil,
+                percDisp: disp,
+                distancia: dist,
+                cubagemDistancia: cuba,
+                pgCompensacaoOrganica: pgCo,
+                compensacaoOrganica: compOrg,
+                passagemAdultoValor,
+                passagemAdultoQnt,
+                passagemCriancaValor,
+                passagemCriancaQnt,
+                carro,
+                moto,
+                especial,
+                comum,
+                estadoOrigem,
+                estadoDestino,
+                cidadeOrigem,
+                cidadeDestino,
+            } as DadosTransferencia)
+            toast.success("Enviado com sucesso!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+            setTransferencia(prev => [...prev, {
+                pg,
+                percHabilitacao: hab,
+                locEspecial: locEsp,
+                percMil: mil,
+                percDisp: disp,
+                distancia: dist,
+                cubagemDistancia: cuba,
+                pgCompensacaoOrganica: pgCo,
+                compensacaoOrganica: compOrg,
+                passagemAdultoValor,
+                passagemAdultoQnt,
+                passagemCriancaValor,
+                passagemCriancaQnt,
+                carro,
+                moto,
+                especial,
+                comum,
+                estadoOrigem,
+                estadoDestino,
+                cidadeOrigem,
+                cidadeDestino,
+            }])
+            setPg("")
+            setHab(0)
+            setLocEsp(0)
+            setMil(0)
+            setDisp(0)
+            setDist(0)
+            setCuba(0)
+            setPgCO("")
+            setCompOrg(0)
+            setPassagemAdultoValor(0)
+            setPassagemAdultoQnt(0)
+            setPassagemCriancaValor(0)
+            setPassagemCriancaQnt(0)
+            setCarro(false)
+            setMoto(false)
+            setEspecial(false)
+            setComum(false)
+            setEstadoOrigem("")
+            setCidadeOrigem("")
+            setEstadoDestino("")
+            setCidadeDestino("")
+        } catch (error) {
+            toast.error("Erro no envio da mensagem!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        }
+        setLoading(false);
+    };
 
     return (
         <>
             <div className="fixed left-0 bg-gray-900 bg-opacity-40 backdrop-blur-sm shadow-lg w-screen shadow-black bottom-0 p-4 z-10">
                 <div className="border-2 text-xs sm:text-base border-green-600 rounded p-2 flex flex-1 items-center justify-center text-white font-bold ">Valor aproximado a receber pela transferência:
                     <p className="text-sm sm:text-xl font-extrabold pl-4">{formataValor(
-                    ((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100) + 
-                    retornaValorSoldo(pg)! + 
-                    (retornaValorSoldo(pgCo)! * compOrg / 100)) * (especial ? 4 : comum ? 2 : 0) + 
-                    (passagemAdultoValor * passagemAdultoQnt) + 
-                    (passagemCriancaValor * passagemCriancaoQnt) + 
-                    (retornaValorM3Transportado(dist) * cuba) + 
-                    (carro ? retornaValorM3Transportado(dist) * cubagemVeiculo['carro'] : 0) + 
-                    (moto ? retornaValorM3Transportado(dist) * cubagemVeiculo['moto'] : 0)
+                        ((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100) +
+                            retornaValorSoldo(pg)! +
+                            (retornaValorSoldo(pgCo)! * compOrg / 100)) * (especial ? 4 : comum ? 2 : 0) +
+                        (passagemAdultoValor * passagemAdultoQnt) +
+                        (passagemCriancaValor * passagemCriancaQnt) +
+                        (retornaValorM3Transportado(dist) * cuba) +
+                        (carro ? retornaValorM3Transportado(dist) * cubagemVeiculo['carro'] : 0) +
+                        (moto ? retornaValorM3Transportado(dist) * cubagemVeiculo['moto'] : 0)
                     )}
                     </p></div>
             </div>
@@ -136,6 +245,9 @@ export default function CalcTransferencia() {
                 </div>
                 <span className="text-gray-600 text-sm">Caso não possua deixe os campos vazios.</span>
             </div>
+
+            {/* LOCAL / DESTINO */}
+            <SelectCidades setEstadoOrigem={setEstadoOrigem} setEstadoDestino={setEstadoDestino} setCidadeOrigem={setCidadeOrigem} setCidadeDestino={setCidadeDestino} estadoOrigem={estadoOrigem} estadoDestino={estadoDestino} />
             {/* LOCALIDADE */}
             <div className="border border-green-600 rounded-md p-6 relative mt-4 flex flex-1">
                 <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Localidade</h1>
@@ -254,7 +366,7 @@ export default function CalcTransferencia() {
                 <div className="border border-green-600 rounded-md p-6 relative mt-4">
                     <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Ajuda de custo</h1>
                     <div className="flex flex-1">
-                        <b className="text-gray-300">Valor Bruto { especial ? "x 4" : comum ? "x 2" : "x 0"}</b><p className="pl-4 text-white">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (especial ? 4 : comum ? 2 : 0))}</p>
+                        <b className="text-gray-300">Valor Bruto {especial ? "x 4" : comum ? "x 2" : "x 0"}</b><p className="pl-4 text-white">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (especial ? 4 : comum ? 2 : 0))}</p>
                     </div>
 
                 </div>
@@ -264,7 +376,7 @@ export default function CalcTransferencia() {
                         <b className="text-gray-300">{`${formataValor(passagemAdultoValor)} X ${passagemAdultoQnt}`}</b><p className="pl-4 text-white">{formataValor(passagemAdultoValor * passagemAdultoQnt)}</p>
                     </div>
                     <div className="flex flex-1">
-                        <b className="text-gray-300">{`${formataValor(passagemCriancaValor)} X ${passagemCriancaoQnt}`}</b><p className="pl-4 text-white">{formataValor(passagemCriancaValor * passagemCriancaoQnt)}</p>
+                        <b className="text-gray-300">{`${formataValor(passagemCriancaValor)} X ${passagemCriancaQnt}`}</b><p className="pl-4 text-white">{formataValor(passagemCriancaValor * passagemCriancaQnt)}</p>
                     </div>
                 </div>
                 <div className="border border-green-600 rounded-md p-6 relative mt-4">
@@ -282,7 +394,29 @@ export default function CalcTransferencia() {
                         <b className="text-gray-300">{`Moto: ${formataValor(retornaValorM3Transportado(dist))} X ${cubagemVeiculo['moto']}M³`}</b><p className="pl-4 text-white">{moto ? formataValor(retornaValorM3Transportado(dist) * cubagemVeiculo['moto']) : formataValor(0)}</p>
                     </div>
                 </div>
+                {loading ?
+                    <button disabled className="cursor-wait bg-green-600 hover:bg-green-800 flex justify-center shadow-container px-4 py-2 text-white w-full rounded-md my-2 hover:shadow-inner transition-all ease-in-out"><Loader /></button>
+                    : <button
+                        disabled={(pg && hab && mil && disp && dist && cuba && passagemAdultoValor && passagemAdultoQnt && (especial || comum) && estadoOrigem && estadoDestino && cidadeOrigem && cidadeDestino) ? false : true}
+                        onClick={() => handleSubmit()}
+                        className="disabled:bg-gray-600 cursor-pointer flex justify-center bg-green-600 hover:bg-green-800 shadow-container px-4 py-2 text-white w-full rounded-md my-2 hover:shadow-inner transition-all ease-in-out">
+                        Salvar dados
+                    </button>}
+                <span className="text-gray-300 text-sm">Para salvar os dados é necessários que sejam preenchidos os campos abaixo:</span>
+                <ul className="text-xs">
+                    <li className={pg ? "text-green-600" : "text-red-700"}>* Preencha o campo de Posto e Graduação</li>
+                    <li className={hab ? "text-green-600" : "text-red-700"}>* Preencha o campo de Adicional habilitação</li>
+                    <li className={mil ? "text-green-600" : "text-red-700"}>* Preencha o campo de Adicional militar</li>
+                    <li className={disp ? "text-green-600" : "text-red-700"}>* Preencha o campo de Adicional disponibilidade</li>
+                    <li className={dist ? "text-green-600" : "text-red-700"}>* Preencha o campo de distância entre as guarnições</li>
+                    <li className={cuba ? "text-green-600" : "text-red-700"}>* Preencha o campo de cubagem referente ao posto e graduação</li>
+                    <li className={passagemAdultoValor && passagemAdultoQnt ? "text-green-600" : "text-red-700"}>* Preencha o campo de passagem</li>
+                    <li className={especial || comum ? "text-green-600" : "text-red-700"}>* Preencha o campo de guarnição especial ou comum</li>
+                    <li className={estadoOrigem && estadoDestino ? "text-green-600" : "text-red-700"}>* Preencha o campo de estado origem e destino</li>
+                    <li className={cidadeOrigem && cidadeDestino ? "text-green-600" : "text-red-700"}>* Preencha o campo de cidade origem e destino</li>
+                </ul>
             </div>
+
         </>
     )
 }

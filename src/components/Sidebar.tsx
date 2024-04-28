@@ -6,6 +6,7 @@ import { RiTeamLine } from "react-icons/ri";
 import Suporte from "./feedback/SuportePoppover";
 import { Button } from "./Button";
 import FaleConosco from "./feedback/FaleConosco";
+import { GiModernCity } from "react-icons/gi";
 
 export function SideBar() {
     return (
@@ -24,11 +25,13 @@ export function SideBar() {
                     <Button name="Botão para acessar o gerenciador de fatos observados." link="/gerFatosObs" Icon={<MdOutlinePersonSearch className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
                 </li>
                 <li>
+                    <Button name="Botão para acessar o pesquisador de cidades." link="/cidades" Icon={<GiModernCity className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
+                </li>
+                <li>
                     <Button name="Botão para acessar a página Logística" link="/logistica" Icon={<MdOutlineRealEstateAgent className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
                 </li>
                 <li>
                     <Button name="Botão para acessar a tabela com os dados." link="/tabelas" Icon={<BsDatabaseCheck className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
-
                 </li>
                 <li>
                     <Button name="Botão para acessar a página com a política de privacidade" link="/privacyPolicy" Icon={<MdOutlinePrivacyTip className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />

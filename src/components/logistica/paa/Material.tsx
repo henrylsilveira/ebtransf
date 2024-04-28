@@ -6,9 +6,7 @@ import { BsEye } from "react-icons/bs";
 import { MdOutlineClose } from "react-icons/md";
 import { Loader } from "../../Loader/Loader";
 import { toast } from "react-toastify";
-import { log } from "console";
 import { removerObjetoPorID } from "@/utils/scripts";
-import { useRouter } from "next/navigation";
 
 export function Material({ materiais, id, hookMat, painel }: { materiais: MaterialProps[], id: string, hookMat?: Function, painel?: boolean }) {
     // const [visualizarRegistrosMateriais, setVisualizarRegistrosCombustivel] = useState<ConsumoGeradorProps[]>([])
