@@ -4,6 +4,21 @@ import { randomUUID } from "crypto";
 import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, setDoc } from "firebase/firestore";
 import { NextRequest, NextResponse } from "next/server";
 
+export async function GET() {
+    const db = getFirestore(app);
+    const colRef = query(collection(db, "feedbackCidades"));
+    try {
+        const data = await getDocs(colRef);
+        const feedbacks = data.docs.map((e) => {
+            return e.data();
+          });
+
+        return NextResponse.json({ status: true, feedbacks });
+    } catch (error) {
+        return NextResponse.json({ message: error })
+    }
+}
+
 export async function POST(request: NextRequest) {
     const db = getFirestore(app)
     const colRef = collection(db, "feedbackCidades");
@@ -46,17 +61,3 @@ export async function POST(request: NextRequest) {
     }
 }
 
-export async function GET() {
-    const db = getFirestore(app);
-    const colRef = query(collection(db, "feedbackCidades"));
-    try {
-        const data = await getDocs(colRef);
-        const feedbacks = data.docs.map((e) => {
-            return e.data();
-          });
-
-        return NextResponse.json(feedbacks)
-    } catch (error) {
-        return NextResponse.json({ message: error })
-    }
-}

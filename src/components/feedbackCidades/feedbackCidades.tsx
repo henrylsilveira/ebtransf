@@ -115,7 +115,7 @@ export function FeedbackCidades() {
 
     return (
         <AlertDialog.Root open={open} onOpenChange={setOpen}>
-            <AlertDialog.Trigger asChild>
+            <AlertDialog.Trigger asChild >
                 <button className="flex shadow-container justify-center items-center h-20 border-dashed text-white/80 bg-green-900/20 hover:bg-green-600/30 border border-green-400 rounded-lg text-2xl px-2 gap-2 "><MdPostAdd />Publicar</button>
             </AlertDialog.Trigger>
             <AlertDialog.Portal>
