@@ -129,7 +129,7 @@ export function FeedbackCidades() {
                             <MdOutlineClose />
                         </button>
                     </AlertDialog.Cancel>
-                    <div>
+                    <div className="text-xs">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             <div className="relative z-0 w-full group p-2">
                                 <select name="estado" id="estado" onChange={handleChange} className="leading-tight block py-2.5 px-0 w-full text-md text-white focus:bg-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
@@ -240,7 +240,7 @@ export function FeedbackCidades() {
 
                         </div>
                         <div className="relative z-0  w-full group pt-2">
-                            <label htmlFor="texto" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Deixe suas observações ou experiências</label>
+                            <label htmlFor="texto" className="absolute text-xs sm:text-md text-gray-200 dark:text-gray-200  duration-300 transhtmlForm -translate-y-6 scale-75 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Deixe suas observações ou experiências</label>
                             <textarea name="texto" onChange={handleChange} className="dark:bg-gray-950 rounded-md p-1 dark:focus:bg-gray-950 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
                         </div>
 

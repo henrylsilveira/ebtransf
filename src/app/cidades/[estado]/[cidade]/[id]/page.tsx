@@ -43,7 +43,7 @@ export default async function FeedbackCidadeId({ params }: { params: { estado: s
                         <h1 className="left-2 -top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Análises</h1>
                         <div className="flex flex-col">
                             <Typography className="text-white" component="legend">Saúde</Typography>
-                            <Rating name="size-large" precision={0.5} size="large" value={2} readOnly />
+                            <Rating name="size-large" precision={0.5} size="large" value={cidade.saude} readOnly />
                         </div>
                         <div className="flex flex-col">
                             <Typography className="text-white" component="legend">Educação</Typography>
@@ -51,27 +51,27 @@ export default async function FeedbackCidadeId({ params }: { params: { estado: s
                                 <Rating
                                     size="large"
                                     precision={0.5}
-                                    name="hover-feedback"
-                                    value={2} readOnly
+                                    name="size-large"
+                                    value={cidade.educacao} readOnly
                                 />
                             </div>
                         </div>
                         <div className="flex flex-col">
                             <Typography className="text-white" component="legend">Trabalho para dependentes</Typography>
-                            <Rating name="size-large" precision={0.5} value={3} readOnly size="large" />
+                            <Rating name="size-large" precision={0.5} value={cidade.trabalho} readOnly size="large" />
                         </div>
                         <div className="flex flex-col">
                             <Typography className="text-white" component="legend">Segurança pública</Typography>
-                            <Rating name="size-large" precision={0.5} value={4.5} readOnly size="large" />
+                            <Rating name="size-large" precision={0.5} value={cidade.seguranca} readOnly size="large" />
                         </div>
                         <div className="flex flex-col">
                             <Typography className="text-white" component="legend">Infraestrutura </Typography>
-                            <Rating name="size-large" precision={0.5} value={1.5} readOnly size="large" />
+                            <Rating name="size-large" precision={0.5} value={cidade.infraEstrutura} readOnly size="large" />
                         </div>
 
                         <div className="flex flex-col">
                             <Typography className="text-white" component="legend">PNR </Typography>
-                            <Rating name="size-large" precision={0.5} value={2.5} readOnly size="large" />
+                            <Rating name="size-large" precision={0.5} value={cidade.pnr} readOnly size="large" />
                         </div>
                         <div className="flex flex-col">
                             <div className="flex flex-col">
@@ -81,8 +81,8 @@ export default async function FeedbackCidadeId({ params }: { params: { estado: s
                                         readOnly
                                         size="large"
                                         precision={0.5}
-                                        name="hover-feedback"
-                                        value={4}
+                                        name="size-large"
+                                        value={cidade.custoVida}
                                     />
 
                                 </div>
@@ -90,7 +90,7 @@ export default async function FeedbackCidadeId({ params }: { params: { estado: s
                         </div>
                         <div className="flex flex-col">
                             <Typography className="text-white" component="legend">Batalhão </Typography>
-                            <Rating name="size-large" precision={0.5} value={4} readOnly size="large" />
+                            <Rating name="size-large" precision={0.5} value={cidade.batalhao} readOnly size="large" />
                         </div>
 
                     </div>
