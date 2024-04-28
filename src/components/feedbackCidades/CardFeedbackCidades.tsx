@@ -25,12 +25,9 @@ export default function CardFeedbackCidades({
 
     return (
         <Link href={`/cidades/${estado}/${cidade}/${id}`} 
-        // onClick={() => setLoading(true)} 
-        className="border border-green-600 rounded-md p-6 relative hover:bg-gradient-to-tr from-gray-950 shadow-container to-gray-800 transition-all ease-in-out hover:border-0 hover:shadow-container">
-            {loading ? <div className="flex justify-center items-center">
-                <Loader loadingPage />
-                </div> : 
-            <>
+        onClick={() => setLoading(true)} 
+        className="border border-green-600 rounded-md relative p-6 hover:bg-gradient-to-tr from-gray-950 shadow-container to-gray-800 transition-all ease-in-out hover:border-0 hover:shadow-container">
+            
                 <div className="flex w-full justify-between ">
                     <div>
                         <h1 className="text-white uppercase text-3xl">{cidade} <Rating name="size-large" precision={0.5} value={(saude + educacao + trabalho + seguranca + infraEstrutura + pnr + batalhao + custoVida) / 8} size="small" readOnly /></h1>
@@ -47,8 +44,10 @@ export default function CardFeedbackCidades({
                 <div className="text-gray-700 flex text-xs mt-2 w-full">
                     <p className="flex ml-auto">{date}</p>
                 </div>
+                {loading ? <div className="absolute w-full top-0 left-0 h-full rounded-md flex items-center justify-center shadow-container bg-gray-900 bg-opacity-40 backdrop-blur-sm shadow-lg  shadow-black  p-4">
+                <Loader loadingPage />
+                </div> : null}
             
-            </>}
         </Link>
     )
 }
