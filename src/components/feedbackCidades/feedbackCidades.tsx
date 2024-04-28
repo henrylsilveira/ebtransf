@@ -239,13 +239,13 @@ export function FeedbackCidades() {
                             </div>
 
                         </div>
-                        <div className="relative z-0  w-full group">
-                            <label htmlFor="texto" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Deixe suas observações ou experiências</label>
-                            <textarea name="texto" onChange={handleChange} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
+                        <div className="relative z-0  w-full group pt-2">
+                            <label htmlFor="texto" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Deixe suas observações ou experiências</label>
+                            <textarea name="texto" onChange={handleChange} className="dark:bg-gray-950 rounded-md p-1 dark:focus:bg-gray-950 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
                         </div>
 
                         {loading ?
-                            <button disabled className="cursor-wait bg-green-600 hover:bg-green-800 flex justify-center shadow-container px-4 py-2 text-white w-40 mx-auto rounded-md my-2 hover:shadow-inner transition-all ease-in-out"><Loader /></button>
+                            <button disabled className="cursor-wait bg-green-600 hover:bg-green-800 flex justify-center shadow-container  px-4 py-2 text-white w-40 mx-auto rounded-md my-2 hover:shadow-inner transition-all ease-in-out"><Loader /></button>
                             : <button
                                 disabled={(pnr !== 0 && custoVida !== 0 && batalhao !== 0 && saude !== 0 && educacao !== 0 && trabalho !== 0 && infraEstrutura !== 0 && seguranca !== 0) && (formData.cidade !== "" && formData.estado !== "") ? false : true}
                                 onClick={() => handleSubmit()}

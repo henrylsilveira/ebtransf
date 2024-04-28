@@ -27,8 +27,7 @@ export default async function Cidades() {
                     <h1 className="text-green-600 font-bold uppercase text-2xl mx-auto mb-2">Compartilhe sua experiência</h1>
                     <FeedbackCidades />
                 </div>
-                <div className="w-full flex justify-center flex-col">
-
+                <div className="w-full flex justify-center flex-col mt-4">
                     <h1 className="text-green-600 font-bold uppercase text-2xl mx-auto mb-2">Busque a experiência de outras pessoas</h1>
                     {data?.feedbacks.length !== 0 ? <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {data?.feedbacks.map((cidade: FeedbackCidadesProps) =>
