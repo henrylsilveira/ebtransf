@@ -40,8 +40,9 @@ export async function PUT(request: NextRequest, { params }: { params: { token: s
             var { integrantes } = data.data() as FatosObservados;
             if (integrantes.length !== 0) {
                 integrantes = integrantes.map(integrante =>
-                    integrante.id === integranteId ? {...integrante, FatosObservados: integrante?.fatosObservados.splice(integrante?.fatosObservados.findIndex(fatoI => fatoI.id === id), 1)} : integrante)
+                    integrante.id === integranteId ? {...integrante, fatosObservados: integrante?.fatosObservados.splice(integrante?.fatosObservados.findIndex(fatoI => fatoI.id === id), 1)} : integrante)
             }
+            console.log(integrantes)
             await updateDoc(doc(db, "fatosObservados", idGrupo), {
                 integrantes
             });

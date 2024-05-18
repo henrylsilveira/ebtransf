@@ -60,6 +60,7 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
     async function handleDelete(fato: Fato) {
         try {
             setLoading(true)
+            
             await api.put(`/fatosObservados/${idGrupo}`, { ...fato, deleteFo: true, integranteId: id })
             toast.success("Fato observado deletado com sucesso!", {
                 position: toast.POSITION.TOP_RIGHT,
