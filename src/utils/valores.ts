@@ -20,7 +20,7 @@ export const soldo = {
 
 export const soldos = [soldo['sdEv'],soldo['sdEp'],soldo['cb'],soldo['3sgt'],soldo['2sgt'],soldo['1sgt'],soldo['st'],soldo['aspof'],soldo['2ten'],soldo['1ten'],soldo['cap'],soldo['maj'],soldo['tencel'],soldo['cel'],soldo['genBda'],soldo['genDiv'],soldo['genEx']]
 export const postosGrad = ['Soldado Ev', 'Soldado Ep', 'Cabo', '3º Sargento', '2º Sargento', '1º Sargento', 'Sub Tenente','Aspirante a Oficial', '2º Tenente', '1º Tenente', 'Capitão','Major', 'Tenente Coronel', 'Coronel', 'General de Brigada', 'General de Divisão', 'General de Exército']
-export const adcHab = [12,27,45,68,76]
+export const adcHab = [12,27,45,68,73]
 export const adcMil = [13,16,19,22,25]
 export const adcDisp = [5,6,12,16,20,26,32]
 export const adcLocEsp = [10,20]
