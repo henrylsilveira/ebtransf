@@ -6,6 +6,7 @@ import { FatosObservados, Integrantes } from '../../../types/types';
 import { api } from "@/services/axios";
 import { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "react-toastify";
+import { generateNowISOTime } from "@/utils/scripts";
 
 export function PopoverFatosObs({ params, integrantes, stateFunction }: { params: FatosObservados, integrantes: Integrantes[], stateFunction: Dispatch<React.SetStateAction<Integrantes[]>>}) {
     const [open, setOpen] = useState(false);
@@ -51,6 +52,7 @@ export function PopoverFatosObs({ params, integrantes, stateFunction }: { params
         setFormData({
             ...formData,
             id: self?.crypto?.randomUUID(),
+            createdAt: generateNowISOTime(),
             [event.target.name]: event.target.value,
         });
     };

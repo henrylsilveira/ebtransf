@@ -36,8 +36,6 @@ export default function CalcTransferencia() {
     const [loading, setLoading] = useState(false);
     const [transferencia, setTransferencia] = useState<DadosTransferencia[]>([]);
 
-
-
     useEffect(() => {
         var registros = localStorage.getItem("transferencia")
         if (registros !== null) {

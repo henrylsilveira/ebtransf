@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Dispatch, useState } from "react";
 import { BiArrowToRight } from "react-icons/bi";
 import { HiOutlineInformationCircle } from "react-icons/hi2";
+import { FeedbackCidades } from "../feedbackCidades/feedbackCidades";
 export default function SelectCidades({setEstadoOrigem, setEstadoDestino,setCidadeOrigem, setCidadeDestino, estadoOrigem, estadoDestino}: {setEstadoOrigem: Dispatch<React.SetStateAction<string>>, setEstadoDestino: Dispatch<React.SetStateAction<string>>,setCidadeOrigem: Dispatch<React.SetStateAction<string>>,setCidadeDestino: Dispatch<React.SetStateAction<string>>, estadoOrigem: string, estadoDestino: string}) {
 
     return (
@@ -29,10 +30,9 @@ export default function SelectCidades({setEstadoOrigem, setEstadoDestino,setCida
                         </select>
                         <label htmlFor="cidade" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Cidade Origem</label>
                     </div>
-                    <Link href="/cidades" className="absolute -right-6 bg-green-600 w-6 rounded-r-2xl h-10 flex justify-center hover:bg-green-800 shadow-container hover:shadow-inner cursor-pointer hover:w-40 transition-all ease-in-out hover:rounded-3xl group">
-                        <p className="px-2 hidden group-hover:flex text-white text-xs items-center">Deixe seu feedback</p>
-                        <button className="w-2 mr-4 "><BiArrowToRight className="text-white h-5 w-5" /></button>
-                    </Link>
+
+                    <FeedbackCidades compact={true} />
+
                 </div>
                 <div className="flex flex-col">
                 <div className="grid grid-cols-2">

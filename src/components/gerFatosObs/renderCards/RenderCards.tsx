@@ -4,6 +4,7 @@ import { PopoverFatosObs } from "../popoverFatosObs/PopoverFatosObs";
 import { Fato, FatosObservados, Integrantes } from '../../../types/types';
 import { useEffect, useState } from "react";
 import { api } from "@/services/axios";
+import { toast } from "react-toastify";
 
 interface ParamsProps {
     data: {
@@ -25,8 +26,8 @@ export default function RenderCardComponent({ data }: ParamsProps) {
                 let a = x.nome ? x.nome.toUpperCase() : x.fatosObservados.filter(fato => fato.observacao === "positivo").length,
                   b = y.nome ? y.nome.toUpperCase() : x.fatosObservados.filter(fato => fato.observacao === "positivo").length;
                 return a == b ? 0 : a > b ? 1 : -1;
-              }).map((integrante: { id: string; nome: string; fatosObservados: Fato[] }) => (
-                    <CardFatoObs key={integrante.id} id={integrante.id} nome={integrante.nome} fatosObservados={integrante.fatosObservados} idGrupo={data.data?.id} integrantes={integrantesData} stateFunction={setIntegrantesData} />
+              }).map((integrante: Integrantes) => (
+                    <CardFatoObs key={integrante.id} id={integrante.id} createdAt={integrante.createdAt} nome={integrante.nome} fatosObservados={integrante.fatosObservados} idGrupo={data.data?.id} integrantes={integrantesData} stateFunction={setIntegrantesData} />
                 ))}
             </div>
         </>

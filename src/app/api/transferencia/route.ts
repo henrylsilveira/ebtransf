@@ -1,7 +1,7 @@
 import app from "@/firebase/config";
 import { DadosTransferencia, FaleConoscoProps } from "@/types/types";
 import { randomUUID } from "crypto";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { addDoc, collection, getDocs, getFirestore, query } from "firebase/firestore";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -55,6 +55,21 @@ export async function POST(request: NextRequest) {
             cidadeDestino,
         } as DadosTransferencia);
         return NextResponse.json({ status: true, message: "Dados salvos com sucesso!" })
+    } catch (error) {
+        return NextResponse.json({ message: error })
+    }
+}
+
+export async function GET() {
+    const db = getFirestore(app);
+    const colRef = query(collection(db, "transferencia"));
+    try {
+        const data = await getDocs(colRef);
+        const transferencias = data.docs.map((e) => {
+            return e.data();
+          });
+
+        return NextResponse.json({transferencias});
     } catch (error) {
         return NextResponse.json({ message: error })
     }

@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import { Loader } from "../Loader/Loader";
 import { FiPlus } from "react-icons/fi";
 import { MdOutlineClose, MdPostAdd } from "react-icons/md";
+import { BiArrowToRight } from "react-icons/bi";
 
 const labels: { [index: string]: string } = {
     0.5: 'Ruim',
@@ -39,7 +40,7 @@ const labelsCusto: { [index: string]: string } = {
 function getLabelText(value: number) {
     return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
 }
-export function FeedbackCidades() {
+export function FeedbackCidades({ compact }: { compact: boolean }) {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         id: "",
@@ -116,14 +117,24 @@ export function FeedbackCidades() {
     return (
         <AlertDialog.Root open={open} onOpenChange={setOpen}>
             <AlertDialog.Trigger asChild >
-                <button className="flex shadow-container justify-center items-center h-20 border-dashed text-white/80 bg-green-900/20 hover:bg-green-600/30 border border-green-400 rounded-lg text-2xl px-2 gap-2 "><MdPostAdd />Publicar</button>
+
+                {compact ?
+                    <button className="absolute -right-6 bg-green-600 w-6 rounded-r-2xl h-10 flex justify-center items-center hover:bg-green-800 shadow-container hover:shadow-inner cursor-pointer hover:w-40 transition-all ease-in-out hover:rounded-3xl group">
+                        <p className="px-2 hidden group-hover:flex text-white text-xs items-center">Deixe seu feedback</p>
+                        <div className="w-2 mr-4">
+                            <BiArrowToRight className="text-white h-5 w-5" />
+                        </div>
+                    </button>
+                    : <button className="flex shadow-container justify-center items-center h-20 border-dashed text-white/80 bg-green-900/20 hover:bg-green-600/30 border border-green-400 rounded-lg text-2xl px-2 gap-2 "><MdPostAdd />Publicar</button>
+                }
             </AlertDialog.Trigger>
             <AlertDialog.Portal>
                 <AlertDialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
                 <AlertDialog.Content className="data-[state=open]:animate-contentShow overflow-y-auto fixed top-[50%] left-[50%] max-h-[85vh] w-[80vw] max-w-[800px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-backgroundColor border border-green-700 p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
-                    <AlertDialog.Title className="text-green-700 m-0 text-[17px] font-medium">
-                        Criar um feedback da cidade
+                    <AlertDialog.Title className="text-green-700 m-0 text-xl font-medium">
+                        Deixar um feedback da cidade
                     </AlertDialog.Title>
+                    <p className="text-gray-400">Ao realizar essa pesquisa, você não apenas enriquece seu próprio conhecimento sobre o lugar onde servi, mas também contribui para a comunidade, oferecendo insights valiosos para pessoas que desejam morar na cidade. Caso deseje pode deixar um texto sobre sua experiência na cidade, como os pontos fortes e pontos negativos.</p>
                     <AlertDialog.Cancel>
                         <button className="absolute right-2 top-2 text-white">
                             <MdOutlineClose />
@@ -240,7 +251,7 @@ export function FeedbackCidades() {
 
                         </div>
                         <div className="relative z-0  w-full group pt-2">
-                            <label htmlFor="texto" className="absolute text-md text-gray-200 my-2 dark:text-gray-200  duration-300 transhtmlForm -translate-y-6 scale-75 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Deixe suas observações e experiências</label>
+                            <label htmlFor="texto" className="absolute text-md text-gray-200 my-2 dark:text-gray-200  duration-300 transhtmlForm -translate-y-6 scale-75 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Caso queira deixe suas observações e experiências</label>
                             <textarea name="texto" onChange={handleChange} className="dark:bg-gray-950 rounded-md p-1 mt-6 dark:focus:bg-gray-950 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
                         </div>
 

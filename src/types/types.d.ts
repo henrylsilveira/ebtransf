@@ -89,12 +89,14 @@ export type Fato = {
     descricao: string;
     createdAt: string;
     deleteFo?: boolean;
+    deleteIntegrante?: boolean;
     integranteId?: string;
 }
 
 export type Integrantes = {
     id: string;
     nome: string;
+    createdAt?: string;
     fatosObservados: Fato[];
     idGrupo?: string;
 }

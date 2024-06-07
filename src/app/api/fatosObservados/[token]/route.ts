@@ -25,8 +25,8 @@ export async function GET(request: Request, { params }: { params: { token: strin
 export async function PUT(request: NextRequest, { params }: { params: { token: string } }) {
     const idGrupo = params.token
     const db = getFirestore(app);
-    const { id, observacao, descricao, tokenFato, deleteFo, integranteId } = await request.json() as Fato
-
+    const { id, observacao, descricao, tokenFato, deleteFo, integranteId, deleteIntegrante } = await request.json() as Fato
+    console.log({ id, observacao, descricao, tokenFato, deleteFo, integranteId, deleteIntegrante })
     const colRef = collection(db, "fatosObservados");
   
     if (deleteFo) {
@@ -42,7 +42,26 @@ export async function PUT(request: NextRequest, { params }: { params: { token: s
                 integrantes = integrantes.map(integrante =>
                     integrante.id === integranteId ? {...integrante, fatosObservados: integrante?.fatosObservados.splice(integrante?.fatosObservados.findIndex(fatoI => fatoI.id === id), 1)} : integrante)
             }
-            console.log(integrantes)
+            await updateDoc(doc(db, "fatosObservados", idGrupo), {
+                integrantes
+            });
+            return NextResponse.json({ status: true, message: "Fato observado armazenado no sistema!" })
+        } catch (error) {
+            return NextResponse.json({ message: error })
+        }
+    }else if(deleteIntegrante){
+        try {
+            const data = await getDoc(
+                doc(db, colRef.path, idGrupo)
+            );
+            if (!data.data()) {
+                return NextResponse.json({ status: false, message: "Token não associado a nenhum curso!" })
+            }
+            var { integrantes } = data.data() as FatosObservados;
+            if (integrantes.length !== 0) {
+                integrantes = integrantes.filter(integrante =>
+                    integrante.id !== integranteId)
+                }
             await updateDoc(doc(db, "fatosObservados", idGrupo), {
                 integrantes
             });

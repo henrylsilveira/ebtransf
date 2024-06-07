@@ -11,13 +11,13 @@ import { Loader } from "../Loader/Loader";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FatosObservados } from '../../types/types';
 import Timer from "../Timer";
+import TimerIntegrantes from "../TimerIntegrante";
 interface CardProps extends Integrantes {
     stateFunction: Dispatch<React.SetStateAction<Integrantes[]>>
     integrantes: Integrantes[]
 }
 
-export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction, integrantes }: CardProps) {
-    const [timer, setTimer] = useState(true);
+export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction, createdAt, integrantes }: CardProps) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -82,6 +82,31 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
         }
     };
 
+    async function handleDeleteIntegrante({ id, nome}: Integrantes) {
+        try {
+            setLoading(true)
+            
+            await api.put(`/fatosObservados/${idGrupo}`, { deleteIntegrante: true, integranteId: id })
+            toast.success("Integrante deletado com sucesso!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+            if (integrantes.length !== 0) {
+                const integrantesData = integrantes.filter(integrante =>
+                    integrante.id !== id)
+
+                stateFunction(integrantesData)
+                setOpen(false)
+            }
+            setLoading(false)
+        } catch (error) {
+            toast.error("Erro no envio da mensagem!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        }
+    };
+
     const handleChange = (
         event:
             | React.ChangeEvent<HTMLInputElement>
@@ -94,9 +119,13 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
             [event.target.name]: event.target.value,
         });
     };
+
     return (
         <div className="border border-green-600 rounded-md p-6 relative">
-            <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-2xl uppercase px-2">{nome}</h1>
+            <h1 className="flex -top-4 absolute text-green-600 bg-gray-900 font-bold text-2xl uppercase px-2 gap-2 items-center">{nome}
+                <TimerIntegrantes integrante={{id, createdAt} as Integrantes} handleDeleteIntegrante={handleDeleteIntegrante} />
+            </h1>
+                                              
             <div className="absolute flex -top-3 right-4  bg-gray-900 font-bold text-md uppercase px-2 gap-2">
                 <span className="shadow-container px-2 rounded-full text-green-600 bg-green-700/10">{fatosObservados?.filter(fato => fato.observacao === "positivo").length}</span>
                 <span className="shadow-container px-2 rounded-full text-red-600 bg-red-700/10">{fatosObservados?.filter(fato => fato.observacao === "negativo").length}</span>

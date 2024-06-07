@@ -30,12 +30,12 @@ export default async function Cidades() {
                         <p className="text-gray-500 text-center text-md italic">"Antes que a luz se apague, antes que o sol se ponha, haverá alguém de estar, haverá alguém de ficar, para que outros venham, para que outros fiquem."<span>🔰</span></p>
                         
                     </div>
-                    <FeedbackCidades />
+                    <FeedbackCidades compact={false} />
                 </div>
                 <div className="w-full flex justify-center flex-col mt-4">
                     <h1 className="text-green-600 font-bold uppercase text-2xl mx-auto mb-2">Busque a experiência de outras pessoas</h1>
-                    {data?.feedbacks.length !== 0 ? <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {data?.feedbacks.map((cidade: FeedbackCidadesProps) =>
+                    {data?.feedbacks?.length !== 0 ? <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {data?.feedbacks?.map((cidade: FeedbackCidadesProps) =>
                             <CardFeedbackCidades key={cidade.date} id={cidade.id} date={formatarDataHora(cidade.date)} estado={cidade.estado} cidade={cidade.cidade} texto={cidade.texto} saude={cidade.saude} educacao={cidade.educacao} trabalho={cidade.trabalho} seguranca={cidade.seguranca} infraEstrutura={cidade.infraEstrutura} pnr={cidade.pnr} custoVida={cidade.custoVida} batalhao={cidade.batalhao} />
                         )}
 
