@@ -5,9 +5,22 @@ import { DadosTransferencia } from "@/types/types";
 import Script from "next/dist/client/script";
 import { useEffect, useState } from "react";
 
+async function getData() {
+    const res = await fetch('https://ebcalc.net/api/transferencia',{ next: { revalidate: 3600 * 7 } })
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+   
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data')
+    }
+//    console.log(res.json())
+    return res.json()
+  }
+
 export default async function Simulacoes() {
     // const { data } = await api.get(`/transferencia`)
-
+    const data = await getData()
     return (
         <>
             <title>EBCalc - Simulações
@@ -25,7 +38,7 @@ export default async function Simulacoes() {
                 <div className="w-full flex justify-center flex-col mb-4">
                     <h1 className="text-green-600 font-bold uppercase text-2xl mx-auto mb-2">Tabela de transferências</h1>
                 </div>
-                {/* {
+                {
                     data?.transferencias?.length === 0
                         ? <NotData textoComponent={"Não foi possível carregar as transferências salvas."} />
                         :
@@ -59,7 +72,7 @@ export default async function Simulacoes() {
                                 </table>
                             </div>
                         </div>
-                } */}
+                }
             </div>
         </>
     )

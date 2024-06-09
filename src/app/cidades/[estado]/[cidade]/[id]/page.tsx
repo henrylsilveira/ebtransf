@@ -6,8 +6,23 @@ import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
 import Script from "next/dist/client/script";
 
+async function getData(id: string) {
+    const res = await fetch(`https://ebcalc.net/api/feedbackCidades/${id}`,{ next: { revalidate: 3600 * 30 } })
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+   
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data')
+    }
+//    console.log(res.json())
+    return res.json()
+  }
+
+
 export default async function FeedbackCidadeId({ params }: { params: { estado: string, cidade: string, id: string } }) {
-    const { data } = await api.get(`/feedbackCidades/${params.id}`)
+    // const { data } = await api.get(`/feedbackCidades/${params.id}`)
+    const data = await getData(params.id)
     const cidade: FeedbackCidadesProps = data.data
     return (
         <>
