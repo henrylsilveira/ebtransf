@@ -78,7 +78,7 @@ export default function Logistica() {
             </Script>
             <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
                 crossOrigin="anonymous" />
-            <div className="relative max-w-4xl w-10/12 sm:text-md text-sm mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
+            <div className="relative max-w-4xl w-10/12 sm:text-md text-sm mx-auto shadow-container p-10 rounded-lg mb-20 mt-6 h-screen">
                 <div className="flex flex-1 items-center justify-center mb-6 flex-col">
                     <h1 className="text-green-600 font-bold uppercase text-xl">Controle de Logística</h1>
                     <p className="font-light text-white text-justify py-4">Essa ferramenta tem como objetivo auxiliar na gestão de instalações, para que seja mais simples visualizar os materiais existentes e sua entrada e saída.</p>

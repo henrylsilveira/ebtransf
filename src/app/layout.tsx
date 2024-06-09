@@ -7,6 +7,7 @@ import { SideBar } from '@/components/Sidebar'
 import GDPR from '@/components/feedback/Gdpr'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from '@/components/footer/Footer'
 
 const inter = Bai_Jamjuree({ weight: ['500'], subsets: ['thai'] })
 
@@ -31,11 +32,11 @@ export default async function RootLayout({
         <Logo />
         <SideBar />
         <ToastContainer />
-
         <GDPR />
 
-        {children}
+          {children}  
 
+        <Footer />
       </body>
     </html>
   )

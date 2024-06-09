@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { api } from "@/services/axios";
 import { DadosTransferencia } from "@/types/types";
 import { Loader } from "../Loader/Loader";
+import Link from "next/link";
+import { TbClockSearch } from "react-icons/tb";
 
 export default function CalcTransferencia() {
     const [pg, setPg] = useState("")
@@ -132,7 +134,7 @@ export default function CalcTransferencia() {
 
     return (
         <>
-            <div className="fixed left-0 bg-gray-900 bg-opacity-40 backdrop-blur-sm shadow-lg w-screen shadow-black bottom-0 p-4 z-10">
+            <div className="fixed left-0 bg-gray-900 bg-opacity-40 backdrop-blur-sm shadow-lg w-screen shadow-black bottom-0 p-4 z-10 hover:opacity-10">
                 <div className="border-2 text-xs sm:text-base border-green-600 rounded p-2 flex flex-1 items-center justify-center text-white font-bold ">Valor aproximado a receber pela transferência:
                     <p className="text-sm sm:text-xl font-extrabold pl-4">{formataValor(
                         ((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100) +
@@ -145,6 +147,9 @@ export default function CalcTransferencia() {
                         (moto ? retornaValorM3Transportado(dist) * cubagemVeiculo['moto'] : 0)
                     )}
                     </p></div>
+            </div>
+            <div className="mb-6 flex ">
+                <Link href="/calculadora/minhassimulacoes" className="flex shadow-container gap-2 py-2 justify-center items-center px-4 text-white/80 bg-green-900/20 hover:bg-green-600/30 border border-green-400 rounded-lg "><TbClockSearch />Minhas transferências</Link>
             </div>
             <div className="border border-green-600 rounded-md p-6 relative">
                 <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Militar</h1>

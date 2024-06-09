@@ -2,11 +2,11 @@ import Link from "next/link"
 
 export function Logo() {
     return (
-        <div className="flex flex-1">
-            <div className="flex bg-gray-950 mt-2 mx-auto text-5xl border-b rounded-md border-green-800">
-                <Link href="/" className="flex flex-1">
-                    <p className="font-bold bg-green-800 text-green-400 px-2 py-1 rounded-bl-md rounded-tl-md">EB#</p>
-                    <p className="font-light text-green-300 px-2 py-1">calc</p>
+        <div className="flex flex-1 ">
+            <div className="flex mt-2 mx-auto text-5xl border-b rounded-md border-green-800 bg-gradient-to-tr from-gray-950 shadow-container to-gray-900">
+                <Link href="/" className="flex flex-1 hover:shadow-md hover:shadow-green-900/60 transition ease-in-out duration-500 ">
+                    <p className="drop-shadow-[0_1.2px_1.2px_rgb(255, 255, 255)] font-bold bg-gradient-to-tr from-green-950 shadow-container to-green-800 text-green-400 px-2 py-1 rounded-bl-md rounded-tl-md">EB#</p>
+                    <p className="font-light text-green-300 px-2 py-1 shadow-container">calc</p>
                 </Link>
             </div>
         </div>
