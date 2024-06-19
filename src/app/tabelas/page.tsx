@@ -58,6 +58,8 @@ export default function Home() {
                 <span className="text-xs text-gray-600 italic m-2 text-center">*Essa tabela contém soldo e adicionais necessários para os cálculos de transferência e representação. Última atualização em Agosto de 2023.</span>
               </div>
             </div>
+          </article>
+          <article>
             <h1 id="#adicionais" className="text-green-600 mt-6 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center">
               <MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Adicionais
             </h1>
@@ -106,6 +108,8 @@ export default function Home() {
                 <span className="text-xs text-gray-600 italic m-2 text-center">*Essa tabela contém soldo e adicionais necessários para os cálculos de transferência e representação. Última atualização em Agosto de 2023.</span>
               </div>
             </div>
+          </article>
+          <article>
             <h1 id="#distCubagem" className="text-green-600 mt-6 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center">
               <MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Cubagem por distância
             </h1>
@@ -138,11 +142,13 @@ export default function Home() {
                 <span className="text-xs text-gray-600 italic m-2 text-center">*Essa tabela contém soldo e adicionais necessários para os cálculos de transferência e representação. Última atualização em Agosto de 2023.</span>
               </div>
             </div>
+          </article>
+          <article className="w-full overflow-x-auto">
             <h1 id="#distCubagem" className="text-green-600 mt-6 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center">
               <MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Diárias
             </h1>
-            <div className="text-xs sm:text-md flex flex-col justify-center relative overflow-x-auto shadow-container sm:rounded-lg mt-4">
-              <table className="w-100 sm:w-full text-left text-gray-400">
+            <div className="text-xs sm:text-md flex flex-col justify-center relative shadow-container sm:rounded-lg mt-4">
+              <table className=" sm:w-full text-left text-gray-400 overflow-x-auto">
                 <thead className=" uppercase text-gray-400">
                   <tr>
                     <th scope="col" className="px-1 sm:px-6 py-3  bg-gray-800 text-center text-white">
@@ -152,10 +158,10 @@ export default function Home() {
                       Deslocamentos Brasília/Manaus/Rio de Janeiro/São Paulo
                     </th>
                     <th scope="col" className="px-1 sm:px-6 py-3  bg-gray-800 text-center text-white">
-                    Deslocamentos outras capitais
+                      Deslocamentos outras capitais
                     </th>
                     <th scope="col" className="px-1 sm:px-6 py-3 text-center text-white">
-                     Demais deslocamentos
+                      Demais deslocamentos
                     </th>
                   </tr>
                 </thead>
@@ -169,7 +175,7 @@ export default function Home() {
                         {formataValor(diaria.tipo1)}
                       </td>
                       <td className="px-6 py-4 text-center bg-gray-800">
-                      {formataValor(diaria.tipo2)}
+                        {formataValor(diaria.tipo2)}
                       </td>
                       <td className="px-6 py-4 text-center">
                         {formataValor(diaria.tipo3)}
@@ -182,6 +188,8 @@ export default function Home() {
                 <span className="text-xs text-gray-600 italic m-2 text-center">*Valores de indenização de diárias aos militares. Decreto nº 4307, de 18 de julho de 2002.</span>
               </div>
             </div>
+          </article>
+          <article>
             <h1 id="#distCubagem" className="text-green-600 mt-6 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center">
               <MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Ajuda de Custo
             </h1>
@@ -226,17 +234,17 @@ export default function Home() {
                     </th>
                   </tr>
                   <tr className="border-b border-gray-700">
-                      <td className="px-6 py-4 text-center bg-gray-800">
-                        {reserva.situacao}
-                        {reserva.condicao}
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                        x{reserva.tipo1}
-                      </td>
-                      <td className="px-6 py-4 text-center bg-gray-800">
-                        x{reserva.tipo2}
-                      </td>
-                    </tr>
+                    <td className="px-6 py-4 text-center bg-gray-800">
+                      {reserva.situacao}
+                      {reserva.condicao}
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      x{reserva.tipo1}
+                    </td>
+                    <td className="px-6 py-4 text-center bg-gray-800">
+                      x{reserva.tipo2}
+                    </td>
+                  </tr>
                 </tbody>
               </table>
               <div>
