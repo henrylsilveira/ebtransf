@@ -199,3 +199,64 @@ export const calcIrrf = [
 export const fusexArr = [3,3.4,3.5]
 export const pensMilArr = [10.5,12]
 export const adcPermArr = [5,10,15]
+
+export const diarias = [{
+    "PostGrad": "Oficiais Generais",
+    "tipo1": 433.49,
+    "tipo2": 387.86,
+    "tipo3": 342.23
+},{
+    "PostGrad": "Oficiais Superiores",
+    "tipo1": 409.58,
+    "tipo2": 366.46,
+    "tipo3": 323.25,
+},{
+    "PostGrad": "Oficiais Intermediários, Subalternos",
+    "tipo1": 381.14,
+    "tipo2": 341.02,
+    "tipo3": 300.90
+},{
+    "PostGrad": "Suboficiais, Subtenentes, Sargentos, Aspirantes e Cadetes",
+    "tipo1": 381.14,
+    "tipo2": 341.02,
+    "tipo3": 300.90
+},{
+    "PostGrad": "Alunos CPOR, EsPCEx",
+    "tipo1": 316.54,
+    "tipo2": 283.22,
+    "tipo3": 249.90
+},{
+    "PostGrad": "Demais praças e praças especiais",
+    "tipo1": 316.54,
+    "tipo2": 283.22,
+    "tipo3": 249.90
+}]
+
+export const ajudaCusto = [{
+    "situacao": "Militar que possua dependente, nas movimentações com desligamento da organização militar.",
+    "ida": 2,
+    "volta": 0,
+},{
+    "situacao": "Militar que possua dependente, nas movimentações para comissão superior a 3 (três) e igual ou inferior a 12 (doze) meses, sem desligamento da organização militar. ",
+     "ida": 2,
+    "volta": 1,
+},{
+    "situacao": "Militar que possua dependente, nas movimentações para comissão superior a 15 (quinze) dias e igual ou inferior a 3 (três) meses, sem desligamento da organização militar. ",
+     "ida": 1,
+    "volta": 1,
+},{
+    "situacao": "Militar que possua dependente, quando transferido para Localidade Especial Categoria A ou de uma Localidade Especial Categoria A para qualquer outra localidade, nas movimentações com desligamento da organização militar. ",
+     "ida": 4,
+    "volta": 0,
+},{
+    "situacao": "Militar que não possua dependente e se encontre nas situações “a”, “b”, “c”, ou “d” desta Tabela. ",
+    "ida": 1/2,
+    "volta": 0,
+}]
+
+export const reserva = {
+    "situacao": "Militar que possua ou não dependente, por ocasião de transferência para a inatividade remunerada. ",
+    "condicao": "Oficial soldo de (Coronel) / Praça soldo de (Sub Tenente)",
+    "tipo1": 8,
+    "tipo2": 8
+}

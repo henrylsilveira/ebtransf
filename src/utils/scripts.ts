@@ -1,3 +1,4 @@
+import { DadosTransferencia } from "@/types/types"
 import { soldo } from "./valores"
 
 export function formataValor(price: number, discount?: number) {
@@ -271,3 +272,60 @@ export function getTimeRemainingForFiveMinutes(isoDateTime: string): number {
     // Converte o tempo restante de milissegundos para segundos e retorne
     return timeRemaining / 1000;
 }
+
+export function returnCitiesOrigem(cities : DadosTransferencia[]){
+    const arrayCities = cities.map(city => city.cidadeOrigem)
+    return [...new Set(arrayCities)].sort((x, y) => {
+        let a = x,
+          b = y;
+        return a == b ? 0 : a > b ? 1 : -1;})
+}
+
+export function returnCitiesDestino(cities : DadosTransferencia[]){
+    const arrayCities = cities.map(city => city.cidadeDestino)
+    return [...new Set(arrayCities)].sort((x, y) => {
+        let a = x,
+          b = y;
+        return a == b ? 0 : a > b ? 1 : -1;})
+}
+
+export function returnCountCities(cities : DadosTransferencia[]){
+    const arrayCities = cities.map(city => city.cidadeDestino + " | " + city.estadoDestino)
+    const arrayCitiesO = cities.map(city => city.cidadeOrigem + " | " + city.estadoOrigem)
+    const allCities =  [...new Set([...arrayCities, ...arrayCitiesO])]
+    
+    return allCities.map(city => {
+        return {
+            city: city,
+            countDestino: arrayCities.filter(c => c === city).length,
+            countOrigem: arrayCitiesO.filter(c => c === city).length,
+            count: arrayCities.filter(c => c === city).length + arrayCitiesO.filter(c => c === city).length
+        }
+    })
+}
+
+// export function returnCountCitiesOrigem(cities : DadosTransferencia[]){
+//     const arrayCities = cities.map(city => city.cidadeOrigem + " / " + city.estadoOrigem)
+//     const arrayCitiesSimplify = [...new Set(arrayCities)]
+
+//     return arrayCitiesSimplify.map(city => {
+//         return {
+//             city: city,
+//             count: arrayCities.filter(c => c === city).length
+//         }
+//     })
+// }
+
+export function parseISODate(isoDate?: string) {
+    const date = new Date(isoDate ? isoDate : new Date());
+    
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Os meses em JavaScript vão de 0 a 11, então é necessário adicionar 1
+    const day = date.getDate();
+    
+    return {
+      ano: year,
+      mes: month,
+      dia: day
+    };
+  }

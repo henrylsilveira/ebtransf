@@ -1,7 +1,7 @@
 import { formataValor, retornaValorSoldo, retornaValorM3Transportado } from "@/utils/scripts";
 import { adcDisp, adcHab, adcLocEsp, adcMil, cubagemVeiculo } from "@/utils/valores";
 import { SetStateAction, useEffect, useState } from "react";
-import { FaCarSide, FaCity, FaMotorcycle } from "react-icons/fa";
+import { FaCarSide, FaCity, FaMotorcycle, FaRegChartBar } from "react-icons/fa";
 import { GiJungle } from "react-icons/gi";
 import SelectCidades from "../selectCidades/SelectCidades";
 import { toast } from "react-toastify";
@@ -148,8 +148,9 @@ export default function CalcTransferencia() {
                     )}
                     </p></div>
             </div>
-            <div className="mb-6 flex ">
+            <div className="mb-6 flex justify-between">
                 <Link href="/calculadora/minhassimulacoes" className="flex shadow-container gap-2 py-2 justify-center items-center px-4 text-white/80 bg-green-900/20 hover:bg-green-600/30 border border-green-400 rounded-lg "><TbClockSearch />Minhas transferências</Link>
+                <Link href="/calculadora/simulacoes" className="flex shadow-container gap-2 py-2 justify-center items-center px-4 text-white/80 bg-blue-900/20 hover:bg-blue-600/30 border border-blue-400 rounded-lg "><FaRegChartBar />Análise de transferências</Link>
             </div>
             <div className="border border-green-600 rounded-md p-6 relative">
                 <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Militar</h1>

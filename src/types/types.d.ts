@@ -131,6 +131,8 @@ export type DadosBancoProps = {
 export type TokenProps = { nomeToken: string; token: string }
 
 export type DadosTransferencia = {
+    id?: string;
+    date?: string;
     pg: string;
     percHabilitacao: number;
     locEspecial: number;
