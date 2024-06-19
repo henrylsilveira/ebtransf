@@ -16,6 +16,7 @@ export default function Footer() {
                         <div className="grid md:grid-cols-4 grid-cols-2 gap-1">
                             <LinkFooter text={"Calculadora"} link={"/calculadora"} />
                             <LinkFooter text={"Minhas transferências"} link={"/calculadora/minhassimulacoes"} />
+                            <LinkFooter text={"Análise de transferências"} link={"/calculadora/simulacoes"} />
                             <LinkFooter text={"Fatos Observados"} link={"/gerFatosObs"} />
                             <LinkFooter text={"Contracheque"} link={"/calcContraCheque"} />
                             <LinkFooter text={"Tempo de serviço"} link={"/tempoServico"} />
