@@ -1,5 +1,5 @@
 import { DadosTransferencia } from "@/types/types"
-import { soldo } from "./valores"
+import { dependenteIR, impostoRenda, soldo } from "./valores"
 
 export function formataValor(price: number, discount?: number) {
     return new Intl.NumberFormat("pt-BR", {
@@ -328,4 +328,23 @@ export function parseISODate(isoDate?: string) {
       mes: month,
       dia: day
     };
+  }
+
+  export function calculaImpostoRenda(valorBruto: number, descontos:number, dependentes:number): {
+    aliquota: number, deducao: number, baseCalculo: number, impostoRenda: number} {
+    const baseCalculo = valorBruto - descontos - (dependentes * dependenteIR);
+    let faixa: {aliquota: number, deducao: number} = {aliquota: 0, deducao: 0}
+
+    for (let index = 0; index < impostoRenda.length; index++) {
+        if (baseCalculo >= impostoRenda[index].de && baseCalculo <= impostoRenda[index].ate) {
+            faixa = { aliquota: impostoRenda[index].aliquota, deducao: impostoRenda[index].deducao}
+        }
+    }
+
+    return {
+        baseCalculo,
+        aliquota: baseCalculo * faixa.aliquota,
+        deducao: faixa.deducao,
+        impostoRenda: ((baseCalculo * faixa.aliquota) - faixa.deducao)
+    }
   }

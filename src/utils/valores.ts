@@ -260,3 +260,39 @@ export const reserva = {
     "tipo1": 8,
     "tipo2": 8
 }
+
+
+export const impostoRenda = [
+    {
+        "de": 0,
+        "ate": 2259.20,
+        "aliquota": 0,
+        "deducao": 0
+    },
+    {
+        "de": 2259.20,
+        "ate": 2826.65,
+        "aliquota": 0.075,
+        "deducao": 169.44
+    },
+    {
+        "de": 2826.66,
+        "ate": 3751.05,
+        "aliquota": 0.15,
+        "deducao": 381.44
+    },
+    {
+        "de": 3751.06,
+        "ate": 4664.68,
+        "aliquota": 0.225,
+        "deducao": 662.77
+    },
+    {
+        "de": 4664.68,
+        "ate": 999999999,
+        "aliquota": 0.275,
+        "deducao": 896.00
+    }
+]
+
+export const dependenteIR = 189.59

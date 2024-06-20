@@ -3,9 +3,10 @@
 import Script from "next/script";
 import React from "react";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
-import { adcDisp, adcHab, adcLocEsp, adcMil, ajudaCusto, cubagemDistancia, diarias, postosGrad, reserva, soldos } from "@/utils/valores";
+import { adcDisp, adcHab, adcLocEsp, adcMil, ajudaCusto, cubagemDistancia, diarias, impostoRenda, postosGrad, reserva, soldos } from "@/utils/valores";
 import { formataValor } from '../../utils/scripts';
 import { Links } from "@/components/Links";
+import Link from "next/link";
 
 
 export default function Home() {
@@ -249,6 +250,56 @@ export default function Home() {
               </table>
               <div>
                 <span className="text-xs text-gray-600 italic m-2 text-center">*LEI Nº 13.954, DE 16 DE DEZEMBRO DE 2019.</span>
+              </div>
+            </div>
+          </article>
+          <article className="w-full">
+            <h1 id="#distCubagem" className="text-green-600 mt-6 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center">
+              <MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Imposto de Renda
+            </h1>
+            <div className="text-xs sm:text-md flex flex-col justify-center relative overflow-x-auto shadow-container sm:rounded-lg mt-4 ">
+              <table className="w-100 sm:w-full text-left text-gray-400">
+                <thead className=" uppercase text-gray-400">
+                  <tr>
+                    <th scope="col" className="px-1 sm:px-6 py-3  bg-gray-800 text-center text-white">
+                      De
+                    </th>
+                    <th scope="col" className="px-1 sm:px-6 py-3 text-center text-white">
+                      Até
+                    </th>
+                    <th scope="col" className="px-1 sm:px-6 py-3  bg-gray-800 text-center text-white">
+                    Alíquota
+                    </th>
+                    <th scope="col" className="px-1 sm:px-6 py-3 text-center text-white">
+                    Dedução
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {impostoRenda.map((val, index) => (
+                    <tr key={val + `${index}`} className="border-b border-gray-700">
+                      <td className="px-6 py-4 text-center bg-gray-800">
+                        {formataValor(val.de)}
+                      </td>
+                      <td className="px-6 py-4 text-center">
+                        {val.ate > 999999 ? <span className="text-base">&#8734;</span> : formataValor(val.ate)}
+                      </td>
+                      <td className="px-6 py-4 text-center bg-gray-800">
+                        {(val.aliquota * 100).toFixed(2)}%
+                      </td>
+                      <td className="px-6 py-4 text-center">
+                        {formataValor(val.deducao)}
+                      </td>
+                    </tr>
+                  ))}
+                  
+                </tbody>
+              </table>
+              <div className="py-2">
+                <span className="text-xs text-gray-600 italic m-2 text-center">*Medida provisória nº 1.206, de 6 de fevereiro de 2024.</span>
+                <Link href="https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2024" target="_blank">
+                  <span className="text-xs text-gray-600 italic m-2 text-center hover:text-white">Acesse: Tributação de 2024.</span>
+                </Link>
               </div>
             </div>
           </article>
