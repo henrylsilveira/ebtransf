@@ -43,7 +43,7 @@ export default function CalcContraChequeComponent() {
                 </article>
             </div>
             <div className="fixed left-0 bg-gray-900 backdrop-blur-sm bg-opacity-40 shadow-lg w-screen shadow-black bottom-0 p-4 z-10">
-                <div className="border-2 gap-1 text-xs sm:text-base border-green-600 rounded p-2 flex flex-1 items-center justify-center text-white font-bold ">
+                <div className="border-2 gap-1 text-[12px] sm:text-base border-green-600 rounded p-2 flex flex-1 items-center justify-center text-white font-bold ">
                     <div className="flex">
                         <p>Bruto:</p>
                         <p className="font-extrabold pl-2">{
@@ -65,7 +65,7 @@ export default function CalcContraChequeComponent() {
                 </div>
 
             </div>
-            <div className="grid grid-cols-2 gap-2 xs:grid-cols-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 xs:grid-cols-1">
                 <div className="border border-green-600 rounded-md p-6 relative">
                     <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Receita</h1>
                     <div className="grid sm:grid-cols-1 gap-4">
@@ -172,7 +172,7 @@ export default function CalcContraChequeComponent() {
                 <div className="border border-green-600 rounded-md p-6 relative">
                     <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Despesas</h1>
                     <div className="grid sm:grid-cols-1 gap-4">
-                        <div className="relative z-0  w-full group">
+                        <div className="relative z-0 w-full group">
                             <select name="fusex" id="fusex" onChange={(e) => setFusex(Number(e.target.value))} className="leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none dark:focus:bg-gray-900 focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                                 <option></option>
                                 {fusexArr.map((adc, index) => (
@@ -252,7 +252,7 @@ export default function CalcContraChequeComponent() {
             {/* VALORES */}
             <div className="border border-green-600 rounded-md p-6 relative mt-4">
                 <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Valores</h1>
-                <div className="border border-green-600 rounded-md p-6 relative mt-4">
+                <div className="border border-green-600 rounded-md p-6 relative mt-4 text-xs md:text-base">
                     <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Bruto</h1>
                     <div className="flex flex-1">
                         <b className="text-gray-300">Soldo</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)!)}</p>
@@ -283,7 +283,7 @@ export default function CalcContraChequeComponent() {
                     <div className="flex flex-1">
                         <b className="text-gray-300">Salário Fámilia:</b>
                         <p className="pl-2 text-white">{formataValor(dependentes * 0.16)}</p>
-                        
+
                     </div>
                     <div className="flex flex-1">
                         <b className="text-gray-300">Valor Bruto</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias))}</p>
@@ -292,43 +292,47 @@ export default function CalcContraChequeComponent() {
                 </div>
                 <div className="border border-green-600 rounded-md p-6 relative mt-4">
                     <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Despesas</h1>
-                    <div className="flex flex-1">
-                        <b className="text-gray-300">Fusex</b><p className="pl-4 text-white">{formataValor((((retornaValorSoldo(pg)! * (disp + mil + hab + compOrg + adcPerm) / 100) + retornaValorSoldo(pg)!) * (fusex / 100)))}</p>
-                    </div>
-                    <div className="flex flex-1">
-                        <b className="text-gray-300">Pensão Militar</b><p className="pl-4 text-white">{formataValor((((retornaValorSoldo(pg)! * (disp + mil + hab + compOrg + adcPerm) / 100) + retornaValorSoldo(pg)!) * (pMil / 100)))}</p>
-                    </div>
-                    <div className="flex flex-1">
-                        <b className="text-gray-300">Pensão Alimentícia</b><p className="pl-4 text-white">{formataValor(pensAlim)}</p>
-                    </div>
-                    {pnr === "true" ? (
-                        <div className="flex flex-1 flex-col">
-                            <div className="flex flex-1">
-                                <b className="text-gray-300">PNR (F EX-CNST)</b>
-                                <p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * 0.01)}</p>
-                            </div>
-                            <div className="flex flex-1">
-                                <b className="text-gray-300">PNR (COD/UA)</b>
-                                <p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * 0.035)}</p>
-                            </div>
-                            <div className="flex flex-1">
-                                <b className="text-gray-300">PNR (F EX-MNT)</b>
-                                <p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * 0.005)}</p>
-                            </div>
+                    <div className="text-xs md:text-base">
+                        <div className="flex flex-1">
+                            <b className="text-gray-300">Fusex</b><p className="pl-4 text-white">{formataValor((((retornaValorSoldo(pg)! * (disp + mil + hab + compOrg + adcPerm) / 100) + retornaValorSoldo(pg)!) * (fusex / 100)))}</p>
                         </div>
-                    ) : null}
-                    <div className="flex flex-1">
-                        <b className="text-gray-300">Imposto de renda</b>
-                        <p className="pl-4 text-white">
-                            {formataValor(calculaImpostoRenda(
-                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
-                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).impostoRenda)}
-                        </p>
+                        <div className="flex flex-1">
+                            <b className="text-gray-300">Pensão Militar</b><p className="pl-4 text-white">{formataValor((((retornaValorSoldo(pg)! * (disp + mil + hab + compOrg + adcPerm) / 100) + retornaValorSoldo(pg)!) * (pMil / 100)))}</p>
+                        </div>
+                        <div className="flex flex-1">
+                            <b className="text-gray-300">Pensão Alimentícia</b><p className="pl-4 text-white">{formataValor(pensAlim)}</p>
+                        </div>
+                        {pnr === "true" ? (
+                            <div className="flex flex-1 flex-col">
+                                <div className="flex flex-1">
+                                    <b className="text-gray-300">PNR (F EX-CNST)</b>
+                                    <p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * 0.01)}</p>
+                                </div>
+                                <div className="flex flex-1">
+                                    <b className="text-gray-300">PNR (COD/UA)</b>
+                                    <p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * 0.035)}</p>
+                                </div>
+                                <div className="flex flex-1">
+                                    <b className="text-gray-300">PNR (F EX-MNT)</b>
+                                    <p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * 0.005)}</p>
+                                </div>
+                            </div>
+                        ) : null}
+                        <div className="flex flex-1">
+                            <b className="text-gray-300">Imposto de renda</b>
+                            <p className="pl-4 text-white">
+                                {formataValor(calculaImpostoRenda(
+                                    retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
+                                    , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).impostoRenda)}
+                            </p>
+                        </div>
                     </div>
+
                 </div>
                 <div className="border border-green-600 rounded-md p-6 relative mt-4">
                     <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Imposto de renda</h1>
-                    <div className="flex flex-1">
+                    <div className="text-xs md:text-base">
+                        <div className="flex flex-1">
                         <b className="text-gray-300">Calculo Base</b>
                         <p className="pl-4 text-white">
                             {formataValor(calculaImpostoRenda(
@@ -367,6 +371,8 @@ export default function CalcContraChequeComponent() {
                         </p>
                     </div>
                     <span className="text-xs text-gray-600 italic text-center">Cálculo: (((Calculo Base * Aliquota) / 100) - Dedução)</span>
+                    </div>
+                    
                     <article className="w-full">
                         <h1 id="#distCubagem" className="text-green-600 mt-6 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center">
                             Tabela IR
