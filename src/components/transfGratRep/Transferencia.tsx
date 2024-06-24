@@ -314,6 +314,8 @@ export default function CalcTransferencia() {
                             <option value={45}>Asp Of 45m³</option>
                             <option value={50}>Sub Ten/1ºSgt 50m³</option>
                             <option value={45}>2ºSgt/3ºSgt 45m³</option>
+                            <option value={35}>Cb 35m³</option>
+                            <option value={5}>Cadete/Aluno 5m³</option>
                         </select>
                         <label htmlFor="bagagem" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Cubagem</label>
                     </div>

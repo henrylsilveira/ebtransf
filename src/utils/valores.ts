@@ -27,6 +27,7 @@ export const adcLocEsp = [10,20]
 export const gratRepArr = [2,10]
 
 export const cubagemBagagem = {
+    'cb': 35,
     '3sgt': 45,
     '2sgt': 45,
     '1sgt': 50,

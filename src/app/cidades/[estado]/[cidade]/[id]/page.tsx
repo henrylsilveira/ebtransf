@@ -36,7 +36,7 @@ export default async function FeedbackCidadeId({ params }: { params: { estado: s
             </Script>
             <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
                 crossOrigin="anonymous" />
-            <div className="flex flex-col mx-auto max-w-4xl w-10/12 sm:text-md text-sm shadow-container p-10 rounded-lg mb-20 mt-6">
+            <div className="flex flex-col mx-auto max-w-4xl w-10/12 sm:text-md text-sm shadow-container p-10 rounded-lg mb-20 mt-6 h-screen">
                 <div className="w-full flex justify-center flex-col mb-4">
                     <h1 className="text-green-600 font-bold uppercase text-3xl mx-auto mb-2">{decodeURIComponent(params.cidade)}</h1>
                     <h2 className="text-gray-400 mx-auto text-2xl">{decodeURIComponent(params.estado)}</h2>
