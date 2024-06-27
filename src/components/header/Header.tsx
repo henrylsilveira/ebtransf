@@ -58,17 +58,17 @@ export default function Header() {
             </div>
             <ul className="flex flex-col w-auto gap-4 mt-3 mb-6 text-gray-400">
               <LinkHeader
-                link="/"
+                link="/calculadora"
                 text="Transferência"
                 icon={<BsCalculator size={12} />}
               />
               <LinkHeader
-                link="/"
+                link="/calcContraCheque"
                 text="Contra-cheque"
                 icon={<LiaMoneyCheckAltSolid size={14} />}
               />
               <LinkHeader
-                link="/"
+                link="/tempoServico"
                 text="Tempo de Serviço"
                 icon={<BsClock size={14} />}
               />
@@ -83,24 +83,34 @@ export default function Header() {
             </div>
             <ul className="flex flex-col w-auto gap-4 mt-3 mb-6 text-gray-400">
               <LinkHeader
-                link="/"
+                link="/cidades"
                 text="Cidades"
                 icon={<GiModernCity size={14} />}
               />
               <LinkHeader
-                link="/"
+                link="/gerFatosObs"
                 text="Fatos Observados"
                 icon={<MdOutlinePersonSearch size={14} />}
               />
               <LinkHeader
-                link="/"
+                link="/logistica"
                 text="Logística"
                 icon={<MdOutlineRealEstateAgent size={14} />}
               />
               <LinkHeader
-                link="/"
+                link="/tabelas"
                 text="Base de Dados"
                 icon={<BsDatabaseCheck size={14} />}
+              />
+              <LinkHeader
+                link="/calculadora/minhassimulacoes"
+                text="Minhas Transferências"
+                icon={<TbClockSearch size={14} />}
+              />
+              <LinkHeader
+                link="/calculadora/minhassimulacoes"
+                text="Análise de Transferências"
+                icon={<FaRegChartBar size={14}/>}
               />
             </ul>
           </div>
@@ -122,7 +132,7 @@ export default function Header() {
                     icon: <LiaMoneyCheckAltSolid size={14} />,
                 },
                 {
-                    text: "Tempo Serviço",
+                    text: "Tempo de Serviço",
                     link: "/tempoServico",
                     icon: <BsClock size={14} />,
                 }
@@ -150,7 +160,7 @@ export default function Header() {
                     icon: <BsDatabaseCheck size={14} />,
                 },
                 {
-                  text: "Minhas transferências",
+                  text: "Minhas Transferências",
                   link: "/calculadora/minhassimulacoes",
                   icon: <TbClockSearch size={14} />,
               },
