@@ -108,7 +108,7 @@ export default function Header() {
                 icon={<TbClockSearch size={14} />}
               />
               <LinkHeader
-                link="/calculadora/minhassimulacoes"
+                link="/calculadora/simulacoes"
                 text="Análise de Transferências"
                 icon={<FaRegChartBar size={14}/>}
               />
