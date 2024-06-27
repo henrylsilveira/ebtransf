@@ -112,41 +112,51 @@ export default function Header() {
             <DropdownButton title="Calculadoras" linkText={[
                 {
                     text: "Transferência",
-                    link: "#",
+                    link: "/calculadora",
                     icon: <BsCalculator size={12} />,
                 },
                 {
                     text: "Contra-cheque",
-                    link: "#",
+                    link: "/calcContraCheque",
                     icon: <LiaMoneyCheckAltSolid size={14} />,
                 },
                 {
                     text: "Tempo Serviço",
-                    link: "#",
+                    link: "/tempoServico",
                     icon: <BsClock size={14} />,
                 }
             ]}/>
             <DropdownButton title="Ferramentas" linkText={[
                 {
                     text: "Cidades",
-                    link: "#",
+                    link: "/cidades",
                     icon: <GiModernCity size={14} />,
                 },
                 {
                     text: "Fatos Observados",
-                    link: "#",
+                    link: "/gerFatosObs",
                     icon: <MdOutlinePersonSearch size={14} />,
                 },
                 {
                     text: "Logística",
-                    link: "#",
+                    link: "/logistica",
                     icon: <MdOutlineRealEstateAgent size={14} />,
                 },
                 {
                     text: "Base de Dados",
-                    link: "#",
+                    link: "/tabelas",
                     icon: <BsDatabaseCheck size={14} />,
-                }
+                },
+                {
+                  text: "Minhas transferências",
+                  link: "/calculadora/minhassimulacoes",
+                  icon: <BsDatabaseCheck size={14} />,
+              },
+              {
+                text: "Análise de Transferências",
+                link: "/calculadora/simulacoes",
+                icon: <BsDatabaseCheck size={14} />,
+            }
             ]}/>
           </div>
         </div>
