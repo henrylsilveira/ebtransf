@@ -1,7 +1,6 @@
 "use client";
 import { Logo } from "../Logo";
-import { TiThMenuOutline } from "react-icons/ti";
-import { RiMenuAddFill, RiTeamLine } from "react-icons/ri";
+import { RiMenuAddFill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import { useState } from "react";
 import LinkHeader from "./LinkHeader";
@@ -14,6 +13,8 @@ import {
   MdOutlineRealEstateAgent,
 } from "react-icons/md";
 import DropdownButton from "./DropdownButton";
+import { TbClockSearch } from "react-icons/tb";
+import { FaRegChartBar } from "react-icons/fa";
 
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -68,7 +69,7 @@ export default function Header() {
               />
               <LinkHeader
                 link="/"
-                text="Tempo Serviço"
+                text="Tempo de Serviço"
                 icon={<BsClock size={14} />}
               />
             </ul>
@@ -126,6 +127,7 @@ export default function Header() {
                     icon: <BsClock size={14} />,
                 }
             ]}/>
+
             <DropdownButton title="Ferramentas" linkText={[
                 {
                     text: "Cidades",
@@ -150,12 +152,12 @@ export default function Header() {
                 {
                   text: "Minhas transferências",
                   link: "/calculadora/minhassimulacoes",
-                  icon: <BsDatabaseCheck size={14} />,
+                  icon: <TbClockSearch size={14} />,
               },
               {
                 text: "Análise de Transferências",
                 link: "/calculadora/simulacoes",
-                icon: <BsDatabaseCheck size={14} />,
+                icon: <FaRegChartBar size={14}/>,
             }
             ]}/>
           </div>
