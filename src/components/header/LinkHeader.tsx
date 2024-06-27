@@ -14,7 +14,7 @@ export default function LinkHeader({
 }) {
   return (
     <Link
-      className="flex gap-1 hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative"
+      className="flex gap-1 hover:text-gray-200 hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative"
       href={link}
     >
       {icon}
