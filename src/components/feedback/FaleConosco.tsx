@@ -59,7 +59,7 @@ export default function FaleConosco() {
     return (
         <AlertDialog.Root>
             <AlertDialog.Trigger asChild>
-                <div className="flex items-center">
+                <div className="flex items-center cursor-pointer">
                     <MdMessage className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />
                 </div>
             </AlertDialog.Trigger>
