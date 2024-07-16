@@ -131,7 +131,7 @@ export function CardFatoObs({ id, nome, fatosObservados, idGrupo, stateFunction,
                 <span className="shadow-container px-2 rounded-full text-red-600 bg-red-700/10">{fatosObservados?.filter(fato => fato.observacao === "negativo").length}</span>
             </div>
             <div className="flex flex-col gap-2">
-                <AlertDialog.Root open={open} onOpenChange={setOpen}>
+                <AlertDialog.Root open={open} onOpenChange={setOpen} aria-controls="FatosObservados">
                     <AlertDialog.Trigger asChild>
                         <button className="shadow-container w-full flex justify-center py-2 text-white bg-gradient-to-r from-green-900/30 to-green-900 hover:bg-green-600/80 border border-green-400 rounded-lg">Lançar Fato</button>
                     </AlertDialog.Trigger>

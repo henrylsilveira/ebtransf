@@ -21,7 +21,7 @@ export function VisualizarRegistro() {
         }
     }
     return (
-        <AlertDialog.Root>
+        <AlertDialog.Root aria-controls="VisualizarRegistro">
             <AlertDialog.Trigger asChild>
                 <button className="hover:bg-cyan-800 bg-transparent border text-xs border-cyan-700 uppercase text-white py-2 px-6 rounded-md flex items-center">
                     <BsEye className="pr-1 h-5 w-5 text-2xl text-white hover:text-cyan-600 transform transition-colors" />Visualizar

@@ -154,7 +154,7 @@ export default function PainelCentral() {
             </Script>
             <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
                 crossOrigin="anonymous" />
-            <div className=" relative max-w-screen-xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
+            <div className=" relative max-w-screen-xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6 h-screen">
                 <div className="flex items-center justify-center mb-6 flex-col">
                     <div className="absolute top-2 left-2">
                         <Link className="hover:bg-green-800 text-xs bg-transparent border border-green-700 uppercase text-white py-2 px-6 rounded-md" href="/logistica">Logística</Link>

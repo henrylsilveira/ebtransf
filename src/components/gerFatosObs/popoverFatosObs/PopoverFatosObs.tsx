@@ -57,7 +57,7 @@ export function PopoverFatosObs({ params, integrantes, stateFunction }: { params
         });
     };
     return (
-        <AlertDialog.Root open={open} onOpenChange={setOpen}>
+        <AlertDialog.Root open={open} onOpenChange={setOpen} aria-controls="adicionar integrante">
             <AlertDialog.Trigger asChild>
                 <button className="flex shadow-container items-center text-white bg-gradient-to-r from-green-900/30 to-green-900 hover:bg-green-600/80 border border-green-400 rounded-lg text-xs h-8 px-2 gap-2"><IoMdPersonAdd />Adicionar</button>
             </AlertDialog.Trigger>

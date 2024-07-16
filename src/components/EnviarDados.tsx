@@ -24,7 +24,7 @@ export function EnviarDados({ enviarFunc, data, tipo }: {
     }
 
     return (
-        <AlertDialog.Root>
+        <AlertDialog.Root aria-controls="EnviarDados">
             <AlertDialog.Trigger asChild>
                 <div className="w-full flex">
                     {loading ? <Loader /> :

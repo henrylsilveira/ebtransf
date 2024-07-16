@@ -115,7 +115,7 @@ export function FeedbackCidades({ compact }: { compact: boolean }) {
 
 
     return (
-        <AlertDialog.Root open={open} onOpenChange={setOpen}>
+        <AlertDialog.Root open={open} onOpenChange={setOpen} aria-controls="feedback">
             <AlertDialog.Trigger asChild >
 
                 {compact ?
