@@ -1,5 +1,4 @@
 
-import { Logo } from '@/components/Logo'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Bai_Jamjuree } from 'next/font/google'
@@ -8,6 +7,7 @@ import GDPR from '@/components/feedback/Gdpr'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from '@/components/footer/Footer'
+import Header from '@/components/header/Header'
 
 const inter = Bai_Jamjuree({ weight: ['500'], subsets: ['thai'] })
 
@@ -29,7 +29,7 @@ export default async function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>
-        <Logo />
+        <Header />
         <SideBar />
         <ToastContainer />
         <GDPR />

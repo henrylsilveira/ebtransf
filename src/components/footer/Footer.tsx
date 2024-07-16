@@ -6,13 +6,13 @@ import LinkFooter from "./LinkFooter";
 export default function Footer() {
     return (
         <div className="flex flex-1 flex-col shadow-container">
-            <div className="py-2 flex sm:flex-row flex-col mx-auto sm:mx-0 justify-evenly gap-6"> 
-                <div>
+            <div className="py-2 flex sm:flex-row flex-col mx-auto sm:mx-0 justify-evenly gap-6 items-center"> 
+                <div className="md:mt-4">
                     <Logo />
                 </div>
                 <div className="grid grid-cols-1 text-gray-500 text-sm">
-                    <div>
-                        <p className="text-white text-lg text-center">Mapa do site</p>
+                    <div className="mb-3">
+                        <p className="text-white text-lg text-center mb-2">Mapa do site</p>
                         <div className="grid md:grid-cols-4 grid-cols-2 gap-1">
                             <LinkFooter text={"Calculadora"} link={"/calculadora"} />
                             <LinkFooter text={"Minhas transferências"} link={"/calculadora/minhassimulacoes"} />
@@ -30,7 +30,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className="flex flex-1 justify-center py-4 text-gray-400 shadow-container border-t border-green-700 mt-2">
-                <p>© 2023 EBCalc. Todos os direitos reservados.</p>
+                <p>2023 EBCalc © Todos os direitos reservados.</p>
             </div>
         </div>
     )
