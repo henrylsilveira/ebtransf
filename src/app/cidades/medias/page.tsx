@@ -1,26 +1,22 @@
 
-import CardFeedbackCidades from "@/components/feedbackCidades/CardFeedbackCidades";
 import { FeedbackCidades } from "@/components/feedbackCidades/feedbackCidades";
 import { NotData } from "@/components/NotData";
-import { FeedbackCidadesProps } from "@/types/types";
-import { formatarDataHora } from "@/utils/scripts";
+import { returnFeedbackCities } from "@/utils/scripts";
+import Rating from "@mui/material/Rating";
 import Script from "next/dist/client/script";
 import Link from "next/link";
 
+import DropdownFeedback from "@/components/dropdownFeedback/dropdownFeedback";
 async function getData() {
     const res = await fetch('https://ebcalc.net/api/feedbackCidades', { next: { revalidate: 3600 * 7 } })
-    // The return value is *not* serialized
-    // You can return Date, Map, Set, etc.
-
     if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
         throw new Error('Failed to fetch data')
     }
-    //    console.log(res.json())
-    return res.json()
+    const responseBody = await res.json()
+    return responseBody
 }
 
-export default async function Cidades() {
+export default async function MediasCidades() {
     // const { data } = await api.get(`/feedbackCidades`)
     const data = await getData()
     return (
@@ -50,17 +46,39 @@ export default async function Cidades() {
                         <Link href={"/cidades/medias"} className="uppercase relative hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 hover:text-white">Média das cidades</Link>
                     </div>
                     <div className="w-full flex justify-center flex-col mt-4 ">
-                        <h1 className="text-green-600 font-bold uppercase text-2xl mx-auto mb-2">Busque a experiência de outras pessoas</h1>
-                        {data?.feedbacks?.length !== 0 ? <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {data?.feedbacks?.map((cidade: FeedbackCidadesProps) =>
-                                cidade.texto === "" ? null : <CardFeedbackCidades key={cidade.date} id={cidade.id} date={formatarDataHora(cidade.date)} estado={cidade.estado} cidade={cidade.cidade} texto={cidade.texto} saude={cidade.saude} educacao={cidade.educacao} trabalho={cidade.trabalho} seguranca={cidade.seguranca} infraEstrutura={cidade.infraEstrutura} pnr={cidade.pnr} custoVida={cidade.custoVida} batalhao={cidade.batalhao} />
-                            )}
+                        <h1 className="text-green-600 font-bold uppercase text-2xl mx-auto mb-2">Tabela de avaliações de cidades</h1>
+                        {
+                            returnFeedbackCities(data?.feedbacks).length === 0
+                                ? <div className="h-screen">
+                                    <NotData textoComponent={"Não foi possível carregar os dados ou não existe nenhum registro com esse filtro."} />
+                                </div>
+                                :
+                                <div className="overflow-x-auto shadow-md sm:rounded-lg h-screen">
+                                    <div className="overflow-x-auto shadow-md sm:rounded-lg">
+                                        <table className="w-full text-xs sm:text-sm text-left text-gray-400">
+                                            <thead className="text-sm uppercase bg-green-800 text-white">
+                                                <tr>
+                                                    <th scope="col" className="sm:py-3 sm:px-6 py-1 px-2">Cidade</th>
+                                                    <th scope="col" className="sm:py-3 sm:px-6 py-1 px-2">Avaliação</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="overflow-y-auto">
+                                                {returnFeedbackCities(data?.feedbacks).map((city) =>
+                                                    <tr key={city.city} className="border-b bg-gray-800 border-gray-700 text-sm">
+                                                        <td className="sm:py-4 sm:px-6 py-1 px-2">{city.city.toUpperCase()}</td>
+                                                        <td className="sm:py-4 sm:px-6 py-1 px-2 text-center flex gap-2">
+                                                            <p className="flex items-center gap-2"><Rating name="size-large" precision={0.5} value={(city.saude + city.educacao + city.trabalho + city.seguranca + city.infraEstrutura + city.pnr + city.batalhao + city.custoVida) / 8} size="medium" readOnly /></p>
+                                                            <DropdownFeedback city={city} />
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
 
-                        </div> : <NotData textoComponent={"Ainda não existe dados ou não foram encontrados!"} />}
-
+                                    </div>
+                                </div>
+                        }
                     </div>
-
-
                 </div>
             </div>
         </>

@@ -1,4 +1,4 @@
-import { DadosTransferencia } from "@/types/types"
+import { DadosTransferencia, FeedbackCidadesProps } from "@/types/types"
 import { dependenteIR, impostoRenda, soldo } from "./valores"
 
 export function formataValor(price: number, discount?: number) {
@@ -218,20 +218,20 @@ export function retornaTimeStamp(): string {
 export function generateNowISOTime() {
     const time = new Date();
     return time.toISOString();
-  }
+}
 
-  export function convertDate(iso: string | number | Date) {
+export function convertDate(iso: string | number | Date) {
     const d = new Date(iso);
     const convertDate = d.toLocaleDateString("pt-BR");
     return convertDate;
-  }
+}
 
-  export function formatarDataHora(iso: string | number | Date) {
+export function formatarDataHora(iso: string | number | Date) {
     const data = new Date(iso);
     return data.toLocaleString("pt-BR");
-  }
+}
 
-  export function hasFiveMinutesPassed(isoDateTime: string): number {
+export function hasFiveMinutesPassed(isoDateTime: string): number {
     // Converte a string em formato ISO para um objeto Date
     const providedDateTime = new Date(isoDateTime);
 
@@ -245,7 +245,7 @@ export function generateNowISOTime() {
     const timeDifferenceInMinutes = timeDifference / (1000 * 60);
 
     // Retorna true se já se passaram 5 minutos ou mais
-    return timeDifferenceInMinutes ;
+    return timeDifferenceInMinutes;
 }
 
 export function getTimeRemainingForFiveMinutes(isoDateTime: string): number {
@@ -273,27 +273,29 @@ export function getTimeRemainingForFiveMinutes(isoDateTime: string): number {
     return timeRemaining / 1000;
 }
 
-export function returnCitiesOrigem(cities : DadosTransferencia[]){
+export function returnCitiesOrigem(cities: DadosTransferencia[]) {
     const arrayCities = cities.map(city => city.cidadeOrigem)
     return [...new Set(arrayCities)].sort((x, y) => {
         let a = x,
-          b = y;
-        return a == b ? 0 : a > b ? 1 : -1;})
+            b = y;
+        return a == b ? 0 : a > b ? 1 : -1;
+    })
 }
 
-export function returnCitiesDestino(cities : DadosTransferencia[]){
+export function returnCitiesDestino(cities: DadosTransferencia[]) {
     const arrayCities = cities.map(city => city.cidadeDestino)
     return [...new Set(arrayCities)].sort((x, y) => {
         let a = x,
-          b = y;
-        return a == b ? 0 : a > b ? 1 : -1;})
+            b = y;
+        return a == b ? 0 : a > b ? 1 : -1;
+    })
 }
 
-export function returnCountCities(cities : DadosTransferencia[]){
+export function returnCountCities(cities: DadosTransferencia[]) {
     const arrayCities = cities.map(city => city.cidadeDestino + " | " + city.estadoDestino)
     const arrayCitiesO = cities.map(city => city.cidadeOrigem + " | " + city.estadoOrigem)
-    const allCities =  [...new Set([...arrayCities, ...arrayCitiesO])]
-    
+    const allCities = [...new Set([...arrayCities, ...arrayCitiesO])]
+
     return allCities.map(city => {
         return {
             city: city,
@@ -303,41 +305,49 @@ export function returnCountCities(cities : DadosTransferencia[]){
         }
     })
 }
+export function returnFeedbackCities(cities: FeedbackCidadesProps[]) {
+    const arrayCities = cities?.map(city => city.cidade + " | " + city.estado)
+    const allCities = [...new Set([...arrayCities])]
 
-// export function returnCountCitiesOrigem(cities : DadosTransferencia[]){
-//     const arrayCities = cities.map(city => city.cidadeOrigem + " / " + city.estadoOrigem)
-//     const arrayCitiesSimplify = [...new Set(arrayCities)]
-
-//     return arrayCitiesSimplify.map(city => {
-//         return {
-//             city: city,
-//             count: arrayCities.filter(c => c === city).length
-//         }
-//     })
-// }
+    return allCities.map(city => {
+        const totalArrayCidades = cities.filter(c => c.cidade + " | " + c.estado === city).length
+        return {
+            city: city,
+            educacao: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.educacao : accumulator }, 0) / totalArrayCidades,
+            saude: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.saude : accumulator }, 0) / totalArrayCidades,
+            trabalho: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.trabalho : accumulator }, 0) / totalArrayCidades,
+            seguranca: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.seguranca : accumulator }, 0) / totalArrayCidades,
+            infraEstrutura: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.infraEstrutura : accumulator }, 0) / totalArrayCidades,
+            pnr: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.pnr : accumulator }, 0) / totalArrayCidades,
+            custoVida: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.custoVida : accumulator }, 0) / totalArrayCidades,
+            batalhao: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.batalhao : accumulator }, 0) / totalArrayCidades,
+        }
+    })
+}
 
 export function parseISODate(isoDate?: string) {
     const date = new Date(isoDate ? isoDate : new Date());
-    
+
     const year = date.getFullYear();
     const month = date.getMonth() + 1; // Os meses em JavaScript vão de 0 a 11, então é necessário adicionar 1
     const day = date.getDate();
-    
-    return {
-      ano: year,
-      mes: month,
-      dia: day
-    };
-  }
 
-  export function calculaImpostoRenda(valorBruto: number, descontos:number, dependentes:number): {
-    aliquota: number, deducao: number, baseCalculo: number, impostoRenda: number} {
+    return {
+        ano: year,
+        mes: month,
+        dia: day
+    };
+}
+
+export function calculaImpostoRenda(valorBruto: number, descontos: number, dependentes: number): {
+    aliquota: number, deducao: number, baseCalculo: number, impostoRenda: number
+} {
     const baseCalculo = valorBruto - descontos - (dependentes * dependenteIR);
-    let faixa: {aliquota: number, deducao: number} = {aliquota: 0, deducao: 0}
+    let faixa: { aliquota: number, deducao: number } = { aliquota: 0, deducao: 0 }
 
     for (let index = 0; index < impostoRenda.length; index++) {
         if (baseCalculo >= impostoRenda[index].de && baseCalculo <= impostoRenda[index].ate) {
-            faixa = { aliquota: impostoRenda[index].aliquota, deducao: impostoRenda[index].deducao}
+            faixa = { aliquota: impostoRenda[index].aliquota, deducao: impostoRenda[index].deducao }
         }
     }
 
@@ -347,4 +357,4 @@ export function parseISODate(isoDate?: string) {
         deducao: faixa.deducao,
         impostoRenda: ((baseCalculo * faixa.aliquota) - faixa.deducao)
     }
-  }
+}

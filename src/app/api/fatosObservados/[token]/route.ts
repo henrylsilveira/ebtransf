@@ -26,7 +26,6 @@ export async function PUT(request: NextRequest, { params }: { params: { token: s
     const idGrupo = params.token
     const db = getFirestore(app);
     const { id, observacao, descricao, tokenFato, deleteFo, integranteId, deleteIntegrante } = await request.json() as Fato
-    console.log({ id, observacao, descricao, tokenFato, deleteFo, integranteId, deleteIntegrante })
     const colRef = collection(db, "fatosObservados");
   
     if (deleteFo) {

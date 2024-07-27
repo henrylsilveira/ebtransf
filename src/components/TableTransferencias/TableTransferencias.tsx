@@ -10,7 +10,6 @@ export default function TableTransferencias({ data }: { data: DadosTransferencia
     const year = new Date().getFullYear()
     const [citiesFilter, SetCitiesFilter] = useState("")
     const [anoFilter, SetAnoFilter] = useState(year)
-    console.log(returnCountCities(data).length)
 
     return (
         <>
