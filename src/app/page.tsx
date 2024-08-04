@@ -9,13 +9,14 @@ import Link from "next/link";
 import { MdOutlineKeyboardDoubleArrowRight, MdOutlinePrivacyTip } from "react-icons/md";
 import { BsCalculator, BsDatabaseCheck } from "react-icons/bs";
 import { Links } from "@/components/Links";
+import { Logo3d } from "@/components/Logo3d";
 
 
 export default function Home() {
   return (
     <>
       <title>EBCalc</title>
-      <div className="max-w-2xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
+      <div className="w-screen h-screen">
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W6B1SSXWE7"></Script>
         <Script id="google-analytics">
           {`window.dataLayer = window.dataLayer || [];
@@ -25,7 +26,12 @@ export default function Home() {
         </Script>
         <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
           crossOrigin="anonymous" />
-        <div className="flex flex-1 items-center justify-center mb-6 flex-col">
+        <>
+
+          <Logo3d />
+        </>
+
+        {/* <div className="flex flex-1 items-center justify-center mb-6 flex-col">
           <h1 className="text-green-600 font-bold uppercase text-xl">Calculadoras e Ferramentas para Militares do Exército</h1>
           <article>
             <h1 className="text-green-600 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center"><MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Transferências</h1>
@@ -47,9 +53,9 @@ export default function Home() {
               Lembrando que as políticas e práticas podem variar entre diferentes organizações e países, então é importante consultar os regulamentos e informações específicas da instituição em questão para obter detalhes precisos sobre como a Gratificação de Representação é implementada e quem é elegível para recebê-la.</p>
 
           </article>
-        </div>
+        </div> */}
 
-        <Links />
+        {/* <Links /> */}
       </div>
     </>
   )

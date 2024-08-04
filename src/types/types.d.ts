@@ -171,3 +171,19 @@ export type FeedbackCidadesProps = {
     batalhao: number;
     date: string;
 }
+
+export interface ModeloProcessoProps {
+    id: string
+    titulo: string
+    pessoa: string
+    dataInicio: string
+    dataTermino: string
+    status: boolean
+    etapas: {
+        fase: number
+        nome: string
+        observacao?: string
+        data?: Date
+        situacao: boolean
+    }[]
+}

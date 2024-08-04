@@ -24,7 +24,9 @@ export const theme = {
     boxShadow: {
       shape:
         "0px 8px 8px rgba(0, 0, 0, 0.1), 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 2px 2px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(0, 0, 0, 0.1), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.03), inset 0px 1px 0px rgba(255, 255, 255, 0.03)",
-    },
+      innerShadow:
+        "rgba(0, 0, 0) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0.5) -3px -3px 6px 1px inset;",
+      },
     keyframes: {
       slideDownAndFade: {
         from: { opacity: 0, transform: 'translateY(-2px)' },
