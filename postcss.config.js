@@ -6,8 +6,8 @@ module.exports = {
     // 'postcss-preset-env': {
     //   features: { 'nesting-rules': false },
     // },
-    'postcss-reporter': {
-      clearReportedMessages: true,
-    },
+    // 'postcss-reporter': {
+    //   clearReportedMessages: true,
+    // },
   }
 }
