@@ -15,19 +15,21 @@ import {
 import DropdownButton from "./DropdownButton";
 import { TbClockSearch } from "react-icons/tb";
 import { FaRegChartBar } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  const pathname = usePathname()
   const openSideMenu = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
   return (
+    pathname !== "/" &&
     <div className="flex shadow-container mb-6">
       <div className="flex w-full justify-between items-center py-6 px-10">
         {/* START LOGO */}
         <div>
-          <Logo />
+          <Logo type="normal" />
         </div>
         {/* END LOGO */}
 

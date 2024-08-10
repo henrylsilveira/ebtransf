@@ -1,10 +1,12 @@
-import Link from "next/link";
+'use client'
+import { usePathname } from "next/navigation";
 import { Logo } from "../Logo";
-import { MdDoubleArrow } from "react-icons/md";
 import LinkFooter from "./LinkFooter";
 
 export default function Footer() {
+    const pathname = usePathname()
     return (
+        pathname !== "/" &&
         <div className="flex flex-1 flex-col shadow-container">
             <div className="py-2 flex sm:flex-row flex-col mx-auto sm:mx-0 justify-evenly gap-6 items-center"> 
                 <div className="md:mt-4">

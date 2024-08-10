@@ -1,18 +1,25 @@
 'use client'
-
-import Script from "next/script";
-import CalcTransferencia from "@/components/transfGratRep/Transferencia";
-import CalcRepresentacao from "@/components/transfGratRep/Representacao";
-import { useState } from 'react'
-import React from "react";
+import { Logo } from "@/components/Logo";
+import { createClient } from "@/prismicio";
+import { PrismicImage } from "@prismicio/react";
 import Link from "next/link";
-import { MdOutlineKeyboardDoubleArrowRight, MdOutlinePrivacyTip } from "react-icons/md";
-import { BsCalculator, BsDatabaseCheck } from "react-icons/bs";
-import { Links } from "@/components/Links";
-import { Logo3d } from "@/components/Logo3d";
+import Script from "next/script";
+import { MdDoubleArrow } from "react-icons/md";
 
+import MenuHome from "@/components/MenuHome";
+import DropdownButton from "@/components/header/DropdownButton";
+import { Suspense } from "react";
+import { Loader } from "@/components/Loader/Loader";
 
-export default function Home() {
+export default async function Home() {
+  const prismicClient = createClient();
+  const [posts] = await Promise.all([
+    await prismicClient.getAllByType("ebcalcnoticia").catch(e => {
+      console.error(e);
+      return [];
+    }),
+  ])
+
   return (
     <>
       <title>EBCalc</title>
@@ -26,36 +33,33 @@ export default function Home() {
         </Script>
         <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
           crossOrigin="anonymous" />
-        <>
-
-          <Logo3d />
-        </>
-
-        {/* <div className="flex flex-1 items-center justify-center mb-6 flex-col">
-          <h1 className="text-green-600 font-bold uppercase text-xl">Calculadoras e Ferramentas para Militares do Exército</h1>
-          <article>
-            <h1 className="text-green-600 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center"><MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Transferências</h1>
-            <p className="font-light text-gray-300 text-justify py-4">
-              As transferências dos militares do Exército se referem à movimentação de militares de um local ou unidade para outro dentro da estrutura da Força Terrestre do país. Essas transferências podem ocorrer por diversas razões e podem envolver mudanças de base, unidades, regiões ou até mesmo funções específicas. As transferências são uma prática comum nas forças armadas e podem ser motivadas por uma variedade de fatores, como necessidades operacionais, promoções, redistribuição de pessoal, aprimoramento da carreira, entre outros.
-              As transferências podem ser solicitadas pelos próprios militares, quando desejam ou precisam ser movidos para uma nova localidade ou unidade, ou podem ser determinadas pela hierarquia militar para atender às demandas e necessidades organizacionais. Elas fazem parte da dinâmica de funcionamento das forças armadas e podem influenciar a vida e a carreira dos militares, incluindo suas famílias, considerando as mudanças de localidade.
-            </p>
-
-          </article>
-          <article>
-            <h1 className="text-green-600 font-bold uppercase pt-3 border-b border-green-600 flex flex-1 items-center"><MdOutlineKeyboardDoubleArrowRight className="text-green-600 pr-1 text-2xl" />Gratificação de Representação</h1>
-            <p className="font-light text-gray-300 text-justify py-4">
-              A "Gratificação de Representação" é um tipo de remuneração ou benefício que pode ser concedido a certos cargos ou posições dentro de uma organização, incluindo as forças armadas. Ela é destinada a compensar os custos adicionais associados à representação oficial de um indivíduo ou ao desempenho de funções que envolvem responsabilidades específicas de representação.
-
-              No contexto militar, a Gratificação de Representação pode ser concedida a militares que ocupam cargos ou posições que exigem interações frequentes com outras organizações, representação em eventos oficiais, representação do Exército ou da unidade perante o público ou outros deveres similares que vão além das tarefas regulares de um militar.
-
-              Essa gratificação pode incluir benefícios financeiros adicionais, como um adicional no salário, ou outros tipos de compensações, como alojamento diferenciado, ajuda de custo para viagens ou outras formas de apoio para cumprir as responsabilidades de representação.
-
-              Lembrando que as políticas e práticas podem variar entre diferentes organizações e países, então é importante consultar os regulamentos e informações específicas da instituição em questão para obter detalhes precisos sobre como a Gratificação de Representação é implementada e quem é elegível para recebê-la.</p>
-
-          </article>
-        </div> */}
-
-        {/* <Links /> */}
+        <Suspense fallback={<Loader loadingPage />}>
+          <div className="flex flex-1 flex-col items-center justify-center bg-gray-950 w-screen h-screen overflow- bg-[url('/bg.svg')] bg-no-repeat bg-center">
+            <div className="relative w-[600px] h-[600px] flex items-center justify-center flex-col gap-6">
+              <div>
+                <Logo type="grande" />
+              </div>
+              <MenuHome />
+            </div>
+            <div className="flex justify-center flex-col gap-12 mx-auto">
+              <div className="flex shadow-shape rounded-xl bg-gray-900 w-60 mx-auto">
+                <h1 className="text-white text-lg font-bold px-9">Notícias Militares</h1>
+              </div>
+              <div className="grid md:grid-cols-4 lg:grid-cols-5 grid-cols-1 ml-[400px] gap-y-6">
+                {posts.map(post => (
+                  <div key={post.id} className="flex flex-1 relative -ml-[200px] bg-gray-900 w-[460px] shadow-shape group rounded hover:transform hover:scale-105 z-0 hover:z-20 hover:translate-x-8 hover:translate-y-8 transition-all ease-in-out duration-500">
+                    <PrismicImage field={post.data.image} className="w-full h-full overflow-hidden rounded shadow-container" />
+                    <div className="group-hover:bg-black/80 absolute bottom-0 left-0 p-4 overflow-hidden hidden group-hover:block transition-all ease-in-out duration-500">
+                      <h1 className=" text-white">{post.data.titulonoticia}</h1>
+                      <p className=" text-gray-400 text-xs">{post.data.subtitulo}</p>
+                      <Link className="text-gray-400 hover:text-white focus:outline-none hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-800 after:duration-500 transition-all duration-500 outline-none pr-2.5 border-r border-r-green-700 last:border-none flex items-center gap-2" href={`/noticias/${post.uid}`}><MdDoubleArrow />Ler mais</Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Suspense>
       </div>
     </>
   )
