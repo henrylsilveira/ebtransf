@@ -27,7 +27,7 @@ export default async function Home() {
         <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
           crossOrigin="anonymous" />
         <Suspense fallback={<Loader loadingPage />}>
-          <div className="flex flex-1 flex-col items-center justify-center bg-gray-950 w-screen h-screen overflow- bg-[url('/bg.svg')] bg-no-repeat bg-center">
+          <div className="flex flex-1 flex-col items-center justify-center bg-gray-950 w-screen sm:h-full py-4 bg-[url('/bg.svg')] bg-no-repeat bg-center">
             <div className="relative w-[600px] h-[600px] flex items-center justify-center flex-col gap-6">
               <div>
                 <Logo type="grande" />
@@ -37,7 +37,10 @@ export default async function Home() {
 
               </div>
             </div>
+            <div className="mx-2">
+
             <Noticia />
+            </div>
           </div>
         </Suspense>
       </div>

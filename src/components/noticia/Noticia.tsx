@@ -19,9 +19,9 @@ export default async function Noticia() {
                     <div className="flex shadow-shape rounded-xl bg-gray-900 w-60 mx-auto">
                         <h1 className="text-white text-lg font-bold px-9">Notícias Militares</h1>
                     </div>
-                    <div className="grid md:grid-cols-4 lg:grid-cols-5 grid-cols-1 gap-y-6 transition-all ease-in duration-500 w-full ">
+                    <div className="grid md:grid-cols-3 lg:grid-cols-5 grid-cols-1 gap-y-6 transition-all ease-in duration-500 w-full ">
                         {posts.slice(0, 5).map(post => (
-                            <div key={post.id} className="flex flex-1 relative sm:ml-0 &:not[first-child]-ml-[200px] bg-gray-900 w-[460px] shadow-shape group rounded hover:transform hover:scale-105 z-0 hover:z-20 hover:translate-x-8 hover:translate-y-8 transition-all ease-in-out duration-500">
+                            <div key={post.id} className="flex flex-1 relative sm:ml-0 &:not[first-child]-ml-[200px] bg-gray-900 sm:max-w-[460px] w-[460px] shadow-shape group rounded hover:transform hover:scale-105 z-0 hover:z-20 hover:translate-x-8 hover:translate-y-8 transition-all ease-in-out duration-500">
                                 <PrismicImage field={post.data.image} className="w-full h-full overflow-hidden rounded shadow-container" />
                                 <div className="group-hover:bg-black/80 absolute bottom-0 left-0 p-4 overflow-hidden hidden group-hover:block transition-all ease-in-out duration-500">
                                     <h1 className=" text-white">{post.data.titulonoticia}</h1>
