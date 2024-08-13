@@ -26,21 +26,17 @@ export default async function Home() {
         </Script>
         <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
           crossOrigin="anonymous" />
-        <Suspense fallback={<Loader loadingPage />}>
-          <div className="flex flex-1 flex-col items-center justify-center bg-gray-950 w-screen sm:h-full py-4 bg-[url('/bg.svg')] bg-no-repeat bg-center">
-            <div className="relative w-[600px] h-[600px] flex items-center justify-center flex-col gap-6">
-              <div>
-                <Logo type="grande" />
-              </div>
-              <div>
-                <LazyDropdownMenu />
-              </div>
+        <div className="flex flex-1 relative flex-col items-center justify-center bg-gray-950 w-screen sm:h-full py-4 bg-[url('/bg.svg')] bg-no-repeat bg-center">
+          <div className="w-[600px] flex items-center justify-center flex-col gap-6">
+            <div>
+              <Logo type="grande" />
             </div>
-            <div className="mx-2">
-              <Noticia />
-            </div>
+            <LazyDropdownMenu />
           </div>
-        </Suspense>
+          <div className="mx-2">
+            <Noticia />
+          </div>
+        </div>
       </div>
     </>
   )
