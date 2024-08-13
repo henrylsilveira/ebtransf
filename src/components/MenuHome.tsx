@@ -21,8 +21,13 @@ export default function MenuHome() {
                         icon: <BsCalculator size={12} />,
                     },
                     {
-                        text: "Contra-cheque",
+                        text: "Contracheque",
                         link: "/calcContraCheque",
+                        icon: <LiaMoneyCheckAltSolid size={14} />,
+                    },
+                    {
+                        text: "Ajuda de Custo",
+                        link: "/calcAjudaCusto",
                         icon: <LiaMoneyCheckAltSolid size={14} />,
                     },
                     {
