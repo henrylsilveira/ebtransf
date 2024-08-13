@@ -1,14 +1,20 @@
+'use client'
 import Link from "next/link";
 import { BsCalculator, BsClock, BsDatabaseCheck } from "react-icons/bs";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
-import { MdOutlinePrivacyTip, MdOutlineRealEstateAgent } from "react-icons/md";
+import { MdOutlinePersonSearch, MdOutlinePrivacyTip, MdOutlineRealEstateAgent } from "react-icons/md";
 import { RiTeamLine } from "react-icons/ri";
 import Suporte from "./feedback/SuportePoppover";
 import { Button } from "./Button";
 import FaleConosco from "./feedback/FaleConosco";
+import { GiModernCity } from "react-icons/gi";
+import { usePathname } from "next/navigation";
 
 export function SideBar() {
+    const pathname = usePathname()
     return (
+        <>
+        {pathname !== "/" &&
         <nav className="fixed sm:w-11 md:w-11 lg:w-11 w-8 top-[25%] backdrop-blur-sm border border-l-0 border-green-500 bg-black py-4 bg-opacity-50 rounded-tr-lg rounded-br-lg z-50">
             <ul>
                 <li>
@@ -21,11 +27,16 @@ export function SideBar() {
                     <Button name="Botão para acessar a calculadora de tempo de serviço" link="/tempoServico" Icon={<BsClock className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
                 </li>
                 <li>
+                    <Button name="Botão para acessar o gerenciador de fatos observados." link="/gerFatosObs" Icon={<MdOutlinePersonSearch className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
+                </li>
+                <li>
+                    <Button name="Botão para acessar o pesquisador de cidades." link="/cidades" Icon={<GiModernCity className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
+                </li>
+                <li>
                     <Button name="Botão para acessar a página Logística" link="/logistica" Icon={<MdOutlineRealEstateAgent className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
                 </li>
                 <li>
                     <Button name="Botão para acessar a tabela com os dados." link="/tabelas" Icon={<BsDatabaseCheck className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
-
                 </li>
                 <li>
                     <Button name="Botão para acessar a página com a política de privacidade" link="/privacyPolicy" Icon={<MdOutlinePrivacyTip className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />} />
@@ -39,12 +50,13 @@ export function SideBar() {
                     </div>
                 </li>
                 <li>
-                    <div className="text-sm justify-center items-center border-0 p-2 flex">
+                    <div className="text-sm justify-center items-center border-0 p-2 flex ">
                         <FaleConosco />
                     </div>
                 </li>
             </ul>
-        </nav>
+        </nav>}
+        </>
     )
 }
 

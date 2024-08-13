@@ -4,12 +4,12 @@ import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { Loader } from "../../Loader/Loader"
 import { saveAs } from 'file-saver';
-import { MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose, MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { nanoid } from 'nanoid'
 import { Material } from "./Material";
 import { ApagarButton } from "@/components/ApagarButton";
 import { EnviarDados } from "@/components/EnviarDados";
-
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 export function LogisticaApoio({ enviar }: { enviar: (data: {data: {},
     tipo:string;
     id:string;}) => void }) {
@@ -45,7 +45,7 @@ export function LogisticaApoio({ enviar }: { enviar: (data: {data: {},
         peso: 0,
     });
 
-    async function exportRegistrosCombustivel() {
+    function exportRegistrosApoio() {
         setLoading(true);
         var fileName = `${new Date().toLocaleString() + "-" + "logisticaApoio"}.logApoio`;
         var fileName2 = `${new Date().toLocaleString() + "-" + "logisticaApoioMaterial"}.logApoioMat`;
@@ -63,7 +63,7 @@ export function LogisticaApoio({ enviar }: { enviar: (data: {data: {},
         saveAs(fileToSave2, fileName2);
         setLoading(false);
     }
-    async function importaRegistrosCombustivel(e: React.ChangeEvent<HTMLInputElement>) {
+    function importaRegistrosLogistica(e: React.ChangeEvent<HTMLInputElement>) {
         setLoading(true);
         if (e.target.files !== null) {
             var reader = new FileReader();
@@ -76,13 +76,45 @@ export function LogisticaApoio({ enviar }: { enviar: (data: {data: {},
         }
         try {
             const registros = JSON.stringify([...logisticaApoio])
-            setLogisticaApoio(JSON.parse(registros))
-            await new Promise((resolve) => {
+            // setLogisticaApoio(JSON.parse(registros))
+            async () => await new Promise((resolve) => {
                 setTimeout(() => {
                     resolve(localStorage.setItem("logisticaApoio", registros));
                 }, 300);
             })
-            toast.success("Registrado com sucesso!", {
+            toast.success("Dados referente a logística importado com sucesso!!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        } catch (error) {
+            toast.error("Erro no envio do registro!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        }
+        setLoading(false);
+    }
+    function importaRegistrosEntradaSaidaMat(e: React.ChangeEvent<HTMLInputElement>) {
+        setLoading(true);
+        if (e.target.files !== null) {
+            var reader = new FileReader();
+            const files = e.target.files[0]
+
+            reader.onload = logFile;
+            reader.readAsText(files)
+        }
+        function logFile(e: any) {
+            setLogisticaApoioMaterial(JSON.parse(e.target.result))
+        }
+        try {
+            const registros = JSON.stringify([...logisticaApoioMaterial])
+            setLogisticaApoioMaterial(JSON.parse(registros))
+            async () => await new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(localStorage.setItem("logisticaApoioMaterial", registros));
+                }, 300);
+            })
+            toast.success("Dados referente a entrada e saída de material importado com sucesso!", {
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
             });
@@ -192,24 +224,62 @@ export function LogisticaApoio({ enviar }: { enviar: (data: {data: {},
                     </div>}
             </form>
             <div className="flex sm:flex-row flex-col sm:justify-between mb-2 gap-2 border-t py-4 border-green-600">
-               
                 <div className="flex sm:flex-row flex-col items-center mx-auto">
                     {loading
                         ? <div className="border-t flex justify-center border-green-700 mt-4 pt-4">
                             <Loader />
                         </div>
                         : <div className="flex sm:flex-row flex-col text-center justify-center gap-4">
-
-                            <ApagarButton funcApagar={apagarRegistros} />
-                            <button type="button" onClick={exportRegistrosCombustivel} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                            <label htmlFor="file" className="hover:bg-green-800 cursor-pointer bg-transparent border text-xs border-green-700 uppercase text-white py-2 px-6 rounded-md">
-                                <input id="file" className="hidden" onChange={importaRegistrosCombustivel} type="file" />
-                                Importar
-                            </label>
                             <EnviarDados enviarFunc={enviar} data={{
                                 tiposMaterial: logisticaApoio,
                                 registroEntradaSaida: logisticaApoioMaterial
                             }} tipo="apoio" />
+                            <DropdownMenu.Root>
+                                <DropdownMenu.Trigger asChild>
+                                    <button
+                                        className="rounded-md flex px-5 items-center justify-center text-white bg-transparent cursor-pointer shadow-[0_2px_10px] shadow-blackA4 outline-none border-green-700 uppercase border border- focus:shadow-[0_0_0_2px] focus:shadow-black"
+                                        aria-label="Customise options"
+                                    >
+                                        <p>Opções</p>
+                                        <MdOutlineKeyboardArrowDown />
+                                    </button>
+                                </DropdownMenu.Trigger>
+
+                                <DropdownMenu.Portal>
+                                    <DropdownMenu.Content 
+                                        className="min-w-[220px] bg-gray-950 border border-green-700 rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                                        sideOffset={5}
+                                    >
+                                        
+                                        <DropdownMenu.Item className="group text-[13px] leading-none text-white rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1">
+                                            <button type="button" onClick={exportRegistrosApoio} >Baixar dados</button>
+                                        </DropdownMenu.Item>
+                                        <DropdownMenu.Item onSelect={event => event.preventDefault()}
+                                            className="group text-[13px] leading-none text-white cursor-pointer rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1" 
+                                        >
+                                            <label htmlFor="file" >
+                                                <input id="file" accept=".logApoio" className="hidden " onChange={importaRegistrosLogistica} type="file" />
+                                                Importar voos
+                                            </label>
+                                        </DropdownMenu.Item>
+                                        <DropdownMenu.Item onSelect={event => event.preventDefault()}
+                                            className="group text-[13px] leading-none text-white cursor-pointer rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1"
+                                        >
+                                            <label htmlFor="fileRegistros" >
+                                                <input id="fileRegistros" accept=".logApoioMat" className="hidden " onChange={importaRegistrosEntradaSaidaMat} type="file" />
+                                                Importar registros entrada e saída
+                                            </label>
+                                        </DropdownMenu.Item>
+                                        <DropdownMenu.Separator className='bg-green-700 h-[1px]  m-[5px]' />
+                                        <DropdownMenu.Item onSelect={event => event.preventDefault()} className="group text-[13px] leading-none text-white rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1">
+                                            <ApagarButton funcApagar={apagarRegistros} />
+                                        </DropdownMenu.Item>
+                                        <DropdownMenu.Arrow className="fill-gray-950" />
+                                    </DropdownMenu.Content>
+                                </DropdownMenu.Portal>
+                            </DropdownMenu.Root>
+                            
+                            
                         </div>}
                 </div>
                
@@ -244,6 +314,12 @@ export function LogisticaApoio({ enviar }: { enviar: (data: {data: {},
                                 Destino
                             </th>
                             <th scope="col" className="px-6 py-3">
+                                Peso
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Capacidade
+                            </th>
+                            <th scope="col" className="px-6 py-3">
                                 Peso Total
                             </th>
                             <th scope="col" className="px-6 py-3">
@@ -267,7 +343,19 @@ export function LogisticaApoio({ enviar }: { enviar: (data: {data: {},
                                     {registro.destino}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {registro.peso}
+                                {logisticaApoioMaterial?.filter(material => material.codigoLogistica === registro.id).reduce((total: number, item: MaterialProps) => {
+                                            return total + (+item.peso);
+                                        }, 0) + "kg"}
+                                </td>
+                                <td className={`px-6 py-4 + ${Number((logisticaApoioMaterial?.filter(material => material.codigoLogistica === registro.id).reduce((total: number, item: MaterialProps) => {
+                                            return total + (+item.peso);
+                                        }, 0) * 100 / registro.peso).toPrecision(2)) < 70 ? "text-green-600" : "text-red-600"}`}>
+                                {(logisticaApoioMaterial?.filter(material => material.codigoLogistica === registro.id).reduce((total: number, item: MaterialProps) => {
+                                            return total + (+item.peso);
+                                        }, 0) * 100 / registro.peso).toPrecision(2) + "%"}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {registro.peso + "kg"}
                                 </td>
                                 <td className="py-4">
                                     <Material materiais={logisticaApoioMaterial} id={registro.id} hookMat={setLogisticaApoioMaterial} />
@@ -278,6 +366,12 @@ export function LogisticaApoio({ enviar }: { enviar: (data: {data: {},
                             <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white">
                                 Total
                             </th>
+                            <td className="px-6 py-4">
+
+                            </td>
+                            <td className="px-6 py-4">
+
+                            </td>
                             <td className="px-6 py-4">
 
                             </td>

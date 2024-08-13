@@ -7,7 +7,7 @@ import { Feedback } from "./feedback/Feedback";
 export function Links() {
     return (
         <>
-                <Feedback />
+                {/* <Feedback /> */}
 
             <div className="mt-4 hover:text-green-600 border text-white border-green-600 rounded-lg ">
                 <Button link="/calculadora" text="Calculadora" Icon={<BsCalculator className="pr-1 text-2xl" />} />

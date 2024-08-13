@@ -3,7 +3,7 @@ import { MdHelp, MdOutlineClose } from "react-icons/md";
 
 export function MenuAjuda() {
     return (
-        <AlertDialog.Root>
+        <AlertDialog.Root aria-controls="guia">
             <AlertDialog.Trigger asChild>
                 <button type="button" className="hover:bg-orange-800 items-center text-xs bg-transparent border border-orange-700 uppercase text-white py-2 px-2 rounded-md flex gap-2"><MdHelp className="w-4 h-4" />Ajuda</button>
             </AlertDialog.Trigger>

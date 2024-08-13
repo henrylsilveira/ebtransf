@@ -1,3 +1,4 @@
+import { cubagemDistancia } from '../utils/valores';
 export type FaleConoscoProps = {
     id?: string;
     email: string;
@@ -53,11 +54,12 @@ export type CombustivelProps = {
 
 export type LogisticaRanchoProps = {
     id: string;
-    idCombustivel: string;
+    idAlimento: string;
     tipo: "entrada" | "saida" | "";
     finalidade?: string;
     data: string;
     quantidade: number;
+    createdAt: string;
 }
 
 export type RanchoProps = {
@@ -80,6 +82,32 @@ export type InstalacaoLogisticaProps = {
     apoio: {}
 }
 
+export type Fato = {
+    id: string;
+    tokenFato?: string;
+    observacao: "positivo" | "negativo";
+    descricao: string;
+    createdAt: string;
+    deleteFo?: boolean;
+    deleteIntegrante?: boolean;
+    integranteId?: string;
+}
+
+export type Integrantes = {
+    id: string;
+    nome: string;
+    createdAt?: string;
+    fatosObservados: Fato[];
+    idGrupo?: string;
+}
+
+export type FatosObservados = {
+    id: string;
+    nomeCurso: string;
+    integrantes: Integrantes[];
+}
+
+
 export type DadosBancoProps = {
     combustivel: {
         tiposCombustivel: CombustivelProps[],
@@ -97,9 +125,65 @@ export type DadosBancoProps = {
     };
     id: string;
     nomeInsta: string;
+    updatedAt: string;
 }
 
 export type TokenProps = { nomeToken: string; token: string }
 
+export type DadosTransferencia = {
+    id?: string;
+    date?: string;
+    pg: string;
+    percHabilitacao: number;
+    locEspecial: number;
+    percMil: number;
+    percDisp: number;
+    distancia: number;
+    cubagemDistancia: number;
+    pgCompensacaoOrganica: string;
+    compensacaoOrganica: number;
+    passagemAdultoValor: number;
+    passagemAdultoQnt: number;
+    passagemCriancaValor: number;
+    passagemCriancaQnt: number;
+    carro: boolean;
+    moto: boolean;
+    especial: boolean;
+    comum: boolean;
+    estadoOrigem: string;
+    estadoDestino: string;
+    cidadeOrigem: string;
+    cidadeDestino: string;
+}
 
+export type FeedbackCidadesProps = {
+    id?: string;
+    estado: string;
+    cidade:string;
+    texto: string;
+    saude: number;
+    educacao: number;
+    trabalho: number;
+    seguranca: number;
+    infraEstrutura: number;
+    pnr: number;
+    custoVida: number;
+    batalhao: number;
+    date: string;
+}
 
+export interface ModeloProcessoProps {
+    id: string
+    titulo: string
+    pessoa: string
+    dataInicio: string
+    dataTermino: string
+    status: boolean
+    etapas: {
+        fase: number
+        nome: string
+        observacao?: string
+        data?: Date
+        situacao: boolean
+    }[]
+}

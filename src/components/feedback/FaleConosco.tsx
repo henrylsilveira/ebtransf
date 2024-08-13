@@ -57,9 +57,9 @@ export default function FaleConosco() {
     };
 
     return (
-        <AlertDialog.Root>
+        <AlertDialog.Root aria-controls="fale-conosco">
             <AlertDialog.Trigger asChild>
-                <div className="flex items-center">
+                <div className="flex items-center cursor-pointer">
                     <MdMessage className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />
                 </div>
             </AlertDialog.Trigger>
@@ -81,14 +81,14 @@ export default function FaleConosco() {
                     <div>
                         <form onSubmit={handleSubmit}>
                             <div className="relative z-0 mb-4  w-full group">
-                                <input name="email" id="email" type="email" onChange={handleChange} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
+                                <input name="email" id="email" type="email" onChange={handleChange} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
                                 <label htmlFor="email" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
                             </div>
                             <div className="relative z-0  w-full group">
                                 <label htmlFor="mensagem" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Deixe sua ideia</label>
-                                <textarea name="mensagem" onChange={handleChange} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
+                                <textarea name="mensagem" onChange={handleChange} className="dark:focus:bg-gray-900 leading-tight focus:bg-transparent block py-2.5 px-0 w-full text-md text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
                             </div>
-                            <Feedback />
+                            
                             {Cookies.get('faleConosco') == "true"
                                 ? <div className="border-t flex justify-center border-green-700 mt-4 pt-4 text-red-700">
                                     <div className="flex items-center align-middle mr-4">

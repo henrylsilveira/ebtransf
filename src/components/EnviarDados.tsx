@@ -24,17 +24,21 @@ export function EnviarDados({ enviarFunc, data, tipo }: {
     }
 
     return (
-        <AlertDialog.Root>
+        <AlertDialog.Root aria-controls="EnviarDados">
             <AlertDialog.Trigger asChild>
                 <div className="w-full flex">
                     {loading ? <Loader /> :
-                        <button type="button" className="hover:bg-blue-800 w-full items-center text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex gap-2 justify-center"><p className="flex"><MdSend className="w-4 h-4" />Enviar</p></button>
+                        <button type="button" className="hover:bg-blue-800 w-full items-center bg-transparent border border-blue-700 uppercase text-white py-2 px-2 rounded-md flex gap-2 justify-center">
+                                <MdSend className="w-4 h-4" />Enviar
+                            <p className="flex text-center">
+                            </p>
+                            </button>
                     }
                 </div>
             </AlertDialog.Trigger>
             <AlertDialog.Portal>
                 <AlertDialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
-                <AlertDialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[180vw] max-w-[800px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-backgroundColor border border-green-700 p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+                <AlertDialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[80vw] max-w-[600px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-backgroundColor border border-green-700 p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
                     <AlertDialog.Title className="text-green-700 m-0 text-2xl font-medium">
                         Enviar registros para o Banco de Dados
                     </AlertDialog.Title>

@@ -29,6 +29,8 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
     const db = getFirestore(app);
+    const date = new Date()
+    const timestamp = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString()
     const { data } = await request.json() as {
         data: {
             data: {},
@@ -39,7 +41,8 @@ export async function PUT(request: NextRequest) {
 
     try {
         await updateDoc(doc(db, "instalacao", data.id), {
-            [data.tipo]: data.data
+            [data.tipo]: data.data,
+            updatedAt: timestamp
         });
         return NextResponse.json({ status: true, message: "Mensagem enviada!" })
     } catch (error) {

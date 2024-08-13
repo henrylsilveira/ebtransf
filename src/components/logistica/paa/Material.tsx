@@ -6,6 +6,7 @@ import { BsEye } from "react-icons/bs";
 import { MdOutlineClose } from "react-icons/md";
 import { Loader } from "../../Loader/Loader";
 import { toast } from "react-toastify";
+import { removerObjetoPorID } from "@/utils/scripts";
 
 export function Material({ materiais, id, hookMat, painel }: { materiais: MaterialProps[], id: string, hookMat?: Function, painel?: boolean }) {
     // const [visualizarRegistrosMateriais, setVisualizarRegistrosCombustivel] = useState<ConsumoGeradorProps[]>([])
@@ -19,6 +20,32 @@ export function Material({ materiais, id, hookMat, painel }: { materiais: Materi
         destinatario: "",
         peso: 0,
     });
+
+    async function apagarDado(idDado: string) {
+        setLoading(true);
+        const newArray = removerObjetoPorID(materiais, idDado)
+        try {
+            if (hookMat) {
+                await hookMat(newArray)
+            }
+            const registros = JSON.stringify(materiais)
+            await new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(localStorage.setItem("logisticaApoioMaterial", registros));
+                }, 300);
+            })
+            toast.success("Registro removido com sucesso!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        } catch (error) {
+            toast.error("Erro ao remover o registro!", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "dark",
+            });
+        }
+        setLoading(false);
+    }
 
     const handleSubmitMaterial = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -100,18 +127,21 @@ export function Material({ materiais, id, hookMat, painel }: { materiais: Materi
                                         <input type="text" name="nome" onChange={handleChange} id="nome" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                         <label htmlFor="nome" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nome</label>
                                     </div>
+                                    <span className="text-xs text-gray-600">Ex: Mala, isopor, arrroz</span>
                                 </div>
                                 <div>
                                     <div className="relative z-0 w-full group flex items-center">
                                         <input type="text" name="destinatario" onChange={handleChange} id="destinatario" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                         <label htmlFor="destinatario" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Destinatário</label>
                                     </div>
+                                    <span className="text-xs text-gray-600">Ex: Rancho, Enc Mat, Nome do Militar</span>
                                 </div>
                                 <div>
                                     <div className="relative z-0 w-full group flex items-center">
                                         <input type="number" name="peso" onChange={handleChange} id="peso" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 [appearance:textfield] dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                         <label htmlFor="peso" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Peso</label>
                                     </div>
+                                    <span className="text-xs text-gray-600">Peso em Kg</span>
                                 </div>
 
                             </div>
@@ -124,38 +154,27 @@ export function Material({ materiais, id, hookMat, painel }: { materiais: Materi
                                 </div>}
                         </form> : <></>
                     }
-
-
-                    {/* <div className="flex flex-1 justify-between pb-2 gap-4">
-                            <label htmlFor="fileVisualizar" className="hover:bg-orange-800 cursor-pointer block bg-transparent border text-sm border-orange-700 uppercase text-white py-2 px-6 rounded-md">
-                                <input id="fileVisualizar" className="hidden" onChange={VisualizarRegistrosCombustivel} type="file" />
-                                Visualizar
-                            </label>
-                            <button type="button" onClick={() => setVisualizarRegistrosCombustivel([])} className="hover:bg-blue-800 bg-transparent border text-sm border-blue-700 uppercase text-white py-2 px-6 rounded-md">
-                                Apagar
-                            </button>
-                        </div> */}
                     <div className="my-2 flex justify-center w-full">
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="text-xs sticky text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">
                                 <div className="w-full">
                                     <tr className="w-full flex flex-wrap justify-between flex-row flex-1 items-center">
-                                        <th scope="col" className="px-6 py-3 w-1/5">
+                                        <th scope="col" className="px-6 py-3 w-1/6">
                                             Id Item
                                         </th>
-                                        <th scope="col" className="px-6 py-3 w-1/5">
+                                        <th scope="col" className="px-6 py-3 w-1/6">
                                             Código Aeronave
                                         </th>
-                                        <th scope="col" className="px-6 py-3 w-1/5">
+                                        <th scope="col" className="px-6 py-3 w-1/6">
                                             Nome do Material
                                         </th>
-                                        <th scope="col" className="px-6 py-3 w-1/5">
+                                        <th scope="col" className="px-6 py-3 w-1/6">
                                             Destinatário
                                         </th>
-                                        <th scope="col" className="px-6 py-3 w-1/5">
+                                        <th scope="col" className="px-6 py-3 w-1/6">
                                             Peso
                                         </th>
-                                        <th scope="col" className="px-6 py-3 w-1/5">
+                                        <th scope="col" className="px-6 py-3 w-1/12">
 
                                         </th>
                                     </tr>
@@ -165,49 +184,51 @@ export function Material({ materiais, id, hookMat, painel }: { materiais: Materi
                                 <div className="w-full overflow-y-scroll max-h-96">
                                     {materiais?.filter(material => material.codigoLogistica === id).map((material, index) => (
                                         <tr key={index} className="w-full flex flex-wrap justify-between odd:bg-gray-900 odd:dark:bg-gray-900 dark:hover:bg-green-700/30 even:bg-gray-800 even:dark:bg-gray-800 border-b border-gray-700 dark:border-gray-700">
-                                            <th scope="col" className="px-6 py-1 w-1/5 font-medium text-white whitespace-nowrap dark:text-white">
+                                            <th scope="col" className="px-6 py-1 w-1/6 font-medium text-white whitespace-nowrap dark:text-white">
                                                 {material.id}
                                             </th>
-                                            <td scope="col" className="px-6 py-1 w-1/5">
+                                            <td scope="col" className="px-6 py-1 w-1/6">
                                                 {id}
                                             </td>
-                                            <td scope="col" className="px-6 py-1 w-1/5">
+                                            <td scope="col" className="px-6 py-1 w-1/6">
                                                 {material.nome}
                                             </td>
-                                            <td scope="col" className="px-6 py-1 w-1/5">
+                                            <td scope="col" className="px-6 py-1 w-1/6">
                                                 {material.destinatario}
                                             </td>
-                                            <td scope="col" className="px-6 py-1 w-1/5">
+                                            <td scope="col" className="px-6 py-1 w-1/6">
                                                 {material.peso} Kg
                                             </td>
-                                            <td scope="col" className="px-6 py-1 w-1/5">
-
+                                            <td scope="col" className="px-6 py-1 w-1/12">
+                                                {painel ? <></> :
+                                                    <button type="button" onClick={() => apagarDado(material.id)} className="hover:bg-red-800 text-xs  bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md flex justify-center"><MdOutlineClose className="mx-auto w-4 h-4" /></button>
+                                                }
                                             </td>
+
                                         </tr>
                                     ))}
 
                                 </div>
 
                                 <tr className="odd:bg-gray-900 w-full flex flex-wrap justify-between odd:dark:bg-gray-900 even:bg-gray-800 even:dark:bg-gray-800 border-b border-gray-700 items-center dark:border-gray-700">
-                                    <th scope="row" className="px-6 py-2 w-1/5 font-medium text-white whitespace-nowrap dark:text-white">
+                                    <th scope="row" className="px-6 py-2 w-1/6 font-medium text-white whitespace-nowrap dark:text-white">
                                         Total
                                     </th>
-                                    <td className="px-6 w-1/5">
+                                    <td className="px-6 w-1/6">
                                     </td>
-                                    <td className="px-6 w-1/5">
+                                    <td className="px-6 w-1/6">
                                     </td>
-                                    <td className="px-6 w-1/5">
+                                    <td className="px-6 w-1/6">
                                     </td>
-                                    <td className="px-6 w-1/5 text-white">
+
+                                    <td className="px-6 w-1/6 text-white">
                                         {materiais?.filter(material => material.codigoLogistica === id).reduce((total: number, item: MaterialProps) => {
                                             return total + (+item.peso);
                                         }, 0) + "kg"}
                                     </td>
-                                    <td className="px-6 w-1/5">
+                                    <td className="px-6 w-1/12">
                                     </td>
                                 </tr>
-
-
                             </tbody>
                         </table>
                     </div>

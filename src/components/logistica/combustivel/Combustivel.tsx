@@ -1,14 +1,16 @@
 'use client'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { CombustivelProps, LogisticaApoioProps, LogisticaCombustivelProps } from "@/types/types"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { Loader } from "../../Loader/Loader"
 import { saveAs } from 'file-saver';
-import { MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose, MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { nanoid } from 'nanoid'
 import { LogisticaCombustivel } from "./LogisticaCombustivel";
 import { ApagarButton } from "@/components/ApagarButton"
 import { EnviarDados } from "@/components/EnviarDados"
+
 
 export function Combustivel({ enviar }: {
     enviar: (data: {
@@ -229,38 +231,72 @@ export function Combustivel({ enviar }: {
                             <Loader />
                         </div>
                         : <div className="flex sm:flex-row flex-col text-center justify-center gap-4">
-
-                            <ApagarButton funcApagar={apagarRegistros} />
-                            <button type="button" onClick={exportRegistrosCombustivel} className="hover:bg-blue-800 text-xs bg-transparent border border-blue-700 uppercase text-white py-2 px-6 rounded-md">Exportar</button>
-                            <label htmlFor="file" className="hover:bg-green-800 cursor-pointer bg-transparent border flex items-center justify-center text-xs border-green-700 uppercase text-white py-2 px-6 text-center rounded-md">
-                                <input id="file" accept=".comb" className="hidden" onChange={importaRegistrosCombustivel} type="file" />
-                                Importar
-                            </label>
-                            <label htmlFor="fileRegistros" className="hover:bg-green-800 cursor-pointer bg-transparent border text-xs border-green-700 uppercase text-white py-2 px-6 rounded-md">
-                                <input id="fileRegistros" accept=".regComb" className="hidden" onChange={importaRegistrosEntradaSaidaCombustivel} type="file" />
-                                Importar Registros
-                            </label>
                             <EnviarDados enviarFunc={enviar} data={{
                                 tiposCombustivel: registroCombustivel,
                                 registroEntradaSaida: registroEntradaSaidaCombustivel
                             }} tipo="combustivel" />
+                            <DropdownMenu.Root>
+                                <DropdownMenu.Trigger asChild>
+                                    <button
+                                        className="rounded-md flex px-5 items-center justify-center text-white bg-transparent cursor-pointer shadow-[0_2px_10px] shadow-blackA4 outline-none border-green-700 uppercase border border- focus:shadow-[0_0_0_2px] focus:shadow-black"
+                                        aria-label="Customise options"
+                                    >
+                                        <p>Opções</p>
+                                        <MdOutlineKeyboardArrowDown />
+                                    </button>
+                                </DropdownMenu.Trigger>
+
+                                <DropdownMenu.Portal>
+                                    <DropdownMenu.Content
+                                        className="min-w-[220px] bg-gray-950 border border-green-700 rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                                        sideOffset={5}
+                                    >
+
+                                        <DropdownMenu.Item className="group text-[13px] leading-none text-white rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1">
+                                            <button type="button" onClick={exportRegistrosCombustivel} >Baixar dados</button>
+                                        </DropdownMenu.Item>
+                                        <DropdownMenu.Item onSelect={event => event.preventDefault()}
+                                            className="group text-[13px] leading-none text-white cursor-pointer rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1"
+                                        >
+                                            <label htmlFor="file" >
+                                                <input id="file" accept=".comb" className="hidden " onChange={importaRegistrosCombustivel} type="file" />
+                                                <p className='cursor-pointer'>Importar combustíveis</p>
+                                            </label>
+                                        </DropdownMenu.Item>
+                                        <DropdownMenu.Item onSelect={event => event.preventDefault()}
+                                            className="group text-[13px] leading-none text-white cursor-pointer rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1"
+
+                                        >
+                                            <label htmlFor="fileRegistros" >
+                                                <input id="fileRegistros" accept=".regComb" className="hidden " onChange={importaRegistrosEntradaSaidaCombustivel} type="file" />
+                                                <p className='cursor-pointer'>Importar registros entrada e saída</p>
+                                            </label>
+                                        </DropdownMenu.Item>
+                                        <DropdownMenu.Separator className='bg-green-700 h-[1px]  m-[5px]' />
+                                        <DropdownMenu.Item onSelect={event => event.preventDefault()} className="group text-[13px] leading-none text-white rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-600 data-[highlighted]:text-violet1">
+                                            <ApagarButton funcApagar={apagarRegistros} />
+                                        </DropdownMenu.Item>
+                                        <DropdownMenu.Arrow className="fill-gray-950" />
+                                    </DropdownMenu.Content>
+                                </DropdownMenu.Portal>
+                            </DropdownMenu.Root>
                         </div>}
                 </div>
-               
+
             </div>
             <div className="p-2">
                 <p className="text-red-600">Importante</p>
                 <p className="text-gray-500">Mantenha sempre seus dados salvos em um arquivo clicando em exportar para fazer o download pois todos os dados são armazenados no seu navegador localmente não tendo acesso em outros computadores. Caso queira importar um arquivo saiba que esse irá sobrescrever os que já existem.</p>
             </div>
             <div className="mx-2 my-2 flex justify-between">
-                    <div className="relative z-0 group flex items-center">
-                        <input type="number" name="qntRegistros" value={qntRegistros} onChange={e => setQntRegistros(Number(e.target.value))} id="qntRegistros" className="block w-10 [appearance:textfield] py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
-                        <label htmlFor="qntRegistros" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Registros</label>
-                    </div>
-                    <div className="flex items-center">
-                        <p className="text-white">Total registros: {registroCombustivel.length}</p>
-                    </div>
+                <div className="relative z-0 group flex items-center">
+                    <input type="number" name="qntRegistros" value={qntRegistros} onChange={e => setQntRegistros(Number(e.target.value))} id="qntRegistros" className="block w-10 [appearance:textfield] py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
+                    <label htmlFor="qntRegistros" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Registros</label>
                 </div>
+                <div className="flex items-center">
+                    <p className="text-white">Total registros: {registroCombustivel.length}</p>
+                </div>
+            </div>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-white uppercase bg-green-700 dark:bg-green-700 dark:text-white">

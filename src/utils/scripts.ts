@@ -1,5 +1,5 @@
-import { differenceInCalendarYears, differenceInCalendarMonths, differenceInCalendarDays } from "date-fns"
-import { soldo } from "./valores"
+import { DadosTransferencia, FeedbackCidadesProps } from "@/types/types"
+import { dependenteIR, impostoRenda, soldo } from "./valores"
 
 export function formataValor(price: number, discount?: number) {
     return new Intl.NumberFormat("pt-BR", {
@@ -126,48 +126,48 @@ export function calcularDiferencaAtual(data: any, dataT?: any) {
     let dataAtual
     let difAno = 0
     let difMes = 0
-    let difDia = 0 
-    if(dataT){
+    let difDia = 0
+    if (dataT) {
         dataAtual = dataT.split("-");
-    }else{
-       dataAtual = new Date();
-       dataAtual = dataAtual.toISOString().split("-") 
+    } else {
+        dataAtual = new Date();
+        dataAtual = dataAtual.toISOString().split("-")
     }
-    
+
     // const dias = differenceInCalendarDays(dataAtual, dataFornecidaObj);
 
     const partesDaDataAtual = dataAtual;
     const anoA = parseInt(partesDaDataAtual[0], 10);
     const mesA = parseInt(partesDaDataAtual[1], 10);
     const diaA = parseInt(partesDaDataAtual[2], 10);
-    if(ano == anoA && (mes >= mesA && dia > diaA) ){
-        return { message: "Não utilize datas futuras."}
+    if (ano == anoA && (mes >= mesA && dia > diaA)) {
+        return { message: "Não utilize datas futuras." }
     }
 
-    if(anoA >= ano){
+    if (anoA >= ano) {
         difAno = anoA - ano
-    }else{
-        return { message: "Não utilize datas futuras."}
+    } else {
+        return { message: "Não utilize datas futuras." }
     }
 
-    if(mesA >= mes){
+    if (mesA >= mes) {
         difMes = mesA - mes
-    }else{
+    } else {
         difMes = mesA - mes + 12
         difAno--
     }
-    if(diaA >= dia){
+    if (diaA >= dia) {
         difDia = diaA - dia
-    }else{
+    } else {
         difDia = diaA - dia + 30
         difMes--
     }
 
-    if(difAno < 0 || difMes < 0 || difDia < 0 ){
-        return { message: "Não utilize datas futuras."}
+    if (difAno < 0 || difMes < 0 || difDia < 0) {
+        return { message: "Não utilize datas futuras." }
     }
 
-    return { ano: difAno, mes: difMes, dia: difDia, totalDias: difAno*365 + difMes*30 + difDia};
+    return { ano: difAno, mes: difMes, dia: difDia, totalDias: difAno * 365 + difMes * 30 + difDia };
 }
 
 interface ObjectProps {
@@ -182,4 +182,179 @@ export function removerObjetoPorID(array: ObjectProps[], id: string): ObjectProp
     }
 
     return array;
+}
+
+export function converterParaFormatoPadrao(dataISO: string) {
+    // Criar um objeto de data a partir da string ISO
+    const data = new Date(dataISO);
+
+    // Obter componentes da data
+    const dia: number = data.getDate();
+    const mes: number = data.getMonth() + 1; // Mês é base 0, então adicionamos 1
+    const ano: number = data.getFullYear();
+    const horas: number = data.getHours();
+    const minutos: number = data.getMinutes();
+
+    // Adicionar zero à esquerda se for necessário
+    const diaFormatado: string = dia < 10 ? '0' + dia : dia.toString();
+    const mesFormatado: string = mes < 10 ? '0' + mes : mes.toString();
+    const horasFormatadas: string = horas < 10 ? '0' + horas : horas.toString();
+    const minutosFormatados: string = minutos < 10 ? '0' + minutos : minutos.toString();
+
+    // Formatar a data no padrão "Dia/mês/ano Horas:Minutos"
+    const formatoPadraoComHorario: string =
+        diaFormatado + '/' + mesFormatado + '/' + ano + ' ' + horasFormatadas + ':' + minutosFormatados;
+
+    return formatoPadraoComHorario;
+}
+
+export function retornaTimeStamp(): string {
+    const date = new Date()
+    const timestamp = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString()
+
+    return timestamp
+}
+
+export function generateNowISOTime() {
+    const time = new Date();
+    return time.toISOString();
+}
+
+export function convertDate(iso: string | number | Date) {
+    const d = new Date(iso);
+    const convertDate = d.toLocaleDateString("pt-BR");
+    return convertDate;
+}
+
+export function formatarDataHora(iso: string | number | Date) {
+    const data = new Date(iso);
+    return data.toLocaleString("pt-BR");
+}
+
+export function hasFiveMinutesPassed(isoDateTime: string): number {
+    // Converte a string em formato ISO para um objeto Date
+    const providedDateTime = new Date(isoDateTime);
+
+    // Obtém a data e hora atual
+    const currentDateTime = new Date();
+
+    // Calcula a diferença de tempo em milissegundos
+    const timeDifference = currentDateTime.getTime() - providedDateTime.getTime();
+
+    // Converte a diferença de tempo de milissegundos para minutos
+    const timeDifferenceInMinutes = timeDifference / (1000 * 60);
+
+    // Retorna true se já se passaram 5 minutos ou mais
+    return timeDifferenceInMinutes;
+}
+
+export function getTimeRemainingForFiveMinutes(isoDateTime: string): number {
+    // Converte a string em formato ISO para um objeto Date
+    const providedDateTime = new Date(isoDateTime);
+
+    // Obtém a data e hora atual
+    const currentDateTime = new Date();
+
+    // Calcula a diferença de tempo em milissegundos
+    const timeDifferenceInMilliseconds = currentDateTime.getTime() - providedDateTime.getTime();
+
+    // Duração de 5 minutos em milissegundos
+    const fiveMinutesInMilliseconds = 5 * 60 * 1000;
+
+    // Calcula o tempo restante para completar 5 minutos
+    const timeRemaining = fiveMinutesInMilliseconds - timeDifferenceInMilliseconds;
+
+    // Se já se passaram mais de 5 minutos, retorne 0
+    if (timeRemaining <= 0) {
+        return 0;
+    }
+
+    // Converte o tempo restante de milissegundos para segundos e retorne
+    return timeRemaining / 1000;
+}
+
+export function returnCitiesOrigem(cities: DadosTransferencia[]) {
+    const arrayCities = cities.map(city => city.cidadeOrigem)
+    return [...new Set(arrayCities)].sort((x, y) => {
+        let a = x,
+            b = y;
+        return a == b ? 0 : a > b ? 1 : -1;
+    })
+}
+
+export function returnCitiesDestino(cities: DadosTransferencia[]) {
+    const arrayCities = cities.map(city => city.cidadeDestino)
+    return [...new Set(arrayCities)].sort((x, y) => {
+        let a = x,
+            b = y;
+        return a == b ? 0 : a > b ? 1 : -1;
+    })
+}
+
+export function returnCountCities(cities: DadosTransferencia[]) {
+    const arrayCities = cities.map(city => city.cidadeDestino + " | " + city.estadoDestino)
+    const arrayCitiesO = cities.map(city => city.cidadeOrigem + " | " + city.estadoOrigem)
+    const allCities = [...new Set([...arrayCities, ...arrayCitiesO])]
+
+    return allCities.map(city => {
+        return {
+            city: city,
+            countDestino: arrayCities.filter(c => c === city).length,
+            countOrigem: arrayCitiesO.filter(c => c === city).length,
+            count: arrayCities.filter(c => c === city).length + arrayCitiesO.filter(c => c === city).length
+        }
+    })
+}
+export function returnFeedbackCities(cities: FeedbackCidadesProps[]) {
+    const arrayCities = cities?.map(city => city.cidade + " | " + city.estado)
+    const allCities = [...new Set([...arrayCities])]
+
+    return allCities.map(city => {
+        const totalArrayCidades = cities.filter(c => c.cidade + " | " + c.estado === city).length
+        return {
+            city: city,
+            educacao: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.educacao : accumulator }, 0) / totalArrayCidades,
+            saude: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.saude : accumulator }, 0) / totalArrayCidades,
+            trabalho: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.trabalho : accumulator }, 0) / totalArrayCidades,
+            seguranca: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.seguranca : accumulator }, 0) / totalArrayCidades,
+            infraEstrutura: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.infraEstrutura : accumulator }, 0) / totalArrayCidades,
+            pnr: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.pnr : accumulator }, 0) / totalArrayCidades,
+            custoVida: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.custoVida : accumulator }, 0) / totalArrayCidades,
+            batalhao: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.batalhao : accumulator }, 0) / totalArrayCidades,
+        }
+    })
+}
+
+export function parseISODate(isoDate?: string) {
+    const date = new Date(isoDate ? isoDate : new Date());
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Os meses em JavaScript vão de 0 a 11, então é necessário adicionar 1
+    const day = date.getDate();
+
+    return {
+        ano: year,
+        mes: month,
+        dia: day
+    };
+}
+
+export function calculaImpostoRenda(valorBruto: number, descontos: number, dependentes: number): {
+    aliquota: number, deducao: number, baseCalculo: number, impostoRenda: number
+} {
+    const baseCalculo = valorBruto - descontos - (dependentes * dependenteIR);
+    let faixa: { aliquota: number, deducao: number } = { aliquota: 0, deducao: 0 }
+
+    for (let index = 0; index < impostoRenda.length; index++) {
+        if (baseCalculo >= impostoRenda[index].de && baseCalculo <= impostoRenda[index].ate) {
+            faixa = { aliquota: impostoRenda[index].aliquota, deducao: impostoRenda[index].deducao }
+        }
+    }
+
+    return {
+        baseCalculo,
+        aliquota: baseCalculo * faixa.aliquota,
+        deducao: faixa.deducao,
+        impostoRenda: ((baseCalculo * faixa.aliquota) - faixa.deducao)
+    }
 }

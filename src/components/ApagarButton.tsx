@@ -3,11 +3,10 @@ import { MdOutlineClose } from "react-icons/md";
 
 export function ApagarButton({funcApagar}: {funcApagar: () => void}){
     return (
-        <AlertDialog.Root>
+        <AlertDialog.Root aria-controls="ApagarButton">
             <AlertDialog.Trigger asChild>
                 <div className="w-full flex ">
-
-                    <button type="button" className="hover:bg-red-800 text-xs w-full bg-transparent border border-red-700 uppercase text-white py-2 px-2 rounded-md flex justify-center"><p className="flex items-center"><MdOutlineClose className="mx-auto w-4 h-4" />Apagar</p></button>
+                    <button type="button">Apagar dados</button>
                 </div>
             </AlertDialog.Trigger>
             <AlertDialog.Portal>

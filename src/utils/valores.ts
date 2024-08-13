@@ -20,13 +20,14 @@ export const soldo = {
 
 export const soldos = [soldo['sdEv'],soldo['sdEp'],soldo['cb'],soldo['3sgt'],soldo['2sgt'],soldo['1sgt'],soldo['st'],soldo['aspof'],soldo['2ten'],soldo['1ten'],soldo['cap'],soldo['maj'],soldo['tencel'],soldo['cel'],soldo['genBda'],soldo['genDiv'],soldo['genEx']]
 export const postosGrad = ['Soldado Ev', 'Soldado Ep', 'Cabo', '3º Sargento', '2º Sargento', '1º Sargento', 'Sub Tenente','Aspirante a Oficial', '2º Tenente', '1º Tenente', 'Capitão','Major', 'Tenente Coronel', 'Coronel', 'General de Brigada', 'General de Divisão', 'General de Exército']
-export const adcHab = [12,27,45,68,76]
+export const adcHab = [12,27,45,68,73]
 export const adcMil = [13,16,19,22,25]
 export const adcDisp = [5,6,12,16,20,26,32]
 export const adcLocEsp = [10,20]
 export const gratRepArr = [2,10]
 
 export const cubagemBagagem = {
+    'cb': 35,
     '3sgt': 45,
     '2sgt': 45,
     '1sgt': 50,
@@ -199,3 +200,100 @@ export const calcIrrf = [
 export const fusexArr = [3,3.4,3.5]
 export const pensMilArr = [10.5,12]
 export const adcPermArr = [5,10,15]
+
+export const diarias = [{
+    "PostGrad": "Oficiais Generais",
+    "tipo1": 433.49,
+    "tipo2": 387.86,
+    "tipo3": 342.23
+},{
+    "PostGrad": "Oficiais Superiores",
+    "tipo1": 409.58,
+    "tipo2": 366.46,
+    "tipo3": 323.25,
+},{
+    "PostGrad": "Oficiais Intermediários, Subalternos",
+    "tipo1": 381.14,
+    "tipo2": 341.02,
+    "tipo3": 300.90
+},{
+    "PostGrad": "Suboficiais, Subtenentes, Sargentos, Aspirantes e Cadetes",
+    "tipo1": 381.14,
+    "tipo2": 341.02,
+    "tipo3": 300.90
+},{
+    "PostGrad": "Alunos CPOR, EsPCEx",
+    "tipo1": 316.54,
+    "tipo2": 283.22,
+    "tipo3": 249.90
+},{
+    "PostGrad": "Demais praças e praças especiais",
+    "tipo1": 316.54,
+    "tipo2": 283.22,
+    "tipo3": 249.90
+}]
+
+export const ajudaCusto = [{
+    "situacao": "Militar que possua dependente, nas movimentações com desligamento da organização militar.",
+    "ida": 2,
+    "volta": 0,
+},{
+    "situacao": "Militar que possua dependente, nas movimentações para comissão superior a 3 (três) e igual ou inferior a 12 (doze) meses, sem desligamento da organização militar. ",
+     "ida": 2,
+    "volta": 1,
+},{
+    "situacao": "Militar que possua dependente, nas movimentações para comissão superior a 15 (quinze) dias e igual ou inferior a 3 (três) meses, sem desligamento da organização militar. ",
+     "ida": 1,
+    "volta": 1,
+},{
+    "situacao": "Militar que possua dependente, quando transferido para Localidade Especial Categoria A ou de uma Localidade Especial Categoria A para qualquer outra localidade, nas movimentações com desligamento da organização militar. ",
+     "ida": 4,
+    "volta": 0,
+},{
+    "situacao": "Militar que não possua dependente e se encontre nas situações “a”, “b”, “c”, ou “d” desta Tabela. ",
+    "ida": 1/2,
+    "volta": 0,
+}]
+
+export const reserva = {
+    "situacao": "Militar que possua ou não dependente, por ocasião de transferência para a inatividade remunerada. ",
+    "condicao": "Oficial soldo de (Coronel) / Praça soldo de (Sub Tenente)",
+    "tipo1": 8,
+    "tipo2": 8
+}
+
+
+export const impostoRenda = [
+    {
+        "de": 0,
+        "ate": 2259.20,
+        "aliquota": 0,
+        "deducao": 0
+    },
+    {
+        "de": 2259.20,
+        "ate": 2826.65,
+        "aliquota": 0.075,
+        "deducao": 169.44
+    },
+    {
+        "de": 2826.66,
+        "ate": 3751.05,
+        "aliquota": 0.15,
+        "deducao": 381.44
+    },
+    {
+        "de": 3751.06,
+        "ate": 4664.68,
+        "aliquota": 0.225,
+        "deducao": 662.77
+    },
+    {
+        "de": 4664.68,
+        "ate": 999999999,
+        "aliquota": 0.275,
+        "deducao": 896.00
+    }
+]
+
+export const dependenteIR = 189.59
