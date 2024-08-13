@@ -34,12 +34,10 @@ export default async function Home() {
               </div>
               <div>
                 <LazyDropdownMenu />
-
               </div>
             </div>
             <div className="mx-2">
-
-            <Noticia />
+              <Noticia />
             </div>
           </div>
         </Suspense>

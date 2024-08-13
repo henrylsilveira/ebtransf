@@ -6,7 +6,7 @@ import { FaRegChartBar } from "react-icons/fa";
 import { GiModernCity } from "react-icons/gi";
 import { GoTools } from "react-icons/go";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
-import { TbClockSearch } from "react-icons/tb";
+import { TbClockSearch, TbZoomMoney } from "react-icons/tb";
 import DropdownButton from "./header/DropdownButton";
 
 export default function MenuHome() {
@@ -21,9 +21,14 @@ export default function MenuHome() {
                         icon: <BsCalculator size={12} />,
                     },
                     {
-                        text: "Contra-cheque",
+                        text: "Contracheque",
                         link: "/calcContraCheque",
                         icon: <LiaMoneyCheckAltSolid size={14} />,
+                    },
+                    {
+                        text: "Ajuda de Custo",
+                        link: "/calcAjudaCusto",
+                        icon: <TbZoomMoney size={14} />,
                     },
                     {
                         text: "Tempo de Serviço",

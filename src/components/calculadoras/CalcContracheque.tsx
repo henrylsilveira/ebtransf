@@ -401,7 +401,6 @@ export default function CalcContraChequeComponent() {
                                             (calculaImpostoRenda(
                                                 retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
                                                 , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).deducao) == val.deducao ? "border-b border-gray-700 !shadow-container !text-green-600 " : "border-b border-gray-700"
-
                                         }>
                                             <td className="px-6 py-4 text-center bg-gray-800">
                                                 {formataValor(val.de)}
