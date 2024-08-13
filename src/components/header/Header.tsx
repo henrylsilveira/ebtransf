@@ -13,7 +13,7 @@ import {
   MdOutlineRealEstateAgent,
 } from "react-icons/md";
 import DropdownButton from "./DropdownButton";
-import { TbClockSearch } from "react-icons/tb";
+import { TbClockSearch, TbZoomMoney } from "react-icons/tb";
 import { FaRegChartBar } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 
@@ -135,7 +135,7 @@ export default function Header() {
               {
                 text: "Ajuda de Custo",
                 link: "/calcAjudaCusto",
-                icon: <LiaMoneyCheckAltSolid size={14} />,
+                icon: <TbZoomMoney size={14} />,
               },
               {
                 text: "Tempo de Serviço",

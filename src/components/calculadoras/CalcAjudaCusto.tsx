@@ -16,9 +16,14 @@ interface calcAjudaCustoProps {
     compOrg: number
     dependentes: number
     ajudaCusto: {
-        ida: string
-        volta: string
+        ida: number
+        volta: number
+        inativo?: number
     }
+}
+
+interface calcDiferencaAjudaCustoProps {
+    valores: number[]
 }
 
 export default function CalcAjudaCustoComponent() {
@@ -33,15 +38,27 @@ export default function CalcAjudaCustoComponent() {
         compOrg: 0,
         dependentes: 0,
         ajudaCusto: {
-            ida: "",
-            volta: ""
+            ida: 0,
+            volta: 0,
+            inativo: 0
         }
     } as calcAjudaCustoProps)
-
+    const [personalizarHab, setPersonalizarHab] = useState(false)
+    const [valoresDiferenca, setValoresDiferenca] = useState([] as number[])
+    const [dividir, setDividir] = useState(false)
     function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-        setJsonData({ ...jsonData, [event.target.name]: event.target.value })
+        if (event.target.name === 'hab' && event.target.value === 'outros') setPersonalizarHab(false)
+        if (event.target.name === 'ajudaCusto') {
+            const { ida, volta, inativo } = JSON.parse(event.target.value)
+            setJsonData({ ...jsonData, 'ajudaCusto': { ida, volta, inativo } })
+        } else {
+            setJsonData({ ...jsonData, [event.target.name]: event.target.value })
+        }
     }
-    // console.log(JSON.parse(Object(jsonData.ajudaCusto)))
+
+    function registrarValor(number: number) {
+        setValoresDiferenca([...valoresDiferenca, number])
+    }
     return (
         <div className="max-w-4xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
             <div className="flex flex-1 items-center justify-center mb-6 flex-col">
@@ -71,6 +88,22 @@ export default function CalcAjudaCustoComponent() {
                                 ((retornaValorSoldo(jsonData.pg)! * (Number(jsonData.disp) + Number(jsonData.locEsp) + Number(jsonData.mil) + Number(jsonData.hab) + Number(jsonData.adcPerm)) / 100) + retornaValorSoldo(jsonData.pg)! + (retornaValorSoldo(jsonData.pgCo)! * jsonData.compOrg / 100))
                             )}</p>
                     </div>
+                    {!jsonData.ajudaCusto.inativo ? (
+                        <p className="pl-4 text-white flex gap-2"><span >Total:</span>{formataValor(
+                            (retornaValorSoldo(jsonData.pg)! * (Number(jsonData.disp) + Number(jsonData.locEsp) + Number(jsonData.mil) + Number(jsonData.hab) + Number(jsonData.adcPerm)) / 100 +
+                                retornaValorSoldo(jsonData.pg)! +
+                                (retornaValorSoldo(jsonData.pgCo)! * Number(jsonData.compOrg) / 100)) * Number(jsonData.ajudaCusto.ida) + (retornaValorSoldo(jsonData.pg)! * (Number(jsonData.disp) + Number(jsonData.locEsp) + Number(jsonData.mil) + Number(jsonData.hab) + Number(jsonData.adcPerm)) / 100 +
+                                    retornaValorSoldo(jsonData.pg)! +
+                                    (retornaValorSoldo(jsonData.pgCo)! * Number(jsonData.compOrg) / 100)) * Number(jsonData.ajudaCusto.volta))
+                        }</p>
+
+                    ) : (
+                        <p className="pl-4 text-white flex gap-2"><span className="text-gray-400">Inatividade:</span>{formataValor(
+                            (retornaValorSoldo(jsonData.pg)! * (Number(jsonData.disp) + Number(jsonData.locEsp) + Number(jsonData.mil) + Number(jsonData.hab) + Number(jsonData.adcPerm)) / 100 +
+                                retornaValorSoldo(jsonData.pg)! +
+                                (retornaValorSoldo(jsonData.pgCo)! * Number(jsonData.compOrg) / 100)) * Number(jsonData.ajudaCusto.inativo))
+                        }</p>
+                    )}
                 </div>
             </div>
 
@@ -101,14 +134,24 @@ export default function CalcAjudaCustoComponent() {
                         <label htmlFor="pg" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">P/G</label>
                     </div>
                     <div className="relative z-0 w-full group">
-                        <select name="hab" id="hab" onChange={(e) => handleChange(e)} className="dark:focus:bg-gray-900 leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                        <select name="hab" id="hab" onChange={(e) => e.target.value === "outros" ? setPersonalizarHab(true) : handleChange(e)} className="dark:focus:bg-gray-900 leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
                             {adcHab.map((adc, index) => (
                                 <option key={adc + index} value={adc}>{adc}%</option>
                             ))}
+                            <option value={"outros"}>
+                                Outros valores
+                            </option>
                         </select>
+
                         <label htmlFor="hab" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Habilitação</label>
                     </div>
+                    {personalizarHab && (
+                        <div className="relative z-0  w-full group">
+                            <input name="hab" id="hab" maxLength={3} defaultValue={0} onChange={(e) => handleChange(e)} className="dark:focus:bg-gray-900 leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
+                            <label htmlFor="hab" className="absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Outra habilitação</label>
+                        </div>
+                    )}
                     <div className="relative z-0 w-full group">
                         <select name="mil" id="mil" onChange={(e) => handleChange(e)} className="dark:focus:bg-gray-900 leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
                             <option></option>
@@ -191,7 +234,6 @@ export default function CalcAjudaCustoComponent() {
                         <thead className=" uppercase text-gray-400">
                             <tr>
                                 <th scope="col" className="w-6 text-center text-white">
-
                                 </th>
                                 <th scope="col" className="px-1 sm:px-6 py-3  bg-gray-800 text-center text-white">
                                     Situação
@@ -209,7 +251,7 @@ export default function CalcAjudaCustoComponent() {
                                 <tr key={custo + `${index}`} className="border-b border-gray-700">
                                     <td className="text-center">
                                         <div className="flex items-center px-4">
-                                            <input id="ajudaCusto" onChange={(e) => handleChange(e)} type="radio" value={JSON.stringify({ ida: custo.ida, volta: custo.volta })} name="ajudaCusto" className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                            <input id="ajudaCusto" onChange={(e) => handleChange(e)} type="radio" value={JSON.stringify({ ida: custo.ida, volta: custo.volta })} name="ajudaCusto" className="w-4 h-4" />
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 text-center bg-gray-800">
@@ -238,9 +280,9 @@ export default function CalcAjudaCustoComponent() {
                             </tr>
                             <tr className="border-b border-gray-700">
                                 <td className="text-center">
-                                    {/* <div className="flex items-center px-4">
-                                        <input id="ajudaCusto" onChange={(e) => handleChange(e)} type="radio" value={JSON.stringify({ ida: reserva.tipo1, volta: reserva.tipo2 })} name="ajudaCusto" className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                    </div> */}
+                                    <div className="flex items-center px-4">
+                                        <input id="ajudaCusto" onChange={(e) => handleChange(e)} type="radio" value={JSON.stringify({ inativo: reserva.tipo2 })} name="ajudaCusto" className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                    </div>
                                 </td>
                                 <td className="px-6 py-4 text-center bg-gray-800">
                                     {reserva.situacao}
@@ -262,7 +304,7 @@ export default function CalcAjudaCustoComponent() {
             </article>
 
             {/* VALORES */}
-            <div className="border border-green-600 rounded-md p-6 relative mt-4">
+            <div className="border border-green-600 rounded-md p-6 relative mt-8">
                 <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Valores</h1>
                 <div className="border border-green-600 rounded-md p-6 relative mt-4 text-xs md:text-base">
                     <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Bruto</h1>
@@ -296,10 +338,62 @@ export default function CalcAjudaCustoComponent() {
                         <b className="text-gray-300">Valor Bruto</b>
                         <p className="pl-4 text-white">{formataValor(retornaValorSoldo(jsonData.pg)! * (Number(jsonData.disp) + Number(jsonData.locEsp) + Number(jsonData.mil) + Number(jsonData.hab) + Number(jsonData.adcPerm)) / 100 + retornaValorSoldo(jsonData.pg)! + (retornaValorSoldo(jsonData.pgCo)! * Number(jsonData.compOrg) / 100))}</p>
                     </div>
+                    <div className="flex flex-1 flex-col">
+                        <b className="text-gray-300">Ajuda de Custo</b>
+                        {!jsonData.ajudaCusto.inativo ? (
+                            <>
+                                <p className="pl-4 text-white flex gap-2"><span className="text-gray-400">Ida:</span>{formataValor(
+                                    (retornaValorSoldo(jsonData.pg)! * (Number(jsonData.disp) + Number(jsonData.locEsp) + Number(jsonData.mil) + Number(jsonData.hab) + Number(jsonData.adcPerm)) / 100 +
+                                        retornaValorSoldo(jsonData.pg)! +
+                                        (retornaValorSoldo(jsonData.pgCo)! * Number(jsonData.compOrg) / 100)) * Number(jsonData.ajudaCusto.ida))
+                                }</p>
+                                <p className="pl-4 text-white flex gap-2"><span className="text-gray-400">Volta:</span>{formataValor(
+                                    (retornaValorSoldo(jsonData.pg)! * (Number(jsonData.disp) + Number(jsonData.locEsp) + Number(jsonData.mil) + Number(jsonData.hab) + Number(jsonData.adcPerm)) / 100 +
+                                        retornaValorSoldo(jsonData.pg)! +
+                                        (retornaValorSoldo(jsonData.pgCo)! * Number(jsonData.compOrg) / 100)) * Number(jsonData.ajudaCusto.volta))
+                                }</p>
+                            </>
+                        ) : (
+                            <p className="pl-4 text-white flex gap-2"><span className="text-gray-400">Inatividade:</span>{formataValor(
+                                (retornaValorSoldo(jsonData.pg)! * (Number(jsonData.disp) + Number(jsonData.locEsp) + Number(jsonData.mil) + Number(jsonData.hab) + Number(jsonData.adcPerm)) / 100 +
+                                    retornaValorSoldo(jsonData.pg)! +
+                                    (retornaValorSoldo(jsonData.pgCo)! * Number(jsonData.compOrg) / 100)) * Number(jsonData.ajudaCusto.inativo))
+                            }</p>
+                        )}
+
+                    </div>
+                </div>
+                <div className="border border-green-600 rounded-md p-6 relative mt-4 text-xs md:text-base">
+                    <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Calcular diferença</h1>
+                    <div className="flex gap-2">
+
+                        <button className="bg-green-600 ml-auto hover:bg-green-800 text-white px-4 py-1 shadow-shape rounded-full text-xs" onClick={() => registrarValor((retornaValorSoldo(jsonData.pg)! * (Number(jsonData.disp) + Number(jsonData.locEsp) + Number(jsonData.mil) + Number(jsonData.hab) + Number(jsonData.adcPerm)) / 100 +
+                            retornaValorSoldo(jsonData.pg)! +
+                            (retornaValorSoldo(jsonData.pgCo)! * Number(jsonData.compOrg) / 100)) * Number(jsonData.ajudaCusto.ida) + (retornaValorSoldo(jsonData.pg)! * (Number(jsonData.disp) + Number(jsonData.locEsp) + Number(jsonData.mil) + Number(jsonData.hab) + Number(jsonData.adcPerm)) / 100 +
+                                retornaValorSoldo(jsonData.pg)! +
+                                (retornaValorSoldo(jsonData.pgCo)! * Number(jsonData.compOrg) / 100)) * Number(jsonData.ajudaCusto.volta))}>Gravar valor</button>
+                        <button className="bg-yellow-600 hover:bg-yellow-800 text-white px-4 py-1 shadow-shape rounded-full text-xs" onClick={() => setValoresDiferenca([])}>Apagar</button>
+                        <button className="bg-blue-600 hover:bg-blue-800 text-white px-4 py-1 shadow-shape rounded-full text-xs" onClick={() => setDividir(!dividir)}>/ 2</button>
+                    </div>
+                    <div className="flex flex-wrap justify-center my-6">
+                        {valoresDiferenca && valoresDiferenca.map((value, index) => (
+                            <p className="pl-4 text-white text-xl sm:text-3xl">{formataValor(value)} {!(valoresDiferenca.length - 1 === index) && "-"} </p>
+                        ))}
+                    </div>
+                    {valoresDiferenca.length > 1 &&
+                        <div className="flex justify-between items-center">
+                            <p className="uppercase text-lg text-white">Diferença entre valores: </p>
+                            <p className="text-green-500 text-3xl">
+                                {valoresDiferenca.length > 1 && formataValor(dividir ? (valoresDiferenca.reduce(function (acc, value) {
+                                    return value - acc
+                                }, 0) * -1) / 2 : valoresDiferenca.reduce(function (acc, value) {
+                                    return value - acc
+                                }, 0) * -1)}
+                            </p>
+                        </div>
+                    }
 
                 </div>
-
-
             </div>
             <Links />
         </div>
