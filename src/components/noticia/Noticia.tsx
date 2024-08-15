@@ -11,7 +11,11 @@ export default async function Noticia() {
     const prismicClient = createClient();
     const [pageData, setPageData] = useState(0);
     const [loading, setLoading] = useState(false);
-    const posts = await prismicClient.getAllByType<AllDocumentTypes>("ebcalcnoticia").catch(e => {
+    const posts = await prismicClient.getAllByType<AllDocumentTypes>("ebcalcnoticia", {
+        orderings: [
+            { field: "my.ebcalcnoticia.data", direction: "desc" }
+        ],
+    }).catch(e => {
         console.error(e);
         return [];
     });

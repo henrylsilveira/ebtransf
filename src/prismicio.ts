@@ -22,7 +22,7 @@ const routes: prismic.ClientConfig["routes"] = [
   // },
   {
     type: "ebcalcnoticia",
-    path: "/:uid",
+    path: "/noticias/:uid",
   },
 ];
 
@@ -38,8 +38,7 @@ export const createClient = (config: prismicNext.CreateClientConfig = {}) => {
     fetchOptions:
       process.env.NODE_ENV === "production"
         ? { next: { tags: ["prismic"] }, cache: "force-cache" }
-        : { next: { revalidate: 60*60*24 } },
-    accessToken: "MC5acmJOQ1JBQUFDb0FTSV9t.V0wdQ--_ve-_ve-_vUhH77-9HCfvv70C77-9bO-_vXd0ce-_ve-_ve-_ve-_ve-_ve-_ve-_ve-_vSzvv71C77-9",
+        : { next: { revalidate: 1 } },
     ...config,
   });
 
