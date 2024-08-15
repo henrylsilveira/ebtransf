@@ -1,5 +1,6 @@
 import { DadosTransferencia, FeedbackCidadesProps } from "@/types/types"
 import { dependenteIR, impostoRenda, soldo } from "./valores"
+import { AllDocumentTypes } from "../../prismicio-types"
 
 export function formataValor(price: number, discount?: number) {
     return new Intl.NumberFormat("pt-BR", {
@@ -358,3 +359,13 @@ export function calculaImpostoRenda(valorBruto: number, descontos: number, depen
         impostoRenda: ((baseCalculo * faixa.aliquota) - faixa.deducao)
     }
 }
+
+export function dividirArray(arr: AllDocumentTypes[], tamanho: number): AllDocumentTypes[][] {
+    let resultado = [];
+    
+    for (let i = 0; i < arr.length; i += tamanho) {
+      resultado.push(arr.slice(i, i + tamanho));
+    }
+  
+    return resultado;
+  }

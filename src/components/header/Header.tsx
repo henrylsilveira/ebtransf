@@ -13,21 +13,23 @@ import {
   MdOutlineRealEstateAgent,
 } from "react-icons/md";
 import DropdownButton from "./DropdownButton";
-import { TbClockSearch } from "react-icons/tb";
+import { TbClockSearch, TbZoomMoney } from "react-icons/tb";
 import { FaRegChartBar } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  const pathname = usePathname()
   const openSideMenu = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
   return (
+    pathname !== "/" &&
     <div className="flex shadow-container mb-6">
       <div className="flex w-full justify-between items-center py-6 px-10">
         {/* START LOGO */}
         <div>
-          <Logo />
+          <Logo type="normal" />
         </div>
         {/* END LOGO */}
 
@@ -38,9 +40,8 @@ export default function Header() {
             <RiMenuAddFill size={28} color="#0f7839" />
           </button>
           <div
-            className={`${
-              isSidebarOpen ? "" : "hidden"
-            } fixed top-0 -right-1 transform -translate-y-1 -translate-x-1 h-[100vh] z-10 w-auto max-w-[100vw] py-24 px-6 bg-[#192132]/95 shadow-xl transition ease-in-out duration-300`}
+            className={`${isSidebarOpen ? "" : "hidden"
+              } fixed top-0 -right-1 transform -translate-y-1 -translate-x-1 h-[100vh] z-10 w-auto max-w-[100vw] py-24 px-6 bg-[#192132]/95 shadow-xl transition ease-in-out duration-300`}
           >
             <button onClick={openSideMenu} className="absolute top-6 right-3">
               <IoClose
@@ -110,7 +111,7 @@ export default function Header() {
               <LinkHeader
                 link="/calculadora/simulacoes"
                 text="Análise de Transferências"
-                icon={<FaRegChartBar size={14}/>}
+                icon={<FaRegChartBar size={14} />}
               />
             </ul>
           </div>
@@ -121,55 +122,60 @@ export default function Header() {
         <div className="gap-4 justify-between items-center hidden lg:flex">
           <div className="flex justify-between gap-4">
             <DropdownButton title="Calculadoras" linkText={[
-                {
-                    text: "Transferência",
-                    link: "/calculadora",
-                    icon: <BsCalculator size={12} />,
-                },
-                {
-                    text: "Contra-cheque",
-                    link: "/calcContraCheque",
-                    icon: <LiaMoneyCheckAltSolid size={14} />,
-                },
-                {
-                    text: "Tempo de Serviço",
-                    link: "/tempoServico",
-                    icon: <BsClock size={14} />,
-                }
-            ]}/>
+              {
+                text: "Transferência",
+                link: "/calculadora",
+                icon: <BsCalculator size={12} />,
+              },
+              {
+                text: "Contracheque",
+                link: "/calcContraCheque",
+                icon: <LiaMoneyCheckAltSolid size={14} />,
+              },
+              {
+                text: "Ajuda de Custo",
+                link: "/calcAjudaCusto",
+                icon: <TbZoomMoney size={14} />,
+              },
+              {
+                text: "Tempo de Serviço",
+                link: "/tempoServico",
+                icon: <BsClock size={14} />,
+              }
+            ]} />
 
             <DropdownButton title="Ferramentas" linkText={[
-                {
-                    text: "Cidades",
-                    link: "/cidades",
-                    icon: <GiModernCity size={14} />,
-                },
-                {
-                    text: "Fatos Observados",
-                    link: "/gerFatosObs",
-                    icon: <MdOutlinePersonSearch size={14} />,
-                },
-                {
-                    text: "Logística",
-                    link: "/logistica",
-                    icon: <MdOutlineRealEstateAgent size={14} />,
-                },
-                {
-                    text: "Base de Dados",
-                    link: "/tabelas",
-                    icon: <BsDatabaseCheck size={14} />,
-                },
-                {
-                  text: "Minhas Transferências",
-                  link: "/calculadora/minhassimulacoes",
-                  icon: <TbClockSearch size={14} />,
+              {
+                text: "Cidades",
+                link: "/cidades",
+                icon: <GiModernCity size={14} />,
+              },
+              {
+                text: "Fatos Observados",
+                link: "/gerFatosObs",
+                icon: <MdOutlinePersonSearch size={14} />,
+              },
+              {
+                text: "Logística",
+                link: "/logistica",
+                icon: <MdOutlineRealEstateAgent size={14} />,
+              },
+              {
+                text: "Base de Dados",
+                link: "/tabelas",
+                icon: <BsDatabaseCheck size={14} />,
+              },
+              {
+                text: "Minhas Transferências",
+                link: "/calculadora/minhassimulacoes",
+                icon: <TbClockSearch size={14} />,
               },
               {
                 text: "Análise de Transferências",
                 link: "/calculadora/simulacoes",
-                icon: <FaRegChartBar size={14}/>,
-            }
-            ]}/>
+                icon: <FaRegChartBar size={14} />,
+              }
+            ]} />
           </div>
         </div>
         {/* END LINKS HEADER */}
