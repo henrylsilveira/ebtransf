@@ -64,9 +64,14 @@ export default function Header() {
                 icon={<BsCalculator size={12} />}
               />
               <LinkHeader
+                link="/calcAjudaCusto"
+                text="Ajuda de Custo"
+                icon={<LiaMoneyCheckAltSolid size={14} />}
+              />
+              <LinkHeader
                 link="/calcContraCheque"
                 text="Contra-cheque"
-                icon={<LiaMoneyCheckAltSolid size={14} />}
+                icon={<TbZoomMoney size={14} />}
               />
               <LinkHeader
                 link="/tempoServico"
