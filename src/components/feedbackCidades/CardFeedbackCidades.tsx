@@ -44,8 +44,9 @@ export default function CardFeedbackCidades({
             <div className="text-gray-700 flex text-xs mt-2 w-full">
                 <p className="flex ml-auto">{date}</p>
             </div>
-            {loading ? <div className="absolute w-full top-0 left-0 h-full rounded-md flex items-center justify-center shadow-container bg-gray-900 bg-opacity-40 backdrop-blur-sm shadow-lg  shadow-black  p-4">
-                <Loader loadingPage />
+            {loading ? 
+            <div className="absolute w-full top-0 left-0 h-full rounded-md shadow-container bg-gray-900 bg-opacity-40 backdrop-blur-sm shadow-lg shadow-black  p-4">
+                <Loader noLogo />
             </div> : null}
 
         </Link>
