@@ -1,87 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-  <url>
-    <loc>https://ebcalc.net/</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>1.00</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/calculadora</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/calcContraCheque</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/tempoServico</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/gerFatosObs</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/cidades</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/logistica</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/tabelas</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/privacyPolicy</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/sobreNos</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/calculadora/minhassimulacoes</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/calculadora/simulacoes</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/cidades/Par%C3%A1/Bel%C3%A9m/8763a173-4e6a-47a7-8ce4-ed23b8317057</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/cidades/Amazonas/S%C3%A3o%20Gabriel%20da%20Cachoeira/911b113e-0842-40e9-bfdb-b13d5e5cd94c</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/logistica/painelCentral</loc>
-    <lastmod>2024-06-10T00:02:38+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://ebcalc.net/cidades/medias</loc>
-    <lastmod>2024-07-27T00:02:38+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-
-
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+  <loc>https://ebcalc.net/</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/noticias/1.-ira-e-o-eixo-de-resistencia</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/noticias/1.-ataque-a-base-dos-eua-na-siria</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/noticias/1.-confrontos-no-mar-do-sul-da-china</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/calculadora</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/calcContraCheque</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/tempoServico</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/cidades</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/gerFatosObs</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/logistica</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/tabelas</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/calculadora/minhassimulacoes</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/calculadora/simulacoes</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/privacyPolicy</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/sobreNos</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/cidades/medias</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/cidades/Amazonas/Manaus/8621de9e-8cb2-4682-b3e9-4584e7c0930d</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/cidades/Par%C3%A1/Bel%C3%A9m/8763a173-4e6a-47a7-8ce4-ed23b8317057</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/cidades/Amazonas/S%C3%A3o%20Gabriel%20da%20Cachoeira/911b113e-0842-40e9-bfdb-b13d5e5cd94c</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://ebcalc.net/logistica/painelCentral</loc>
+  <lastmod>2024-08-15T22:53:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
 </urlset>
