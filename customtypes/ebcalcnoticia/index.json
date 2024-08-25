@@ -1,0 +1,55 @@
+{
+  "format": "custom",
+  "id": "ebcalcnoticia",
+  "label": "ebcalcnoticia",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "NoticiaPage": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "titulonoticia": {
+        "type": "Text",
+        "config": {
+          "label": "titulonoticia",
+          "placeholder": ""
+        }
+      },
+      "subtitulo": {
+        "type": "Text",
+        "config": {
+          "label": "subtitulo",
+          "placeholder": ""
+        }
+      },
+      "datanoticia": {
+        "type": "Date",
+        "config": {
+          "label": "datanoticia",
+          "placeholder": ""
+        }
+      },
+      "image": {
+        "type": "Image",
+        "config": {
+          "label": "image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "textonoticia": {
+        "type": "StructuredText",
+        "config": {
+          "label": "textonoticia",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      }
+    }
+  }
+}

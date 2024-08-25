@@ -85,7 +85,7 @@ export default function TableTransferencias({ data }: { data: DadosTransferencia
                                         let a = x.count,
                                             b = y.count;
                                         return a == b ? 0 : a < b ? 1 : -1;
-                                    }).map((city) =>
+                                    }).map((city, index) =>
                                         <tr className="border-b bg-gray-800 border-gray-700">
                                             <td className="sm:py-4 sm:px-6 py-1 px-2">{city.city.toUpperCase()}</td>
                                             <td className="sm:py-4 sm:px-6 py-1 px-2 text-center"><p className="flex items-center gap-2"><TbPlaneArrival className="text-green-800" />{city.countDestino}</p></td>

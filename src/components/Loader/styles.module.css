@@ -35,8 +35,8 @@
 
 .loaderPage {
   display:flex;
-  margin: 0 auto;
-  margin-top: 25%;
+  margin: 2rem auto;
+  /* margin-top: 25%; */
   width: 86px;
   height: 86px;
   border-radius: 50%;

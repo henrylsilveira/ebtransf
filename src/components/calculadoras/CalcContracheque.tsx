@@ -43,7 +43,7 @@ export default function CalcContraChequeComponent() {
                 </article>
             </div>
             <div className="fixed left-0 bg-gray-900 backdrop-blur-sm bg-opacity-40 shadow-lg w-screen shadow-black bottom-0 p-4 z-10">
-                <div className="border-2 gap-1 text-[12px] sm:text-base border-green-600 rounded p-2 flex flex-1 items-center justify-center text-white font-bold ">
+                <div className="border-2 gap-1 text-[12px] sm:text-base border-green-600 rounded p-2 flex flex-col md:flex-row items-center justify-center text-white font-bold ">
                     <div className="flex">
                         <p>Bruto:</p>
                         <p className="font-extrabold pl-2">{
@@ -52,14 +52,18 @@ export default function CalcContraChequeComponent() {
                                 + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
                             )}</p>
                     </div>
-                    <div className="flex border-x px-2 border-green-600">
+                    <div className="flex boder-0 md:border-x px-2 border-green-600">
                         <p>Despesas:</p>
-                        <p className="font-extrabold pl-2">{formataValor(((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0))}</p>
+                        <p className="font-extrabold pl-2">{formataValor(((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0) + calculaImpostoRenda(
+                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
+                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).impostoRenda)}</p>
                     </div>
                     <div className="flex">
                         <p>Líquido:</p>
                         <p className="font-extrabold pl-2">
-                            {formataValor(((retornaValorSoldo(pg)! * gratRep / 100) * qntDias) + (retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) - (((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100) + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100 + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0) + pensAlim))}
+                            {formataValor(((retornaValorSoldo(pg)! * gratRep / 100) * qntDias) + (retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) - (((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100) + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100 + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0) + pensAlim) - calculaImpostoRenda(
+                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
+                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).impostoRenda)}
                         </p>
                     </div>
                 </div>
@@ -401,7 +405,6 @@ export default function CalcContraChequeComponent() {
                                             (calculaImpostoRenda(
                                                 retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
                                                 , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).deducao) == val.deducao ? "border-b border-gray-700 !shadow-container !text-green-600 " : "border-b border-gray-700"
-
                                         }>
                                             <td className="px-6 py-4 text-center bg-gray-800">
                                                 {formataValor(val.de)}
