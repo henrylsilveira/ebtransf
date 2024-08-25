@@ -15,7 +15,11 @@ export default async function Noticia() {
         orderings: [
             { field: "my.ebcalcnoticia.data", direction: "desc" }
         ],
-    }).catch(e => {
+    }).then(posts => posts.sort((x, y) => {
+        let a = x.first_publication_date,
+            b = y.first_publication_date;
+        return a == b ? 0 : a < b ? 1 : -1;
+    })).catch(e => {
         console.error(e);
         return [];
     });
@@ -30,7 +34,7 @@ export default async function Noticia() {
     return (
         <>
             <div className="grid md:grid-cols-3 lg:grid-cols-3 grid-cols-1 gap-y-6 transition-all ease-in duration-500 w-full relative">
-                <button onClick={() => changePage("anterior")} className=" hover:scale-110 hover:text-green-600 hover:bg-gray-900 transition-all ease-in duration-500 z-20 absolute left-0 bg-gray-950 shadow-shape rounded-full w-12 h-12 top-[50%] translate-y-full md:top-auto md:translate-y-28  -translate-x-1/2 text-white flex justify-center items-center"><MdOutlineKeyboardDoubleArrowLeft size={20} /></button>
+                {pageData !== 0 && <button onClick={() => changePage("anterior")} className=" hover:scale-110 hover:text-green-600 hover:bg-gray-900 transition-all ease-in duration-500 z-20 absolute left-0 bg-gray-950 shadow-shape rounded-full w-12 h-12 top-[50%] translate-y-full md:top-auto md:translate-y-28  -translate-x-1/2 text-white flex justify-center items-center"><MdOutlineKeyboardDoubleArrowLeft size={20} /></button>}
                 {dividirArray(posts, 3)[pageData]?.map(post => (
                     <div key={post.id} className="after:w-0 flex flex-1 relative sm:ml-0 bg-gray-900 sm:max-w-[460px] shadow-shape group rounded hover:transform hover:scale-105 z-0 hover:z-20  transition-all ease-in-out duration-500">
                         <PrismicImage field={post.data.image} className="w-full h-full overflow-hidden rounded shadow-container" />
@@ -41,12 +45,12 @@ export default async function Noticia() {
 
                         </div>
                         <div className="absolute -bottom-5 left-0 px-4 py-1 bg-gray-950 shadow-shape rounded-b-lg -z-10 text-gray-400 text-xs">
-                            {convertDate(post.last_publication_date)}
+                            {convertDate(post.first_publication_date)}
                         </div>
 
                     </div>
                 ))}
-                <button onClick={() => changePage("proximo")} className=" hover:scale-110 hover:text-green-600 hover:bg-gray-900 transition-all ease-in duration-500 z-20 absolute right-0 bg-gray-950 shadow-shape rounded-full w-12 h-12 top-[50%] translate-y-full md:top-auto md:translate-y-28 translate-x-1/2  text-white flex justify-center items-center"><MdOutlineKeyboardDoubleArrowRight size={20} /></button>
+                {pageData !== (dividirArray(posts, 3).length - 1) && <button onClick={() => changePage("proximo")} className=" hover:scale-110 hover:text-green-600 hover:bg-gray-900 transition-all ease-in duration-500 z-20 absolute right-0 bg-gray-950 shadow-shape rounded-full w-12 h-12 top-[50%] translate-y-full md:top-auto md:translate-y-28 translate-x-1/2  text-white flex justify-center items-center"><MdOutlineKeyboardDoubleArrowRight size={20} /></button>}
 
             </div>
             <div className="flex gap-2 justify-center">
