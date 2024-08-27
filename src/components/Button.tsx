@@ -19,7 +19,7 @@ export function Button({ Icon, text, link, name}: ButtonProps){
     }
 
     return (
-        <Link onClick={handleLoading} aria-label={name} className="text-sm justify-center items-center border-0 p-2 flex" href={link}>
+        <Link onClick={handleLoading} aria-controls={name} aria-label={name} className="text-sm justify-center items-center border-0 p-2 flex" href={link}>
             {loading ? <Loader /> : (<div className="flex items-center">{Icon}<p>{text}</p></div>)}
         </Link>
     )

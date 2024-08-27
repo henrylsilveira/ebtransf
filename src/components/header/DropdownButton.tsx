@@ -21,7 +21,7 @@ export default ({
   ;
 }) => (
   <DropdownMenu>
-    <DropdownMenuTrigger asChild>
+    <DropdownMenuTrigger id={title} asChild>
       <button type="button" className="flex relative items-center justify-center gap-1 text-lg text-gray-400 focus:outline-none hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 outline-none hover:text-gray-200 pr-2.5 border-r border-r-green-700 last:border-none">
         {title}
         <MdKeyboardArrowDown size={20} />

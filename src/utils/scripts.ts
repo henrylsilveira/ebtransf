@@ -1,4 +1,4 @@
-import { DadosTransferencia, FeedbackCidadesProps } from "@/types/types"
+import { DadosTransferencia, FeedbackCidadesProps, ModeloProcessoProps } from "@/types/types"
 import { dependenteIR, impostoRenda, soldo } from "./valores"
 import { AllDocumentTypes } from "../../prismicio-types"
 
@@ -368,4 +368,9 @@ export function dividirArray(arr: AllDocumentTypes[], tamanho: number): AllDocum
     }
   
     return resultado;
+  }
+
+  export function returnProgressBarValue(processo: ModeloProcessoProps) {
+    const etapasConcluidas = processo.etapas.filter(etapa => etapa.situacao === true).length
+    return Number(((etapasConcluidas / processo.etapas.length) * 100).toFixed(0))
   }

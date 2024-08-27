@@ -182,7 +182,7 @@ export interface ModeloProcessoProps {
     etapas: {
         fase: number
         nome: string
-        observacao?: string
+        observacao?: string[]
         data?: Date
         situacao: boolean
     }[]
