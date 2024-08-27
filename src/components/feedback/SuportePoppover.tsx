@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { MdOutlineContactSupport } from 'react-icons/md'
 export default function Suporte() {
     return (
-        <Popover.Root aria-controls="suporte">
-            <Popover.Trigger>
+        <Popover.Root >
+            <Popover.Trigger aria-controls="suporte">
                 <MdOutlineContactSupport className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />
             </Popover.Trigger>
                 

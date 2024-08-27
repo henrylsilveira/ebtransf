@@ -57,8 +57,8 @@ export default function FaleConosco() {
     };
 
     return (
-        <AlertDialog.Root aria-controls="fale-conosco">
-            <AlertDialog.Trigger asChild>
+        <AlertDialog.Root>
+            <AlertDialog.Trigger aria-controls="fale-conosco" asChild>
                 <div className="flex items-center cursor-pointer">
                     <MdMessage className="pr-1 h-7 w-7 text-2xl text-white hover:text-green-600 transform transition-colors" />
                 </div>
