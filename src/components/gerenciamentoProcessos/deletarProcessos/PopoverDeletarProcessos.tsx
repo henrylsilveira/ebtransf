@@ -1,32 +1,29 @@
 'use client'
-import * as Popover from '@radix-ui/react-popover';
-import { MdOutlineEdit, MdOutlineKeyboardArrowDown, MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
-import { toast } from 'react-toastify';
-import { CiWarning } from "react-icons/ci";
 import { ModeloProcessoProps } from '@/types/types';
-import { api } from '@/services/axios';
-import { useState } from 'react';
-import { Loader } from '@/components/Loader/Loader';
 import * as Accordion from '@radix-ui/react-accordion';
-import { Progress } from '@/components/ui/progress';
-import { returnProgressBarValue } from '@/utils/scripts';
+import * as Popover from '@radix-ui/react-popover';
+import { CiWarning } from "react-icons/ci";
+import { MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
+import { toast } from 'react-toastify';
+
 import { NotData } from '@/components/NotData';
+import { returnProgressBarValue } from '@/utils/scripts';
 import { BsTrash3 } from 'react-icons/bs';
 export default function PopoverDeletarProcessos({ processos, setProcessos }: { processos: ModeloProcessoProps[], setProcessos: React.Dispatch<React.SetStateAction<ModeloProcessoProps[]>> }) {
 
     async function handleDeleteProcess(id: string) {
         try {
-            
+
             if (processos.length === 0) return toast.error('Nenhum processo encontrado!', {
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
             })
             setProcessos(processos.filter(processo => processo.id !== id))
-           toast.success('Processo deletado com sucesso!', {
+            toast.success('Processo deletado com sucesso!', {
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
             });
-            
+
         } catch (error) {
             toast.error('Erro durante a operação!', {
                 position: toast.POSITION.TOP_RIGHT,
@@ -49,7 +46,7 @@ export default function PopoverDeletarProcessos({ processos, setProcessos }: { p
                                 <CiWarning className='w-8 h-8 text-red-600' />
                                 <p className='text-red-700'>Após deletado o processo não pode ser recuperado.</p>
                             </div>
-                            </div>
+                        </div>
                         {processos?.length === 0 ? <NotData textoComponent="Nenhum processo encontrado." /> : (
                             <Accordion.Root type="single"
                                 className=" rounded-md px-3 text-gray-400 flexgap-1 shadow-shape"
@@ -72,9 +69,12 @@ export default function PopoverDeletarProcessos({ processos, setProcessos }: { p
                                             </div>
                                         </Accordion.AccordionHeader>
                                         <button onClick={() => handleDeleteProcess(processo.id)} className='absolute shadow-shape hover:bg-red-900 right-0 top-2 bg-red-800 rounded-full w-6 h-6 flex items-center justify-center'><BsTrash3 className="w-3 h-3 text-white" /></button>
-                                        {/* <div className="py-1">
-                                            <Progress value={returnProgressBarValue(processo)} />
-                                        </div> */}
+                                        <div className="flex gap-2 items-center">
+                                            <div className="w-full h-2.5 overflow-hidden rounded-full bg-green-900/20  shadow-shape">
+                                                <div className="h-2.5 flex-1 bg-gradient-to-tr rounded-md to-green-600 from-gray-900/60 shadow-container ease-in-out transition-all duration-300" style={{ width: `${returnProgressBarValue(processo)}%` }}></div>
+                                            </div>
+                                            <p className="text-xs text-white">{returnProgressBarValue(processo)}%</p>
+                                        </div>
                                     </Accordion.AccordionItem>
                                 ))}
                             </Accordion.Root>

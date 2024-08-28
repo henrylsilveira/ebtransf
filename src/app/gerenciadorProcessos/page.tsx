@@ -5,15 +5,13 @@ import ModalCriarProcesso from "@/components/gerenciamentoProcessos/criarProcess
 import PopoverDeletarProcessos from "@/components/gerenciamentoProcessos/deletarProcessos/PopoverDeletarProcessos";
 import DropdownIniciarProcesso from "@/components/gerenciamentoProcessos/iniciarProcesso/dropdownIniciarProcesso";
 import PopoverSalvarProcessos from "@/components/gerenciamentoProcessos/salvarProcessos/PopoverSalvarProcessos";
-import { Loader } from "@/components/Loader/Loader";
 import { NotData } from "@/components/NotData";
-import { Progress } from "@/components/ui/progress";
 import { ModeloProcessoProps } from "@/types/types";
 import { formatarDataHora, returnProgressBarValue } from '@/utils/scripts';
 import * as Accordion from '@radix-ui/react-accordion';
 import * as Popover from '@radix-ui/react-popover';
 import Script from "next/dist/client/script";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MdArrowRight, MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank, MdOutlineEdit, MdOutlineKeyboardArrowDown, MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 export default function GerenciadorProcessos() {
     const [processos, setProcessos] = useState([] as ModeloProcessoProps[]);
@@ -71,7 +69,7 @@ export default function GerenciadorProcessos() {
                     <h1 className="text-green-600 font-bold uppercase text-xl mx-auto mb-2">Meus Processos</h1>
                 </div>
                 <div className="bg-gradient-to-tr from-gray-900 to-gray-950 rounded-md">
-                    {processos?.length === 0 ? <NotData textoComponent="Nenhum processo encontrado." /> : 
+                    {processos?.length === 0 ? <NotData textoComponent="Nenhum processo encontrado." /> :
                         <Accordion.Root type="single"
                             className=" rounded-md px-3 py-2 text-gray-400 flexgap-1 shadow-shape"
                             collapsible>
@@ -119,8 +117,11 @@ export default function GerenciadorProcessos() {
                                             </div>
                                         }
                                     </Accordion.AccordionHeader>
-                                    <div className="my-2">
-                                        {/* <Progress value={returnProgressBarValue(processo)} /> */}
+                                    <div className="my-2 flex gap-2 items-center">
+                                        <div className="w-full h-2.5 overflow-hidden rounded-full bg-green-900/20  shadow-shape">
+                                            <div className="h-2.5 flex-1 bg-gradient-to-tr rounded-md to-green-600 from-gray-900/60 shadow-container ease-in transition-all duration-700" style={{width: `${returnProgressBarValue(processo)}%` }}></div>
+                                        </div>
+                                            <p className="text-xs text-white">{returnProgressBarValue(processo)}%</p>
                                     </div>
                                     <Accordion.AccordionContent className="shadow-innerShadow rounded-md p-4">
                                         <ul>
@@ -156,7 +157,6 @@ export default function GerenciadorProcessos() {
                                                                     <Popover.Arrow className="fill-[#192132]" />
                                                                 </Popover.Content>
                                                             </Popover.Root>}
-
                                                     </div>
                                                     <button className="cursor-pointer" onClick={() => confirmarEtapa(processo.id, etapa.fase)}>{etapa.situacao ? <MdOutlineCheckBox className="text-green-600 w-5 h-5" /> : <MdOutlineCheckBoxOutlineBlank className="text-green-600 w-5 h-5" />}</button>
                                                 </li>
