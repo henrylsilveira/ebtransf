@@ -71,7 +71,7 @@ export default function GerenciadorProcessos() {
                     <h1 className="text-green-600 font-bold uppercase text-xl mx-auto mb-2">Meus Processos</h1>
                 </div>
                 <div className="bg-gradient-to-tr from-gray-900 to-gray-950 rounded-md">
-                    {processos?.length === 0 ? <NotData textoComponent="Nenhum processo encontrado." /> : (
+                    {processos?.length === 0 ? <NotData textoComponent="Nenhum processo encontrado." /> : 
                         <Accordion.Root type="single"
                             className=" rounded-md px-3 py-2 text-gray-400 flexgap-1 shadow-shape"
                             collapsible>
@@ -120,7 +120,7 @@ export default function GerenciadorProcessos() {
                                         }
                                     </Accordion.AccordionHeader>
                                     <div className="my-2">
-                                        <Progress value={returnProgressBarValue(processo)} />
+                                        {/* <Progress value={returnProgressBarValue(processo)} /> */}
                                     </div>
                                     <Accordion.AccordionContent className="shadow-innerShadow rounded-md p-4">
                                         <ul>
@@ -166,7 +166,7 @@ export default function GerenciadorProcessos() {
                                 </Accordion.AccordionItem>
                             ))}
                         </Accordion.Root>
-                    )}
+                    }
                 </div>
 
 

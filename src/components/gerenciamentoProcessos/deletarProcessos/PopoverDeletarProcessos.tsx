@@ -72,9 +72,9 @@ export default function PopoverDeletarProcessos({ processos, setProcessos }: { p
                                             </div>
                                         </Accordion.AccordionHeader>
                                         <button onClick={() => handleDeleteProcess(processo.id)} className='absolute shadow-shape hover:bg-red-900 right-0 top-2 bg-red-800 rounded-full w-6 h-6 flex items-center justify-center'><BsTrash3 className="w-3 h-3 text-white" /></button>
-                                        <div className="py-1">
+                                        {/* <div className="py-1">
                                             <Progress value={returnProgressBarValue(processo)} />
-                                        </div>
+                                        </div> */}
                                     </Accordion.AccordionItem>
                                 ))}
                             </Accordion.Root>
