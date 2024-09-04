@@ -1,9 +1,6 @@
-import { getFirestore, collection, getDoc, doc, updateDoc } from "firebase/firestore";
+import { getFirestore, collection, getDoc, doc } from "firebase/firestore";
 import app from "@/firebase/config";
-import { NextRequest, NextResponse } from "next/server";
-import { Fato, FatosObservados } from "@/types/types";
-import { Integrantes } from '../../../../types/types';
-import { generateNowISOTime } from "@/utils/scripts";
+import { NextResponse } from "next/server";
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
     const id = params.id

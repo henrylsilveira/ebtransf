@@ -1,5 +1,4 @@
 'use client'
-import Link from "next/link";
 import { BsCalculator, BsClock, BsDatabaseCheck } from "react-icons/bs";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import { MdOutlinePersonSearch, MdOutlinePrivacyTip, MdOutlineRealEstateAgent } from "react-icons/md";

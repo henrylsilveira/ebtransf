@@ -27,8 +27,8 @@ const DropdownMenuSubTrigger = React.forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      
-     
+
+
       className
     )}
     {...props}
@@ -65,7 +65,7 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        
+
         className
       )}
       {...props}
