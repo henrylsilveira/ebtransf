@@ -1,4 +1,4 @@
-import { DadosTransferencia, FeedbackCidadesProps, ModeloProcessoProps } from "@/types/types"
+import { DadosTransferencia, EstadosCidadesCoordProps, FeedbackCidadesProps, ModeloProcessoProps } from "@/types/types"
 import { dependenteIR, impostoRenda, soldo } from "./valores"
 import { AllDocumentTypes } from "../../prismicio-types"
 
@@ -227,6 +227,16 @@ export function convertDate(iso: string | number | Date) {
     return convertDate;
 }
 
+export function convertHour(seconds: number) {
+    
+        const hours = Math.floor(seconds / 3600);
+        const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+        const remainingSeconds = seconds % 60;
+    
+        return hours + ':' + minutes + ':' + remainingSeconds.toFixed(0);
+    
+}
+
 export function formatarDataHora(iso: string | number | Date) {
     const data = new Date(iso);
     return data.toLocaleString("pt-BR");
@@ -362,15 +372,23 @@ export function calculaImpostoRenda(valorBruto: number, descontos: number, depen
 
 export function dividirArray(arr: AllDocumentTypes[], tamanho: number): AllDocumentTypes[][] {
     let resultado = [];
-    
-    for (let i = 0; i < arr.length; i += tamanho) {
-      resultado.push(arr.slice(i, i + tamanho));
-    }
-  
-    return resultado;
-  }
 
-  export function returnProgressBarValue(processo: ModeloProcessoProps) {
+    for (let i = 0; i < arr.length; i += tamanho) {
+        resultado.push(arr.slice(i, i + tamanho));
+    }
+
+    return resultado;
+}
+
+export function returnProgressBarValue(processo: ModeloProcessoProps) {
     const etapasConcluidas = processo.etapas.filter(etapa => etapa.situacao === true).length
     return Number(((etapasConcluidas / processo.etapas.length) * 100).toFixed(0))
+}
+
+export function convertTextToValue(text: string) {
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[- ]+/g, "-");
   }
