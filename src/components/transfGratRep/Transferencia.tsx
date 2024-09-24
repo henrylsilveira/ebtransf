@@ -10,6 +10,7 @@ import { DadosTransferencia } from "@/types/types";
 import { Loader } from "../Loader/Loader";
 import Link from "next/link";
 import { TbClockSearch } from "react-icons/tb";
+import { ModalMapaTransf } from "../modalMapaTransfe/ModalMapaTransf";
 
 export default function CalcTransferencia() {
     const [pg, setPg] = useState("")
@@ -132,6 +133,8 @@ export default function CalcTransferencia() {
         setLoading(false);
     };
 
+    
+
     return (
         <>
             <div className="fixed left-0 bg-gray-900 bg-opacity-40 backdrop-blur-sm shadow-lg w-screen shadow-black bottom-0 p-4 z-10 hover:opacity-10">
@@ -251,7 +254,8 @@ export default function CalcTransferencia() {
             </div>
 
             {/* LOCAL / DESTINO */}
-            <SelectCidades setEstadoOrigem={setEstadoOrigem} setEstadoDestino={setEstadoDestino} setCidadeOrigem={setCidadeOrigem} setCidadeDestino={setCidadeDestino} estadoOrigem={estadoOrigem} estadoDestino={estadoDestino} />
+            <SelectCidades setEstadoOrigem={setEstadoOrigem} setEstadoDestino={setEstadoDestino} setCidadeOrigem={setCidadeOrigem} setCidadeDestino={setCidadeDestino} estadoOrigem={estadoOrigem} estadoDestino={estadoDestino} cidadeOrigem={cidadeOrigem} cidadeDestino={cidadeDestino} />
+            
             {/* LOCALIDADE */}
             <div className="border border-green-600 rounded-md p-6 relative mt-4 flex flex-1">
                 <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Localidade</h1>

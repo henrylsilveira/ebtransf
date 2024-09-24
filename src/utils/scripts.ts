@@ -1,6 +1,7 @@
-import { DadosTransferencia, FeedbackCidadesProps, ModeloProcessoProps } from "@/types/types"
+import { DadosTransferencia, EstadosCidadesCoordProps, FeedbackCidadesProps, ModeloProcessoProps } from "@/types/types"
 import { dependenteIR, impostoRenda, soldo } from "./valores"
 import { AllDocumentTypes } from "../../prismicio-types"
+import { estados } from "./dados/cidades"
 
 export function formataValor(price: number, discount?: number) {
     return new Intl.NumberFormat("pt-BR", {
@@ -227,6 +228,16 @@ export function convertDate(iso: string | number | Date) {
     return convertDate;
 }
 
+export function convertHour(seconds: number) {
+    
+        const hours = Math.floor(seconds / 3600);
+        const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+        const remainingSeconds = seconds % 60;
+    
+        return hours + ':' + minutes + ':' + remainingSeconds.toFixed(0);
+    
+}
+
 export function formatarDataHora(iso: string | number | Date) {
     const data = new Date(iso);
     return data.toLocaleString("pt-BR");
@@ -314,6 +325,7 @@ export function returnFeedbackCities(cities: FeedbackCidadesProps[]) {
         const totalArrayCidades = cities.filter(c => c.cidade + " | " + c.estado === city).length
         return {
             city: city,
+            sigla: estados.filter(estado => estado.nome === city.split(" | ")[1])[0].sigla,
             educacao: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.educacao : accumulator }, 0) / totalArrayCidades,
             saude: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.saude : accumulator }, 0) / totalArrayCidades,
             trabalho: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.trabalho : accumulator }, 0) / totalArrayCidades,
@@ -362,15 +374,23 @@ export function calculaImpostoRenda(valorBruto: number, descontos: number, depen
 
 export function dividirArray(arr: AllDocumentTypes[], tamanho: number): AllDocumentTypes[][] {
     let resultado = [];
-    
-    for (let i = 0; i < arr.length; i += tamanho) {
-      resultado.push(arr.slice(i, i + tamanho));
-    }
-  
-    return resultado;
-  }
 
-  export function returnProgressBarValue(processo: ModeloProcessoProps) {
+    for (let i = 0; i < arr.length; i += tamanho) {
+        resultado.push(arr.slice(i, i + tamanho));
+    }
+
+    return resultado;
+}
+
+export function returnProgressBarValue(processo: ModeloProcessoProps) {
     const etapasConcluidas = processo.etapas.filter(etapa => etapa.situacao === true).length
     return Number(((etapasConcluidas / processo.etapas.length) * 100).toFixed(0))
+}
+
+export function convertTextToValue(text: string) {
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[- ]+/g, "-");
   }
