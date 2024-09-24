@@ -1,12 +1,13 @@
 
 import { FeedbackCidades } from "@/components/feedbackCidades/feedbackCidades";
 import { NotData } from "@/components/NotData";
-import { returnFeedbackCities } from "@/utils/scripts";
+import { convertTextToValue, returnFeedbackCities } from "@/utils/scripts";
 import Rating from "@mui/material/Rating";
 import Script from "next/dist/client/script";
 import Link from "next/link";
 
 import DropdownFeedback from "@/components/dropdownFeedback/dropdownFeedback";
+import { FaRegChartBar } from "react-icons/fa";
 async function getData() {
     const res = await fetch('https://ebcalc.net/api/feedbackCidades', { next: { revalidate: 3600 * 7 } })
     if (!res.ok) {
@@ -60,6 +61,7 @@ export default async function MediasCidades() {
                                                 <tr>
                                                     <th scope="col" className="sm:py-3 sm:px-6 py-1 px-2">Cidade</th>
                                                     <th scope="col" className="sm:py-3 sm:px-6 py-1 px-2">Avaliação</th>
+                                                    <th scope="col" className="sm:py-3 sm:px-2 py-1 px-1"></th>
                                                 </tr>
                                             </thead>
                                             <tbody className="overflow-y-auto">
@@ -69,6 +71,10 @@ export default async function MediasCidades() {
                                                         <td className="sm:py-4 sm:px-6 py-1 px-2 text-center flex gap-2">
                                                             <p className="flex items-center gap-2"><Rating name="size-large" precision={0.5} value={(city.saude + city.educacao + city.trabalho + city.seguranca + city.infraEstrutura + city.pnr + city.batalhao + city.custoVida) / 8} size="medium" readOnly /></p>
                                                             <DropdownFeedback city={city} />
+                                                        </td>
+                                                        <td className="sm:py-4 sm:px-6 py-1 px-2">
+                                                        <Link className="flex text-sm text-white items-center justify-center gap-2 bg-blue-900/80 hover:bg-blue-900/20 transition-all duration-500 ease-out w-20 shadow-container rounded-sm" target="_blank" href={`https://cidades.ibge.gov.br/brasil/${convertTextToValue(city.sigla)}/${convertTextToValue(city.city)}/panorama`}><FaRegChartBar />IBGE</Link>
+
                                                         </td>
                                                     </tr>
                                                 )}

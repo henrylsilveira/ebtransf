@@ -1,6 +1,7 @@
 import { DadosTransferencia, EstadosCidadesCoordProps, FeedbackCidadesProps, ModeloProcessoProps } from "@/types/types"
 import { dependenteIR, impostoRenda, soldo } from "./valores"
 import { AllDocumentTypes } from "../../prismicio-types"
+import { estados } from "./dados/cidades"
 
 export function formataValor(price: number, discount?: number) {
     return new Intl.NumberFormat("pt-BR", {
@@ -324,6 +325,7 @@ export function returnFeedbackCities(cities: FeedbackCidadesProps[]) {
         const totalArrayCidades = cities.filter(c => c.cidade + " | " + c.estado === city).length
         return {
             city: city,
+            sigla: estados.filter(estado => estado.nome === city.split(" | ")[1])[0].sigla,
             educacao: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.educacao : accumulator }, 0) / totalArrayCidades,
             saude: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.saude : accumulator }, 0) / totalArrayCidades,
             trabalho: cities.reduce((accumulator, c) => { return c.cidade + " | " + c.estado === city ? accumulator + c.trabalho : accumulator }, 0) / totalArrayCidades,

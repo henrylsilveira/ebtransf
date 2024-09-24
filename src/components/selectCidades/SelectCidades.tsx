@@ -1,6 +1,7 @@
+'use client'
 import { estados } from "@/utils/dados/cidades";
 import Link from "next/link";
-import { Dispatch, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { BiArrowToRight } from "react-icons/bi";
 import { HiOutlineInformationCircle } from "react-icons/hi2";
 import { FeedbackCidades } from "../feedbackCidades/feedbackCidades";
@@ -13,22 +14,35 @@ import { NotData } from "../NotData";
 export default function SelectCidades({ setEstadoOrigem, setEstadoDestino, setCidadeOrigem, setCidadeDestino, estadoOrigem, estadoDestino, cidadeOrigem, cidadeDestino }: { setEstadoOrigem: Dispatch<React.SetStateAction<string>>, setEstadoDestino: Dispatch<React.SetStateAction<string>>, setCidadeOrigem: Dispatch<React.SetStateAction<string>>, setCidadeDestino: Dispatch<React.SetStateAction<string>>, estadoOrigem: string, estadoDestino: string, cidadeOrigem: string, cidadeDestino: string }) {
     const [result, setResult] = useState({} as any | false)
     const [cidades, setCidades] = useState({} as {
-        cidadeOrigem: EstadosCidadesCoordProps | false
-        cidadeDestino: EstadosCidadesCoordProps | false
+        cidadeOrigem: EstadosCidadesCoordProps 
+        cidadeDestino: EstadosCidadesCoordProps
     })
-    async function calculaDistancia() {
-        const cidadeOrigemResult: EstadosCidadesCoordProps | boolean = estados_cidades_coord.filter((cidade) => cidade.city?.toLowerCase().includes(cidadeOrigem.toLowerCase()) )[0] ? estados_cidades_coord.filter((cidade) => cidade.city?.toLowerCase().includes(cidadeOrigem.toLowerCase()))[0] : false
-        const cidadeDestinoResult: EstadosCidadesCoordProps | boolean = estados_cidades_coord.filter((cidade) => cidade.city?.toLowerCase().includes(cidadeDestino.toLowerCase()) )[0] ? estados_cidades_coord.filter((cidade) => cidade.city?.toLowerCase().includes(cidadeDestino.toLowerCase()))[0] : false
-        setCidades({
-            cidadeOrigem: cidadeOrigemResult,
-            cidadeDestino: cidadeDestinoResult
-        })
-        if (cidadeOrigemResult !== false && cidadeDestinoResult !== false) {
-            const res = await fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${cidadeOrigemResult.lng},${cidadeOrigemResult.lat};${cidadeDestinoResult.lng},${cidadeDestinoResult.lat}?alternatives=false&geometries=geojson&language=pt&overview=simplified&steps=true&access_token=pk.eyJ1IjoiaGVucnlsZWFvIiwiYSI6ImNtMWYzYnZtZzJsc3Mya216a3ZxbHJlMmsifQ.tWUPbbqY-s0RtICObKE75g`)
-            setResult(await res.json())
-        }else{
-            setResult(false)
+
+    useEffect(() => {
+        if(cidadeOrigem !== "" && cidadeDestino !== ""){
+            setCidades({
+                cidadeOrigem: estados_cidades_coord.filter((cidade) => cidade.city?.toLowerCase().includes(cidadeOrigem.toLowerCase()) )[0] && estados_cidades_coord.filter((cidade) => cidade.city?.toLowerCase().includes(cidadeOrigem.toLowerCase()))[0],
+                cidadeDestino: estados_cidades_coord.filter((cidade) => cidade.city?.toLowerCase().includes(cidadeDestino.toLowerCase()) )[0] && estados_cidades_coord.filter((cidade) => cidade.city?.toLowerCase().includes(cidadeDestino.toLowerCase()))[0]
+            })
+            calculaDistancia()
         }
+        
+    }, [cidadeOrigem, cidadeDestino])
+    
+
+    async function calculaDistancia() {
+        
+        console.log(cidades.cidadeDestino, cidades.cidadeOrigem)
+        if (cidades.cidadeOrigem.city !== undefined && cidades.cidadeDestino.city !== undefined) {
+            const res = await fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${ cidades.cidadeOrigem.lng},${ cidades.cidadeOrigem.lat};${cidades.cidadeDestino.lng},${cidades.cidadeDestino.lat}?alternatives=false&geometries=geojson&language=pt&overview=simplified&steps=true&access_token=pk.eyJ1IjoiaGVucnlsZWFvIiwiYSI6ImNtMWYzYnZtZzJsc3Mya216a3ZxbHJlMmsifQ.tWUPbbqY-s0RtICObKE75g`)
+            setResult(await res.json())
+            console.log(result)
+        }else{
+          return setResult({
+            route: []
+        })  
+        }
+        
     }
 
     return (
@@ -113,11 +127,10 @@ export default function SelectCidades({ setEstadoOrigem, setEstadoDestino, setCi
                                 <Link className="mt-4 flex text-sm text-white items-center justify-center gap-2 bg-blue-900/80 hover:bg-blue-900/20 transition-all duration-500 ease-out w-20 shadow-container rounded-sm" target="_blank" href={`https://cidades.ibge.gov.br/brasil/${convertTextToValue(cidades.cidadeDestino.sigla_state)}/${convertTextToValue(cidades.cidadeDestino.city)}/panorama`}><FaRegChartBar />IBGE</Link>
                             </div> : <NotData textoComponent={"Cidade não encontrada!"} />
                         }
-
                     </div>
-                    {(result && cidades.cidadeOrigem && cidades.cidadeDestino) ? <div className="mx-auto mt-4 ">
-                        <p className="text-green-800 text-lg font-semibold">Distância: { result !== undefined && (result?.routes[0]?.distance / 1000).toFixed(2)} km</p>
-                        <p className="text-gray-600 text-lg font-semibold">Duração: {result !== undefined && convertHour(result?.routes[0]?.duration)}</p>
+                    {(result?.code === "Ok") ? <div className="mx-auto mt-4 ">
+                        <p className="text-green-800 text-lg font-semibold">Distância: { (result?.routes[0]?.distance / 1000).toFixed(2) + "km" } </p>
+                        <p className="text-gray-600 text-lg font-semibold">Duração: {convertHour(result?.routes[0]?.duration)}</p>
                     </div> : <NotData textoComponent={"Não foi possível retornar as informações!"} />
                     }
 
