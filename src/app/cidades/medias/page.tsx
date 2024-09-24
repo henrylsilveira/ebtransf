@@ -73,8 +73,7 @@ export default async function MediasCidades() {
                                                             <DropdownFeedback city={city} />
                                                         </td>
                                                         <td className="sm:py-4 sm:px-6 py-1 px-2">
-                                                        <Link className="flex text-sm text-white items-center justify-center gap-2 bg-blue-900/80 hover:bg-blue-900/20 transition-all duration-500 ease-out w-20 shadow-container rounded-sm" target="_blank" href={`https://cidades.ibge.gov.br/brasil/${convertTextToValue(city.sigla)}/${convertTextToValue(city.city)}/panorama`}><FaRegChartBar />IBGE</Link>
-
+                                                            <Link className="flex text-sm text-white items-center justify-center gap-2 bg-blue-900/80 hover:bg-blue-900/20 transition-all duration-500 ease-out w-20 shadow-container rounded-sm" target="_blank" href={`https://cidades.ibge.gov.br/brasil/${convertTextToValue(city.sigla)}/${convertTextToValue(city.city.split("|")[0].trim())}/panorama`}><FaRegChartBar />IBGE</Link>
                                                         </td>
                                                     </tr>
                                                 )}
