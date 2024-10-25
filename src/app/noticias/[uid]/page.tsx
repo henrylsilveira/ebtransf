@@ -30,7 +30,7 @@ export default async function Noticias({ params }: NoticiaProps) {
                             {post.data.titulonoticia}
                         </h3>
                         <span className="text-sm text-gray-600">{convertDate(post.last_publication_date)}</span>
-                        <section className="text-gray-400">
+                        <section id="secNoticia" className="text-gray-400">
                             <PrismicImage field={post.data.image} />
                             <div id="noticia">
                                 <PrismicRichText field={post.data.textonoticia} />
