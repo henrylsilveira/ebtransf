@@ -1,4 +1,4 @@
-
+import Script from "next/script";
 import { createClient } from "@/prismicio";
 import { convertDate } from "@/utils/scripts";
 import { PrismicImage, PrismicRichText } from "@prismicio/react";
@@ -14,6 +14,15 @@ export default async function Noticias({ params }: NoticiaProps) {
     return (
         <>
             <title>EBCalc - Notícias</title>
+            <Script async src="https://www.googletagmanager.com/gtag/js?id=G-W6B1SSXWE7"></Script>
+            <Script id="google-analytics">
+                {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-W6B1SSXWE7');`}
+            </Script>
+            <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
+                crossOrigin="anonymous" />
             <div className="max-w-4xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
                 <section key={post.id}>
                     <section>
