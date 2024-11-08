@@ -14,8 +14,6 @@ async function getData(lat1: number, long1: number, lat2: number, long2: number)
 
 export async function ModalMapaTransf({lat1, long1, lat2, long2}: {lat1: number, long1: number, lat2: number, long2: number}) {
   const data = await getData(lat1, long1, lat2, long2)
-  console.log(data)
-
   return (
     <Map
       mapboxAccessToken="pk.eyJ1IjoiaGVucnlsZWFvIiwiYSI6ImNtMWYzYnZtZzJsc3Mya216a3ZxbHJlMmsifQ.tWUPbbqY-s0RtICObKE75g"
