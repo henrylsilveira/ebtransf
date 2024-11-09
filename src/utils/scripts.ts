@@ -224,7 +224,7 @@ export function generateNowISOTime() {
 
 export function convertDate(iso: string | number | Date) {
     const d = new Date(iso);
-    const convertDate = d.toLocaleDateString("pt-BR");
+    const convertDate = d.toLocaleDateString("pt-BR", {timeZone: 'UTC'});
     return convertDate;
 }
 
@@ -240,7 +240,7 @@ export function convertHour(seconds: number) {
 
 export function formatarDataHora(iso: string | number | Date) {
     const data = new Date(iso);
-    return data.toLocaleString("pt-BR");
+    return data.toLocaleString("pt-BR", {timeZone: 'UTC'});
 }
 
 export function hasFiveMinutesPassed(isoDateTime: string): number {
@@ -394,3 +394,63 @@ export function convertTextToValue(text: string) {
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/[- ]+/g, "-");
   }
+
+export  function calculateFutureDate(days: number) {
+    const currentDate = new Date();
+    const futureDate = new Date();
+    futureDate.setDate(currentDate.getDate() + days);
+
+    // Cálculo mais preciso para anos e meses, incluindo anos bissextos
+    const years = Math.floor(days / 365.25); // Aproximação que considera anos bissextos
+    const remainingDaysAfterYears = days % 365.25;
+    const months = Math.floor(remainingDaysAfterYears / 30);
+    const remainingDays = Math.round(remainingDaysAfterYears % 30);
+
+    return {
+        data: futureDate.toLocaleDateString("pt-BR", {timeZone: 'UTC'}),
+        anoMesDia: years + " anos " + months + " meses " + remainingDays + " dias",
+    };
+}
+
+export function countdown(dateString: string) {
+    // Converte a data no formato dd/mm/aaaa para um objeto Date
+    dateString = "26/08/2049"
+    const [day, month, year] = dateString.split('/').map(part => parseInt(part, 10));
+
+    // Verificação se os valores de dia, mês e ano são válidos
+    if (isNaN(day) || isNaN(month) || isNaN(year)) {
+        console.log("Data inválida!");
+        return "Data inválida!";
+    }
+
+    const targetDate = new Date(year, month - 1, day);
+    if (isNaN(targetDate.getTime())) {
+        console.log("Data inválida!");
+        return "Data inválida!";
+    }
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const timeLeft = targetDate.getTime() - now;
+
+        if (timeLeft <= 0) {
+            clearTimeout(timer);
+            console.log("Contagem regressiva finalizada!");
+            return "Contagem regressiva finalizada!";
+        }
+
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        const countdownString = `${days} dias, ${hours} horas, ${minutes} minutos, ${seconds} segundos`;
+        console.log(countdownString);  // Mostra a saída no console
+
+        timer = setTimeout(updateCountdown, 1000);
+        return countdownString;
+    }
+
+    let timer = setTimeout(updateCountdown, 1000);
+    return updateCountdown();
+}

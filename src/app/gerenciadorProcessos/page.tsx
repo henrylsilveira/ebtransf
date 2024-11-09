@@ -8,11 +8,14 @@ import PopoverSalvarProcessos from "@/components/gerenciamentoProcessos/salvarPr
 import { NotData } from "@/components/NotData";
 import { ModeloProcessoProps } from "@/types/types";
 import { formatarDataHora, returnProgressBarValue } from '@/utils/scripts';
+import { iniciarTutorialProcesso } from "@/utils/tutoriais/processos/inicial";
 import * as Accordion from '@radix-ui/react-accordion';
 import * as Popover from '@radix-ui/react-popover';
 import Script from "next/dist/client/script";
+import "driver.js/dist/driver.css";
 import { useEffect, useState } from "react";
-import { MdArrowRight, MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank, MdOutlineEdit, MdOutlineKeyboardArrowDown, MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import { MdArrowRight, MdHelp, MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank, MdOutlineEdit, MdOutlineKeyboardArrowDown, MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import { toast } from "react-toastify";
 export default function GerenciadorProcessos() {
     const [processos, setProcessos] = useState([] as ModeloProcessoProps[]);
     const [registrosModelos, setRegistrosModelos] = useState([] as ModeloProcessoProps[]);
@@ -34,7 +37,20 @@ export default function GerenciadorProcessos() {
     }
 
     useEffect(() => {
-        setProcessos(JSON.parse(localStorage.getItem("processos")!))
+        const processos: ModeloProcessoProps[] = JSON.parse(localStorage.getItem("processos")!)
+        const setProcessosNovos = new Set();
+        const processoOtimizados: ModeloProcessoProps[] = processos.filter((person) => {
+            const duplicatedPerson = setProcessosNovos.has(person.id);
+            setProcessosNovos.add(person.id);
+            return !duplicatedPerson;
+          });
+        setProcessos(processoOtimizados)
+        if(processos.length - processoOtimizados.length > 0) {
+            toast.info(`Foram removidos ${processos.length - processoOtimizados.length} registros duplicados!`, {
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "dark",
+        });
+        }
     }, [])
     useEffect(() => {
         localStorage.setItem("processos", JSON.stringify(processos))
@@ -53,10 +69,11 @@ export default function GerenciadorProcessos() {
             <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
                 crossOrigin="anonymous" />
             <div className="flex flex-col mx-auto max-w-4xl w-10/12 sm:text-md text-sm shadow-container p-10 rounded-lg mb-20 mt-4 h-full min-h-screen">
-                <div className="flex mt-4">
-                    <h1 className="text-green-600 font-bold uppercase text-2xl mr-auto mb-2">Processos</h1>
+                <div className="flex my-4 justify-between">
+                    <h1 className="text-green-600 font-bold uppercase text-3 xl mr-auto mb-2">Processos</h1>
+                    <button type="button" onClick={iniciarTutorialProcesso} className="hover:bg-orange-800 items-center text-xs bg-transparent border border-orange-700 uppercase text-white py-2 px-4 rounded-md flex gap-2"><MdHelp className="w-4 h-4" />Ajuda</button>
                 </div>
-                <div className="shadow-shape bg-gradient-to-tr from-gray-900 to-gray-950 text-gray-400 rounded-md py-4 grid grid-cols-3 gap-2 px-4">
+                <div id="painelFuncionalidades" className="shadow-shape bg-gradient-to-tr from-gray-900 to-gray-950 text-gray-400 rounded-md py-4 grid grid-cols-3 gap-2 px-4">
                     <ModalCriarProcesso setRegistrosModelos={setRegistrosModelos} registrosModelos={registrosModelos} />
                     <DropdownIniciarProcesso setProcessos={setProcessos} setRegistrosModelos={setRegistrosModelos} registrosModelos={registrosModelos} />
                     <PopoverSalvarProcessos processos={processos} />
@@ -68,7 +85,7 @@ export default function GerenciadorProcessos() {
                 <div className="flex mt-4">
                     <h1 className="text-green-600 font-bold uppercase text-xl mx-auto mb-2">Meus Processos</h1>
                 </div>
-                <div className="bg-gradient-to-tr from-gray-900 to-gray-950 rounded-md">
+                <div id="meusProcessos" className="bg-gradient-to-tr from-gray-900 to-gray-950 rounded-md">
                     {processos?.length === 0 ? <NotData textoComponent="Nenhum processo encontrado." /> :
                         <Accordion.Root type="single"
                             className=" rounded-md px-3 py-2 text-gray-400 flexgap-1 shadow-shape"
