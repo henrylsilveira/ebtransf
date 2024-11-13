@@ -419,13 +419,13 @@ export function countdown(dateString: string) {
 
     // Verificação se os valores de dia, mês e ano são válidos
     if (isNaN(day) || isNaN(month) || isNaN(year)) {
-        console.log("Data inválida!");
+        
         return "Data inválida!";
     }
 
     const targetDate = new Date(year, month - 1, day);
     if (isNaN(targetDate.getTime())) {
-        console.log("Data inválida!");
+        
         return "Data inválida!";
     }
 
@@ -435,7 +435,7 @@ export function countdown(dateString: string) {
 
         if (timeLeft <= 0) {
             clearTimeout(timer);
-            console.log("Contagem regressiva finalizada!");
+            
             return "Contagem regressiva finalizada!";
         }
 
@@ -445,7 +445,6 @@ export function countdown(dateString: string) {
         const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
         const countdownString = `${days} dias, ${hours} horas, ${minutes} minutos, ${seconds} segundos`;
-        console.log(countdownString);  // Mostra a saída no console
 
         timer = setTimeout(updateCountdown, 1000);
         return countdownString;

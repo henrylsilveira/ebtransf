@@ -89,7 +89,7 @@ export default function TempoServico() {
         },
       ],
     });
-    console.log(dataForm);
+    
   }
 
   function handleRemoveFormEsp(id: string) {
@@ -108,7 +108,7 @@ export default function TempoServico() {
       ...dataForm,
       [e.target.name]: e.target.value,
     });
-    console.log(dataForm);
+    
   };
 
   function setShowCounter(data: string): void {
