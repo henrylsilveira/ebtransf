@@ -182,7 +182,7 @@ export default function TempoServico() {
             aposentadoria militar e assim por diante.
           </article>
         </div>
-        <div className="gap-4 w-full shadow-shape py-2 px-4 rounded-lg mb-2 flex items-center">
+        <div className="gap-4 w-full shadow-shape py-2 px-4 rounded-lg mb-2 flex items-center text-xs md:text-base justify-center">
           <button
             className="cursor-pointer flex items-center justify-center text-gray-400 gap-2"
             onClick={() => {}}
@@ -357,7 +357,7 @@ export default function TempoServico() {
               </div>
             </div>
             {dataForm.tempGuEsp.length > 0 && (
-              <div className="shadow-innerShadow rounded-md p-4">
+              <div className="shadow-innerShadow rounded-md p-4 text-xs sm:text-base">
                 {dataForm.tempGuEsp?.map((data, index) => (
                   <li
                     key={index}
@@ -378,23 +378,20 @@ export default function TempoServico() {
                           </span>
                         </p>
                       </div>
-                      <div className="flex text-xs gap-2">
+                      <div className="flex text-xs gap-2 flex-col sm:flex-row">
                         <p className="text-red-600">
                           Tempo total:
                           <span className="text-gray-400 pl-2">
                             {data.calculos.ano} anos
                           </span>
-                        </p>
-                        <p>
-                          <span className="text-gray-400">
+                          <span className="text-gray-400 pl-2">
                             {data.calculos.mes} meses
                           </span>
-                        </p>
-                        <p>
-                          <span className="text-gray-400">
+                          <span className="text-gray-400 pl-2">
                             {data.calculos.dia} dias
                           </span>
                         </p>
+                        
                         <p className="text-red-600">
                           Total em dias:{" "}
                           <span className="text-gray-400 pl-2">
@@ -426,7 +423,7 @@ export default function TempoServico() {
                 </p>
               </div>
             ) : (
-              <div className="border text-sm sm:text-md border-green-600 rounded-md p-6 relative my-4">
+              <div className="border text-xs sm:text-base border-green-600 rounded-md p-6 relative my-4">
                 <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">
                   TEMPO
                 </h1>
@@ -541,49 +538,55 @@ export default function TempoServico() {
                   </button> */}
                   {dataForm.numTempoReserva ? (
                     <div className="w-full">
-                      <h1 className="text-green-600 font-bold uppercase text-md flex justify-center w-full">
-                        Tempo total para reserva
-                      </h1>
-                      <p className="flex justify-center text-3xl text-red-700">
-                        {
-                          calculateFutureDate(
-                            dataForm.numTempoReserva * 365 -
-                              (dataForm.calcDia?.totalDias! +
-                                Math.floor(
-                                  dataForm.tempGuEsp.reduce(
-                                    (acc, val) => acc + val.calculos.totalDias!,
-                                    0
-                                  ) / 720
-                                ) *
-                                  8 *
-                                  30)
-                          ).anoMesDia
-                        }
-                      </p>
-                      <h1 className="text-green-600 font-bold uppercase text-md flex justify-center w-full">
-                        Data da reserva
-                      </h1>
-                      <p className="flex justify-center text-3xl text-red-700">
-                        {
-                          calculateFutureDate(
-                            dataForm.numTempoReserva * 365 -
-                              (dataForm.calcDia?.totalDias! +
-                                Math.floor(
-                                  dataForm.tempGuEsp.reduce(
-                                    (acc, val) => acc + val.calculos.totalDias!,
-                                    0
-                                  ) / 720
-                                ) *
-                                  8 *
-                                  30)
-                          ).data
-                        }
-                      </p>
+                      <div>
+                        <h1 className="text-green-600 font-bold uppercase text-base flex justify-center w-full">
+                          Tempo total para reserva
+                        </h1>
+                        <p className="flex justify-center text-xl sm:text-3xl  text-red-700">
+                          {
+                            calculateFutureDate(
+                              dataForm.numTempoReserva * 365 -
+                                (dataForm.calcDia?.totalDias! +
+                                  Math.floor(
+                                    dataForm.tempGuEsp.reduce(
+                                      (acc, val) =>
+                                        acc + val.calculos.totalDias!,
+                                      0
+                                    ) / 720
+                                  ) *
+                                    8 *
+                                    30)
+                            ).anoMesDia
+                          }
+                        </p>
+                      </div>
+                      <div>
+                        <h1 className="text-green-600 font-bold uppercase text-base flex justify-center w-full">
+                          Data da reserva
+                        </h1>
+                        <p className="flex justify-center  text-xl sm:text-3xl text-red-700">
+                          {
+                            calculateFutureDate(
+                              dataForm.numTempoReserva * 365 -
+                                (dataForm.calcDia?.totalDias! +
+                                  Math.floor(
+                                    dataForm.tempGuEsp.reduce(
+                                      (acc, val) =>
+                                        acc + val.calculos.totalDias!,
+                                      0
+                                    ) / 720
+                                  ) *
+                                    8 *
+                                    30)
+                            ).data
+                          }
+                        </p>
+                      </div>
                     </div>
                   ) : (
                     <div className="flex items-center justify-center p-6">
                       <FiAlertTriangle className="w-8 h-8 flex justify-center text-red-800" />
-                      <p className="flex justify-center text-xl py-4 px-6 text-red-700">
+                      <p className="flex justify-center text-sm md:text-base py-4 px-6 text-red-700">
                         Informe um valor no campo "tempo total para reserva".
                       </p>
                     </div>
