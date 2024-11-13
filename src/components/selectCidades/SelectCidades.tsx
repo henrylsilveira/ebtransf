@@ -32,11 +32,9 @@ export default function SelectCidades({ setEstadoOrigem, setEstadoDestino, setCi
 
     async function calculaDistancia() {
         
-        console.log(cidades.cidadeDestino, cidades.cidadeOrigem)
         if (cidades.cidadeOrigem.city !== undefined && cidades.cidadeDestino.city !== undefined) {
             const res = await fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${ cidades.cidadeOrigem.lng},${ cidades.cidadeOrigem.lat};${cidades.cidadeDestino.lng},${cidades.cidadeDestino.lat}?alternatives=false&geometries=geojson&language=pt&overview=simplified&steps=true&access_token=pk.eyJ1IjoiaGVucnlsZWFvIiwiYSI6ImNtMWYzYnZtZzJsc3Mya216a3ZxbHJlMmsifQ.tWUPbbqY-s0RtICObKE75g`)
             setResult(await res.json())
-            console.log(result)
         }else{
           return setResult({
             route: []

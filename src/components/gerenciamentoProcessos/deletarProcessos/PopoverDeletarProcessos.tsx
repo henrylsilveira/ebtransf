@@ -36,10 +36,10 @@ export default function PopoverDeletarProcessos({ processos, setProcessos }: { p
         <div>
             <Popover.Root >
                 <Popover.Trigger aria-controls="deletar-processo">
-                    <div className="uppercase hover:text-gray-200 hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative">Deletar</div>
+                    <div id='deletarProcessos' className="uppercase hover:text-gray-200 hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative">Deletar</div>
                 </Popover.Trigger>
                 <Popover.Content className="bg-gray-900 z-10 p-2 rounded-md shadow-shape flex justify-center flex-col ">
-                    <div className="py-2 gap-2">
+                    <div className="py-2 gap-2 ">
                         <div className='flex w-64 flex-col gap-2'>
                             <h1 className='flex justify-center uppercase font-semibold border-b border-green-800'>Deletar processos</h1>
                             <div className='flex flex-1 items-center gap-2 my-2'>
@@ -49,7 +49,7 @@ export default function PopoverDeletarProcessos({ processos, setProcessos }: { p
                         </div>
                         {processos?.length === 0 ? <NotData textoComponent="Nenhum processo encontrado." /> : (
                             <Accordion.Root type="single"
-                                className=" rounded-md px-3 text-gray-400 flexgap-1 shadow-shape"
+                                className="rounded-md px-3 text-gray-400 flexgap-1 shadow-shape overflow-y-auto h-64"
                                 collapsible>
                                 {processos.map((processo, index) => (
                                     <Accordion.AccordionItem value={processo.id} key={index + processo.id} className="border-b relative last:border-none border-green-800 py-2">

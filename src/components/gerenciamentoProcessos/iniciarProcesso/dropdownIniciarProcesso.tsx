@@ -22,7 +22,7 @@ export default function DropdownIniciarProcesso({ setProcessos, registrosModelos
         <div>
             <DropdownMenu.Root>
                 <DropdownMenu.Trigger id={"dropdownIniciarProcesso"} asChild>
-                    <button className="uppercase focus:outline-none hover:text-gray-200 hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative">Iniciar processo</button>
+                    <button id="iniciarProcessos" className="uppercase focus:outline-none hover:text-gray-200 hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative">Iniciar processo</button>
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Portal>
                     <DropdownMenu.Content className="bg-[#192132] rounded-md px-3 py-2 text-gray-400 flex flex-col gap-1">
