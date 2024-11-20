@@ -89,15 +89,13 @@ export default function TempoServico() {
         },
       ],
     });
-    console.log(dataForm);
+    
   }
 
   function handleRemoveFormEsp(id: string) {
     setDataForm({
       ...dataForm,
-      tempGuEsp: dataForm.tempGuEsp.filter(
-        (temp) => temp.id!== id
-      ),
+      tempGuEsp: dataForm.tempGuEsp.filter((temp) => temp.id !== id),
     });
   }
 
@@ -110,11 +108,11 @@ export default function TempoServico() {
       ...dataForm,
       [e.target.name]: e.target.value,
     });
-    console.log(dataForm);
+    
   };
 
   function setShowCounter(data: string): void {
-    localStorage.setItem("contadorReserva", JSON.stringify({data}))
+    localStorage.setItem("contadorReserva", JSON.stringify({ data }));
   }
 
   return (
@@ -184,7 +182,7 @@ export default function TempoServico() {
             aposentadoria militar e assim por diante.
           </article>
         </div>
-        <div className="gap-4 w-full shadow-shape py-2 px-4 rounded-lg mb-2 flex items-center">
+        <div className="gap-4 w-full shadow-shape py-2 px-4 rounded-lg mb-2 flex items-center text-xs md:text-base justify-center">
           <button
             className="cursor-pointer flex items-center justify-center text-gray-400 gap-2"
             onClick={() => {}}
@@ -358,56 +356,60 @@ export default function TempoServico() {
                 </button>
               </div>
             </div>
-            <div className="shadow-innerShadow rounded-md p-4">
-              {dataForm.tempGuEsp?.map((data, index) => (
-                <li
-                  key={index}
-                  className="bg-gray-950 hover:bg-gradient-to-tr to-gray-950 from-gray-900/20 shadow-shape flex flex-1 rounded-md items-center mb-1 py-1 px-2 justify-between"
-                >
-                  <div className="flex flex-col">
-                    <div className="flex gap-4">
-                      <p className="text-green-600">
-                        Data Inicio:{" "}
-                        <span className="text-gray-400">
-                          {convertDate(data.iniTempo)}
-                        </span>
-                      </p>
-                      <p className="text-green-600">
-                        Data Término:{" "}
-                        <span className="text-gray-400">
-                          {convertDate(data.fimTempo)}
-                        </span>
-                      </p>
+            {dataForm.tempGuEsp.length > 0 && (
+              <div className="shadow-innerShadow rounded-md p-4 text-xs sm:text-base">
+                {dataForm.tempGuEsp?.map((data, index) => (
+                  <li
+                    key={index}
+                    className="bg-gray-950 hover:bg-gradient-to-tr to-gray-950 from-gray-900/20 shadow-shape flex flex-1 rounded-md items-center mb-1 py-1 px-2 justify-between"
+                  >
+                    <div className="flex flex-col">
+                      <div className="flex gap-4">
+                        <p className="text-green-600">
+                          Data Inicio:{" "}
+                          <span className="text-gray-400">
+                            {convertDate(data.iniTempo)}
+                          </span>
+                        </p>
+                        <p className="text-green-600">
+                          Data Término:{" "}
+                          <span className="text-gray-400">
+                            {convertDate(data.fimTempo)}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="flex text-xs gap-2 flex-col sm:flex-row">
+                        <p className="text-red-600">
+                          Tempo total:
+                          <span className="text-gray-400 pl-2">
+                            {data.calculos.ano} anos
+                          </span>
+                          <span className="text-gray-400 pl-2">
+                            {data.calculos.mes} meses
+                          </span>
+                          <span className="text-gray-400 pl-2">
+                            {data.calculos.dia} dias
+                          </span>
+                        </p>
+                        
+                        <p className="text-red-600">
+                          Total em dias:{" "}
+                          <span className="text-gray-400 pl-2">
+                            {data.calculos.totalDias}
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex text-xs gap-2">
-                      <p className="text-red-600">
-                        Tempo total:
-                        <span className="text-gray-400 pl-2">
-                          {data.calculos.ano} anos
-                        </span>
-                      </p>
-                      <p>
-                        <span className="text-gray-400">
-                          {data.calculos.mes} meses
-                        </span>
-                      </p>
-                      <p>
-                        <span className="text-gray-400">
-                          {data.calculos.dia} dias
-                        </span>
-                      </p>
-                      <p className="text-red-600">
-                        Total em dias:{" "}
-                        <span className="text-gray-400 pl-2">
-                          {data.calculos.totalDias}
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                  <button onClick={() => handleRemoveFormEsp(data.id)} className='shadow-shape hover:bg-red-900 right-0 top-2 bg-red-800 rounded-full w-6 h-6 flex items-center justify-center'><BsTrash3 className="w-3 h-3 text-white" /></button>
-                </li>
-              ))}
-            </div>
+                    <button
+                      onClick={() => handleRemoveFormEsp(data.id)}
+                      className="shadow-shape hover:bg-red-900 right-0 top-2 bg-red-800 rounded-full w-6 h-6 flex items-center justify-center"
+                    >
+                      <BsTrash3 className="w-3 h-3 text-white" />
+                    </button>
+                  </li>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
@@ -421,7 +423,7 @@ export default function TempoServico() {
                 </p>
               </div>
             ) : (
-              <div className="border text-sm sm:text-md border-green-600 rounded-md p-6 relative my-4">
+              <div className="border text-xs sm:text-base border-green-600 rounded-md p-6 relative my-4">
                 <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">
                   TEMPO
                 </h1>
@@ -511,44 +513,10 @@ export default function TempoServico() {
                   </span>
                 </p>
                 <div className="w-full flex shadow-shape my-2 py-4 relative">
-                  <button onClick={() => setShowCounter(calculateFutureDate(
-                          dataForm.numTempoReserva * 365 -
-                            (dataForm.calcDia?.totalDias! +
-                              Math.floor(
-                                dataForm.tempGuEsp.reduce(
-                                  (acc, val) => acc + val.calculos.totalDias!,
-                                  0
-                                ) / 720
-                              ) *
-                                8 *
-                                30)
-                        ).data)} className="absolute text-xs hover:bg-green-900 transition-all ease-in-out duration-300 text-gray-300 uppercase gap-2 shadow-shape py-1 px-2 rounded-md top-1 right-1 flex items-center"><FaClock className="w-4 h-4" />Contador</button>
-                  <div className="w-full">
-                    <h1 className="text-green-600 font-bold uppercase text-md flex justify-center w-full">
-                      Tempo total para reserva
-                    </h1>
-                    <p className="flex justify-center text-3xl text-red-700">
-                      {
-                        calculateFutureDate(
-                          dataForm.numTempoReserva * 365 -
-                            (dataForm.calcDia?.totalDias! +
-                              Math.floor(
-                                dataForm.tempGuEsp.reduce(
-                                  (acc, val) => acc + val.calculos.totalDias!,
-                                  0
-                                ) / 720
-                              ) *
-                                8 *
-                                30)
-                        ).anoMesDia
-                      }
-                      
-                    </p>
-                    <h1 className="text-green-600 font-bold uppercase text-md flex justify-center w-full">
-                     Data da reserva
-                    </h1>
-                    <p className="flex justify-center text-3xl text-red-700">
-                      {
+                  {/* ATIVA UM PEQUENO CONTADOR QUE FICA NO TOPO DA PAGINA ESTATICO MOSTRANDO A CONTAGEM REGRESSIVA PARA A APOSENTADORIA */}
+                  {/* <button
+                    onClick={() =>
+                      setShowCounter(
                         calculateFutureDate(
                           dataForm.numTempoReserva * 365 -
                             (dataForm.calcDia?.totalDias! +
@@ -561,10 +529,72 @@ export default function TempoServico() {
                                 8 *
                                 30)
                         ).data
-                      }
-                    </p>
-                  </div>
-                  <span className="text-xs italic absolute bottom-0 left-1 text-gray-700">* Esse valor pode sofrer pequenas distorções</span>
+                      )
+                    }
+                    className="absolute text-xs hover:bg-green-900 transition-all ease-in-out duration-300 text-gray-300 uppercase gap-2 shadow-shape py-1 px-2 rounded-md top-1 right-1 flex items-center"
+                  >
+                    <FaClock className="w-4 h-4" />
+                    Contador
+                  </button> */}
+                  {dataForm.numTempoReserva ? (
+                    <div className="w-full">
+                      <div>
+                        <h1 className="text-green-600 font-bold uppercase text-base flex justify-center w-full">
+                          Tempo total para reserva
+                        </h1>
+                        <p className="flex justify-center text-xl sm:text-3xl  text-red-700">
+                          {
+                            calculateFutureDate(
+                              dataForm.numTempoReserva * 365 -
+                                (dataForm.calcDia?.totalDias! +
+                                  Math.floor(
+                                    dataForm.tempGuEsp.reduce(
+                                      (acc, val) =>
+                                        acc + val.calculos.totalDias!,
+                                      0
+                                    ) / 720
+                                  ) *
+                                    8 *
+                                    30)
+                            ).anoMesDia
+                          }
+                        </p>
+                      </div>
+                      <div>
+                        <h1 className="text-green-600 font-bold uppercase text-base flex justify-center w-full">
+                          Data da reserva
+                        </h1>
+                        <p className="flex justify-center  text-xl sm:text-3xl text-red-700">
+                          {
+                            calculateFutureDate(
+                              dataForm.numTempoReserva * 365 -
+                                (dataForm.calcDia?.totalDias! +
+                                  Math.floor(
+                                    dataForm.tempGuEsp.reduce(
+                                      (acc, val) =>
+                                        acc + val.calculos.totalDias!,
+                                      0
+                                    ) / 720
+                                  ) *
+                                    8 *
+                                    30)
+                            ).data
+                          }
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center p-6">
+                      <FiAlertTriangle className="w-8 h-8 flex justify-center text-red-800" />
+                      <p className="flex justify-center text-sm md:text-base py-4 px-6 text-red-700">
+                        Informe um valor no campo "tempo total para reserva".
+                      </p>
+                    </div>
+                  )}
+
+                  <span className="text-xs italic absolute bottom-0 left-1 text-gray-700">
+                    * Esse valor pode sofrer pequenas distorções
+                  </span>
                 </div>
               </div>
             )}

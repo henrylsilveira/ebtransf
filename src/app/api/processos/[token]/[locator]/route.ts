@@ -22,7 +22,7 @@ export async function GET(request: NextRequest, context: { params: Params }) {
         const result = data.data()
         const plaintext = AES.decrypt(result?.data, token)
         const decrypt = plaintext.toString(CryptoJS.enc.Utf8);
-        console.log(decrypt)
+        
         return NextResponse.json({ status: true, decrypt })
     } catch (error) {
         return NextResponse.json({ message: error })

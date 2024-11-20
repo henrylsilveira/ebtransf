@@ -7,7 +7,6 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from '@/components/footer/Footer'
 import Header from '@/components/header/Header'
-import Contador from '@/components/header/Contador'
 
 
 const inter = Bai_Jamjuree({ weight: ['500'], subsets: ['thai'] })
@@ -35,9 +34,7 @@ export default async function RootLayout({
         <ToastContainer />
         <GDPR />
         {/* <Contador /> */}
-
           {children}  
-
         <Footer />
       </body>
     </html>

@@ -30,13 +30,19 @@ background-color: rgba(17 24 39 / 100%)
     @apply text-justify;
   }
   h3 {
-    @apply text-lg  font-bold;
+    @apply text-lg font-bold;
   }
   p {
-    @apply text-gray-500 text-base;
+    @apply text-gray-400 text-base my-4 indent-8;
   }
   a{
     @apply text-blue-500 hover:text-blue-600;
+  }
+}
+
+#secNoticia {
+  img{
+    @apply shadow-container rounded-lg;
   }
 }
   
