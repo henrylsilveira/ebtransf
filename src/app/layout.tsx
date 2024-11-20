@@ -34,7 +34,7 @@ export default async function RootLayout({
         <SideBar />
         <ToastContainer />
         <GDPR />
-        <Contador />
+        {/* <Contador /> */}
 
           {children}  
 

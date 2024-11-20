@@ -2,6 +2,7 @@
 
 import { countdown } from "@/utils/scripts";
 import { useEffect, useState } from "react";
+import { FiRefreshCcw } from "react-icons/fi";
 
 const Contador = () => {
   const [contador, setContador] = useState("");
@@ -64,11 +65,11 @@ const Contador = () => {
   };
 
   return (
-    <div className="text-white">
+    <div className="text-white absolute top-0 right-10 shadow-shape px-2 py-1 text-xs rounded-b-md">
       {tempoRestante > 0
         ? `Tempo restante: ${formatarTempo(tempoRestante)}`
         : "Erro!"}
-      <button onClick={() => refreshClock()}>Refresh</button>
+      <button onClick={() => refreshClock()}><FiRefreshCcw /></button>
     </div>
   );
 };
