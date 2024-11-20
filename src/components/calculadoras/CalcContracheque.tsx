@@ -1,6 +1,6 @@
 'use client'
 import { calculaImpostoRenda, formataValor, retornaValorSoldo } from "@/utils/scripts"
-import { adcHab, adcMil, adcDisp, adcLocEsp, adcPermArr, fusexArr, pensMilArr, gratRepArr, impostoRenda, dependenteIR } from "@/utils/valores"
+import { adcHab, adcMil, adcDisp, adcLocEsp, adcPermArr, fusexArr, pensMilArr, gratRepArr, impostoRenda, dependenteIR, adcPttcArr } from "@/utils/valores"
 import { useState } from "react"
 import { Links } from "../Links"
 import Link from "next/link"
@@ -14,6 +14,7 @@ export default function CalcContraChequeComponent() {
     const [disp, setDisp] = useState(0)
     const [compOrg, setCompOrg] = useState(0)
     const [adcPerm, setAdcPerm] = useState(0)
+    const [adcPttc, setAdcPttc] = useState(0)
 
     const [gratRep, setGratRep] = useState(0)
     const [qntDias, setQntDias] = useState(0)
@@ -48,22 +49,22 @@ export default function CalcContraChequeComponent() {
                         <p>Bruto:</p>
                         <p className="font-extrabold pl-2">{
                             formataValor(
-                                (retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100))
+                                (retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100))
                                 + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
                             )}</p>
                     </div>
                     <div className="flex boder-0 md:border-x px-2 border-green-600">
                         <p>Despesas:</p>
                         <p className="font-extrabold pl-2">{formataValor(((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0) + calculaImpostoRenda(
-                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
-                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).impostoRenda)}</p>
+                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
+                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).impostoRenda)}</p>
                     </div>
                     <div className="flex">
                         <p>Líquido:</p>
                         <p className="font-extrabold pl-2">
                             {formataValor(((retornaValorSoldo(pg)! * gratRep / 100) * qntDias) + (retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) - (((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100) + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100 + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0) + pensAlim) - calculaImpostoRenda(
-                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
-                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).impostoRenda)}
+                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
+                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).impostoRenda)}
                         </p>
                     </div>
                 </div>
@@ -140,6 +141,15 @@ export default function CalcContraChequeComponent() {
                                 ))}
                             </select>
                             <label htmlFor="adcPerm" className="z-10 absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional Permanência</label>
+                        </div>
+                        <div className="relative z-0 w-full group">
+                            <select name="adcPttc" id="adcPttc" onChange={(e) => setAdcPttc(Number(e.target.value))} className="dark:focus:bg-gray-900 leading-tight focus:bg-gray-900 block py-2.5 px-0 w-full text-md text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required>
+                                <option></option>
+                                {adcPttcArr.map((adc, index) => (
+                                    <option key={adc + index} value={adc}>{adc}%</option>
+                                ))}
+                            </select>
+                            <label htmlFor="adcPerm" className="z-10 absolute text-md text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adicional PTTC</label>
                         </div>
                         <div className="flex flex-col gap-4 border border-green-600 rounded-md p-4">
                             <div className="relative z-0  w-full group">
@@ -277,6 +287,9 @@ export default function CalcContraChequeComponent() {
                         <b className="text-gray-300">Adc Compensação Orgânica</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pgCo)! * compOrg / 100)}</p>
                     </div>
                     <div className="flex flex-1">
+                        <b className="text-gray-300">Adc PTTC</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * adcPttc / 100)}</p>
+                    </div>
+                    <div className="flex flex-1">
                         <b className="text-gray-300">Adc Permanência</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * adcPerm / 100)}</p>
                     </div>
                     <div className="flex flex-1">
@@ -290,7 +303,7 @@ export default function CalcContraChequeComponent() {
 
                     </div>
                     <div className="flex flex-1">
-                        <b className="text-gray-300">Valor Bruto</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias))}</p>
+                        <b className="text-gray-300">Valor Bruto</b><p className="pl-4 text-white">{formataValor(retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias))}</p>
                     </div>
 
                 </div>
@@ -298,10 +311,10 @@ export default function CalcContraChequeComponent() {
                     <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">Despesas</h1>
                     <div className="text-xs md:text-base">
                         <div className="flex flex-1">
-                            <b className="text-gray-300">Fusex</b><p className="pl-4 text-white">{formataValor((((retornaValorSoldo(pg)! * (disp + mil + hab + compOrg + adcPerm) / 100) + retornaValorSoldo(pg)!) * (fusex / 100)))}</p>
+                            <b className="text-gray-300">Fusex</b><p className="pl-4 text-white">{formataValor((((retornaValorSoldo(pg)! * (disp + mil + hab + compOrg + adcPerm + adcPttc) / 100) + retornaValorSoldo(pg)!) * (fusex / 100)))}</p>
                         </div>
                         <div className="flex flex-1">
-                            <b className="text-gray-300">Pensão Militar</b><p className="pl-4 text-white">{formataValor((((retornaValorSoldo(pg)! * (disp + mil + hab + compOrg + adcPerm) / 100) + retornaValorSoldo(pg)!) * (pMil / 100)))}</p>
+                            <b className="text-gray-300">Pensão Militar</b><p className="pl-4 text-white">{formataValor((((retornaValorSoldo(pg)! * (disp + mil + hab + compOrg + adcPerm + adcPttc) / 100) + retornaValorSoldo(pg)!) * (pMil / 100)))}</p>
                         </div>
                         <div className="flex flex-1">
                             <b className="text-gray-300">Pensão Alimentícia</b><p className="pl-4 text-white">{formataValor(pensAlim)}</p>
@@ -326,8 +339,8 @@ export default function CalcContraChequeComponent() {
                             <b className="text-gray-300">Imposto de renda</b>
                             <p className="pl-4 text-white">
                                 {formataValor(calculaImpostoRenda(
-                                    retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
-                                    , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).impostoRenda)}
+                                    retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
+                                    , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).impostoRenda)}
                             </p>
                         </div>
                     </div>
@@ -340,8 +353,8 @@ export default function CalcContraChequeComponent() {
                         <b className="text-gray-300">Calculo Base</b>
                         <p className="pl-4 text-white">
                             {formataValor(calculaImpostoRenda(
-                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
-                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).baseCalculo)}
+                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
+                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).baseCalculo)}
 
                         </p>
                     </div>
@@ -350,8 +363,8 @@ export default function CalcContraChequeComponent() {
                         <b className="text-gray-300">Aliquota</b>
                         <p className="pl-4 text-white">
                             {formataValor(calculaImpostoRenda(
-                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
-                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).aliquota)}
+                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
+                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).aliquota)}
 
                         </p>
                     </div>
@@ -360,8 +373,8 @@ export default function CalcContraChequeComponent() {
                         <b className="text-gray-300">Dedução</b>
                         <p className="pl-4 text-white">
                             {formataValor(calculaImpostoRenda(
-                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
-                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).deducao)}
+                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
+                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).deducao)}
 
                         </p>
                     </div>
@@ -370,8 +383,8 @@ export default function CalcContraChequeComponent() {
                         <b className="text-gray-300">Imposto de renda</b>
                         <p className="pl-4 text-white">
                             {formataValor(calculaImpostoRenda(
-                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
-                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).impostoRenda)}
+                                retornaValorSoldo(pg)! * (disp + locEsp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100) + ((retornaValorSoldo(pg)! * gratRep / 100) * qntDias)
+                                , ((retornaValorSoldo(pg)! * (disp + mil + hab + adcPerm + adcPttc) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (fusex + pMil) / 100) + pensAlim + (pnr === "true" ? retornaValorSoldo(pg)! * 0.05 : 0), dependentes).impostoRenda)}
                         </p>
                     </div>
                     <span className="text-xs text-gray-600 italic text-center">Cálculo: (((Calculo Base * Aliquota) / 100) - Dedução)</span>
