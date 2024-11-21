@@ -252,7 +252,7 @@ export const ajudaCusto = [{
 },{
     "situacao": "Militar que não possua dependente e se encontre nas situações “a”, “b”, “c”, ou “d” desta Tabela. ",
     "ida": 1/2,
-    "volta": 0,
+    "volta": 1/2,
 }]
 
 export const reserva = {
