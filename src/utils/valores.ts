@@ -196,7 +196,7 @@ export const calcIrrf = [
         deducao: 884.96,
     },
 ]
-
+export const adcPttcArr = [0,30]
 export const fusexArr = [3,3.4,3.5]
 export const pensMilArr = [10.5,12]
 export const adcPermArr = [5,10,15]
@@ -252,7 +252,7 @@ export const ajudaCusto = [{
 },{
     "situacao": "Militar que não possua dependente e se encontre nas situações “a”, “b”, “c”, ou “d” desta Tabela. ",
     "ida": 1/2,
-    "volta": 0,
+    "volta": 1/2,
 }]
 
 export const reserva = {
