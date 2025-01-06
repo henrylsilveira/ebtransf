@@ -10,42 +10,42 @@ export function formataValor(price: number, discount?: number) {
     }).format(price)
 }
 
-export function retornaValorSoldo(pg: string) {
+export function retornaValorSoldo(pg: string, reajuste?: number) {
     switch (pg) {
         case 'sdEv':
-            return soldo["sdEv"]
+            return soldo["sdEv"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case 'sdEp':
-            return soldo["sdEp"]
+            return soldo["sdEp"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case 'cb':
-            return soldo["cb"]
+            return soldo["cb"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case '3sgt':
-            return soldo["3sgt"]
+            return soldo["3sgt"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case '2sgt':
-            return soldo["2sgt"]
+            return soldo["2sgt"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case '1sgt':
-            return soldo["1sgt"]
+            return soldo["1sgt"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case 'st':
-            return soldo["st"]
+            return soldo["st"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case 'aspof':
-            return soldo["aspof"]
+            return soldo["aspof"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case '2ten':
-            return soldo["2ten"]
+            return soldo["2ten"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case '1ten':
-            return soldo["1ten"]
+            return soldo["1ten"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case 'cap':
-            return soldo["cap"]
+            return soldo["cap"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case 'maj':
-            return soldo["maj"]
+            return soldo["maj"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case 'tencel':
-            return soldo["tencel"]
+            return soldo["tencel"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case 'cel':
-            return soldo["cel"]
+            return soldo["cel"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case 'genBda':
-            return soldo["genBda"]
+            return soldo["genBda"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case 'genDiv':
-            return soldo["genDiv"]
+            return soldo["genDiv"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         case 'genEx':
-            return soldo["genEx"]
+            return soldo["genEx"] * (reajuste ? ((reajuste / 100 ) + 1) : 1)
         default:
             return 0
     }
