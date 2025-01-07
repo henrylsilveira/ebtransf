@@ -48,7 +48,7 @@ export default function CalcContraChequeComponent() {
     setReajuste(!reajuste)
     setValorReajuste(0)
   }
-  
+
   return (
     <div className="max-w-2xl mx-auto shadow-container p-10 rounded-lg mb-20 mt-6">
       <div className="flex flex-1 items-center justify-center mb-6 flex-col">
@@ -250,7 +250,7 @@ export default function CalcContraChequeComponent() {
                 P/G
               </label>
               {reajuste && (
-                 <span className="italic text-gray-700 text-xs">{formataValor(retornaValorSoldo(pg, valorReajuste)!)} + {valorReajuste + "%"} = {formataValor(retornaValorSoldo(pg, valorReajuste)!)}</span> 
+                 <span className="italic text-gray-700 text-xs">{formataValor(retornaValorSoldo(pg)!)} + {valorReajuste + "%"} = {formataValor(retornaValorSoldo(pg, valorReajuste)!)}</span> 
               )}
               
             </div>

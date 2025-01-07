@@ -250,7 +250,7 @@ export default function CalcTransferencia() {
             </label>
             {reajuste && (
               <span className="italic text-gray-700 text-xs">
-                {formataValor(retornaValorSoldo(pg, valorReajuste)!)} +{" "}
+                {formataValor(retornaValorSoldo(pg)!)} +{" "}
                 {valorReajuste + "%"} ={" "}
                 {formataValor(retornaValorSoldo(pg, valorReajuste)!)}
               </span>
