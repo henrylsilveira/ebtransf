@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from '@/components/footer/Footer'
 import Header from '@/components/header/Header'
 
+
 const inter = Bai_Jamjuree({ weight: ['500'], subsets: ['thai'] })
 
 export const metadata: Metadata = {
@@ -32,9 +33,8 @@ export default async function RootLayout({
         <SideBar />
         <ToastContainer />
         <GDPR />
-
+        {/* <Contador /> */}
           {children}  
-
         <Footer />
       </body>
     </html>

@@ -44,7 +44,7 @@ export default function PopoverSalvarProcessos({ processos }: { processos: Model
         <div>
             <Popover.Root >
                 <Popover.Trigger aria-controls="observacao">
-                    <div className="uppercase hover:text-gray-200 hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative">Salvar processos</div>
+                    <div id='salvarProcessos' className="uppercase hover:text-gray-200 hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative">Salvar processos</div>
                 </Popover.Trigger>
                 <Popover.Content className="bg-gray-900 z-10 p-2 rounded-md shadow-shape flex justify-center flex-col ">
                     <div className="py-2 gap-2">

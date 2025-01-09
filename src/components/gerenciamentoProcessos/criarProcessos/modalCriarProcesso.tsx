@@ -99,7 +99,7 @@ export default function ModalCriarProcesso({ setRegistrosModelos, registrosModel
         <div>
             <AlertDialog.Root open={open} onOpenChange={setOpen}>
                 <AlertDialog.Trigger aria-controls="criar-processo" asChild >
-                    <button className="uppercase hover:text-white hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative">Criar Modelo</button>
+                    <button id="criarProcessos" className="uppercase hover:text-white hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative">Criar Modelo</button>
                 </AlertDialog.Trigger>
                 <AlertDialog.Portal>
                     <AlertDialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />

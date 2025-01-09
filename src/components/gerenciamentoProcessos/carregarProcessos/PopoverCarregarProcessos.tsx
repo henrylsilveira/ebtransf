@@ -19,13 +19,14 @@ export default function PopoverCarregarProcessos({ setProcessos }: { setProcesso
                 theme: "dark",
             })
             await api.get(`/processos/${formData.token}/${formData.locator}`).then(response => setProcessos(state => [...state, ...JSON.parse(response?.data.decrypt)])).catch(error => console.log(error.response.data))
+            // await api.get(`/processos/${formData.token}/${formData.locator}`).then(response => setProcessos(state => state.map(stateProcesso => JSON.parse(response?.data.decrypt).filter((processo: ModeloProcessoProps) => processo.id !== stateProcesso.id)))).catch(error => console.log(error.response.data))
             
             toast.success('Processos carregados com sucesso!', {
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
             });
             setLoading(false)
-        } catch (error) {
+        } catch (error) { 
             toast.error('Erro durante a operação!', {
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
@@ -46,7 +47,7 @@ export default function PopoverCarregarProcessos({ setProcessos }: { setProcesso
         <div>
             <Popover.Root >
                 <Popover.Trigger aria-controls="carregar-processos">
-                    <div className="uppercase hover:text-gray-200 hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative">Carregar</div>
+                    <div id='carregarProcessos' className="uppercase hover:text-gray-200 hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative">Carregar</div>
                 </Popover.Trigger>
                 <Popover.Content className="bg-gray-900 z-10 p-2 rounded-md shadow-shape flex justify-center flex-col ">
                     <div className="py-2 gap-2">
@@ -62,7 +63,7 @@ export default function PopoverCarregarProcessos({ setProcessos }: { setProcesso
                             </div>
                         </div>
                         {loading ? <div className='flex justify-center w-full'><Loader /></div> : <div className="flex justify-center gap-2 ">
-                            <button onClick={() => handleUpdateProcess()} className="w-full mt-1 bg-trasparent hover:bg-green-600 text-green-600 hover:text-white border border-green-600 py-1 rounded-b-md">Salvar</button>
+                            <button onClick={() => handleUpdateProcess()} className="w-full mt-1 bg-trasparent hover:bg-green-600 text-green-600 hover:text-white border border-green-600 py-1 rounded-b-md">Carregar</button>
                         </div>}
                     </div>
                     <Popover.Close />

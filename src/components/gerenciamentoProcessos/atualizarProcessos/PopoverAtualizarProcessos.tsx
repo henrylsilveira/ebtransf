@@ -12,6 +12,7 @@ export default function PopoverAtualizarProcessos({ processos }: { processos: Mo
     const [tokenCache, setTokenCache] = useState({ token: "", locator: "" } as { token: string, locator: string })
     const [formData, setFormData] = useState({ token: "", locator: "" } as { token: string, locator: string });
     const [loading, setLoading] = useState(false)
+
     async function handleUpdateProcess() {
         try {
             setLoading(true)
@@ -19,7 +20,7 @@ export default function PopoverAtualizarProcessos({ processos }: { processos: Mo
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
             })
-            await api.put("/processos", processos)
+            await api.put(`/processos/${formData.token}/${formData.locator}`, processos)
             toast.success('Processos atualizados com sucesso!', {
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
@@ -30,12 +31,19 @@ export default function PopoverAtualizarProcessos({ processos }: { processos: Mo
                 position: toast.POSITION.TOP_RIGHT,
                 theme: "dark",
             })
+            setLoading(false)
         }
     }
+
     useEffect(() => {
+        getTokenCached()
+    }, [])
+
+    function getTokenCached() {
         setTokenCache(JSON.parse(localStorage.getItem("tokenCache")!))
         setFormData({ token: tokenCache.token, locator: tokenCache.locator })
-    }, [])
+    }
+
     const handleChange = (
         event:
             | React.ChangeEvent<HTMLInputElement>
@@ -52,18 +60,18 @@ export default function PopoverAtualizarProcessos({ processos }: { processos: Mo
         <div>
             <Popover.Root >
                 <Popover.Trigger aria-controls="atualizar-processo">
-                    <div className="uppercase hover:text-gray-200 hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative">Atualizar</div>
+                    <div id='atualizarProcessos' onClick={getTokenCached} className="uppercase hover:text-gray-200 hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative">Atualizar</div>
                 </Popover.Trigger>
                 <Popover.Content className="bg-gray-900 z-10 p-2 rounded-md shadow-shape flex justify-center flex-col ">
                     <div className="py-2 gap-2">
                         <div className='flex w-64 flex-col gap-2'>
                             <h1 className='flex justify-center uppercase font-semibold border-b border-green-800'>Atualizar processos</h1>
                             <div className="relative z-0 w-full p-1 group">
-                                <input type="text" name="token" id="token" defaultValue={tokenCache.token} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm [appearance:textfield] text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                                <input type="text" name="token" id="token" value={tokenCache.token} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm [appearance:textfield] text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                 <label htmlFor="token" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Token</label>
                             </div>
                             <div className="relative z-0 w-full p-1 group">
-                                <input type="text" name="locator" id="locator" defaultValue={tokenCache.locator} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm [appearance:textfield] text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+                                <input type="text" name="locator" id="locator" value={tokenCache.locator} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm [appearance:textfield] text-white bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
                                 <label htmlFor="locator" className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Localizador</label>
                             </div>
                         </div>
