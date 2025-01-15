@@ -34,7 +34,7 @@ export async function PUT(request: NextRequest, context: { params: Params }) {
     const colRef = collection(db, "processos");
     const { token, locator } = context.params;
     const processos = await request.json() as ModeloProcessoProps;
-    
+
     const date = new Date()
     const stringifyProcessos = JSON.stringify(processos)
     
