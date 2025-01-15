@@ -202,3 +202,12 @@ export interface EstadosCidadesCoordProps {
     id: number
     sigla_state: string
 }
+
+export interface ModeloNota {
+    id: string
+    titulo: string
+    subTitulo: string
+    data: string
+    conteudo: string
+    encerramento: string
+}
