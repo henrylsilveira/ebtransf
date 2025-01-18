@@ -50,15 +50,16 @@ export default function Servico() {
     let diasServicoVermelha = [] as string[];
     let servicoPreta = adicionarUmDia(formData.servicoPreta);
     let servicoVermelha = adicionarUmDia(formData.servicoVermelha);
-    let contador = 0;
+    let contadorPreta = 0;
+    let contadorVermelha = 0;
 
     for (let i = 0; i < formData.totalDias; i++) {
       if (i !== 0) servicoPreta = adicionarUmDia(servicoPreta);
       if (adicionarDiaVerificarFimDeSemana(servicoPreta)) {
-        contador++;
-        if (contador === Number(formData.folga) + 1) {
+        contadorPreta++;
+        if (contadorPreta === Number(formData.folga) + 1) {
           diasServicoPreta = [...diasServicoPreta, servicoPreta];
-          contador = 0;
+          contadorPreta = 0;
         }
       }
     }
@@ -69,12 +70,16 @@ export default function Servico() {
         !adicionarDiaVerificarFimDeSemana(servicoVermelha) ||
         feriados[2025].some((feriado) => feriado.data === servicoVermelha)
       ) {
-        contador++;
-        if (contador === Number(formData.folga) + 1) {
+        contadorVermelha++;
+        if (contadorVermelha === Number(formData.folga) + 1) {
           diasServicoVermelha = [...diasServicoVermelha, servicoVermelha];
-          contador = 0;
+          contadorVermelha = 0;
         }
       }
+      console.log(diasServicoVermelha, servicoVermelha, (
+        !adicionarDiaVerificarFimDeSemana(servicoVermelha) ||
+        feriados[2025].some((feriado) => feriado.data === servicoVermelha)
+      ), contadorVermelha)
     }
 
     setInfoServico({
