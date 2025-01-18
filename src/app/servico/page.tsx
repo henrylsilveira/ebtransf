@@ -29,7 +29,7 @@ export default function Servico() {
       ...formData,
       [event.target.name]: event.target.value,
     });
-    console.log(formData);
+    
   };
 
   function gerarPlanejamentoServico() {
@@ -76,10 +76,7 @@ export default function Servico() {
           contadorVermelha = 0;
         }
       }
-      console.log(diasServicoVermelha, servicoVermelha, (
-        !adicionarDiaVerificarFimDeSemana(servicoVermelha) ||
-        feriados[2025].some((feriado) => feriado.data === servicoVermelha)
-      ), contadorVermelha)
+     
     }
 
     setInfoServico({
