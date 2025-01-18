@@ -211,3 +211,24 @@ export interface ModeloNota {
     conteudo: string
     encerramento: string
 }
+
+export interface servicoProps {
+    id: string
+    servicoPreta: string
+    servicoVermelha: string
+    folga: number
+    totalDias: number
+}
+
+export interface infoServicoProps {
+    preta: {
+        data: string
+        diaSemana: string
+        servicosFuturos: string[]
+    },
+    vermelha: {
+        data: string
+        diaSemana: string
+        servicosFuturos: string[]
+    }
+}

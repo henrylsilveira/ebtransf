@@ -16,6 +16,7 @@ import DropdownButton from "./DropdownButton";
 import { TbClockSearch, TbZoomMoney } from "react-icons/tb";
 import { FaRegChartBar } from "react-icons/fa";
 import { usePathname } from "next/navigation";
+import { FaPersonMilitaryRifle } from "react-icons/fa6";
 
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -90,6 +91,11 @@ export default function Header() {
             </div>
             <ul className="flex flex-col w-auto gap-4 mt-3 mb-6 text-gray-400">
               <LinkHeader
+                link="/servico"
+                text="Serviço"
+                icon={<FaPersonMilitaryRifle size={14} />}
+              />
+              <LinkHeader
                 link="/cidades"
                 text="Cidades"
                 icon={<GiModernCity size={14} />}
@@ -151,6 +157,11 @@ export default function Header() {
             ]} />
 
             <DropdownButton title="Ferramentas" linkText={[
+              {
+                text: "Serviço",
+                link: "/servico",
+                icon: <FaPersonMilitaryRifle size={14} />,
+              },
               {
                 text: "Cidades",
                 link: "/cidades",

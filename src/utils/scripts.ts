@@ -243,6 +243,8 @@ export function formatarDataHora(iso: string | number | Date) {
     return data.toLocaleString("pt-BR", {timeZone: 'UTC'});
 }
 
+
+
 export function hasFiveMinutesPassed(isoDateTime: string): number {
     // Converte a string em formato ISO para um objeto Date
     const providedDateTime = new Date(isoDateTime);
