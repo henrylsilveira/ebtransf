@@ -7,14 +7,29 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from '@/components/footer/Footer'
 import Header from '@/components/header/Header'
+import { getSEOTags } from '@/lib/seo'
 
 
 const inter = Bai_Jamjuree({ weight: ['500'], subsets: ['thai'] })
 
-export const metadata: Metadata = {
-  title: 'Calculadora de Transferência e Gratificação de representação para Militares',
-  description: 'Aplicação que calcula aproximadamente o ganho do militar com a transferência ou com a gratificação de representação, não se tratando de uma plataforma oficial e sim de um calculadora para auxiliar no planejamento.',
-}
+export const metadata: Metadata = getSEOTags({
+  keywords: [
+    "calculadora",
+    "militar",
+    "transferência",
+    "ajuda de custo",
+    "serviço",
+    "Exército",
+    "Ferramentas Online",
+    "Calculadora Online",
+    "Marinha",
+    "Aeronáutica"
+  ],
+  appDomain: "https://ebcalc.net/",
+  canonicalUrlRelative: "/",
+  appName: 'Calculadora de Transferência e Gratificação de representação para Militares',
+  appDescription: 'Aplicação que calcula aproximadamente o ganho do militar com a transferência ou com a gratificação de representação, não se tratando de uma plataforma oficial e sim de um calculadora para auxiliar no planejamento.',
+});
 
 export default async function RootLayout({
   children,
