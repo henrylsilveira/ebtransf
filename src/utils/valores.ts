@@ -1,6 +1,6 @@
 export const soldo = {
-    'sdEv': 956,
-    'sdEp': 1856,
+    'sdEv': 1078,
+    'sdEp': 1765,
     'cb': 2627,
     '3sgt': 3825,
     '2sgt': 4770,
