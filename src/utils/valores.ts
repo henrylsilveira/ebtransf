@@ -18,7 +18,398 @@ export const soldo = {
     'genEx': 13471,
 }
 
+export const dbSoldo = {
+    '2024': [
+        {
+            codigo: 'alunoime',
+            nome: 'Aluno IME',
+           soldo: 1334
+        },
+        {
+            codigo: 'alunoime2',
+            nome: 'Aluno IME ultimo ano',
+            soldo: 1630
+        },
+        {
+            codigo: 'alunoespcex',
+            nome: 'Aluno Espcex',
+            soldo: 1105
+        },
+        {
+            codigo: 'alunoespcex2',
+            nome: 'Aluno Espcex ultimo ano',
+            soldo: 1199
+        },
+        {
+            codigo: 'aprendiz',
+            nome: 'Aprendiz',
+            soldo: 1105
+        },
+        {
+            codigo: 'sdEv',
+            nome: 'Soldado Ev',
+            soldo: 1078
+        },
+        {
+            codigo: 'sdEp',
+            nome: 'Soldado Ep',
+            soldo: 1765
+        },
+        {
+            codigo: 'sdPqdt',
+            nome: 'Soldado PQDT',
+            soldo: 1926
+        },
+        {
+            codigo: 'taifeiros/2',
+            nome: 'Taifeiro 2º Classe',
+            soldo: 2210
+        },
+        {
+            codigo: 'taifeiros/1',
+            nome: 'Taifeiro 1º Classe',
+            soldo: 2325
+        },
+        {
+            codigo: 'cb',
+            nome: 'Cabo',
+            soldo: 2627
+        
+        },
+        {
+            codigo: '3sgt',
+            nome: '3º Sargento',
+            soldo: 3825
+        },
+        {
+            codigo: '2sgt',
+            nome: '2º Sargento',
+            soldo: 4770
+        },
+        {
+            codigo: '1sgt',
+            nome: '1º Sargento',
+            soldo: 5483
+        },
+        {
+            codigo: 'st',
+            nome: 'Sub Tenente',
+            soldo: 6169
+        },
+        {
+            codigo: 'aspof',
+            nome: 'Aspirante a Oficial',
+            soldo: 7315
+        },
+        {
+            codigo: '2ten',
+            nome: '2º Tenente',
+            soldo: 7490
+        },
+        {
+            codigo: '1ten',
+            nome: '1º Tenente',
+            soldo: 8245
+        },
+        {
+            codigo: 'cap',
+            nome: 'Capitão',
+            soldo: 9135
+        },
+        {
+            codigo: 'maj',
+            nome: 'Major',
+            soldo: 11088
+        },
+        {
+            codigo: 'tencel',
+            nome: 'Tenente Coronel',
+            soldo: 11250
+        },
+        {
+            codigo: 'cel',
+            nome: 'Coronel',
+            soldo: 11451
+        },
+        {
+            codigo: 'genBda',
+            nome: 'General de Brigada',
+            soldo: 12490
+        },
+        {
+            codigo: 'genDiv',
+            nome: 'General de Divisão',
+            soldo: 12912
+        },
+        {
+            codigo: 'genEx',
+            nome: 'General de Exército',
+            soldo: 13471
+        }
+    ],
+    '2025': [
+        {
+            codigo: 'alunoime',
+            nome: 'Aluno IME',
+            soldo: 1394
+        },
+        {
+            codigo: 'alunoime2',
+            nome: 'Aluno IME ultimo ano',
+            soldo: 1703
+        },
+        {
+            codigo: 'alunoespcex',
+            nome: 'Aluno Espcex',
+            soldo: 1238
+        },
+        {
+            codigo: 'alunoespcex2',
+            nome: 'Aluno Espcex ultimo ano',
+            soldo: 1253
+        },
+        {
+            codigo: 'aprendiz',
+            nome: 'Aprendiz',
+            soldo: 1155
+        },
+        {
+            codigo: 'sdEv',
+            nome: 'Soldado Ev',
+            soldo: 1127
+        },
+        {
+            codigo: 'sdEp',
+            nome: 'Soldado Ep',
+            soldo: 1844
+        },
+        {
+            codigo: 'sdPqdt',
+            nome: 'Soldado PQDT',
+            soldo: 2013
+        },
+        {
+            codigo: 'taifeiros/2',
+            nome: 'Taifeiro 2º Classe',
+            soldo: 2309
+        },
+        {
+            codigo: 'taifeiros/1',
+            nome: 'Taifeiro 1º Classe',
+            soldo: 2430
+        },
+        {
+            codigo: 'cb',
+            nome: 'Cabo',
+            soldo: 2745
+        
+        },
+        {
+            codigo: '3sgt',
+            nome: '3º Sargento',
+            soldo: 3997
+        },
+        {
+            codigo: '2sgt',
+            nome: '2º Sargento',
+            soldo: 4985
+        },
+        {
+            codigo: '1sgt',
+            nome: '1º Sargento',
+            soldo: 5730
+        },
+       {
+           codigo: 'st',
+           nome: 'Sub Tenente',
+           soldo: 6447
+       },
+       {
+           codigo: 'aspof',
+           nome: 'Aspirante a Oficial',
+           soldo: 7644
+       },
+       {
+           codigo: '2ten',
+           nome: '2º Tenente',
+           soldo: 7827
+       },
+       {
+           codigo: '1ten',
+           nome: '1º Tenente',
+           soldo: 8616
+       },
+       {
+           codigo: 'cap',
+           nome: 'Capitão',
+           soldo: 9546
+       },
+       {
+           codigo: 'maj',
+           nome: 'Major',
+           soldo: 11587
+       },
+       {
+           codigo: 'tencel',
+           nome: 'Tenente Coronel',
+           soldo: 11756
+       },
+       {
+           codigo: 'cel',
+           nome: 'Coronel',
+           soldo: 11966
+       },
+       {
+           codigo: 'genBda',
+           nome: 'General de Brigada',
+           soldo: 13052
+       },
+       {
+           codigo: 'genDiv',
+           nome: 'General de Divisão',
+           soldo: 13493
+       },
+       {
+           codigo: 'genEx',
+           nome: 'General de Exército',
+           soldo: 14077
+       }
+      
+
+    ],
+    '2026': [
+        {
+            codigo: 'alunoime',
+            nome: 'Aluno IME',
+            soldo: 1457
+        },
+        {
+            codigo: 'alunoime2',
+            nome: 'Aluno IME ultimo ano',
+            soldo: 1780
+        },
+        {
+            codigo: 'alunoespcex',
+            nome: 'Aluno Espcex',
+            soldo: 1294
+        },
+        {
+            codigo: 'alunoespcex2',
+            nome: 'Aluno Espcex ultimo ano',
+            soldo: 1309
+        },
+        {
+            codigo: 'aprendiz',
+            nome: 'Aprendiz',
+            soldo: 1207
+        },
+        {
+            codigo: 'sdEv',
+            nome: 'Soldado Ev',
+            soldo: 1177
+        },
+        {
+            codigo: 'sdEp',
+            nome: 'Soldado Ep',
+            soldo: 1927
+        },
+        {
+            codigo: 'sdPqdt',
+            nome: 'Soldado PQDT',
+            soldo: 2103
+        },
+
+        {
+            codigo: 'taifeiros/2',
+            nome: 'Taifeiro 2º Classe',
+            soldo: 2413
+        },
+        {
+            codigo: 'taifeiros/1',
+            nome: 'Taifeiro 1º Classe',
+            soldo: 2539
+        },
+        {
+            codigo: 'cb',
+            nome: 'Cabo',
+            soldo: 2869
+        
+        },
+        {
+            codigo: '3sgt',
+            nome: '3º Sargento',
+            soldo: 4177
+        },
+        {
+            codigo: '2sgt',
+            nome: '2º Sargento',
+            soldo: 5209
+        },
+        {
+            codigo: '1sgt',
+            nome: '1º Sargento',
+            soldo: 5988
+        },
+       {
+           codigo: 'st',
+           nome: 'Sub Tenente',
+           soldo: 6737
+       },
+       {
+           codigo: 'aspof',
+           nome: 'Aspirante a Oficial',
+           soldo: 7988
+       },
+       {
+           codigo: '2ten',
+           nome: '2º Tenente',
+           soldo: 8179
+       },
+       {
+           codigo: '1ten',
+           nome: '1º Tenente',
+           soldo: 9004
+       },
+       {
+           codigo: 'cap',
+           nome: 'Capitão',
+           soldo: 9976
+       },
+       {
+           codigo: 'maj',
+           nome: 'Major',
+           soldo: 12108
+       },
+       {
+           codigo: 'tencel',
+           nome: 'Tenente Coronel',
+           soldo: 12285
+       },
+       {
+           codigo: 'cel',
+           nome: 'Coronel',
+           soldo: 12505
+       },
+       {
+           codigo: 'genBda',
+           nome: 'General de Brigada',
+           soldo: 13639
+       },
+       {
+           codigo: 'genDiv',
+           nome: 'General de Divisão',
+           soldo: 14100
+       },
+       {
+           codigo: 'genEx',
+           nome: 'General de Exército',
+           soldo: 14711
+       }
+    ]
+}
+
 export const soldos = [soldo['sdEv'],soldo['sdEp'],soldo['cb'],soldo['3sgt'],soldo['2sgt'],soldo['1sgt'],soldo['st'],soldo['aspof'],soldo['2ten'],soldo['1ten'],soldo['cap'],soldo['maj'],soldo['tencel'],soldo['cel'],soldo['genBda'],soldo['genDiv'],soldo['genEx']]
+
 export const postosGrad = ['Soldado Ev', 'Soldado Ep', 'Cabo', '3º Sargento', '2º Sargento', '1º Sargento', 'Sub Tenente','Aspirante a Oficial', '2º Tenente', '1º Tenente', 'Capitão','Major', 'Tenente Coronel', 'Coronel', 'General de Brigada', 'General de Divisão', 'General de Exército']
 export const adcHab = [12,27,45,68,73]
 export const adcMil = [13,16,19,22,25]
