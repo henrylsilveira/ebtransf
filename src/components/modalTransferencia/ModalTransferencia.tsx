@@ -8,6 +8,8 @@ import { cubagemVeiculo } from '../../utils/valores';
 import { TbPlaneArrival, TbPlaneDeparture } from "react-icons/tb";
 import { FaEye } from "react-icons/fa";
 export function ModalTransferencia({ transferencia }: { transferencia: DadosTransferencia }) {
+    const year = new Date().getFullYear().toString();
+      const [anoFilter, SetAnoFilter] = useState(year);
     const { pg,
         percHabilitacao: hab,
         locEspecial: locEsp,
@@ -49,9 +51,9 @@ export function ModalTransferencia({ transferencia }: { transferencia: DadosTran
                             </div>
                             <div className="flex flex-col gap-2 ml-auto sm:ml-0">
                                 <p className="flex gap-2 text-xl sm:text-5xl text-green-400">{formataValor(
-                                    ((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100) +
-                                        retornaValorSoldo(pg)! +
-                                        (retornaValorSoldo(pgCo)! * compOrg / 100)) * (especial ? 4 : comum ? 2 : 0) +
+                                    ((retornaValorSoldo(pg,anoFilter)! * (disp + locEsp + mil + hab) / 100) +
+                                        retornaValorSoldo(pg,anoFilter)! +
+                                        (retornaValorSoldo(pgCo,anoFilter)! * compOrg / 100)) * (especial ? 4 : comum ? 2 : 0) +
                                     (passagemAdultoValor * passagemAdultoQnt) +
                                     (passagemCriancaValor * passagemCriancaQnt) +
                                     (retornaValorM3Transportado(dist) * cuba) +
@@ -72,32 +74,32 @@ export function ModalTransferencia({ transferencia }: { transferencia: DadosTran
                         <div className="border border-green-600 rounded-md p-6 relative mt-4">
                             <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold uppercase px-2 text-sm sm:text-lg">Soldo Bruto</h1>
                             <div className="flex flex-1 flex-col sm:flex-row">
-                                <b className="text-gray-300">Soldo</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pg)!)}</p>
+                                <b className="text-gray-300">Soldo</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pg,anoFilter)!)}</p>
                             </div>
                             <div className="flex flex-1 flex-col sm:flex-row">
-                                <b className="text-gray-300">Adc Habilitação</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pg)! * hab / 100)}</p>
+                                <b className="text-gray-300">Adc Habilitação</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pg,anoFilter)! * hab / 100)}</p>
                             </div>
                             <div className="flex flex-1 flex-col sm:flex-row">
-                                <b className="text-gray-300">Adc Militar</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pg)! * mil / 100)}</p>
+                                <b className="text-gray-300">Adc Militar</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pg,anoFilter)! * mil / 100)}</p>
                             </div>
                             <div className="flex flex-1 flex-col sm:flex-row">
-                                <b className="text-gray-300">Adc Loc Esp</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pg)! * locEsp / 100)}</p>
+                                <b className="text-gray-300">Adc Loc Esp</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pg,anoFilter)! * locEsp / 100)}</p>
                             </div>
                             <div className="flex flex-1 flex-col sm:flex-row">
-                                <b className="text-gray-300">Adc Disponibilidade</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pg)! * disp / 100)}</p>
+                                <b className="text-gray-300">Adc Disponibilidade</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pg,anoFilter)! * disp / 100)}</p>
                             </div>
                             <div className="flex flex-1 flex-col sm:flex-row">
-                                <b className="text-gray-300">Adc Compensação Orgânica</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pgCo)! * compOrg / 100)}</p>
+                                <b className="text-gray-300">Adc Compensação Orgânica</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pgCo,anoFilter)! * compOrg / 100)}</p>
                             </div>
                             <div className="flex flex-1 flex-col sm:flex-row">
-                                <b className="text-gray-300">Valor Bruto</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + (retornaValorSoldo(pgCo)! * compOrg / 100) + retornaValorSoldo(pg)!)}</p>
+                                <b className="text-gray-300">Valor Bruto</b><p className="pl-4 text-gray-600">{formataValor(retornaValorSoldo(pg,anoFilter)! * (disp + locEsp + mil + hab) / 100 + (retornaValorSoldo(pgCo,anoFilter)! * compOrg / 100) + retornaValorSoldo(pg,anoFilter)!)}</p>
                             </div>
 
                         </div>
                         <div className="border border-green-600 rounded-md p-6 relative mt-4">
                             <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold uppercase px-2 text-sm sm:text-lg">Ajuda de custo</h1>
                             <div className="flex flex-1 flex-col sm:flex-row">
-                                <b className="text-gray-300">Valor Bruto {especial ? "x 4" : comum ? "x 2" : "x 0"}</b><p className="pl-4 text-gray-600">{formataValor((retornaValorSoldo(pg)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg)! + (retornaValorSoldo(pgCo)! * compOrg / 100)) * (especial ? 4 : comum ? 2 : 0))}</p>
+                                <b className="text-gray-300">Valor Bruto {especial ? "x 4" : comum ? "x 2" : "x 0"}</b><p className="pl-4 text-gray-600">{formataValor((retornaValorSoldo(pg,anoFilter)! * (disp + locEsp + mil + hab) / 100 + retornaValorSoldo(pg,anoFilter)! + (retornaValorSoldo(pgCo,anoFilter)! * compOrg / 100)) * (especial ? 4 : comum ? 2 : 0))}</p>
                             </div>
 
                         </div>
