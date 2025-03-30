@@ -26,12 +26,14 @@ import {
 } from "react-icons/md";
 import { toast } from "react-toastify";
 import ModalCriarNotas from "@/components/gerenciamentoProcessos/criarNotas/modalCriarNotas";
+import VisualizarNota from "@/components/gerenciamentoProcessos/visualizarNota/visualizarNota";
+import { BsTrash3 } from "react-icons/bs";
 export default function GerenciadorProcessos() {
   const [processos, setProcessos] = useState([] as ModeloProcessoProps[]);
   const [registrosModelos, setRegistrosModelos] = useState(
     [] as ModeloProcessoProps[]
   );
-   const [modelosNotas, setModelosNotas] = useState<ModeloNota[]>([]);
+  const [modelosNotas, setModelosNotas] = useState<ModeloNota[]>([]);
   function addNomeProcesso(id: string, nome: string) {
     const editProcessos = processos.map((processo) =>
       processo.id === id
@@ -115,6 +117,27 @@ export default function GerenciadorProcessos() {
     localStorage.setItem("processos", JSON.stringify(processos));
   }, [processos]);
 
+  async function handleDeleteProcess(id: string) {
+    try {
+
+        if (modelosNotas.length === 0) return toast.error('Nenhum processo encontrado!', {
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "dark",
+        })
+        setModelosNotas(modelosNotas.filter(modelo => modelo.id !== id))
+        toast.success('Modelo de nota deletado com sucesso!', {
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "dark",
+        });
+
+    } catch (error) {
+        toast.error('Erro durante a operação!', {
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "dark",
+        })
+    }
+}
+
   return (
     <>
       <title>EBCalc - Gerenciador de Processos</title>
@@ -196,10 +219,7 @@ export default function GerenciadorProcessos() {
                 Meus Processos
               </h1>
             </div>
-            <div
-              id="meusProcessos"
-              className="bg-gradient-to-tr from-gray-900 to-gray-950 rounded-md"
-            >
+            <div id="meusProcessos" className=" rounded-md">
               {processos?.length === 0 ? (
                 <NotData textoComponent="Nenhum processo encontrado." />
               ) : (
@@ -389,24 +409,41 @@ export default function GerenciadorProcessos() {
             className="grow rounded-b-md p-5 outline-none"
             value="tab2"
           >
-            <div
-              className="shadow-shape bg-gradient-to-tr from-gray-900 to-gray-950 text-gray-400 rounded-md py-2 grid grid-cols-3 gap-2 px-2"
-            >
-                <ModalCriarNotas modelosNotas={modelosNotas} setModelosNotas={setModelosNotas}  />
+            <div className="shadow-shape bg-gradient-to-tr from-gray-900 to-gray-950 text-gray-400 rounded-md py-2 grid grid-cols-3 gap-2 px-2">
+              <ModalCriarNotas
+                modelosNotas={modelosNotas}
+                setModelosNotas={setModelosNotas}
+              />
             </div>
             {modelosNotas?.length === 0 ? (
-                <NotData textoComponent="Nenhum processo encontrado." />
-              ) : (
-                <div className="gap-2 grid grid-cols-2 my-2">
-                  {modelosNotas?.map(modelo => (
-                  <div key={modelo.id} className="bg-gray-950 rounded-md shadow-shape py-2 px-4 flex flex-col gap-1">
-                    <h1 className="font-bold text-green-800 text-2xl">{modelo.titulo}</h1>
-                    <p className="font-bold text-gray-800 text-md">{modelo.subTitulo}</p>
+              <NotData textoComponent="Nenhum processo encontrado." />
+            ) : (
+              <div className="gap-2 grid grid-cols-2 my-2">
+                {modelosNotas?.map((modelo) => (
+                  <div
+                    key={modelo.id}
+                    className="bg-gray-950 rounded-md shadow-shape py-2 px-4 flex flex-col gap-1"
+                  >
+                    <div className="flex flex-1 justify-between items-center">
+                      <div className="flex flex-col">
+                        <h1 className="font-bold text-green-800 text-2xl">
+                          {modelo.titulo}
+                        </h1>
+                        <p className="font-bold text-gray-800 text-md">
+                          {modelo.subTitulo}
+                        </p>
+                      </div>
+                      <div className="gap-2 flex flex-col">
+                        <VisualizarNota modeloNota={modelo} />
+                        <button onClick={() => handleDeleteProcess(modelo.id)} className="p-2 shadow-container shadow-container cursor-pointer transition ease-in-out duration-500 bg-gray-950 border border-red-950 rounded-md group">
+                          <BsTrash3 className="w-4 h-4 text-white group-hover:text-red-600 " />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 ))}
-                </div>
-                
-              )}
+              </div>
+            )}
           </Tabs.Content>
         </Tabs.Root>
       </div>

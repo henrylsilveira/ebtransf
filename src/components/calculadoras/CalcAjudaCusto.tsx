@@ -219,7 +219,7 @@ export default function CalcAjudaCustoComponent() {
               P/G
             </label>
             {reajuste && (
-                 <span className="italic text-gray-700 text-xs">{formataValor(retornaValorSoldo(jsonData.pg, valorReajuste)!)} + {valorReajuste + "%"} = {formataValor(retornaValorSoldo(jsonData.pg, valorReajuste)!)}</span> 
+                 <span className="italic text-gray-700 text-xs">{formataValor(retornaValorSoldo(jsonData.pg)!)} + {valorReajuste + "%"} = {formataValor(retornaValorSoldo(jsonData.pg, valorReajuste)!)}</span> 
               )}
           </div>
           {reajuste && (

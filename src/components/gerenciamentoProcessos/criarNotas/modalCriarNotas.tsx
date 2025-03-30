@@ -56,9 +56,9 @@ export default function ModalCriarNotas({
   async function handleSubmit() {
     setLoading(true);
     if (
-      formData.subTitulo !== "" ||
-      formData.titulo !== "" ||
-      formData.conteudo !== ""
+      formData.subTitulo === "" ||
+      formData.titulo === "" ||
+      formData.conteudo === ""
     ) {
       toast.info("Preencha todos os campos!", {
         position: toast.POSITION.TOP_RIGHT,
@@ -71,7 +71,8 @@ export default function ModalCriarNotas({
         const DateTypeNow = new Date(DateNow)
         const data = DateTypeNow.toLocaleDateString("pt-BR");
 
-        const registros = JSON.stringify([...modelosNotas, {...formData  }]);
+        const registros = JSON.stringify([...modelosNotas, {...formData, data: data, id: crypto.randomUUID()  }]);
+
         setModelosNotas(JSON.parse(registros));
         await new Promise((resolve) => {
           setTimeout(() => {
@@ -151,7 +152,7 @@ export default function ModalCriarNotas({
             id="criarNota"
             className="uppercase hover:text-white hover:after:w-full after:w-0 after:h-[1px] after:absolute after:bottom-0 after:left-0 after:bg-green-500 after:duration-500 transition-all duration-500 items-center relative"
           >
-            Criar Modelo
+            Criar Nota
           </button>
         </AlertDialog.Trigger>
         <AlertDialog.Portal>
