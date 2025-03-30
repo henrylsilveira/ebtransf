@@ -177,7 +177,11 @@ export default function CalcAjudaCustoComponent() {
                       Number(jsonData.adcPerm))) /
                     100 +
                     retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
-                    (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
+                    (retornaValorSoldo(
+                      jsonData.pgCo,
+                      anoFilter,
+                      valorReajuste
+                    )! *
                       Number(jsonData.compOrg)) /
                       100) *
                     Number(jsonData.ajudaCusto.volta)
@@ -221,10 +225,10 @@ export default function CalcAjudaCustoComponent() {
             >
               <option></option>
               {dbSoldo[anoFilter as keyof typeof dbSoldo].map((pg) => (
-                                <option key={pg.codigo} value={pg.codigo}>
-                                  {pg.nome}
-                                </option>
-                              ))}
+                <option key={pg.codigo} value={pg.codigo}>
+                  {pg.nome}
+                </option>
+              ))}
               {/* <option value="sdEv">SD EV</option>
               <option value="sdEp">SD EP</option>
               <option value="cb">CB</option>
@@ -253,7 +257,9 @@ export default function CalcAjudaCustoComponent() {
               <span className="italic text-gray-700 text-xs">
                 {formataValor(retornaValorSoldo(jsonData.pg, anoFilter)!)} +{" "}
                 {valorReajuste + "%"} ={" "}
-                {formataValor(retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)!)}
+                {formataValor(
+                  retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)!
+                )}
               </span>
             )}
           </div>
@@ -449,10 +455,10 @@ export default function CalcAjudaCustoComponent() {
               >
                 <option></option>
                 {dbSoldo[anoFilter as keyof typeof dbSoldo].map((pg) => (
-                                  <option key={pg.codigo} value={pg.codigo}>
-                                    {pg.nome}
-                                  </option>
-                                ))}
+                  <option key={pg.codigo} value={pg.codigo}>
+                    {pg.nome}
+                  </option>
+                ))}
                 {/* <option value="sdEv">SD EV</option>
                 <option value="sdEp">SD EP</option>
                 <option value="cb">CB</option>
@@ -629,7 +635,9 @@ export default function CalcAjudaCustoComponent() {
           <div className="flex flex-1">
             <b className="text-gray-300">Soldo</b>
             <p className="pl-4 text-white">
-              {formataValor(retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)!)}
+              {formataValor(
+                retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)!
+              )}
             </p>
           </div>
           <div className="flex flex-1">
@@ -724,15 +732,27 @@ export default function CalcAjudaCustoComponent() {
                 <p className="pl-4 text-white flex gap-2">
                   <span className="text-gray-400">Ida:</span>
                   {formataValor(
-                    ((retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
+                    ((retornaValorSoldo(
+                      jsonData.pg,
+                      anoFilter,
+                      valorReajuste
+                    )! *
                       (Number(jsonData.disp) +
                         Number(jsonData.locEsp) +
                         Number(jsonData.mil) +
                         Number(jsonData.hab) +
                         Number(jsonData.adcPerm))) /
                       100 +
-                      retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
-                      (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
+                      retornaValorSoldo(
+                        jsonData.pg,
+                        anoFilter,
+                        valorReajuste
+                      )! +
+                      (retornaValorSoldo(
+                        jsonData.pgCo,
+                        anoFilter,
+                        valorReajuste
+                      )! *
                         Number(jsonData.compOrg)) /
                         100) *
                       Number(jsonData.ajudaCusto.ida)
@@ -741,15 +761,27 @@ export default function CalcAjudaCustoComponent() {
                 <p className="pl-4 text-white flex gap-2">
                   <span className="text-gray-400">Volta:</span>
                   {formataValor(
-                    ((retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
+                    ((retornaValorSoldo(
+                      jsonData.pg,
+                      anoFilter,
+                      valorReajuste
+                    )! *
                       (Number(jsonData.disp) +
                         Number(jsonData.locEsp) +
                         Number(jsonData.mil) +
                         Number(jsonData.hab) +
                         Number(jsonData.adcPerm))) /
                       100 +
-                      retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
-                      (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
+                      retornaValorSoldo(
+                        jsonData.pg,
+                        anoFilter,
+                        valorReajuste
+                      )! +
+                      (retornaValorSoldo(
+                        jsonData.pgCo,
+                        anoFilter,
+                        valorReajuste
+                      )! *
                         Number(jsonData.compOrg)) /
                         100) *
                       Number(jsonData.ajudaCusto.volta)
@@ -768,7 +800,11 @@ export default function CalcAjudaCustoComponent() {
                       Number(jsonData.adcPerm))) /
                     100 +
                     retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
-                    (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
+                    (retornaValorSoldo(
+                      jsonData.pgCo,
+                      anoFilter,
+                      valorReajuste
+                    )! *
                       Number(jsonData.compOrg)) /
                       100) *
                     Number(jsonData.ajudaCusto.inativo)
@@ -794,19 +830,35 @@ export default function CalcAjudaCustoComponent() {
                       Number(jsonData.adcPerm))) /
                     100 +
                     retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
-                    (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
+                    (retornaValorSoldo(
+                      jsonData.pgCo,
+                      anoFilter,
+                      valorReajuste
+                    )! *
                       Number(jsonData.compOrg)) /
                       100) *
                     Number(jsonData.ajudaCusto.ida) +
-                    ((retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
+                    ((retornaValorSoldo(
+                      jsonData.pg,
+                      anoFilter,
+                      valorReajuste
+                    )! *
                       (Number(jsonData.disp) +
                         Number(jsonData.locEsp) +
                         Number(jsonData.mil) +
                         Number(jsonData.hab) +
                         Number(jsonData.adcPerm))) /
                       100 +
-                      retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
-                      (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
+                      retornaValorSoldo(
+                        jsonData.pg,
+                        anoFilter,
+                        valorReajuste
+                      )! +
+                      (retornaValorSoldo(
+                        jsonData.pgCo,
+                        anoFilter,
+                        valorReajuste
+                      )! *
                         Number(jsonData.compOrg)) /
                         100) *
                       Number(jsonData.ajudaCusto.volta)
