@@ -70,7 +70,7 @@ export default function ModalCriarNotas({
         const DateNow = Date.now()
         const DateTypeNow = new Date(DateNow)
         const data = DateTypeNow.toLocaleDateString("pt-BR");
-        console.log(data);
+
         const registros = JSON.stringify([...modelosNotas, {...formData  }]);
         setModelosNotas(JSON.parse(registros));
         await new Promise((resolve) => {
