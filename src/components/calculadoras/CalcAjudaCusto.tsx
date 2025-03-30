@@ -8,10 +8,12 @@ import {
   adcPermArr,
   ajudaCusto,
   reserva,
+  dbSoldo,
 } from "@/utils/valores";
 import { Links } from "../Links";
 import { useState } from "react";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import { BsCalendar2Date } from "react-icons/bs";
 
 interface calcAjudaCustoProps {
   pg: string;
@@ -35,6 +37,8 @@ interface calcDiferencaAjudaCustoProps {
 }
 
 export default function CalcAjudaCustoComponent() {
+  const year = new Date().getFullYear().toString();
+  const [anoFilter, SetAnoFilter] = useState(year);
   const [jsonData, setJsonData] = useState<calcAjudaCustoProps>({
     pg: "",
     disp: 0,
@@ -90,7 +94,7 @@ export default function CalcAjudaCustoComponent() {
           oficial.
         </p>
       </div>
-      <div className="flex flex-1 bg-gray-950 shadow-shape mb-6 px-4 py-2 rounded-md">
+      <div className="flex flex-1 bg-gray-950 shadow-shape mb-6 px-4 py-4 justify-between rounded-md">
         <div className="flex items-center gap-4">
           <label
             htmlFor="ativarReajuste"
@@ -105,6 +109,28 @@ export default function CalcAjudaCustoComponent() {
             className="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200"
           />
         </div>
+        <div className="flex items-center gap-2 px-2 ">
+          <BsCalendar2Date className="text-gray-400 w-4 h-4" />
+          <div className="relative z-0 w-full group">
+            <select
+              name="filteryear"
+              defaultValue={anoFilter}
+              onChange={(e) => SetAnoFilter(e.target.value)}
+              id="filteryear"
+              className="block w-28 h-6 text-sm text-white bg-gray-950 border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-green-600"
+            >
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+            </select>
+            <label
+              htmlFor="filteryear"
+              className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-4 scale-75 top-0 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+            >
+              Ano
+            </label>
+          </div>
+        </div>
       </div>
       {/* VALOR BRUTO FOOTER */}
       <div className="fixed left-0 bg-gray-900 backdrop-blur-sm bg-opacity-40 shadow-lg w-screen shadow-black bottom-0 p-4 z-10">
@@ -113,15 +139,15 @@ export default function CalcAjudaCustoComponent() {
             <p>Bruto:</p>
             <p className="font-extrabold pl-2">
               {formataValor(
-                (retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                (retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                   (Number(jsonData.disp) +
                     Number(jsonData.locEsp) +
                     Number(jsonData.mil) +
                     Number(jsonData.hab) +
                     Number(jsonData.adcPerm))) /
                   100 +
-                  retornaValorSoldo(jsonData.pg, valorReajuste)! +
-                  (retornaValorSoldo(jsonData.pgCo, valorReajuste)! *
+                  retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
+                  (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
                     jsonData.compOrg) /
                     100
               )}
@@ -131,27 +157,27 @@ export default function CalcAjudaCustoComponent() {
             <p className="pl-4 text-white flex gap-2">
               <span>Total:</span>
               {formataValor(
-                ((retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                ((retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                   (Number(jsonData.disp) +
                     Number(jsonData.locEsp) +
                     Number(jsonData.mil) +
                     Number(jsonData.hab) +
                     Number(jsonData.adcPerm))) /
                   100 +
-                  retornaValorSoldo(jsonData.pg, valorReajuste)! +
-                  (retornaValorSoldo(jsonData.pgCo, valorReajuste)! *
+                  retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
+                  (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
                     Number(jsonData.compOrg)) /
                     100) *
                   Number(jsonData.ajudaCusto.ida) +
-                  ((retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                  ((retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                     (Number(jsonData.disp) +
                       Number(jsonData.locEsp) +
                       Number(jsonData.mil) +
                       Number(jsonData.hab) +
                       Number(jsonData.adcPerm))) /
                     100 +
-                    retornaValorSoldo(jsonData.pg, valorReajuste)! +
-                    (retornaValorSoldo(jsonData.pgCo, valorReajuste)! *
+                    retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
+                    (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
                       Number(jsonData.compOrg)) /
                       100) *
                     Number(jsonData.ajudaCusto.volta)
@@ -161,15 +187,15 @@ export default function CalcAjudaCustoComponent() {
             <p className="pl-4 text-white flex gap-2">
               <span className="text-gray-400">Inatividade:</span>
               {formataValor(
-                ((retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                ((retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                   (Number(jsonData.disp) +
                     Number(jsonData.locEsp) +
                     Number(jsonData.mil) +
                     Number(jsonData.hab) +
                     Number(jsonData.adcPerm))) /
                   100 +
-                  retornaValorSoldo(jsonData.pg, valorReajuste)! +
-                  (retornaValorSoldo(jsonData.pgCo, valorReajuste)! *
+                  retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
+                  (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
                     Number(jsonData.compOrg)) /
                     100) *
                   Number(jsonData.ajudaCusto.inativo)
@@ -194,7 +220,12 @@ export default function CalcAjudaCustoComponent() {
               required
             >
               <option></option>
-              <option value="sdEv">SD EV</option>
+              {dbSoldo[anoFilter as keyof typeof dbSoldo].map((pg) => (
+                                <option key={pg.codigo} value={pg.codigo}>
+                                  {pg.nome}
+                                </option>
+                              ))}
+              {/* <option value="sdEv">SD EV</option>
               <option value="sdEp">SD EP</option>
               <option value="cb">CB</option>
               <option value="3sgt">3º SGT</option>
@@ -210,7 +241,7 @@ export default function CalcAjudaCustoComponent() {
               <option value="cel">CEL</option>
               <option value="genBda">GEN BDA</option>
               <option value="genDiv">GEN DIV</option>
-              <option value="genEx">GEN EX</option>
+              <option value="genEx">GEN EX</option> */}
             </select>
             <label
               htmlFor="pg"
@@ -219,8 +250,12 @@ export default function CalcAjudaCustoComponent() {
               P/G
             </label>
             {reajuste && (
-                 <span className="italic text-gray-700 text-xs">{formataValor(retornaValorSoldo(jsonData.pg)!)} + {valorReajuste + "%"} = {formataValor(retornaValorSoldo(jsonData.pg, valorReajuste)!)}</span> 
-              )}
+              <span className="italic text-gray-700 text-xs">
+                {formataValor(retornaValorSoldo(jsonData.pg, anoFilter)!)} +{" "}
+                {valorReajuste + "%"} ={" "}
+                {formataValor(retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)!)}
+              </span>
+            )}
           </div>
           {reajuste && (
             <div className="relative z-0  w-full group">
@@ -413,7 +448,12 @@ export default function CalcAjudaCustoComponent() {
                 required
               >
                 <option></option>
-                <option value="sdEv">SD EV</option>
+                {dbSoldo[anoFilter as keyof typeof dbSoldo].map((pg) => (
+                                  <option key={pg.codigo} value={pg.codigo}>
+                                    {pg.nome}
+                                  </option>
+                                ))}
+                {/* <option value="sdEv">SD EV</option>
                 <option value="sdEp">SD EP</option>
                 <option value="cb">CB</option>
                 <option value="3sgt">3º SGT</option>
@@ -429,7 +469,7 @@ export default function CalcAjudaCustoComponent() {
                 <option value="cel">CEL</option>
                 <option value="genBda">GEN BDA</option>
                 <option value="genDiv">GEN DIV</option>
-                <option value="genEx">GEN EX</option>
+                <option value="genEx">GEN EX</option> */}
               </select>
               <label
                 htmlFor="pgCo"
@@ -589,14 +629,14 @@ export default function CalcAjudaCustoComponent() {
           <div className="flex flex-1">
             <b className="text-gray-300">Soldo</b>
             <p className="pl-4 text-white">
-              {formataValor(retornaValorSoldo(jsonData.pg, valorReajuste)!)}
+              {formataValor(retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)!)}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc Habilitação</b>
             <p className="pl-4 text-white">
               {formataValor(
-                (retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                (retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                   Number(jsonData.hab)) /
                   100
               )}
@@ -606,7 +646,7 @@ export default function CalcAjudaCustoComponent() {
             <b className="text-gray-300">Adc Militar</b>
             <p className="pl-4 text-white">
               {formataValor(
-                (retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                (retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                   Number(jsonData.mil)) /
                   100
               )}
@@ -616,7 +656,7 @@ export default function CalcAjudaCustoComponent() {
             <b className="text-gray-300">Adc Loc Esp</b>
             <p className="pl-4 text-white">
               {formataValor(
-                (retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                (retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                   Number(jsonData.locEsp)) /
                   100
               )}
@@ -626,7 +666,7 @@ export default function CalcAjudaCustoComponent() {
             <b className="text-gray-300">Adc Disponibilidade</b>
             <p className="pl-4 text-white">
               {formataValor(
-                (retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                (retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                   Number(jsonData.disp)) /
                   100
               )}
@@ -636,7 +676,7 @@ export default function CalcAjudaCustoComponent() {
             <b className="text-gray-300">Adc Compensação Orgânica</b>
             <p className="pl-4 text-white">
               {formataValor(
-                (retornaValorSoldo(jsonData.pgCo, valorReajuste)! *
+                (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
                   Number(jsonData.compOrg)) /
                   100
               )}
@@ -646,7 +686,7 @@ export default function CalcAjudaCustoComponent() {
             <b className="text-gray-300">Adc Permanência</b>
             <p className="pl-4 text-white">
               {formataValor(
-                (retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                (retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                   Number(jsonData.adcPerm)) /
                   100
               )}
@@ -663,15 +703,15 @@ export default function CalcAjudaCustoComponent() {
             <b className="text-gray-300">Valor Bruto</b>
             <p className="pl-4 text-white">
               {formataValor(
-                (retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                (retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                   (Number(jsonData.disp) +
                     Number(jsonData.locEsp) +
                     Number(jsonData.mil) +
                     Number(jsonData.hab) +
                     Number(jsonData.adcPerm))) /
                   100 +
-                  retornaValorSoldo(jsonData.pg, valorReajuste)! +
-                  (retornaValorSoldo(jsonData.pgCo, valorReajuste)! *
+                  retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
+                  (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
                     Number(jsonData.compOrg)) /
                     100
               )}
@@ -684,15 +724,15 @@ export default function CalcAjudaCustoComponent() {
                 <p className="pl-4 text-white flex gap-2">
                   <span className="text-gray-400">Ida:</span>
                   {formataValor(
-                    ((retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                    ((retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                       (Number(jsonData.disp) +
                         Number(jsonData.locEsp) +
                         Number(jsonData.mil) +
                         Number(jsonData.hab) +
                         Number(jsonData.adcPerm))) /
                       100 +
-                      retornaValorSoldo(jsonData.pg, valorReajuste)! +
-                      (retornaValorSoldo(jsonData.pgCo, valorReajuste)! *
+                      retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
                         Number(jsonData.compOrg)) /
                         100) *
                       Number(jsonData.ajudaCusto.ida)
@@ -701,15 +741,15 @@ export default function CalcAjudaCustoComponent() {
                 <p className="pl-4 text-white flex gap-2">
                   <span className="text-gray-400">Volta:</span>
                   {formataValor(
-                    ((retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                    ((retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                       (Number(jsonData.disp) +
                         Number(jsonData.locEsp) +
                         Number(jsonData.mil) +
                         Number(jsonData.hab) +
                         Number(jsonData.adcPerm))) /
                       100 +
-                      retornaValorSoldo(jsonData.pg, valorReajuste)! +
-                      (retornaValorSoldo(jsonData.pgCo, valorReajuste)! *
+                      retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
                         Number(jsonData.compOrg)) /
                         100) *
                       Number(jsonData.ajudaCusto.volta)
@@ -720,15 +760,15 @@ export default function CalcAjudaCustoComponent() {
               <p className="pl-4 text-white flex gap-2">
                 <span className="text-gray-400">Inatividade:</span>
                 {formataValor(
-                  ((retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                  ((retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                     (Number(jsonData.disp) +
                       Number(jsonData.locEsp) +
                       Number(jsonData.mil) +
                       Number(jsonData.hab) +
                       Number(jsonData.adcPerm))) /
                     100 +
-                    retornaValorSoldo(jsonData.pg, valorReajuste)! +
-                    (retornaValorSoldo(jsonData.pgCo, valorReajuste)! *
+                    retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
+                    (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
                       Number(jsonData.compOrg)) /
                       100) *
                     Number(jsonData.ajudaCusto.inativo)
@@ -746,27 +786,27 @@ export default function CalcAjudaCustoComponent() {
               className="bg-green-600 ml-auto hover:bg-green-800 text-white px-4 py-1 shadow-shape rounded-full text-xs"
               onClick={() =>
                 registrarValor(
-                  ((retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                  ((retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                     (Number(jsonData.disp) +
                       Number(jsonData.locEsp) +
                       Number(jsonData.mil) +
                       Number(jsonData.hab) +
                       Number(jsonData.adcPerm))) /
                     100 +
-                    retornaValorSoldo(jsonData.pg, valorReajuste)! +
-                    (retornaValorSoldo(jsonData.pgCo, valorReajuste)! *
+                    retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
+                    (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
                       Number(jsonData.compOrg)) /
                       100) *
                     Number(jsonData.ajudaCusto.ida) +
-                    ((retornaValorSoldo(jsonData.pg, valorReajuste)! *
+                    ((retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! *
                       (Number(jsonData.disp) +
                         Number(jsonData.locEsp) +
                         Number(jsonData.mil) +
                         Number(jsonData.hab) +
                         Number(jsonData.adcPerm))) /
                       100 +
-                      retornaValorSoldo(jsonData.pg, valorReajuste)! +
-                      (retornaValorSoldo(jsonData.pgCo, valorReajuste)! *
+                      retornaValorSoldo(jsonData.pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(jsonData.pgCo, anoFilter, valorReajuste)! *
                         Number(jsonData.compOrg)) /
                         100) *
                       Number(jsonData.ajudaCusto.volta)

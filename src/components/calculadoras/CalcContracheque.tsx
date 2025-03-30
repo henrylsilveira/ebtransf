@@ -16,12 +16,17 @@ import {
   impostoRenda,
   dependenteIR,
   adcPttcArr,
+  dbSoldo,
 } from "@/utils/valores";
 import { useState } from "react";
 import { Links } from "../Links";
 import Link from "next/link";
+import { BsCalendar2Date } from "react-icons/bs";
 
 export default function CalcContraChequeComponent() {
+  const year = new Date().getFullYear().toString();
+  const [anoFilter, SetAnoFilter] = useState(year);
+
   const [pg, setPg] = useState("");
   const [pgCo, setPgCO] = useState("");
   const [hab, setHab] = useState(0);
@@ -44,9 +49,9 @@ export default function CalcContraChequeComponent() {
   const [reajuste, setReajuste] = useState(false);
   const [valorReajuste, setValorReajuste] = useState(0);
 
-  function ativarReajuste(){
-    setReajuste(!reajuste)
-    setValorReajuste(0)
+  function ativarReajuste() {
+    setReajuste(!reajuste);
+    setValorReajuste(0);
   }
 
   return (
@@ -109,12 +114,17 @@ export default function CalcContraChequeComponent() {
             <p>Bruto:</p>
             <p className="font-extrabold pl-2">
               {formataValor(
-                (retornaValorSoldo(pg, valorReajuste)! *
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                   (disp + locEsp + mil + hab + adcPerm + adcPttc)) /
                   100 +
-                  retornaValorSoldo(pg, valorReajuste)! +
-                  (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100 +
-                  ((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100) * qntDias
+                  retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                  (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                    compOrg) /
+                    100 +
+                  ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                    gratRep) /
+                    100) *
+                    qntDias
               )}
             </p>
           </div>
@@ -122,30 +132,45 @@ export default function CalcContraChequeComponent() {
             <p>Despesas:</p>
             <p className="font-extrabold pl-2">
               {formataValor(
-                (((retornaValorSoldo(pg, valorReajuste)! * (disp + mil + hab + adcPerm)) /
+                (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                  (disp + mil + hab + adcPerm)) /
                   100 +
-                  retornaValorSoldo(pg, valorReajuste)! +
-                  (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) *
+                  retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                  (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                    compOrg) /
+                    100) *
                   (fusex + pMil)) /
                   100 +
                   pensAlim +
-                  (pnr === "true" ? retornaValorSoldo(pg, valorReajuste)! * 0.05 : 0) +
+                  (pnr === "true"
+                    ? retornaValorSoldo(pg, anoFilter, valorReajuste)! * 0.05
+                    : 0) +
                   calculaImpostoRenda(
-                    (retornaValorSoldo(pg, valorReajuste)! *
+                    (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + locEsp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100 +
-                      ((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100) * qntDias,
-                    (((retornaValorSoldo(pg, valorReajuste)! *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100 +
+                      ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        gratRep) /
+                        100) *
+                        qntDias,
+                    (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100) *
                       (fusex + pMil)) /
                       100 +
                       pensAlim +
-                      (pnr === "true" ? retornaValorSoldo(pg, valorReajuste)! * 0.05 : 0),
+                      (pnr === "true"
+                        ? retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          0.05
+                        : 0),
                     dependentes
                   ).impostoRenda
               )}
@@ -155,35 +180,55 @@ export default function CalcContraChequeComponent() {
             <p>Líquido:</p>
             <p className="font-extrabold pl-2">
               {formataValor(
-                ((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100) * qntDias +
-                  ((retornaValorSoldo(pg, valorReajuste)! * (disp + locEsp + mil + hab)) /
+                ((retornaValorSoldo(pg, anoFilter, valorReajuste)! * gratRep) /
+                  100) *
+                  qntDias +
+                  ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                    (disp + locEsp + mil + hab)) /
                     100 +
-                    retornaValorSoldo(pg, valorReajuste)! +
-                    (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) -
-                  ((((retornaValorSoldo(pg, valorReajuste)! * (disp + mil + hab + adcPerm)) /
+                    retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                    (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                      compOrg) /
+                      100) -
+                  ((((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                    (disp + mil + hab + adcPerm)) /
                     100 +
-                    retornaValorSoldo(pg, valorReajuste)! +
-                    (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) *
+                    retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                    (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                      compOrg) /
+                      100) *
                     (fusex + pMil)) /
                     100 +
-                    (pnr === "true" ? retornaValorSoldo(pg, valorReajuste)! * 0.05 : 0) +
+                    (pnr === "true"
+                      ? retornaValorSoldo(pg, anoFilter, valorReajuste)! * 0.05
+                      : 0) +
                     pensAlim) -
                   calculaImpostoRenda(
-                    (retornaValorSoldo(pg, valorReajuste)! *
+                    (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + locEsp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100 +
-                      ((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100) * qntDias,
-                    (((retornaValorSoldo(pg, valorReajuste)! *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100 +
+                      ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        gratRep) /
+                        100) *
+                        qntDias,
+                    (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100) *
                       (fusex + pMil)) /
                       100 +
                       pensAlim +
-                      (pnr === "true" ? retornaValorSoldo(pg, valorReajuste)! * 0.05 : 0),
+                      (pnr === "true"
+                        ? retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          0.05
+                        : 0),
                     dependentes
                   ).impostoRenda
               )}
@@ -192,7 +237,7 @@ export default function CalcContraChequeComponent() {
         </div>
       </div>
 
-      <div className="flex flex-1 bg-gray-950 shadow-shape mb-6 px-4 py-2 rounded-md">
+      <div className="flex flex-1 bg-gray-950 shadow-shape mb-6 px-4 py-4 rounded-md justify-between">
         <div className="flex items-center gap-4">
           <label
             htmlFor="ativarReajuste"
@@ -206,6 +251,28 @@ export default function CalcContraChequeComponent() {
             onChange={ativarReajuste}
             className="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200"
           />
+        </div>
+        <div className="flex items-center gap-2  px-2">
+          <BsCalendar2Date className="text-gray-400 w-4 h-4" />
+          <div className="relative z-0 w-full group">
+            <select
+              name="filteryear"
+              defaultValue={anoFilter}
+              onChange={(e) => SetAnoFilter(e.target.value)}
+              id="filteryear"
+              className="block w-28 h-6 text-sm text-white bg-gray-950 border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-green-600"
+            >
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+            </select>
+            <label
+              htmlFor="filteryear"
+              className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-4 scale-75 top-0 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+            >
+              Ano
+            </label>
+          </div>
         </div>
       </div>
 
@@ -225,7 +292,13 @@ export default function CalcContraChequeComponent() {
                 required
               >
                 <option></option>
-                <option value="sdEv">SD EV</option>
+                {dbSoldo[anoFilter as keyof typeof dbSoldo].map((pg) => (
+                  <option key={pg.codigo} value={pg.codigo}>
+                    {pg.nome}
+                  </option>
+                ))}
+
+                {/* <option value="sdEv">SD EV</option>
                 <option value="sdEp">SD EP</option>
                 <option value="cb">CB</option>
                 <option value="3sgt">3º SGT</option>
@@ -241,7 +314,7 @@ export default function CalcContraChequeComponent() {
                 <option value="cel">CEL</option>
                 <option value="genBda">GEN BDA</option>
                 <option value="genDiv">GEN DIV</option>
-                <option value="genEx">GEN EX</option>
+                <option value="genEx">GEN EX</option> */}
               </select>
               <label
                 htmlFor="postGrad"
@@ -250,12 +323,17 @@ export default function CalcContraChequeComponent() {
                 P/G
               </label>
               {reajuste && (
-                 <span className="italic text-gray-700 text-xs">{formataValor(retornaValorSoldo(pg)!)} + {valorReajuste + "%"} = {formataValor(retornaValorSoldo(pg, valorReajuste)!)}</span> 
+                <span className="italic text-gray-700 text-xs">
+                  {formataValor(retornaValorSoldo(pg, anoFilter)!)} +{" "}
+                  {valorReajuste + "%"} ={" "}
+                  {formataValor(
+                    retornaValorSoldo(pg, anoFilter, valorReajuste)!
+                  )}
+                </span>
               )}
-              
             </div>
             {reajuste && (
-                <div className="relative z-0  w-full group">
+              <div className="relative z-0  w-full group">
                 <input
                   name="reajuste"
                   id="reajuste"
@@ -276,7 +354,6 @@ export default function CalcContraChequeComponent() {
                 </span>
               </div>
             )}
-            
 
             <div className="relative z-0 w-full group">
               <select
@@ -428,7 +505,12 @@ export default function CalcContraChequeComponent() {
                   required
                 >
                   <option></option>
-                  <option value="sdEv">SD EV</option>
+                  {dbSoldo[anoFilter as keyof typeof dbSoldo].map((pg) => (
+                    <option key={pg.codigo} value={pg.codigo}>
+                      {pg.nome}
+                    </option>
+                  ))}
+                  {/* <option value="sdEv">SD EV</option>
                   <option value="sdEp">SD EP</option>
                   <option value="cb">CB</option>
                   <option value="3sgt">3º SGT</option>
@@ -444,7 +526,7 @@ export default function CalcContraChequeComponent() {
                   <option value="cel">CEL</option>
                   <option value="genBda">GEN BDA</option>
                   <option value="genDiv">GEN DIV</option>
-                  <option value="genEx">GEN EX</option>
+                  <option value="genEx">GEN EX</option> */}
                 </select>
                 <label
                   htmlFor="postGrad"
@@ -654,60 +736,83 @@ export default function CalcContraChequeComponent() {
           <div className="flex flex-1">
             <b className="text-gray-300">Soldo</b>
             <p className="pl-4 text-white">
-              {formataValor(retornaValorSoldo(pg, valorReajuste)!)}
+              {formataValor(retornaValorSoldo(pg, anoFilter, valorReajuste)!)}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc Habilitação</b>
             <p className="pl-4 text-white">
-              {formataValor((retornaValorSoldo(pg, valorReajuste)! * hab) / 100)}
+              {formataValor(
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! * hab) / 100
+              )}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc Militar</b>
             <p className="pl-4 text-white">
-              {formataValor((retornaValorSoldo(pg, valorReajuste)! * mil) / 100)}
+              {formataValor(
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! * mil) / 100
+              )}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc Loc Esp</b>
             <p className="pl-4 text-white">
-              {formataValor((retornaValorSoldo(pg, valorReajuste)! * locEsp) / 100)}
+              {formataValor(
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! * locEsp) /
+                  100
+              )}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc Disponibilidade</b>
             <p className="pl-4 text-white">
-              {formataValor((retornaValorSoldo(pg, valorReajuste)! * disp) / 100)}
+              {formataValor(
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! * disp) / 100
+              )}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc Compensação Orgânica</b>
             <p className="pl-4 text-white">
-              {formataValor((retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100)}
+              {formataValor(
+                (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! * compOrg) /
+                  100
+              )}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc PTTC</b>
             <p className="pl-4 text-white">
-              {formataValor((retornaValorSoldo(pg, valorReajuste)! * adcPttc) / 100)}
+              {formataValor(
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! * adcPttc) /
+                  100
+              )}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc Permanência</b>
             <p className="pl-4 text-white">
-              {formataValor((retornaValorSoldo(pg, valorReajuste)! * adcPerm) / 100)}
+              {formataValor(
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! * adcPerm) /
+                  100
+              )}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Grat Rep:</b>
             <p className="pl-2 text-white">
-              {formataValor((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100)} x{" "}
-              {qntDias} =
+              {formataValor(
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! * gratRep) /
+                  100
+              )}{" "}
+              x {qntDias} =
             </p>
             <p className="pl-2 text-white">
               {formataValor(
-                ((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100) * qntDias
+                ((retornaValorSoldo(pg, anoFilter, valorReajuste)! * gratRep) /
+                  100) *
+                  qntDias
               )}
             </p>
           </div>
@@ -721,12 +826,17 @@ export default function CalcContraChequeComponent() {
             <b className="text-gray-300">Valor Bruto</b>
             <p className="pl-4 text-white">
               {formataValor(
-                (retornaValorSoldo(pg, valorReajuste)! *
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                   (disp + locEsp + mil + hab + adcPerm + adcPttc)) /
                   100 +
-                  retornaValorSoldo(pg, valorReajuste)! +
-                  (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100 +
-                  ((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100) * qntDias
+                  retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                  (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                    compOrg) /
+                    100 +
+                  ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                    gratRep) /
+                    100) *
+                    qntDias
               )}
             </p>
           </div>
@@ -740,10 +850,10 @@ export default function CalcContraChequeComponent() {
               <b className="text-gray-300">Fusex</b>
               <p className="pl-4 text-white">
                 {formataValor(
-                  ((retornaValorSoldo(pg, valorReajuste)! *
+                  ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                     (disp + mil + hab + compOrg + adcPerm + adcPttc)) /
                     100 +
-                    retornaValorSoldo(pg, valorReajuste)!) *
+                    retornaValorSoldo(pg, anoFilter, valorReajuste)!) *
                     (fusex / 100)
                 )}
               </p>
@@ -752,10 +862,10 @@ export default function CalcContraChequeComponent() {
               <b className="text-gray-300">Pensão Militar</b>
               <p className="pl-4 text-white">
                 {formataValor(
-                  ((retornaValorSoldo(pg, valorReajuste)! *
+                  ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                     (disp + mil + hab + compOrg + adcPerm + adcPttc)) /
                     100 +
-                    retornaValorSoldo(pg, valorReajuste)!) *
+                    retornaValorSoldo(pg, anoFilter, valorReajuste)!) *
                     (pMil / 100)
                 )}
               </p>
@@ -769,19 +879,25 @@ export default function CalcContraChequeComponent() {
                 <div className="flex flex-1">
                   <b className="text-gray-300">PNR (F EX-CNST)</b>
                   <p className="pl-4 text-white">
-                    {formataValor(retornaValorSoldo(pg, valorReajuste)! * 0.01)}
+                    {formataValor(
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! * 0.01
+                    )}
                   </p>
                 </div>
                 <div className="flex flex-1">
                   <b className="text-gray-300">PNR (COD/UA)</b>
                   <p className="pl-4 text-white">
-                    {formataValor(retornaValorSoldo(pg, valorReajuste)! * 0.035)}
+                    {formataValor(
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! * 0.035
+                    )}
                   </p>
                 </div>
                 <div className="flex flex-1">
                   <b className="text-gray-300">PNR (F EX-MNT)</b>
                   <p className="pl-4 text-white">
-                    {formataValor(retornaValorSoldo(pg, valorReajuste)! * 0.005)}
+                    {formataValor(
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! * 0.005
+                    )}
                   </p>
                 </div>
               </div>
@@ -791,21 +907,31 @@ export default function CalcContraChequeComponent() {
               <p className="pl-4 text-white">
                 {formataValor(
                   calculaImpostoRenda(
-                    (retornaValorSoldo(pg, valorReajuste)! *
+                    (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + locEsp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100 +
-                      ((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100) * qntDias,
-                    (((retornaValorSoldo(pg, valorReajuste)! *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100 +
+                      ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        gratRep) /
+                        100) *
+                        qntDias,
+                    (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100) *
                       (fusex + pMil)) /
                       100 +
                       pensAlim +
-                      (pnr === "true" ? retornaValorSoldo(pg, valorReajuste)! * 0.05 : 0),
+                      (pnr === "true"
+                        ? retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          0.05
+                        : 0),
                     dependentes
                   ).impostoRenda
                 )}
@@ -823,21 +949,31 @@ export default function CalcContraChequeComponent() {
               <p className="pl-4 text-white">
                 {formataValor(
                   calculaImpostoRenda(
-                    (retornaValorSoldo(pg, valorReajuste)! *
+                    (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + locEsp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100 +
-                      ((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100) * qntDias,
-                    (((retornaValorSoldo(pg, valorReajuste)! *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100 +
+                      ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        gratRep) /
+                        100) *
+                        qntDias,
+                    (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100) *
                       (fusex + pMil)) /
                       100 +
                       pensAlim +
-                      (pnr === "true" ? retornaValorSoldo(pg, valorReajuste)! * 0.05 : 0),
+                      (pnr === "true"
+                        ? retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          0.05
+                        : 0),
                     dependentes
                   ).baseCalculo
                 )}
@@ -852,21 +988,31 @@ export default function CalcContraChequeComponent() {
               <p className="pl-4 text-white">
                 {formataValor(
                   calculaImpostoRenda(
-                    (retornaValorSoldo(pg, valorReajuste)! *
+                    (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + locEsp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100 +
-                      ((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100) * qntDias,
-                    (((retornaValorSoldo(pg, valorReajuste)! *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100 +
+                      ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        gratRep) /
+                        100) *
+                        qntDias,
+                    (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100) *
                       (fusex + pMil)) /
                       100 +
                       pensAlim +
-                      (pnr === "true" ? retornaValorSoldo(pg, valorReajuste)! * 0.05 : 0),
+                      (pnr === "true"
+                        ? retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          0.05
+                        : 0),
                     dependentes
                   ).aliquota
                 )}
@@ -880,21 +1026,31 @@ export default function CalcContraChequeComponent() {
               <p className="pl-4 text-white">
                 {formataValor(
                   calculaImpostoRenda(
-                    (retornaValorSoldo(pg, valorReajuste)! *
+                    (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + locEsp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100 +
-                      ((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100) * qntDias,
-                    (((retornaValorSoldo(pg, valorReajuste)! *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100 +
+                      ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        gratRep) /
+                        100) *
+                        qntDias,
+                    (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100) *
                       (fusex + pMil)) /
                       100 +
                       pensAlim +
-                      (pnr === "true" ? retornaValorSoldo(pg, valorReajuste)! * 0.05 : 0),
+                      (pnr === "true"
+                        ? retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          0.05
+                        : 0),
                     dependentes
                   ).deducao
                 )}
@@ -908,21 +1064,31 @@ export default function CalcContraChequeComponent() {
               <p className="pl-4 text-white">
                 {formataValor(
                   calculaImpostoRenda(
-                    (retornaValorSoldo(pg, valorReajuste)! *
+                    (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + locEsp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100 +
-                      ((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100) * qntDias,
-                    (((retornaValorSoldo(pg, valorReajuste)! *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100 +
+                      ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        gratRep) /
+                        100) *
+                        qntDias,
+                    (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                       (disp + mil + hab + adcPerm + adcPttc)) /
                       100 +
-                      retornaValorSoldo(pg, valorReajuste)! +
-                      (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) *
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100) *
                       (fusex + pMil)) /
                       100 +
                       pensAlim +
-                      (pnr === "true" ? retornaValorSoldo(pg, valorReajuste)! * 0.05 : 0),
+                      (pnr === "true"
+                        ? retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          0.05
+                        : 0),
                     dependentes
                   ).impostoRenda
                 )}
@@ -976,23 +1142,41 @@ export default function CalcContraChequeComponent() {
                       key={val + `${index}`}
                       className={
                         calculaImpostoRenda(
-                          (retornaValorSoldo(pg, valorReajuste)! *
+                          (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                             (disp + locEsp + mil + hab + adcPerm)) /
                             100 +
-                            retornaValorSoldo(pg, valorReajuste)! +
-                            (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100 +
-                            ((retornaValorSoldo(pg, valorReajuste)! * gratRep) / 100) *
+                            retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                            (retornaValorSoldo(
+                              pgCo,
+                              anoFilter,
+                              valorReajuste
+                            )! *
+                              compOrg) /
+                              100 +
+                            ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                              gratRep) /
+                              100) *
                               qntDias,
-                          (((retornaValorSoldo(pg, valorReajuste)! *
+                          (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                             (disp + mil + hab + adcPerm)) /
                             100 +
-                            retornaValorSoldo(pg, valorReajuste)! +
-                            (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) *
+                            retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                            (retornaValorSoldo(
+                              pgCo,
+                              anoFilter,
+                              valorReajuste
+                            )! *
+                              compOrg) /
+                              100) *
                             (fusex + pMil)) /
                             100 +
                             pensAlim +
                             (pnr === "true"
-                              ? retornaValorSoldo(pg, valorReajuste)! * 0.05
+                              ? retornaValorSoldo(
+                                  pg,
+                                  anoFilter,
+                                  valorReajuste
+                                )! * 0.05
                               : 0),
                           dependentes
                         ).deducao == val.deducao

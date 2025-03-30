@@ -9,6 +9,7 @@ import {
   adcLocEsp,
   adcMil,
   cubagemVeiculo,
+  dbSoldo,
 } from "@/utils/valores";
 import { SetStateAction, useEffect, useState } from "react";
 import { FaCarSide, FaCity, FaMotorcycle, FaRegChartBar } from "react-icons/fa";
@@ -21,8 +22,11 @@ import { Loader } from "../Loader/Loader";
 import Link from "next/link";
 import { TbClockSearch } from "react-icons/tb";
 import { ModalMapaTransf } from "../modalMapaTransfe/ModalMapaTransf";
+import { BsCalendar2Date } from "react-icons/bs";
 
 export default function CalcTransferencia() {
+  const year = new Date().getFullYear().toString();
+  const [anoFilter, SetAnoFilter] = useState(year);
   const [pg, setPg] = useState("");
   const [hab, setHab] = useState(0);
   const [locEsp, setLocEsp] = useState(0);
@@ -158,10 +162,14 @@ export default function CalcTransferencia() {
         <div className="border-2 text-xs sm:text-base border-green-600 rounded p-2 flex flex-1 items-center justify-center text-white font-bold ">
           Valor aproximado a receber pela transferência:
           <p className="text-sm sm:text-xl font-extrabold pl-4">
+          {/* {formataValor(retornaValorSoldo(pg, anoFilter)!)} */}
             {formataValor(
-              ((retornaValorSoldo(pg, valorReajuste)! * (disp + locEsp + mil + hab)) / 100 +
-                retornaValorSoldo(pg, valorReajuste)! +
-                (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) *
+              ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                (disp + locEsp + mil + hab)) /
+                100 +
+                retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! * compOrg) /
+                  100) *
                 (especial ? 4 : comum ? 2 : 0) +
                 passagemAdultoValor * passagemAdultoQnt +
                 passagemCriancaValor * passagemCriancaQnt +
@@ -192,7 +200,7 @@ export default function CalcTransferencia() {
           Análise de transferências
         </Link>
       </div>
-      <div className="flex flex-1 bg-gray-950 shadow-shape mb-6 px-4 py-2 rounded-md">
+      <div className="flex flex-1 bg-gray-950 shadow-shape mb-6 px-4 py-4 rounded-md justify-between">
         <div className="flex items-center gap-4">
           <label
             htmlFor="ativarReajuste"
@@ -206,6 +214,28 @@ export default function CalcTransferencia() {
             onChange={ativarReajuste}
             className="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200"
           />
+        </div>
+        <div className="flex items-center gap-2  px-2">
+          <BsCalendar2Date className="text-gray-400 w-4 h-4" />
+          <div className="relative z-0 w-full group">
+            <select
+              name="filteryear"
+              defaultValue={anoFilter}
+              onChange={(e) => SetAnoFilter(e.target.value)}
+              id="filteryear"
+              className="block w-28 h-6 text-sm text-white bg-gray-950 border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-green-600"
+            >
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+            </select>
+            <label
+              htmlFor="filteryear"
+              className="absolute text-sm text-gray-200 dark:text-gray-200 duration-300 transhtmlForm -translate-y-4 scale-75 top-0 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+            >
+              Ano
+            </label>
+          </div>
         </div>
       </div>
       <div className="border border-green-600 rounded-md p-6 relative">
@@ -224,7 +254,12 @@ export default function CalcTransferencia() {
               required
             >
               <option></option>
-              <option value="sdEv">SD EV</option>
+              {dbSoldo[anoFilter as keyof typeof dbSoldo].map((pg) => (
+                <option key={pg.codigo} value={pg.codigo}>
+                  {pg.nome}
+                </option>
+              ))}
+              {/* <option value="sdEv">SD EV</option>
               <option value="sdEp">SD EP</option>
               <option value="cb">CB</option>
               <option value="3sgt">3º SGT</option>
@@ -240,7 +275,7 @@ export default function CalcTransferencia() {
               <option value="cel">CEL</option>
               <option value="genBda">GEN BDA</option>
               <option value="genDiv">GEN DIV</option>
-              <option value="genEx">GEN EX</option>
+              <option value="genEx">GEN EX</option> */}
             </select>
             <label
               htmlFor="postGrad"
@@ -250,9 +285,9 @@ export default function CalcTransferencia() {
             </label>
             {reajuste && (
               <span className="italic text-gray-700 text-xs">
-                {formataValor(retornaValorSoldo(pg)!)} +{" "}
+                {formataValor(retornaValorSoldo(pg, anoFilter)!)} +{" "}
                 {valorReajuste + "%"} ={" "}
-                {formataValor(retornaValorSoldo(pg, valorReajuste)!)}
+                {formataValor(retornaValorSoldo(pg, anoFilter, valorReajuste)!)}
               </span>
             )}
           </div>
@@ -382,7 +417,12 @@ export default function CalcTransferencia() {
               required
             >
               <option></option>
-              <option value="sdEv">SD EV</option>
+              {dbSoldo[anoFilter as keyof typeof dbSoldo].map((pg) => (
+                <option key={pg.codigo} value={pg.codigo}>
+                  {pg.nome}
+                </option>
+              ))}
+              {/* <option value="sdEv">SD EV</option>
               <option value="sdEp">SD EP</option>
               <option value="cb">CB</option>
               <option value="3sgt">3º SGT</option>
@@ -398,7 +438,7 @@ export default function CalcTransferencia() {
               <option value="cel">CEL</option>
               <option value="genBda">GEN BDA</option>
               <option value="genDiv">GEN DIV</option>
-              <option value="genEx">GEN EX</option>
+              <option value="genEx">GEN EX</option> */}
             </select>
             <label
               htmlFor="postGrad"
@@ -668,46 +708,62 @@ export default function CalcTransferencia() {
           <div className="flex flex-1">
             <b className="text-gray-300">Soldo</b>
             <p className="pl-4 text-white">
-              {formataValor(retornaValorSoldo(pg, valorReajuste)!)}
+              {formataValor(retornaValorSoldo(pg, anoFilter, valorReajuste)!)}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc Habilitação</b>
             <p className="pl-4 text-white">
-              {formataValor((retornaValorSoldo(pg, valorReajuste)! * hab) / 100)}
+              {formataValor(
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! * hab) / 100
+              )}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc Militar</b>
             <p className="pl-4 text-white">
-              {formataValor((retornaValorSoldo(pg, valorReajuste)! * mil) / 100)}
+              {formataValor(
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! * mil) / 100
+              )}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc Loc Esp</b>
             <p className="pl-4 text-white">
-              {formataValor((retornaValorSoldo(pg, valorReajuste)! * locEsp) / 100)}
+              {formataValor(
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! * locEsp) /
+                  100
+              )}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc Disponibilidade</b>
             <p className="pl-4 text-white">
-              {formataValor((retornaValorSoldo(pg, valorReajuste)! * disp) / 100)}
+              {formataValor(
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! * disp) / 100
+              )}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Adc Compensação Orgânica</b>
             <p className="pl-4 text-white">
-              {formataValor((retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100)}
+              {formataValor(
+                (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! * compOrg) /
+                  100
+              )}
             </p>
           </div>
           <div className="flex flex-1">
             <b className="text-gray-300">Valor Bruto</b>
             <p className="pl-4 text-white">
               {formataValor(
-                (retornaValorSoldo(pg, valorReajuste)! * (disp + locEsp + mil + hab)) / 100 +
-                  (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100 +
-                  retornaValorSoldo(pg, valorReajuste)!
+                (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                  (disp + locEsp + mil + hab)) /
+                  100 +
+                  (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                    compOrg) /
+                    100 +
+                  retornaValorSoldo(pg, anoFilter, valorReajuste)!
               )}
             </p>
           </div>
@@ -722,9 +778,13 @@ export default function CalcTransferencia() {
             </b>
             <p className="pl-4 text-white">
               {formataValor(
-                ((retornaValorSoldo(pg, valorReajuste)! * (disp + locEsp + mil + hab)) / 100 +
-                  retornaValorSoldo(pg, valorReajuste)! +
-                  (retornaValorSoldo(pgCo, valorReajuste)! * compOrg) / 100) *
+                ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                  (disp + locEsp + mil + hab)) /
+                  100 +
+                  retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                  (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                    compOrg) /
+                    100) *
                   (especial ? 4 : comum ? 2 : 0)
               )}
             </p>

@@ -102,7 +102,7 @@ export default function Home() {
                   </tr>
                 </thead>
                 <tbody>
-                  {dbSoldo[anoFilter as '2024' | '2025' | '2026'].map((postos, index) => (
+                  {dbSoldo[anoFilter as keyof typeof dbSoldo].map((postos, index) => (
                     <tr
                       key={postos.codigo}
                       className="border-b border-gray-700"
@@ -120,11 +120,16 @@ export default function Home() {
                   ))}
                 </tbody>
               </table>
-              <div>
-                <span className="text-xs text-gray-600 italic m-2 text-center">
+              <div className="flex flex-col text-xs my-1 px-2">
+                <span className="text-xs text-gray-600 italic">
                   *Essa tabela contém soldo e adicionais necessários para os
                   cálculos de transferência e representação. Última atualização
-                  em Agosto de 2023.
+                  em Março de 2025.
+                </span>
+                <span className="text-xs text-gray-600 italic hover:text-green-600 ease-in-out duration-300 transition-all">
+                  <Link href="https://legis.senado.leg.br/sdleg-getter/documento?dm=9922637&ts=1743191932325&disposition=inline">
+                  MEDIDA PROVISÓRIA Nº 1.293, DE 27 DE MARÇO DE 2025
+                    </Link>
                 </span>
               </div>
             </div>
