@@ -94,7 +94,7 @@ export default function gerenciarFatoObservado() {
             </Script>
             <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2054052131154955"
                 crossOrigin="anonymous" />
-            <div className="relative max-w-4xl w-10/12 sm:text-md text-sm mx-auto shadow-container p-10 rounded-lg mb-20 mt-6 h-screen">
+            <div className="relative max-w-4xl w-10/12 sm:text-md text-sm mx-auto shadow-container p-10 rounded-lg mb-20 mt-6 h-full">
                 <div className="flex items-center justify-center mb-6 flex-col">
                     <div>
                         <h1 className="text-green-600 font-bold uppercase text-xl mb-4 flex justify-center">Gerenciador de Fatos Observados</h1>
