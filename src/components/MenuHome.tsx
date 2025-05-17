@@ -12,6 +12,7 @@ import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import { TbClockSearch, TbZoomMoney } from "react-icons/tb";
 import DropdownButton from "./header/DropdownButton";
 import { FaPersonMilitaryRifle } from "react-icons/fa6";
+import { QrCode } from "lucide-react";
 
 export default function MenuHome() {
   return (
@@ -49,6 +50,11 @@ export default function MenuHome() {
         <DropdownButton
           title="Ferramentas"
           linkText={[
+            {
+              text: "Gerador QRCode",
+              link: "/qrcode",
+              icon: <QrCode size={14} />,
+            },
             {
               text: "Serviço",
               link: "/servico",

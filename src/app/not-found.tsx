@@ -1,4 +1,4 @@
-import { Logo } from "@/components/Logo";
+import { Logo } from "@/components/Logo/Logo";
 
 
 export default function NotFound() {

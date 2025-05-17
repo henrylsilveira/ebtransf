@@ -57,6 +57,9 @@ export const theme = {
         from: { opacity: 0, transform: 'translate(-50%, -48%) scale(0.96)' },
         to: { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
       },
+      border: {
+        to: { '--border-angle': '360deg' },
+      }
     },
     animation: {
       slideDownAndFade: 'slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -65,6 +68,7 @@ export const theme = {
       slideRightAndFade: 'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
       overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
       contentShow: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+      border: 'border 4s linear infinite',
     },
     text: {
       textShadow: '2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff, 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;'

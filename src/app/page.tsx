@@ -1,4 +1,4 @@
-import { Logo } from "@/components/Logo";
+import { Logo } from "@/components/Logo/Logo";
 import Script from "next/script";
 
 import { Loader } from "@/components/Loader/Loader";

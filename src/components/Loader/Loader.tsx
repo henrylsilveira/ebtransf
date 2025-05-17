@@ -1,4 +1,4 @@
-import { Logo } from '../Logo'
+import { Logo } from '../Logo/Logo'
 import styles from './styles.module.css'
 export function Loader({ loadingPage, noLogo }: { loadingPage?: boolean, noLogo?: boolean }) {
     return (

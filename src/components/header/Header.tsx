@@ -1,5 +1,5 @@
 "use client";
-import { Logo } from "../Logo";
+import { Logo } from "../Logo/Logo";
 import { RiMenuAddFill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import { useState } from "react";
@@ -17,6 +17,7 @@ import { TbClockSearch, TbZoomMoney } from "react-icons/tb";
 import { FaRegChartBar } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { FaPersonMilitaryRifle } from "react-icons/fa6";
+import { QrCode } from "lucide-react";
 
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -91,6 +92,11 @@ export default function Header() {
             </div>
             <ul className="flex flex-col w-auto gap-4 mt-3 mb-6 text-gray-400">
               <LinkHeader
+                link="/qrcode"
+                text="Gerador QRCode"
+                icon={<QrCode size={14} />}
+              />
+              <LinkHeader
                 link="/servico"
                 text="Serviço"
                 icon={<FaPersonMilitaryRifle size={14} />}
@@ -157,6 +163,11 @@ export default function Header() {
             ]} />
 
             <DropdownButton title="Ferramentas" linkText={[
+              {
+              text: "Gerador QRCode",
+              link: "/qrcode",
+              icon: <QrCode size={14} />
+            },
               {
                 text: "Serviço",
                 link: "/servico",
