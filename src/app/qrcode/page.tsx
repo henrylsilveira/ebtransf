@@ -6,7 +6,7 @@ import { Suspense, useState } from "react";
 import { QRCode } from "react-qrcode-logo";
 import Loading from "../loading";
 import { toast } from "react-toastify";
-import styles from "../../components/Logo/styles.module.css";
+import styles from "@/components/Logo/styles.module.css";
 export default function QrCode() {
   const [link, setLink] = useState("");
   const [open, setOpen] = useState(false);

@@ -39,7 +39,7 @@ export default function Home() {
             </div>
             <LazyDropdownMenu />
           </div>
-          <div className="mx-2">
+          <div className="mx-2 bg-gray-950">
             <div className="flex items-center relative max-w-full">
               <div className="flex justify-center flex-col gap-12 mx-auto mt-4">
                 <div className="flex mx-auto relative justify-center">

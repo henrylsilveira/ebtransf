@@ -22,7 +22,7 @@ import { Links } from "@/components/Links";
 import Link from "next/link";
 import { BsCalendar2Date } from "react-icons/bs";
 
-export default function Home() {
+export default function Tabelas() {
   const year = new Date().getFullYear().toString();
   const [anoFilter, SetAnoFilter] = useState(year);
   return (
