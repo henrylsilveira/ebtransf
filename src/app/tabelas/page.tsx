@@ -11,6 +11,7 @@ import {
   ajudaCusto,
   cubagemDistancia,
   dbSoldo,
+  decretoDiaria,
   diarias,
   impostoRenda,
   postosGrad,
@@ -296,7 +297,7 @@ export default function Tabelas() {
                   </tr>
                 </thead>
                 <tbody>
-                  {diarias.map((diaria, index) => (
+                  {diarias[anoFilter as keyof typeof diarias].map((diaria, index) => (
                     <tr
                       key={diaria + `${index}`}
                       className="border-b border-gray-700"
@@ -319,8 +320,7 @@ export default function Tabelas() {
               </table>
               <div>
                 <span className="text-xs text-gray-600 italic m-2 text-center">
-                  *Valores de indenização de diárias aos militares. Decreto nº
-                  4307, de 18 de julho de 2002.
+                  *Valores de indenização de diárias aos militares. {decretoDiaria[anoFilter as keyof typeof decretoDiaria]}
                 </span>
               </div>
             </div>
