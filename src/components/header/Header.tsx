@@ -17,7 +17,7 @@ import { TbClockSearch, TbZoomMoney } from "react-icons/tb";
 import { FaRegChartBar } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { FaPersonMilitaryRifle } from "react-icons/fa6";
-import { QrCode } from "lucide-react";
+import { HandCoins, QrCode } from "lucide-react";
 
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -155,6 +155,11 @@ export default function Header() {
                 link: "/calcAjudaCusto",
                 icon: <TbZoomMoney size={14} />,
               },
+              {
+              text: "Pecuniária",
+              link: "/calculadora/pecuniaria",
+              icon: <HandCoins size={12} />,
+            },
               {
                 text: "Tempo de Serviço",
                 link: "/tempoServico",
