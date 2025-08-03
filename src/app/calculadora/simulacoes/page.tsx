@@ -2,7 +2,7 @@ import TableTransferencias from "@/components/TableTransferencias/TableTransfere
 import Script from "next/dist/client/script";
 
 async function getData() {
-    const res = await fetch('https://ebcalc.net/api/transferencia', { next: { revalidate: 3600 * 7 } })
+    const res = await fetch('https://ebcalc.net/api/transferencia', { next: { revalidate: 3600 * 24 * 3 } })
     if (!res.ok) {
         throw new Error('Erro na requisição de dados.')
     }
