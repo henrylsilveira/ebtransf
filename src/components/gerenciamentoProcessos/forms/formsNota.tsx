@@ -2,7 +2,6 @@
 
 import { dbSoldo } from "@/utils/valores";
 import { useState } from "react";
-import { type } from "../../../../prismicio-types";
 
 export default function FormsNota({ userId }: { userId: string }) {
   const [formData, setFormData] = useState({
