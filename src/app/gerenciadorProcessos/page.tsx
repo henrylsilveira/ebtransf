@@ -14,7 +14,7 @@ import * as Popover from "@radix-ui/react-popover";
 import * as Tabs from "@radix-ui/react-tabs";
 import Script from "next/dist/client/script";
 import "driver.js/dist/driver.css";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   MdArrowRight,
   MdHelp,
