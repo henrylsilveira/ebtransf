@@ -18,10 +18,12 @@ import {
   adcPttcArr,
   dbSoldo,
 } from "@/utils/valores";
+
 import { useState } from "react";
 import { Links } from "../Links";
 import Link from "next/link";
 import { BsCalendar2Date } from "react-icons/bs";
+import { Checkbox, FormControlLabel } from "@mui/material";
 
 export default function CalcContraChequeComponent() {
   const year = new Date().getFullYear().toString();
@@ -48,6 +50,10 @@ export default function CalcContraChequeComponent() {
 
   const [reajuste, setReajuste] = useState(false);
   const [valorReajuste, setValorReajuste] = useState(0);
+
+  const [ferias, setFerias] = useState(false);
+  const [decimoTerceiroPrimeira, setDecimoTerceiroPrimeira] = useState(false);
+  const [decimoTerceiroSegunda, setDecimoTerceiroSegunda] = useState(false);
 
   function ativarReajuste() {
     setReajuste(!reajuste);
@@ -134,7 +140,119 @@ export default function CalcContraChequeComponent() {
                   ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
                     gratRep) /
                     100) *
-                    qntDias
+                    qntDias +
+                  (ferias
+                    ? ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        (disp + locEsp + mil + hab + adcPerm)) /
+                        100 +
+                        retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                        (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                          compOrg) /
+                          100 +
+                        (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + locEsp + mil + hab + adcPerm)) /
+                          100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100) *
+                          adcPttc) /
+                          100) /
+                      3
+                    : 0) +
+                  (decimoTerceiroPrimeira
+                    ? ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        (disp + locEsp + mil + hab + adcPerm)) /
+                        100 +
+                        retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                        (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                          compOrg) /
+                          100 +
+                        (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + locEsp + mil + hab + adcPerm)) /
+                          100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100) *
+                          adcPttc) /
+                          100) /
+                      2
+                    : 0) +
+                  (decimoTerceiroSegunda
+                    ? ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        (disp + locEsp + mil + hab + adcPerm)) /
+                        100 +
+                        retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                        (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                          compOrg) /
+                          100 +
+                        (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + locEsp + mil + hab + adcPerm)) /
+                          100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100) *
+                          adcPttc) /
+                          100) /
+                        2 -
+                      calculaImpostoRenda(
+                        (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + locEsp + mil + hab + adcPerm)) /
+                          100 +
+                          (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                            (disp + locEsp + mil + hab + adcPerm)) /
+                            100 +
+                            retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                            (retornaValorSoldo(
+                              pgCo,
+                              anoFilter,
+                              valorReajuste
+                            )! *
+                              compOrg) /
+                              100) *
+                            adcPttc) /
+                            100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100 +
+                          ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                            gratRep) /
+                            100) *
+                            qntDias,
+
+                        (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + mil + hab + adcPerm)) /
+                          100 +
+                          (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                            (disp + locEsp + mil + hab + adcPerm)) /
+                            100 +
+                            retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                            (retornaValorSoldo(
+                              pgCo,
+                              anoFilter,
+                              valorReajuste
+                            )! *
+                              compOrg) /
+                              100) *
+                            adcPttc) /
+                            100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100) *
+                          (fusex + pMil)) /
+                          100 +
+                          pensAlim +
+                          (pnr === "true"
+                            ? retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                              0.05
+                            : 0),
+                        dependentes
+                      ).impostoRenda
+                    : 0)
               )}
             </p>
           </div>
@@ -391,7 +509,120 @@ export default function CalcContraChequeComponent() {
                             0.05
                           : 0),
                       dependentes
-                    ).impostoRenda)
+                    ).impostoRenda) + 
+                    +
+                  (ferias
+                    ? ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        (disp + locEsp + mil + hab + adcPerm)) /
+                        100 +
+                        retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                        (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                          compOrg) /
+                          100 +
+                        (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + locEsp + mil + hab + adcPerm)) /
+                          100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100) *
+                          adcPttc) /
+                          100) /
+                      3
+                    : 0) +
+                  (decimoTerceiroPrimeira
+                    ? ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        (disp + locEsp + mil + hab + adcPerm)) /
+                        100 +
+                        retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                        (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                          compOrg) /
+                          100 +
+                        (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + locEsp + mil + hab + adcPerm)) /
+                          100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100) *
+                          adcPttc) /
+                          100) /
+                      2
+                    : 0) +
+                  (decimoTerceiroSegunda
+                    ? ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        (disp + locEsp + mil + hab + adcPerm)) /
+                        100 +
+                        retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                        (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                          compOrg) /
+                          100 +
+                        (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + locEsp + mil + hab + adcPerm)) /
+                          100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100) *
+                          adcPttc) /
+                          100) /
+                        2 -
+                      calculaImpostoRenda(
+                        (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + locEsp + mil + hab + adcPerm)) /
+                          100 +
+                          (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                            (disp + locEsp + mil + hab + adcPerm)) /
+                            100 +
+                            retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                            (retornaValorSoldo(
+                              pgCo,
+                              anoFilter,
+                              valorReajuste
+                            )! *
+                              compOrg) /
+                              100) *
+                            adcPttc) /
+                            100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100 +
+                          ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                            gratRep) /
+                            100) *
+                            qntDias,
+
+                        (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + mil + hab + adcPerm)) /
+                          100 +
+                          (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                            (disp + locEsp + mil + hab + adcPerm)) /
+                            100 +
+                            retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                            (retornaValorSoldo(
+                              pgCo,
+                              anoFilter,
+                              valorReajuste
+                            )! *
+                              compOrg) /
+                              100) *
+                            adcPttc) /
+                            100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100) *
+                          (fusex + pMil)) /
+                          100 +
+                          pensAlim +
+                          (pnr === "true"
+                            ? retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                              0.05
+                            : 0),
+                        dependentes
+                      ).impostoRenda
+                    : 0)
               )}
             </p>
           </div>
@@ -868,6 +1099,55 @@ export default function CalcContraChequeComponent() {
           </div>
         </div>
       </div>
+      <div className="border border-green-600 rounded-md p-6 relative my-4">
+        <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">
+          Outros
+        </h1>
+        <div className="flex gap-4">
+          <div className="relative z-0 w-full group grid grid-cols-1 md:grid-cols-2 items-center ">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  className="text-gray-500"
+                  onChange={() => setFerias(!ferias)}
+                  checked={ferias}
+                  color="success"
+                />
+              }
+              label="Adicional Férias"
+              className="text-white"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  className="text-gray-500"
+                  onChange={() =>
+                    setDecimoTerceiroPrimeira(!decimoTerceiroPrimeira)
+                  }
+                  checked={decimoTerceiroPrimeira}
+                  color="success"
+                />
+              }
+              label="13° Salário - 1° Parcela"
+              className="text-white"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  className="text-gray-500"
+                  onChange={() =>
+                    setDecimoTerceiroSegunda(!decimoTerceiroSegunda)
+                  }
+                  checked={decimoTerceiroSegunda}
+                  color="success"
+                />
+              }
+              label="13° Salário - 2° Parcela"
+              className="text-white"
+            />
+          </div>
+        </div>
+      </div>
       {/* OUTRAS DEPENSAS */}
       {/* <div className="border border-green-600 rounded-md p-6 relative my-4">
         <h1 className="-top-4 absolute text-green-600 bg-gray-900 font-bold text-lg uppercase px-2">outras Despesas</h1>
@@ -990,6 +1270,132 @@ export default function CalcContraChequeComponent() {
               {formataValor(dependentes * 0.16)}
             </p>
           </div>
+          {ferias && (
+            <div className="flex flex-1">
+              <b className="text-gray-300">Férias:</b>
+              <p className="pl-4 text-white">
+                {formataValor(
+                  ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                    (disp + locEsp + mil + hab + adcPerm)) /
+                    100 +
+                    retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                    (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                      compOrg) /
+                      100 +
+                    (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                      (disp + locEsp + mil + hab + adcPerm)) /
+                      100 +
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100) *
+                      adcPttc) /
+                      100) /
+                    3
+                )}
+              </p>
+            </div>
+          )}
+          {decimoTerceiroPrimeira && (
+            <div className="flex flex-1">
+              <b className="text-gray-300">13° Salário - 1°:</b>
+              <p className="pl-2 text-white">
+                {formataValor(
+                  ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                    (disp + locEsp + mil + hab + adcPerm)) /
+                    100 +
+                    retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                    (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                      compOrg) /
+                      100 +
+                    (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                      (disp + locEsp + mil + hab + adcPerm)) /
+                      100 +
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100) *
+                      adcPttc) /
+                      100) /
+                    2
+                )}
+              </p>
+            </div>
+          )}
+          {decimoTerceiroSegunda && (
+            <div className="flex flex-1">
+              <b className="text-gray-300">13° Salário - 2°:</b>
+              <p className="pl-2 text-white">
+                {formataValor(
+                  ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                    (disp + locEsp + mil + hab + adcPerm)) /
+                    100 +
+                    retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                    (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                      compOrg) /
+                      100 +
+                    (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                      (disp + locEsp + mil + hab + adcPerm)) /
+                      100 +
+                      retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                      (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                        compOrg) /
+                        100) *
+                      adcPttc) /
+                      100) /
+                    2 -
+                    calculaImpostoRenda(
+                      (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        (disp + locEsp + mil + hab + adcPerm)) /
+                        100 +
+                        (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + locEsp + mil + hab + adcPerm)) /
+                          100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100) *
+                          adcPttc) /
+                          100 +
+                        retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                        (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                          compOrg) /
+                          100 +
+                        ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          gratRep) /
+                          100) *
+                          qntDias,
+
+                      (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        (disp + mil + hab + adcPerm)) /
+                        100 +
+                        (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + locEsp + mil + hab + adcPerm)) /
+                          100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100) *
+                          adcPttc) /
+                          100 +
+                        retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                        (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                          compOrg) /
+                          100) *
+                        (fusex + pMil)) /
+                        100 +
+                        pensAlim +
+                        (pnr === "true"
+                          ? retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                            0.05
+                          : 0),
+                      dependentes
+                    ).impostoRenda
+                )}
+              </p>
+            </div>
+          )}
+
           <div className="flex flex-1">
             <b className="text-gray-300">Valor Bruto</b>
             <p className="pl-4 text-white">
@@ -1152,6 +1558,64 @@ export default function CalcContraChequeComponent() {
                 )}
               </p>
             </div>
+            {decimoTerceiroSegunda && (
+              <div className="flex flex-1">
+                <b className="text-gray-300">
+                  Imposto de renda 13° Salário - 2°:
+                </b>
+                <p className="pl-4 text-white">
+                  {formataValor(
+                    calculaImpostoRenda(
+                      (retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        (disp + locEsp + mil + hab + adcPerm)) /
+                        100 +
+                        (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + locEsp + mil + hab + adcPerm)) /
+                          100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100) *
+                          adcPttc) /
+                          100 +
+                        retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                        (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                          compOrg) /
+                          100 +
+                        ((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          gratRep) /
+                          100) *
+                          qntDias,
+
+                      (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                        (disp + mil + hab + adcPerm)) /
+                        100 +
+                        (((retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                          (disp + locEsp + mil + hab + adcPerm)) /
+                          100 +
+                          retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                          (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                            compOrg) /
+                            100) *
+                          adcPttc) /
+                          100 +
+                        retornaValorSoldo(pg, anoFilter, valorReajuste)! +
+                        (retornaValorSoldo(pgCo, anoFilter, valorReajuste)! *
+                          compOrg) /
+                          100) *
+                        (fusex + pMil)) /
+                        100 +
+                        pensAlim +
+                        (pnr === "true"
+                          ? retornaValorSoldo(pg, anoFilter, valorReajuste)! *
+                            0.05
+                          : 0),
+                      dependentes
+                    ).impostoRenda
+                  )}
+                </p>
+              </div>
+            )}
           </div>
         </div>
         <div className="border border-green-600 rounded-md p-6 relative mt-4">
